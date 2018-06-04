@@ -16,7 +16,7 @@ export default (Component) => {
 		class extends React.Component {
 			state = {
 				selectedTab: 0
-			}
+			};
 
 			componentWillReceiveProps(nextProps) {
 				if (nextProps.adminData.authData && nextProps.adminData.authData.successRedirect) {
@@ -28,7 +28,7 @@ export default (Component) => {
 				const {dispatch, classes} = this.props;
 				return <Layout direction={"column"} className={classes.body}>
 					<AppBar color={"inherit"} position={"static"}>
-							<Toolbar className={"container"}>
+						<Toolbar className={"container"}>
 							<Typography variant="title" className={"flex"}>
 								Admin Dashboard
 							</Typography>
@@ -36,9 +36,10 @@ export default (Component) => {
 								dispatch({type: SUPER_SIGN_OUT_REQUESTED})
 							}}>Logout</Button>
 						</Toolbar>
-						<Tabs className={"container"} fullWidth value={this.state.selectedTab} onChange={(event, value) => {
-							this.setState({selectedTab: value})
-						}}>
+						<Tabs className={"container"} fullWidth value={this.state.selectedTab}
+						      onChange={(event, value) => {
+							      this.setState({selectedTab: value})
+						      }}>
 							<Tab label="Item1"/>
 							<Tab label="Item2"/>
 							<Tab label="Item3"/>

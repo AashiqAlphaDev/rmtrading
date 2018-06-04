@@ -17,7 +17,7 @@ export default function (Component) {
 			const {classes} = this.props;
 			return <div className={classes.fullScreen}>
 				<Layout alignItems={"center"} justifyContent={"center"}>
-					<Component />
+					<Component/>
 				</Layout>
 			</div>
 		}

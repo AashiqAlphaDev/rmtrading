@@ -33,7 +33,7 @@ export default (Component, pageProps) => {
 		class extends React.Component {
 
 			state = {
-				selectedTab: pageProps?_.findIndex(pages, ({url}) => (pageProps.url == url)):-1
+				selectedTab: pageProps ? _.findIndex(pages, ({url}) => (pageProps.url == url)) : -1
 			}
 
 			componentWillReceiveProps(nextProps) {
@@ -66,7 +66,8 @@ export default (Component, pageProps) => {
 								pages.map((page, index) => {
 									console.log(index === this.state.selectedTab)
 									return <Link href={page.url} key={page.url}>
-										<Button className={classes.navButton} color={(index === this.state.selectedTab) ? 'primary' : 'default'}>
+										<Button className={classes.navButton}
+										        color={(index === this.state.selectedTab) ? 'primary' : 'default'}>
 											{page.label}
 										</Button>
 									</Link>
