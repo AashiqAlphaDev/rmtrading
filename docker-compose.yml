@@ -1,0 +1,31 @@
+version: '3'
+services:
+  web:
+    image: node
+    environment:
+      - SUPER_ADMIN_USER=karthik1729
+      - SUPER_ADMIN_PASSWORD=karthik001
+    depends_on:
+      - db
+    volumes:
+      - "./backend:/tmp"
+    working_dir: /tmp
+    entrypoint: npm start
+    ports:
+      - 3000:3000
+  frontend:
+    image: node
+    depends_on:
+      - web
+    volumes:
+      - "./frontend:/tmp"
+    working_dir: /tmp
+    entrypoint: npm run dev
+    ports:
+     - 3001:3000
+  db:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - "~/data/db:/data/db"
