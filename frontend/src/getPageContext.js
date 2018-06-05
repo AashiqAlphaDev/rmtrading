@@ -103,12 +103,10 @@ const theme = createMuiTheme({
             }
         },
         MuiInput:{
-            root:{
-                background: '#FFF',
-            },
             input:{
                 padding:10,
                 borderRadius:4,
+	            background: '#FFF',
                 border: "2px solid #e8e8e8",
                 '&:focus':{
                     borderRadius:4,

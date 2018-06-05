@@ -1,7 +1,7 @@
 import React from 'react';
 import withRoot from '../src/withRoot';
 import {connect} from 'react-redux';
-import {AppBar, Toolbar, Button, Typography, Tabs, Tab} from "@material-ui/core";
+import {AppBar, Toolbar, Button, Typography} from "@material-ui/core";
 import Layout from "../components/layout";
 import {SUPER_SIGN_OUT_REQUESTED} from "../store/super-admin/auth-actions";
 import _ from "underscore"
@@ -9,15 +9,17 @@ import Link from "next/link"
 
 
 const pages = [
-	{label: "Contents", url: "/super-admin/contents"},
-	{label: "Collections", url: "/super-admin/collections"},
-	{label: "App Data", url: "/super-admin/app-data"},
-	{label: "3rd Party", url: "/super-admin/3rd-party"},
-	{label: "Settings", url: "/super-admin/settings"},
+	{label:"Manage Vaccines", url: "/super-admin/vaccines"},
+	{label:"Manage Vaccination Center", url: "/super-admin/vaccination-centers"},
+	{label:"Request", url: "/super-admin/requests"},
+	{label:"Inventory", url: "/super-admin/inventory"},
+	{label:"Reports", url: "/super-admin/reports"},
 ]
 
 
-export default (Component, pageProps) => {
+
+
+export default (Component, pageProps, Footer) => {
 	return withRoot((theme) => {
 		return {
 			body: {
@@ -27,13 +29,16 @@ export default (Component, pageProps) => {
 			navButtons: {},
 			navButton: {
 				margin: theme.spacing.unit * 1
+			},
+			content:{
+				overflow:"scroll"
 			}
 		}
 	})(connect(store => store)(
 		class extends React.Component {
 
 			state = {
-				selectedTab: pageProps ? _.findIndex(pages, ({url}) => (pageProps.url == url)) : -1
+				selectedTab: pageProps?_.findIndex(pages, ({url}) => (pageProps.url == url)):-1
 			}
 
 			componentWillReceiveProps(nextProps) {
@@ -66,8 +71,7 @@ export default (Component, pageProps) => {
 								pages.map((page, index) => {
 									console.log(index === this.state.selectedTab)
 									return <Link href={page.url} key={page.url}>
-										<Button className={classes.navButton}
-										        color={(index === this.state.selectedTab) ? 'primary' : 'default'}>
+										<Button className={classes.navButton} color={(index === this.state.selectedTab) ? 'primary' : 'default'}>
 											{page.label}
 										</Button>
 									</Link>
@@ -75,9 +79,11 @@ export default (Component, pageProps) => {
 							}
 						</Layout>
 					</AppBar>
-					<Layout direction={"column"} className={`flex container`}>
-						<Component/>
+
+					<Layout direction={"column"} className={`flex`}>
+						<Component />
 					</Layout>
+
 				</Layout>
 			}
 		}

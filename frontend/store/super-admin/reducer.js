@@ -25,5 +25,11 @@ const authReducer = function (state = initialAuthState, action) {
 	return  state;
 }
 
+const initialAppData={}
 
-export default combineReducers({authData: authReducer});
+const appDataReducer = function(state=initialAppData, action){
+	return state;
+}
+
+
+export default combineReducers({authData: authReducer, appData:appDataReducer});

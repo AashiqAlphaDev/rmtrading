@@ -15,9 +15,9 @@ const Index = withRoot((theme)=>{
 })(({classes}) => (
 	<Container className={classes.body}>
 		<Typography variant={"subheading"}>
-			Settings
+			Reports
 		</Typography>
 	</Container>
 ))
 
-export default (AdminLayoutWrapper(connect(store => store)(Index), {url:"/super-admin/settings"}))
+export default (AdminLayoutWrapper(connect(store => store)(Index), {url:"/super-admin/reports"}))
