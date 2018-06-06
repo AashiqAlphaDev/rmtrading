@@ -1,5 +1,5 @@
 import React from "react"
-import {Typography, IconButton, FormControlLabel, RadioGroup, Radio} from "@material-ui/core"
+import {Typography, IconButton} from "@material-ui/core"
 import withRoot from "../src/withRoot"
 import Layout from "./layout";
 import {ArrowBackIcon} from "mdi-react"
@@ -29,7 +29,6 @@ let AnnotatedSection = withRoot((theme) => {
 })(class extends React.Component {
 		render() {
 			const {title, desc, backButton, classes} = this.props;
-			var children = this.props.children;
 			return <Layout>
 				<div className={classes.annotation}>
 					<Layout>
@@ -53,9 +52,8 @@ let AnnotatedSection = withRoot((theme) => {
 					</Layout>
 				</div>
 				<div className={classes._body}>
-					{children}
+					{this.props.children}
 				</div>
-
 			</Layout>
 		}
 	}
