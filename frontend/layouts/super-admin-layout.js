@@ -17,8 +17,6 @@ const pages = [
 ]
 
 
-
-
 export default (Component, pageProps, Footer) => {
 	return withRoot((theme) => {
 		return {
@@ -81,7 +79,17 @@ export default (Component, pageProps, Footer) => {
 					</AppBar>
 
 					<Layout direction={"column"} className={`flex`}>
-						<Component />
+						{
+							this.props.children &&
+							<Component>
+								{this.props.children}
+							</Component>
+						}
+						{
+							!this.props.children &&
+							<Component/>
+						}
+
 					</Layout>
 
 				</Layout>

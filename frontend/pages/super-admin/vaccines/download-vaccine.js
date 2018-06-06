@@ -57,4 +57,4 @@ const Index = withRoot(style)(class extends React.Component {
 	}
 })
 
-export default (VaccineTmpl(connect(store => store)(Index), {url: "/super-admin/vaccines"},))
+export default (VaccineTmpl(connect(store => store)(Index), {url: "/super-admin/vaccines"}))

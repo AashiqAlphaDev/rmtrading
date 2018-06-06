@@ -4,42 +4,79 @@ import withRoot from "../../../src/withRoot";
 import style from "../style"
 import VaccineTmpl from "./vaccines-tmpl"
 import Layout from "../../../components/layout";
-import {IconButton, Typography, TextField, GridList, Button} from "@material-ui/core";
-import {ArrowBackIcon} from "mdi-react"
-import Link from "next/link"
+import {
+	TextField,
+	Radio,
+	Button,
+	FormControlLabel,
+	RadioGroup,
+	Select,
+	MenuItem,
+	Input,
+	Paper,
+	Typography
+} from "@material-ui/core";
+import {AnnotatedSection} from "../../../components/page-layout";
+import InputContainer from "../../../components/input"
 
 
 const Index = withRoot(style)(class extends React.Component {
 	render() {
 		const {classes} = this.props;
-		return <Layout direction={"column"}>
-			<Layout alignItems={"center"}>
-				<Link href={"/super-admin/vaccines"}>
-					<IconButton>
-						<ArrowBackIcon />
-					</IconButton>
-				</Link>
-				<Typography variant="title" className={`${classes.title} flex`}>
-					Add Vaccine
-				</Typography>
-				<Button variant={"raised"} color={"primary"}> Add </Button>
+		return <VaccineTmpl>
+			<Layout direction={"column"}>
+				<AnnotatedSection title={"Add Vaccine"}
+				                  desc={"Please add the necessary information related to vaccine. This will be reflected in the entry forms of vaccination centers."}
+				                  backButton={{url: "/super-admin/vaccines"}}>
+					<Paper className={classes.paperPage}>
+						<Layout direction={"column"}>
+							<InputContainer label={"Vaccine Name"}>
+								<TextField></TextField>
+							</InputContainer>
+							<InputContainer label={"Country"}>
+								<TextField></TextField>
+							</InputContainer>
+							<InputContainer label={"Disease"}>
+								<TextField></TextField>
+							</InputContainer>
+							<InputContainer label={"Pet"}>
+								<TextField></TextField>
+							</InputContainer>
+							<InputContainer label={"Breed"}>
+								<Select
+									value={10}
+									input={<Input name="age" id="age-helper"/>}
+								>
+									<MenuItem value="">
+										<em>Any</em>
+									</MenuItem>
+									<MenuItem value={10}>Ten</MenuItem>
+									<MenuItem value={20}>Twenty</MenuItem>
+									<MenuItem value={30}>Thirty</MenuItem>
+								</Select>
+							</InputContainer>
+							<InputContainer label={"Gender"}>
+								<RadioGroup name="gender">
+									<Layout>
+										<FormControlLabel value="female" control={<Radio color="primary"/>}
+										                  label="Female"/>
+										<FormControlLabel value="male" control={<Radio color="primary"/>} label="Male"/>
+										<FormControlLabel value="other" control={<Radio color="primary"/>} label="Any"/>
+									</Layout>
+								</RadioGroup>
+							</InputContainer>
+							<Button variant={"raised"} color={"primary"}> Add </Button>
+							<Button> Sample </Button>
+							<Typography variant="title">
+								Hey
+							</Typography>
+						</Layout>
+					</Paper>
+				</AnnotatedSection>
+
 			</Layout>
-			<Layout flex={1} className={classes.page}>
-				<GridList cellHeight={50} cols={1}>
-					<TextField className={classes.input} placeholder={"Vaccine Name"}></TextField>
-					<TextField className={classes.input} placeholder={"Country"}></TextField>
-					<TextField className={classes.input} placeholder={"Disease"}></TextField>
-					<TextField className={classes.input} placeholder={"Pet"}></TextField>
-					<TextField className={classes.input} placeholder={"Gender"}></TextField>
-					<TextField className={classes.input} placeholder={"Breed"}></TextField>
-				</GridList>
-			</Layout>
-			<Layout justifyContent={"flex-end"} className={classes.actions}>
-				<Button> Clear </Button>
-				<Button variant={"raised"} color={"primary"}> Add </Button>
-			</Layout>
-		</Layout>
+		</VaccineTmpl>
 	}
 })
 
-export default (VaccineTmpl(connect(store => store)(Index), {url: "/super-admin/vaccines"},))
+export default connect(store => store)(Index)
