@@ -65,11 +65,11 @@ const Index = withRoot(style)(class extends React.Component {
 									</Layout>
 								</RadioGroup>
 							</InputContainer>
-							<Button variant={"raised"} color={"primary"}> Add </Button>
-							<Button> Sample </Button>
 							<Typography variant="title">
 								Hey
 							</Typography>
+							<Button variant={"raised"} color={"primary"}> Add </Button>
+							<Button> Sample </Button>
 						</Layout>
 					</Paper>
 				</AnnotatedSection>

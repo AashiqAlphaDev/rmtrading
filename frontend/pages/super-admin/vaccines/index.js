@@ -17,7 +17,7 @@ import VaccineTmpl from "./vaccines-tmpl"
 const Index = withRoot(style)(class extends React.Component {
     render() {
         const {classes} = this.props;
-        return <div>
+        return <VaccineTmpl>
 	        <div>
 		        <Typography variant="title" className={`${classes.title} flex`}>
 			        Search Results
@@ -53,8 +53,8 @@ const Index = withRoot(style)(class extends React.Component {
 			        </TableBody>
 		        </Table>
 	        </Paper>
-        </div>
+        </VaccineTmpl>
     }
 })
 
-export default (VaccineTmpl(connect(store => store)(Index), {url: "/super-admin/vaccines"},))
+export default connect(store => store)(Index)
