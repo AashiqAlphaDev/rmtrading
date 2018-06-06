@@ -1,11 +1,11 @@
 import React from "react"
 import Layout from "./layout";
 import {Typography} from "@material-ui/core"
-import withRoot from "../src/withRoot"
+import {withStyles} from "@material-ui/core/styles"
 
-export default withRoot((theme)=>{
+const Index = withStyles((theme)=>{
 	return {
-		label:{
+		_label:{
 			marginTop:theme.spacing.unit*2,
 			marginBottom:theme.spacing.unit*1
 		}
@@ -16,7 +16,7 @@ export default withRoot((theme)=>{
 		return <Layout direction={"column"}>
 			{
 				this.props.label &&
-				<Typography variant="caption" className={classes.label}>
+				<Typography variant="caption" className={classes._label}>
 					{this.props.label}
 				</Typography>
 			}
@@ -24,3 +24,5 @@ export default withRoot((theme)=>{
 		</Layout>
 	}
 })
+
+export default Index

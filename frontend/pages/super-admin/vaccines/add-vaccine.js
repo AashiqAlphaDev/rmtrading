@@ -55,6 +55,7 @@ const Index = withRoot(style)(class extends React.Component {
 									<MenuItem value={30}>Thirty</MenuItem>
 								</Select>
 							</InputContainer>
+
 							<InputContainer label={"Gender"}>
 								<RadioGroup name="gender">
 									<Layout>
@@ -65,15 +66,13 @@ const Index = withRoot(style)(class extends React.Component {
 									</Layout>
 								</RadioGroup>
 							</InputContainer>
-							<Typography variant="title">
-								Hey
-							</Typography>
-							<Button variant={"raised"} color={"primary"}> Add </Button>
-							<Button> Sample </Button>
+							<Layout justifyContent={"flex-end"}>
+								<Button> Clear </Button>
+								<Button variant={"raised"} color={"primary"}> Add </Button>
+							</Layout>
 						</Layout>
 					</Paper>
 				</AnnotatedSection>
-
 			</Layout>
 		</VaccineTmpl>
 	}

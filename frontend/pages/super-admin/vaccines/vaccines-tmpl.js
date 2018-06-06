@@ -1,18 +1,11 @@
 import React from "react";
-import AdminLayoutWrapper from "../../../layouts/super-admin-layout";
-import {connect} from "react-redux";
-import withRoot from "../../../src/withRoot";
-import {
-	Typography,
-	TextField,
-	List,
-	ListItem,
-	Divider
-} from "@material-ui/core";
 import Layout from "../../../components/layout";
-import style from "../style"
-import Link from "next/link"
-import VaccineTmpl from "./vaccines-tmpl"
+import AdminLayoutWrapper from "../../../layouts/super-admin-layout";
+import withRoot from "../../../src/withRoot"
+import {connect} from "react-redux";
+import {Typography, TextField, List, ListItem} from "@material-ui/core";
+import style from "../style";
+import Link from "next/link";
 
 
 const Index = withRoot(style)(class extends React.Component {
@@ -47,6 +40,6 @@ const Index = withRoot(style)(class extends React.Component {
 				</Layout>
 			</div>
 	}
-})
+});
 
-export default AdminLayoutWrapper(connect(store => store)(Index), {url: "/super-admin/vaccines"})
+export default AdminLayoutWrapper(connect(store => store)(Index), {url: "/super-admin/vaccines"});
