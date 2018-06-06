@@ -22,9 +22,9 @@ const Index = withRoot(style)(class extends React.Component {
 				<Typography variant="title" className={`${classes.title} flex`}>
 					Add Vaccine
 				</Typography>
-				<Button> Save </Button>
+				<Button variant={"raised"} color={"primary"}> Add </Button>
 			</Layout>
-			<Layout className={classes.page} flex={1}>
+			<Layout flex={1} className={classes.page}>
 				<GridList cellHeight={50} cols={1}>
 					<TextField className={classes.input} placeholder={"Vaccine Name"}></TextField>
 					<TextField className={classes.input} placeholder={"Country"}></TextField>
@@ -33,6 +33,10 @@ const Index = withRoot(style)(class extends React.Component {
 					<TextField className={classes.input} placeholder={"Gender"}></TextField>
 					<TextField className={classes.input} placeholder={"Breed"}></TextField>
 				</GridList>
+			</Layout>
+			<Layout justifyContent={"flex-end"} className={classes.actions}>
+				<Button> Clear </Button>
+				<Button variant={"raised"} color={"primary"}> Add </Button>
 			</Layout>
 		</Layout>
 	}

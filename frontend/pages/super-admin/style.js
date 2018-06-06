@@ -51,6 +51,6 @@ export default (theme) => ({
 		marginBottom: theme.spacing.unit * 2,
 	},
 	page:{
-		margin:theme.spacing.unit*2,
+		marginTop:theme.spacing.unit*2,
 	}
 })
