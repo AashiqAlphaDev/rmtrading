@@ -4,7 +4,7 @@ import withRoot from "../../../src/withRoot";
 import style from "../style"
 import VaccineTmpl from "./vaccines-tmpl"
 import Layout from "../../../components/layout";
-import {IconButton, Typography} from "@material-ui/core";
+import {IconButton, Typography, TextField, GridList, Button} from "@material-ui/core";
 import {ArrowBackIcon} from "mdi-react"
 import Link from "next/link"
 
@@ -12,7 +12,7 @@ import Link from "next/link"
 const Index = withRoot(style)(class extends React.Component {
 	render() {
 		const {classes} = this.props;
-		return <div>
+		return <Layout direction={"column"}>
 			<Layout alignItems={"center"}>
 				<Link href={"/super-admin/vaccines"}>
 					<IconButton>
@@ -22,8 +22,19 @@ const Index = withRoot(style)(class extends React.Component {
 				<Typography variant="title" className={`${classes.title} flex`}>
 					Add Vaccine
 				</Typography>
+				<Button> Save </Button>
 			</Layout>
-		</div>
+			<Layout className={classes.page} flex={1}>
+				<GridList cellHeight={50} cols={1}>
+					<TextField className={classes.input} placeholder={"Vaccine Name"}></TextField>
+					<TextField className={classes.input} placeholder={"Country"}></TextField>
+					<TextField className={classes.input} placeholder={"Disease"}></TextField>
+					<TextField className={classes.input} placeholder={"Pet"}></TextField>
+					<TextField className={classes.input} placeholder={"Gender"}></TextField>
+					<TextField className={classes.input} placeholder={"Breed"}></TextField>
+				</GridList>
+			</Layout>
+		</Layout>
 	}
 })
 

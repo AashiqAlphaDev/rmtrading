@@ -12,26 +12,6 @@ export default (theme) => ({
 	row: {
 		marginTop: theme.spacing.unit * 1
 	},
-	fbButton:{
-		marginTop: theme.spacing.unit * 1,
-		background:"#3b5998",
-		'&:hover': {
-			backgroundColor: '#384f8b',
-		},
-		'&:active': {
-			backgroundColor: '#303b6e',
-		},
-	},
-	twitterButton:{
-		marginTop: theme.spacing.unit * 1,
-		background:"#1da1f2",
-		'&:hover': {
-			backgroundColor: '#198cd3',
-		},
-		'&:active': {
-			backgroundColor: '#14659d',
-		},
-	},
 	marginedButton:{
 		margin:4,
 	},
@@ -69,5 +49,8 @@ export default (theme) => ({
 		margin: theme.spacing.unit,
 		marginTop: theme.spacing.unit * 2,
 		marginBottom: theme.spacing.unit * 2,
+	},
+	page:{
+		margin:theme.spacing.unit*2,
 	}
 })

@@ -90,10 +90,6 @@ export default withRoot((theme) => (
         chip: {
             margin: theme.spacing.unit,
         },
-        gridList: {
-            margin: 10,
-            height: 300
-        },
         root: {
             display: 'none',
             flexWrap: 'wrap',
