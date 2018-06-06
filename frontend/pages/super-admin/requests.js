@@ -1,39 +1,76 @@
 import React from "react";
 import AdminLayoutWrapper from "../../layouts/super-admin-layout";
 import {connect} from "react-redux";
+import Container from "../../components/container";
 import withRoot from "../../src/withRoot";
-import style from "./app-style"
 import {
-	Typography,
-	TextField,
-	Table,
-	TableHead,
-	TableRow,
-	TableCell,
-	TableBody,
-	Paper,
-	List,
-	ListItem
+    Typography,
+    TextField,
+    Table,
+    TableHead,
+    TableRow,
+    TableCell,
+    TableBody,
+    Paper,
+    Button,
+    List, ListItem
 } from "@material-ui/core";
 import Layout from "../../components/layout";
+import Link from "next/link"
 
 
-const Index = withRoot(style)(class extends React.Component {
-	render() {
-		const {classes} = this.props;
-		return <div className={classes.bodyWrap}>
+const Index = withRoot((theme) => {
+    return {
+        bodyWrap: {
+            display: "flex",
+            flexDirection: "column",
+            flex: 1
+        },
+        body: {
+            flex: 1,
+            overflow: "scroll",
+        },
+        searchField: {
+            padding: theme.spacing.unit,
+        },
+        pagination: {
+            margin: theme.spacing.unit
+        },
+        pageLink: {
+            margin: theme.spacing.unit
+        },
+        leftSection: {
+            margin: theme.spacing.unit,
+            width: 300
+        },
+        rightSection: {
+            flex: 1,
+            margin: theme.spacing.unit
+        },
+        staticSection: {
+            width: 300,
+            position: "fixed"
+        },
+        title: {
+            margin: theme.spacing.unit,
+            marginTop: theme.spacing.unit * 2,
+            marginBottom: theme.spacing.unit * 2,
+        }
+    }
+})(class extends React.Component {
+    render() {
+        const {classes} = this.props;
+        return <div className={classes.bodyWrap}>
 			<Layout direction={"column"} flex={1} className={`${classes.body}`}>
 				<Layout className={"container"}>
 					<Layout className={classes.leftSection}>
 						<Layout direction={"column"} className={classes.staticSection}>
 							<Typography variant="title" className={classes.title}>
-								Requests
+                                Requests
 							</Typography>
 							<TextField className={classes.searchField} placeholder={"Search"}/>
 							<List>
-								<ListItem button> Add Vaccine </ListItem>
-								<ListItem button> Upload Vaccines </ListItem>
-								<ListItem button> Download Vaccines </ListItem>
+								<ListItem button> Add Vaccine Centers</ListItem>
 							</List>
 						</Layout>
 					</Layout>
@@ -47,29 +84,24 @@ const Index = withRoot(style)(class extends React.Component {
 							<Table>
 								<TableHead>
 									<TableRow>
-										<TableCell>Vaccine</TableCell>
-										<TableCell>Disease</TableCell>
-										<TableCell>Country</TableCell>
-										<TableCell>Pet</TableCell>
-										<TableCell>Breed</TableCell>
-										<TableCell>Gender</TableCell>
-										<TableCell>Notes</TableCell>
+										<TableCell>Request Type</TableCell>
+										<TableCell>Request ID</TableCell>
+										<TableCell>Vaccination Center </TableCell>
+										<TableCell>Status</TableCell>
 									</TableRow>
 								</TableHead>
 								<TableBody>
-									{
-										[1, 2, 3, 4, 5, 6, 7, 8, 9,1, 2, 3, 4, 5, 6, 7, 8, 9,1, 2, 3, 4, 5, 6, 7, 8, 9].map((i, index) => {
-											return <TableRow key={index}>
-												<TableCell>Vaccine</TableCell>
-												<TableCell>Disease</TableCell>
-												<TableCell >Country</TableCell>
-												<TableCell >Pet</TableCell>
-												<TableCell >Breed</TableCell>
-												<TableCell >Gender</TableCell>
-												<TableCell >Notes</TableCell>
+                                    {
+                                        [1, 2, 3, 4, 5, 6, 7, 8, 9,1, 2, 3, 4, 5, 6, 7, 8, 9,1, 2, 3, 4, 5, 6, 7, 8, 9].map((i, index) => {
+                                            return <TableRow key={index}>
+                                                <TableCell>Request Type</TableCell>
+                                                <TableCell>Request ID</TableCell>
+                                                <TableCell>Vaccination Center </TableCell>
+                                                <TableCell>Status</TableCell>
 											</TableRow>
-										})
-									}
+
+                                        })
+                                    }
 								</TableBody>
 							</Table>
 						</Paper>
@@ -77,7 +109,7 @@ const Index = withRoot(style)(class extends React.Component {
 				</Layout>
 			</Layout>
 		</div>
-	}
+    }
 })
 
-export default (AdminLayoutWrapper(connect(store => store)(Index), {url: "/super-admin/requests"}))
+export default (AdminLayoutWrapper(connect(store => store)(Index), {url:"/super-admin/requests"}))
