@@ -13,11 +13,13 @@ const Index = withRoot((theme)=>{
 		}
 	}
 })(({classes}) => (
-	<Container className={classes.body}>
-		<Typography variant={"subheading"}>
-			OverView
-		</Typography>
-	</Container>
+	<AdminLayoutWrapper>
+		<Container className={classes.body}>
+			<Typography variant={"subheading"}>
+				OverView
+			</Typography>
+		</Container>
+	</AdminLayoutWrapper>
 ))
 
-export default (AdminLayoutWrapper(connect(store => store)(Index)))
+export default connect(store => store)(Index)

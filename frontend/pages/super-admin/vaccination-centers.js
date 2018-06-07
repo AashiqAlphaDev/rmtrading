@@ -60,58 +60,60 @@ const Index = withRoot((theme) => {
 })(class extends React.Component {
     render() {
         const {classes} = this.props;
-        return <div className={classes.bodyWrap}>
-			<Layout direction={"column"} flex={1} className={`${classes.body}`}>
-				<Layout className={"container"}>
-					<Layout className={classes.leftSection}>
-						<Layout direction={"column"} className={classes.staticSection}>
-							<Typography variant="title" className={classes.title}>
-								Vaccination Centers
-							</Typography>
-							<TextField className={classes.searchField} placeholder={"Search"}/>
-							<List>
-								<ListItem button> Add Vaccine Centers</ListItem>
-							</List>
+        return <AdminLayoutWrapper url={"/super-admin/vaccination-centers"}>
+		    <div className={classes.bodyWrap}>
+				<Layout direction={"column"} flex={1} className={`${classes.body}`}>
+					<Layout className={"container"}>
+						<Layout className={classes.leftSection}>
+							<Layout direction={"column"} className={classes.staticSection}>
+								<Typography variant="title" className={classes.title}>
+									Vaccination Centers
+								</Typography>
+								<TextField className={classes.searchField} placeholder={"Search"}/>
+								<List>
+									<ListItem button> Add Vaccine Centers</ListItem>
+								</List>
+							</Layout>
+						</Layout>
+						<Layout direction={"column"} className={classes.rightSection}>
+							<div>
+								<Typography variant="title" className={`${classes.title} flex`}>
+									Search Results
+								</Typography>
+							</div>
+							<Paper>
+								<Table>
+									<TableHead>
+										<TableRow>
+											<TableCell>Center Name</TableCell>
+											<TableCell>Center Code</TableCell>
+											<TableCell>Center Status</TableCell>
+											<TableCell>Center Type</TableCell>
+											<TableCell>Location</TableCell>
+										</TableRow>
+									</TableHead>
+									<TableBody>
+	                                    {
+	                                        [1, 2, 3, 4, 5, 6, 7, 8, 9,1, 2, 3, 4, 5, 6, 7, 8, 9,1, 2, 3, 4, 5, 6, 7, 8, 9].map((i, index) => {
+	                                            return <TableRow key={index}>
+	                                                <TableCell>Center Name</TableCell>
+	                                                <TableCell>Center Code</TableCell>
+	                                                <TableCell>Center Status</TableCell>
+	                                                <TableCell>Center Type</TableCell>
+	                                                <TableCell>Location</TableCell>
+												</TableRow>
+
+	                                        })
+	                                    }
+									</TableBody>
+								</Table>
+							</Paper>
 						</Layout>
 					</Layout>
-					<Layout direction={"column"} className={classes.rightSection}>
-						<div>
-							<Typography variant="title" className={`${classes.title} flex`}>
-								Search Results
-							</Typography>
-						</div>
-						<Paper>
-							<Table>
-								<TableHead>
-									<TableRow>
-										<TableCell>Center Name</TableCell>
-										<TableCell>Center Code</TableCell>
-										<TableCell>Center Status</TableCell>
-										<TableCell>Center Type</TableCell>
-										<TableCell>Location</TableCell>
-									</TableRow>
-								</TableHead>
-								<TableBody>
-                                    {
-                                        [1, 2, 3, 4, 5, 6, 7, 8, 9,1, 2, 3, 4, 5, 6, 7, 8, 9,1, 2, 3, 4, 5, 6, 7, 8, 9].map((i, index) => {
-                                            return <TableRow key={index}>
-                                                <TableCell>Center Name</TableCell>
-                                                <TableCell>Center Code</TableCell>
-                                                <TableCell>Center Status</TableCell>
-                                                <TableCell>Center Type</TableCell>
-                                                <TableCell>Location</TableCell>
-											</TableRow>
-
-                                        })
-                                    }
-								</TableBody>
-							</Table>
-						</Paper>
-					</Layout>
 				</Layout>
-			</Layout>
-		</div>
+			</div>
+	    </AdminLayoutWrapper>
     }
 })
 
-export default (AdminLayoutWrapper(connect(store => store)(Index), {url:"/super-admin/vaccination-centers"}))
+export default connect(store => store)(Index)
