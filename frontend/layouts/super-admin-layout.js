@@ -9,15 +9,15 @@ import Link from "next/link"
 
 
 const pages = [
-	{label:"Manage Vaccines", url: "/super-admin/vaccines"},
-	{label:"Manage Vaccination Center", url: "/super-admin/vaccination-centers"},
-	{label:"Request", url: "/super-admin/requests"},
-	{label:"Inventory", url: "/super-admin/inventory"},
-	{label:"Reports", url: "/super-admin/reports"},
-]
+	{label: "Manage Vaccines", url: "/super-admin/vaccines"},
+	{label: "Manage Vaccination Center", url: "/super-admin/vaccination-centers"},
+	{label: "Request", url: "/super-admin/requests"},
+	{label: "Inventory", url: "/super-admin/inventory"},
+	{label: "Reports", url: "/super-admin/reports"},
+];
 
 
-export default (Component, pageProps, Footer) => {
+export default (Component, pageProps) => {
 	return withRoot((theme) => {
 		return {
 			body: {
@@ -28,16 +28,16 @@ export default (Component, pageProps, Footer) => {
 			navButton: {
 				margin: theme.spacing.unit * 1
 			},
-			content:{
-				overflow:"scroll"
+			content: {
+				overflow: "scroll"
 			}
 		}
 	})(connect(store => store)(
 		class extends React.Component {
 
 			state = {
-				selectedTab: pageProps?_.findIndex(pages, ({url}) => (pageProps.url == url)):-1
-			}
+				selectedTab: pageProps ? _.findIndex(pages, ({url}) => (pageProps.url == url)) : -1
+			};
 
 			componentWillReceiveProps(nextProps) {
 				if (nextProps.adminData.authData && nextProps.adminData.authData.successRedirect) {
@@ -46,7 +46,6 @@ export default (Component, pageProps, Footer) => {
 			}
 
 			render() {
-
 				const {dispatch, classes} = this.props;
 				return <Layout direction={"column"} className={classes.body}>
 					<AppBar color={"inherit"} position={"static"}>
@@ -67,9 +66,9 @@ export default (Component, pageProps, Footer) => {
 						<Layout className={"container"}>
 							{
 								pages.map((page, index) => {
-									console.log(index === this.state.selectedTab)
 									return <Link href={page.url} key={page.url}>
-										<Button className={classes.navButton} color={(index === this.state.selectedTab) ? 'primary' : 'default'}>
+										<Button className={classes.navButton}
+										        color={(index === this.state.selectedTab) ? 'primary' : 'default'}>
 											{page.label}
 										</Button>
 									</Link>
@@ -77,7 +76,6 @@ export default (Component, pageProps, Footer) => {
 							}
 						</Layout>
 					</AppBar>
-
 					<Layout direction={"column"} className={`flex`}>
 						{
 							this.props.children &&
@@ -89,9 +87,7 @@ export default (Component, pageProps, Footer) => {
 							!this.props.children &&
 							<Component/>
 						}
-
 					</Layout>
-
 				</Layout>
 			}
 		}

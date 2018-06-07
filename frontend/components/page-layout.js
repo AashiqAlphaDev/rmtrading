@@ -1,9 +1,9 @@
 import React from "react"
 import {Typography, IconButton} from "@material-ui/core"
-import withRoot from "../src/withRoot"
 import Layout from "./layout";
 import {ArrowBackIcon} from "mdi-react"
 import Link from "next/link"
+import withRoot from "../src/withRoot";
 
 
 let AnnotatedSection = withRoot((theme) => {
@@ -40,12 +40,17 @@ let AnnotatedSection = withRoot((theme) => {
 								</IconButton>
 							</Link>
 						}
-						<Layout direction={"column"} className={classes.annotationBody}>
+						<Layout
+							direction={"column"}
+							className={classes.annotationBody}>
 							<Typography variant="title">
 								{title}
 							</Typography>
-							<Typography color="textSecondary" variant="body1" gutterBottom
-							            className={classes.annotationDesc}>
+							<Typography
+								color="textSecondary"
+								variant="body1"
+								gutterBottom
+								className={classes.annotationDesc}>
 								{desc}
 							</Typography>
 						</Layout>
