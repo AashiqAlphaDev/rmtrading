@@ -25,7 +25,7 @@ router.post("/:center_id", co.wrap(function*(req, res, next) {
 }));
 
 router.delete("/:center_id", co.wrap(function*(req, res, next) {
-	yield vaccinationCenterService.deleteVaccineCenter(req.param.center_id);
+	yield vaccinationCenterService.deleteVaccineCenter(req.params.center_id);
 	res.send({});
 }));
 

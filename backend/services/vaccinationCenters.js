@@ -12,7 +12,7 @@ module.exports.updateVaccineCenter = function*(id,vaccineCenterData){
 }
 
 module.exports.vaccineCenters = function*(query={}, page={}){
-	return yield VaccineCenter.paginate(query, page)
+	return yield VaccineCenter.paginate({...query, status:{$ne:"deleted"}}, page)
 }
 
 module.exports.vaccineCentersWithId = function*(id){
