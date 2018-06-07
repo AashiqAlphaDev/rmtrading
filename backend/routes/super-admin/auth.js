@@ -3,14 +3,7 @@ var router = Router();
 var co = require("co");
 let sessionStore = require("../../session-store");
 
-var isAdmin = co.wrap(function*(req, res, next){
-	if (req.session.isAdmin){
-		next()
-	}
-	else{
-		res.status(401).send({});
-	}
-});
+
 
 router.post("/login", co.wrap(function*(req, res, next) {
 	if(req.body.username == process.env.SUPER_ADMIN_USER && req.body.password == process.env.SUPER_ADMIN_PASSWORD){

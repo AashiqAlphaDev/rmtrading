@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://db/ADDB');
+var mongoosePaginate = require('mongoose-paginate');
+
 
 var Schema = mongoose.Schema;
 const ObjectID = ObjectId = Schema.ObjectId;
@@ -13,6 +15,7 @@ var userSchema = new Schema({
     mobile:String,
     role:[String]
 });
+userSchema.plugin(mongoosePaginate);
 mongoose.model('User', userSchema);
 
 
@@ -39,6 +42,7 @@ var vaccinesSchema = new Schema({
         months:Number
     }
 });
+vaccinesSchema.plugin(mongoosePaginate);
 mongoose.model('Vaccine', vaccinesSchema);
 
 
@@ -46,7 +50,7 @@ mongoose.model('Vaccine', vaccinesSchema);
 //Vaccination Centers
 var vaccinationCenterSchema = new Schema({
     name:String,
-    status:Boolean,
+    status:String,
     type:String,
     address:{
         city:String,
@@ -63,6 +67,7 @@ var vaccinationCenterSchema = new Schema({
         fax:String
     }
 });
+vaccinationCenterSchema.plugin(mongoosePaginate);
 mongoose.model('VaccinationCenter', vaccinationCenterSchema);
 
 
@@ -76,6 +81,7 @@ var breedSchema = new Schema({
         months:Number
     }
 });
+breedSchema.plugin(mongoosePaginate);
 mongoose.model('Breed', breedSchema);
 
 var petTypeSchema = new Schema({
@@ -83,6 +89,7 @@ var petTypeSchema = new Schema({
     description:String,
     scientific_name:String
 });
+petTypeSchema.plugin(mongoosePaginate);
 mongoose.model('PetType', petTypeSchema);
 
 
@@ -95,6 +102,7 @@ var petSchema = new Schema({
     breed:ObjectID,
     owner:ObjectID
 });
+petSchema.plugin(mongoosePaginate);
 mongoose.model('Pet', petSchema);
 
 
@@ -102,6 +110,7 @@ var countriesSchema = new Schema({
     name:String,
     states:[String]
 });
+countriesSchema.plugin(mongoosePaginate);
 mongoose.model('Country', countriesSchema);
 
 
@@ -118,6 +127,7 @@ var vaccinationSchema = new Schema({
     vaccine:ObjectID,
     status:Boolean
 });
+vaccinationSchema.plugin(mongoosePaginate);
 mongoose.model('Vaccination', vaccinationSchema);
 
 

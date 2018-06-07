@@ -17,6 +17,11 @@ export default withRedux(store)(class extends App {
 		if (Component.getInitialProps) {
 			pageProps = await Component.getInitialProps(ctx);
 		}
+
+		if (ctx.pathname.startsWith("/admin")) {
+
+		}
+
 		if (ctx.pathname.startsWith("/super-admin") && ctx.pathname != "/super-admin/auth") {
 			if (!ctx.isServer) {
 				let token = jsCookie.get('token');

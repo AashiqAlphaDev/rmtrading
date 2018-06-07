@@ -11,7 +11,7 @@ import Link from "next/link"
 const pages = [
 	{label: "Manage Vaccines", url: "/super-admin/vaccines"},
 	{label: "Manage Vaccination Center", url: "/super-admin/vaccination-centers"},
-	{label: "Request", url: "/super-admin/requests"},
+	{label: "Requests", url: "/super-admin/requests"},
 	{label: "Inventory", url: "/super-admin/inventory"},
 ];
 
