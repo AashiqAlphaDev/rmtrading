@@ -34,11 +34,28 @@ export default withRedux(store)(class extends App {
 			else {
 				if (ctx.req && ctx.req.headers) {
 					const cookies = ctx.req.headers.cookie;
-					if (typeof cookies === 'string') {
+					if (!cookies) {
+						ctx.res.writeHead(302, {
+							Location: '/super-admin/auth'
+						})
+						ctx.res.end()
+						ctx.res.finished = true
+						console.log("null")
+					}
+					else if (typeof cookies === 'string') {
 						const cookiesJSON = jsHttpCookie.parse(cookies);
 						const token = cookiesJSON.token;
-						var isSuperAdmin = await fetch(`${BaseUrl.backend}/super-admin/session-check/${token}`);
-						if (!isSuperAdmin.ok) {
+						console.log(token)
+						var isSuperAdmin = false;
+						if(!token){
+							isSuperAdmin = false;
+						}
+						else{
+							const response = await fetch(`${BaseUrl.backend}/super-admin/session-check/${token}`);
+							console.log(response.ok)
+							isSuperAdmin = response.ok;
+						}
+						if (!isSuperAdmin) {
 							ctx.res.writeHead(302, {
 								Location: '/super-admin/auth'
 							})
@@ -63,11 +80,19 @@ export default withRedux(store)(class extends App {
 					if (typeof cookies === 'string') {
 						const cookiesJSON = jsHttpCookie.parse(cookies);
 						const token = cookiesJSON.token;
-						var isSuperAdmin = await fetch(`${BaseUrl.backend}/super-admin/session-check/${token}`);
+						var isSuperAdmin = false;
+						if(!token){
+							isSuperAdmin = false;
+						}
+						else{
+							const response = await fetch(`${BaseUrl.backend}/super-admin/session-check/${token}`);
+							console.log(response.ok)
+							isSuperAdmin = response.ok;
+						}
 						if (isSuperAdmin.ok) {
 							ctx.res.writeHead(302, {
-								Location: '/super-admin'
-							});
+								Location: '/super-admin/'
+							})
 							ctx.res.end()
 							ctx.res.finished = true
 						}
