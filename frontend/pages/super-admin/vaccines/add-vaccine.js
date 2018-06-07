@@ -66,6 +66,7 @@ const Index = withRoot(style)(class extends React.Component {
 									</Layout>
 								</RadioGroup>
 							</InputContainer>
+
 							<Layout justifyContent={"flex-end"}>
 								<Button> Clear </Button>
 								<Button variant={"raised"} color={"primary"}> Add </Button>

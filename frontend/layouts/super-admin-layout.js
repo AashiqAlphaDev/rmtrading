@@ -13,7 +13,6 @@ const pages = [
 	{label: "Manage Vaccination Center", url: "/super-admin/vaccination-centers"},
 	{label: "Request", url: "/super-admin/requests"},
 	{label: "Inventory", url: "/super-admin/inventory"},
-	{label: "Reports", url: "/super-admin/reports"},
 ];
 
 
