@@ -3,6 +3,7 @@ import AdminLayoutWrapper from "../../layouts/super-admin-layout";
 import {connect} from "react-redux";
 import Container from "../../components/container";
 import withRoot from "../../src/withRoot";
+<<<<<<< HEAD
 import {
     Typography,
     TextField,
@@ -158,3 +159,25 @@ const Index = withRoot((theme) => {
     }
 })
 export default (AdminLayoutWrapper(connect(store => store)(Index)))
+=======
+import {Typography} from "@material-ui/core";
+
+const Index = withRoot((theme)=>{
+	return {
+		body: {
+			padding:theme.spacing.unit,
+			paddingTop:theme.spacing.unit*2
+		}
+	}
+})(({classes}) => (
+	<AdminLayoutWrapper>
+		<Container className={classes.body}>
+			<Typography variant={"subheading"}>
+				OverView
+			</Typography>
+		</Container>
+	</AdminLayoutWrapper>
+))
+
+export default connect(store => store)(Index)
+>>>>>>> 3992f0c0078de11a3def9f6d3b9a05d373bbc49e

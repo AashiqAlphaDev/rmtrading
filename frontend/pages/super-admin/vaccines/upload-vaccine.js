@@ -2,59 +2,48 @@ import React from "react";
 import {connect} from "react-redux";
 import withRoot from "../../../src/withRoot";
 import {
-	Typography,
-	Table,
-	TableHead,
-	TableRow,
-	TableCell,
-	TableBody,
 	Paper,
+	Button,
+	Typography
 } from "@material-ui/core";
 import style from "../style"
 import VaccineTmpl from "./vaccines-tmpl"
+import {AnnotatedSection} from "../../../components/page-layout";
+import Layout from "../../../components/layout";
+import Link from "next/link"
 
 
 const Index = withRoot(style)(class extends React.Component {
 	render() {
 		const {classes} = this.props;
-		return <div>
-			<div>
-				<Typography variant="title" className={`${classes.title} flex`}>
-					Search Results
-				</Typography>
-			</div>
-			<Paper>
-				<Table>
-					<TableHead>
-						<TableRow>
-							<TableCell>Vaccine</TableCell>
-							<TableCell>Disease</TableCell>
-							<TableCell>Country</TableCell>
-							<TableCell>Pet</TableCell>
-							<TableCell>Breed</TableCell>
-							<TableCell>Gender</TableCell>
-							<TableCell>Notes</TableCell>
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{
-							[1, 2, 3, 4, 5, 6, 7, 8, 9,1, 2, 3, 4, 5, 6, 7, 8, 9,1, 2, 3, 4, 5, 6, 7, 8, 9].map((i, index) => {
-								return <TableRow key={index}>
-									<TableCell>Vaccine</TableCell>
-									<TableCell>Disease</TableCell>
-									<TableCell >Country</TableCell>
-									<TableCell >Pet</TableCell>
-									<TableCell >Breed</TableCell>
-									<TableCell >Gender</TableCell>
-									<TableCell >Notes</TableCell>
-								</TableRow>
-							})
-						}
-					</TableBody>
-				</Table>
-			</Paper>
-		</div>
+		return <VaccineTmpl>
+			<AnnotatedSection title={"Upload Vaccines"}
+			                  descTag={()=>{return <Typography
+				                  color="textSecondary"
+				                  variant="body1"
+				                  gutterBottom>
+				                  Upload the vaccinations in CSV format. Download the sample csv from <Link><a>here</a></Link>.
+			                  </Typography>}}
+			                  backButton={{url: "/super-admin/vaccines"}}>
+				<Paper className={classes.paperPage}>
+					<Layout direction={"column"}>
+						<input
+							accept="csv/*"
+							className={classes.uploadInput}
+							id="flat-button-file"
+							multiple
+							type="file"
+						/>
+						<label htmlFor="flat-button-file">
+							<Button component="span" className={classes.button}>
+								Upload CSV
+							</Button>
+						</label>
+					</Layout>
+				</Paper>
+			</AnnotatedSection>
+		</VaccineTmpl>
 	}
 })
 
-export default (VaccineTmpl(connect(store => store)(Index), {url: "/super-admin/vaccines"},))
+export default connect(store => store)(Index)

@@ -11,7 +11,8 @@ import Link from "next/link";
 const Index = withRoot(style)(class extends React.Component {
 	render() {
 		const {classes} = this.props;
-		return <div className={classes.bodyWrap}>
+		return <AdminLayoutWrapper url={"/super-admin/vaccines"}>
+		<div className={classes.bodyWrap}>
 				<Layout direction={"column"} flex={1} className={`${classes.body}`}>
 					<Layout className={`container ${classes.flex}`}>
 						<Layout className={classes.leftSection}>
@@ -39,7 +40,8 @@ const Index = withRoot(style)(class extends React.Component {
 					</Layout>
 				</Layout>
 			</div>
+		</AdminLayoutWrapper>
 	}
 });
 
-export default AdminLayoutWrapper(connect(store => store)(Index), {url: "/super-admin/vaccines"});
+export default connect(store => store)(Index);

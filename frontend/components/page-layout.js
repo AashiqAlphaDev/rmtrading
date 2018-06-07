@@ -46,13 +46,23 @@ let AnnotatedSection = withRoot((theme) => {
 							<Typography variant="title">
 								{title}
 							</Typography>
-							<Typography
-								color="textSecondary"
-								variant="body1"
-								gutterBottom
-								className={classes.annotationDesc}>
-								{desc}
-							</Typography>
+								<Typography
+									color="textSecondary"
+									variant="body1"
+									gutterBottom
+									className={classes.annotationDesc}>
+									{
+										this.props.desc &&
+										desc
+									}
+									{
+										this.props.descTag &&
+										this.props.descTag()
+									}
+								</Typography>
+
+
+
 						</Layout>
 					</Layout>
 				</div>

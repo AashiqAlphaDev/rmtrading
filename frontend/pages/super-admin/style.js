@@ -61,6 +61,10 @@ export default (theme) => {
 		paperPage: {
 			padding: theme.spacing.unit * 3,
 			boxShadow: "none"
+		},
+
+		uploadInput:{
+			display:"none"
 		}
 	});
 }
