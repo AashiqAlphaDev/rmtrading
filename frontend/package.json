@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@material-ui/core": "^1.1.0",
+    "autosuggest-highlight": "^3.1.1",
     "connect-mongo": "^2.0.1",
     "cookie": "^0.3.1",
     "cookie-parser": "^1.4.3",
@@ -22,6 +23,7 @@
     "next-redux-wrapper": "^2.0.0-beta.6",
     "prop-types": "latest",
     "react": "16.4.0",
+    "react-autosuggest": "^9.3.4",
     "react-dom": "16.4.0",
     "react-jss": "latest",
     "react-qr-reader": "^2.1.0",

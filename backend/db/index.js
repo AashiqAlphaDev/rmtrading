@@ -121,6 +121,12 @@ var vaccinationSchema = new Schema({
 vaccinationSchema.plugin(mongoosePaginate);
 mongoose.model('Vaccination', vaccinationSchema);
 
+
+var DiseaseSchema = new Schema({
+    name:String
+});
+mongoose.model('Disease', DiseaseSchema);
+
 //Admin Requests
 
 //Inventory
