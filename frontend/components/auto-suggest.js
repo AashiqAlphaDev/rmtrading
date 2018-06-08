@@ -11,8 +11,8 @@ import match from "autosuggest-highlight/match/index";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 function renderSuggestion(suggestion, {query, isHighlighted}) {
-	const matches = match(suggestion.label, query);
-	const parts = parse(suggestion.label, matches);
+	const matches = match(suggestion.name, query);
+	const parts = parse(suggestion.name, matches);
 
 	return (
 		<MenuItem selected={isHighlighted} component="div">
@@ -68,7 +68,6 @@ export default withStyles((theme)=>{
 	class extends React.Component {
 		render() {
 			const {classes} = this.props;
-			//this.props.onSuggestionsFetchRequested
 			return <InputContainer label={"Disease"}>
 				<AutoSuggest
 					theme={{
@@ -80,7 +79,12 @@ export default withStyles((theme)=>{
 					suggestions={this.props.suggestions}
 					onSuggestionsFetchRequested={this.props.onSuggestionsFetchRequested}
 					onSuggestionsClearRequested={this.props.onSuggestionsClearRequested}
-					getSuggestionValue={(suggestion) => suggestion.name}
+					getSuggestionValue={(suggestion) => {
+						if(suggestion.action==="create_new"){
+                            return suggestion;
+                        }
+						return suggestion.name;
+					}}
 					renderSuggestionsContainer={renderSuggestionsContainer}
 					renderInputComponent={(inputProps) => {
 						const {InputProps, ref, classes, ...other} = inputProps;
