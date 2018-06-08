@@ -4,5 +4,6 @@ const isAdmin = require("./check-admin")
 
 router.use(require("./auth"));
 router.use("/vaccination-centers",isAdmin,require("./manage-vaccination-centers"));
+router.use("/diseases",require("./manage-diseases"));
 
 module.exports = router;
