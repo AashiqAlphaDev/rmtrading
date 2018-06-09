@@ -25,6 +25,12 @@ const Index = withRoot(style)(class extends React.Component {
 									<Link href={"/super-admin/vaccination-centers/add-vaccination-center"}>
 										<ListItem button> Add Vaccination Center </ListItem>
 									</Link>
+									<Link href={"/super-admin/vaccination-centers/upload-vaccine-center"}>
+										<ListItem button> Upload Vaccination Centers </ListItem>
+									</Link>
+									<Link href={"/super-admin/vaccination-centers/download-vaccine-center"}>
+										<ListItem button> Download Vaccination Centers </ListItem>
+									</Link>
 								</List>
 							</Layout>
 						</Layout>
