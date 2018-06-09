@@ -8,10 +8,7 @@ const ObjectID = ObjectId = Schema.ObjectId;
 var userSchema = new Schema({
     name:String,
     email:String,
-    username:String,
-    password:String,
-    mobile:String,
-    role:[String]
+    password:String
 });
 userSchema.plugin(mongoosePaginate);
 mongoose.model('User', userSchema);
@@ -65,6 +62,22 @@ var vaccinationCenterSchema = new Schema({
 });
 vaccinationCenterSchema.plugin(mongoosePaginate);
 mongoose.model('VaccinationCenter', vaccinationCenterSchema);
+
+var vaccinationCenterAdminSchema = new Schema({
+	email:String,
+    status:String,
+    vaccination_center:ObjectID
+});
+mongoose.model('VaccinationCenterAdmin', vaccinationCenterAdminSchema);
+
+
+var inventoryItemSchema = new Schema({
+	name:String,
+	desc:String
+});
+mongoose.model('InventoryItem', inventoryItemSchema);
+
+
 
 //Pet Metadata
 var breedSchema = new Schema({
@@ -122,15 +135,11 @@ vaccinationSchema.plugin(mongoosePaginate);
 mongoose.model('Vaccination', vaccinationSchema);
 
 
+
+
+
+
 var DiseaseSchema = new Schema({
     name:String
 });
 mongoose.model('Disease', DiseaseSchema);
-
-//Admin Requests
-
-//Inventory
-
-// Appointments
-
-// Feedbacks

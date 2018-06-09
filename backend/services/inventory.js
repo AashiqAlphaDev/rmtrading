@@ -1,55 +1,35 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose")
+const InventoryItems = mongoose.model('InventoryItem');
 
+module.exports.createInventoryItem = function*(inventoryItemData){
+	let existingInventoryItems = yield InventoryItems.findOne({name:inventoryItemData.name});
+	if(existingInventoryItems){
+		return existingInventoryItems;
+	}
+	return yield InventoryItems.create(inventoryItemData);
+};
 
-const inventory = mongoose.model("Inventory");
+module.exports.updateInventoryItem = function*(id, inventoryItemData){
+	return yield InventoryItems.update({_id:id},inventoryItemData);
+};
 
+module.exports.deleteInventoryItem = function*(inventoryItemId){
+	return yield InventoryItems.remove({_id:inventoryItemId});
+};
 
+module.exports.inventoryItems = function*(query={}){
+	return yield InventoryItems.find(query).exec();
+};
 
-module.exports.createInventory= function(inventoryData,callback){
-    var createPromise = inventory.create(inventoryData);
-    createPromise.then(function (inventory) {
-        callback(null,inventory)
-    });
-}
+module.exports.inventoryItemWithId = function*(inventoryItemId){
+	return yield InventoryItems.findOne({_id:inventoryItemId}).exec();
+};
 
+module.exports.InventoryItemWithName = function*(name){
+	return yield InventoryItems.findOne({name:name}).exec();
+};
 
-module.exports.inventories= function(callback){
-    var promise = inventory.find().exec();
-    promise.then(function (inventory) {
-        callback(null, inventory)
-    });
-    promise.catch(function (err) {
-        callback(err);
-    })
-}
+module.exports.deleteAll = function*(){
+	return yield InventoryItems.remove({});
+};
 
-
-module.exports.inventoryWithId = function(id, callback){
-    var promise = inventory.findById(id).exec();
-    promise.then(function (inventory) {
-        callback(null, inventory);
-    })
-    promise.catch(function (err) {
-        callback(err);
-    })
-}
-
-module.exports.updateInventory = function(id, data, callback){
-    var update = inventory.update({_id:id}, data);
-    update.then(function () {
-        callback(null, true);
-    })
-    update.catch(function(err){
-        callback(err)
-    })
-}
-
-module.exports.deleteInventory = function(id, callback){
-    var promise = inventory.remove({_id:id});
-    promise.then(function () {
-        callback(null, true);
-    })
-    promise.catch(function(err){
-        callback(err)
-    })
-}
