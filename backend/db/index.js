@@ -66,6 +66,16 @@ var vaccinationCenterSchema = new Schema({
 vaccinationCenterSchema.plugin(mongoosePaginate);
 mongoose.model('VaccinationCenter', vaccinationCenterSchema);
 
+var vaccinationCenterAdminSchema = new Schema({
+	email:String,
+    status:String,
+    vaccination_center:ObjectID
+});
+mongoose.model('VaccinationCenterAdmin', vaccinationCenterAdminSchema);
+
+
+
+
 //Pet Metadata
 var breedSchema = new Schema({
     pet_type:ObjectID,
@@ -122,15 +132,11 @@ vaccinationSchema.plugin(mongoosePaginate);
 mongoose.model('Vaccination', vaccinationSchema);
 
 
+
+
+
+
 var DiseaseSchema = new Schema({
     name:String
 });
 mongoose.model('Disease', DiseaseSchema);
-
-//Admin Requests
-
-//Inventory
-
-// Appointments
-
-// Feedbacks
