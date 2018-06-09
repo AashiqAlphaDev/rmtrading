@@ -68,7 +68,7 @@ export default withStyles((theme)=>{
 	class extends React.Component {
 		render() {
 			const {classes} = this.props;
-			return <InputContainer label={"Disease"}>
+			return <InputContainer label={this.props.placeholder}>
 				<AutoSuggest
 					theme={{
 						container: classes.autoSuggest,
@@ -80,25 +80,24 @@ export default withStyles((theme)=>{
 					onSuggestionsFetchRequested={this.props.onSuggestionsFetchRequested}
 					onSuggestionsClearRequested={this.props.onSuggestionsClearRequested}
 					getSuggestionValue={(suggestion) => {
-						if(suggestion.action==="create_new"){
-                            return suggestion;
-                        }
-						return suggestion.name;
+						return suggestion;
 					}}
 					renderSuggestionsContainer={renderSuggestionsContainer}
 					renderInputComponent={(inputProps) => {
 						const {InputProps, ref, classes, ...other} = inputProps;
-						return <TextField
-							fullWidth
-							InputProps={{
-								classes: {
-									input: classes.input,
-								},
-								inputRef: ref,
-								...InputProps,
-							}}
-							{...other}
-						/>
+						return <div>
+								<TextField
+									fullWidth
+									InputProps={{
+										classes: {
+											input: classes.input,
+										},
+										inputRef: ref,
+										...InputProps,
+									}}
+									{...other}
+								/>
+							</div>
 					}}
 					renderSuggestion={renderSuggestion}
 					inputProps={{

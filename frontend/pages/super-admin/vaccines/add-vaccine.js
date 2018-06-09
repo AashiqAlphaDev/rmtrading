@@ -10,27 +10,50 @@ import {
     Button,
     FormControlLabel,
     RadioGroup,
-    Select,
-    MenuItem,
-    Input,
     Paper,
 } from "@material-ui/core";
 import {AnnotatedSection} from "../../../components/page-layout";
 import InputContainer from "../../../components/input"
 import AutoSuggest from "../../../components/auto-suggest"
-import {DISEASES_FETCH_MATCHES, DISEASES_CLEAR_MATCHES, DISEASES_CREATE} from "../../../store/super-admin/app-data-actions";
+import {
+	DISEASES_FETCH_MATCHES,
+	DISEASES_CLEAR_MATCHES,
+	DISEASES_CREATE,
+	PET_TYPE_CLEAR_MATCHES,
+	PET_TYPE_CREATE,
+	PET_TYPE_FETCH_MATCHES,
+	PET_BREED_CLEAR_MATCHES,
+	PET_BREED_CREATE, PET_BREED_FETCH_MATCHES,
+} from "../../../store/super-admin/app-data-actions";
 
 const Index = withRoot(style)(class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            disease_query: ""
+            disease_query: "",
+	        pet_type_query: "",
+	        pet_breed_query: "",
+            selected_disease_id:null,
+            selected_pet_type_id:null,
+            selected_pet_breed_id:null
         };
     }
 
-    handleSuggestionsFetchRequested({value}) {
-        this.props.dispatch({type: DISEASES_FETCH_MATCHES, payload: {query: value}})
+    componentWillReceiveProps(nextProps){
+
     }
+
+    handleDiseaseSuggestionsFetchRequested({value}) {
+        this.props.dispatch({type: DISEASES_FETCH_MATCHES, payload: {query: value}});
+    }
+
+	handlePetTypeSuggestionsFetchRequested({value}) {
+		this.props.dispatch({type: PET_TYPE_FETCH_MATCHES, payload: {query: value}});
+	}
+
+	handlePetBreedSuggestionsFetchRequested({value}) {
+		this.props.dispatch({type: PET_BREED_FETCH_MATCHES, payload: {query: value, pet_type_id:this.state.pet_type_id}});
+	}
 
     render() {
         const {classes} = this.props;
@@ -54,7 +77,7 @@ const Index = withRoot(style)(class extends React.Component {
                                     action: "create_new",
                                     value: {name:this.state.disease_query}
                                 }] : this.props.adminData.diseaseList.matched_diseases}
-                                onSuggestionsFetchRequested={this.handleSuggestionsFetchRequested.bind(this)}
+                                onSuggestionsFetchRequested={this.handleDiseaseSuggestionsFetchRequested.bind(this)}
                                 onSuggestionsClearRequested={() => {
                                     this.props.dispatch({type: DISEASES_CLEAR_MATCHES})
                                 }}
@@ -62,37 +85,67 @@ const Index = withRoot(style)(class extends React.Component {
                                 value={this.state.disease_query}
                                 onChange={(event, payload) => {
                                     const {newValue} = payload;
-                                    if(newValue.action){
-                                        this.props.dispatch({type:DISEASES_CREATE, payload:newValue.value})
-                                        this.setState({disease_query:""});
-                                    }
-                                    else{
-                                        this.setState({disease_query:newValue})
+                                    if(typeof newValue === 'string'){
+	                                    if(newValue.action){
+		                                    this.props.dispatch({type:DISEASES_CREATE, payload:newValue.value})
+		                                    this.setState({disease_query:""});
+	                                    }
+	                                    else{
+		                                    this.setState({disease_query:newValue.name})
+	                                    }
                                     }
                                 }}
                             />
-                            <InputContainer label={"Pet"}>
-                                <TextField></TextField>
-                            </InputContainer>
-                            <InputContainer label={"Breed"}>
-                                <Select
-                                    value={10}
-                                    input={<Input name="age" id="age-helper"/>}
-                                >
-                                    <MenuItem value="">
-                                        <em>Any</em>
-                                    </MenuItem>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
-                                </Select>
-                            </InputContainer>
+	                        <AutoSuggest
+		                        suggestions={this.props.adminData.petTypeList.matched_pet_types.length == 0 ? [{
+			                        name: `+ Create ${this.state.pet_type_query}`,
+			                        action: "create_new",
+			                        value: {name:this.state.pet_type_query}
+		                        }] : this.props.adminData.petTypeList.matched_pet_types}
+		                        onSuggestionsFetchRequested={this.handlePetTypeSuggestionsFetchRequested.bind(this)}
+		                        onSuggestionsClearRequested={() => {
+			                        this.props.dispatch({type: PET_TYPE_CLEAR_MATCHES})
+		                        }}
+		                        placeholder={"Pet Type"}
+		                        value={this.state.pet_type_query}
+		                        onChange={(event, payload) => {
+			                        const {newValue} = payload;
+			                        if(newValue.action) {
+				                        this.props.dispatch({type:PET_TYPE_CREATE, payload:newValue.value})
+				                        this.setState({pet_type_query:""});
+			                        } else {
+				                        this.setState({pet_type_query:newValue.name})
+			                        }
+		                        }}
+	                        />
+	                        <AutoSuggest
+		                        suggestions={this.props.adminData.petBreedList.matched_pet_breeds.length == 0 ? [{
+			                        name: `+ Create ${this.state.pet_breed_query}`,
+			                        action: "create_new",
+			                        value: {name:this.state.pet_breed_query, pet_type_id:this.state.selected_pet_type_id},
+		                        }] : this.props.adminData.petBreedList.matched_pet_breeds}
+		                        onSuggestionsFetchRequested={this.handlePetBreedSuggestionsFetchRequested.bind(this)}
+		                        onSuggestionsClearRequested={() => {
+			                        this.props.dispatch({type: PET_BREED_CLEAR_MATCHES})
+		                        }}
+		                        placeholder={"Pet Breed"}
+		                        value={this.state.pet_breed_query}
+		                        onChange={(event, payload) => {
+			                        const {newValue} = payload;
+			                        if(newValue.action){
+				                        this.props.dispatch({type:PET_BREED_CREATE, payload:newValue.value})
+				                        this.setState({pet_breed_query:""});
+			                        }
+			                        else{
+				                        this.setState({pet_breed_query:newValue.name})
+			                        }
+		                        }}
+	                        />
 
                             <InputContainer label={"Gender"}>
                                 <RadioGroup name="gender">
                                     <Layout>
-                                        <FormControlLabel value="female" control={<Radio color="primary"/>}
-                                                          label="Female"/>
+                                        <FormControlLabel value="female" control={<Radio color="primary"/>} label="Female"/>
                                         <FormControlLabel value="male" control={<Radio color="primary"/>} label="Male"/>
                                         <FormControlLabel value="other" control={<Radio color="primary"/>} label="Any"/>
                                     </Layout>

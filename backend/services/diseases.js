@@ -1,7 +1,6 @@
 const mongoose = require("mongoose")
 const Disease = mongoose.model('Disease');
 
-
 module.exports.createDisease = function*(diseaseData){
 	return yield Disease.create(diseaseData);
 };
@@ -16,12 +15,12 @@ module.exports.deleteDisease = function*(diseaseId){
 
 module.exports.diseases = function*(query={}){
 	return yield Disease.find(query).exec();
-}
+};
 
 module.exports.diseaseWithId = function*(diseaseId){
 	return yield Disease.findOne({_id:diseaseId}).exec();
-}
+};
 
 module.exports.diseaseWithName = function*(name){
 	return yield Disease.findOne({name:name}).exec();
-}
+};
