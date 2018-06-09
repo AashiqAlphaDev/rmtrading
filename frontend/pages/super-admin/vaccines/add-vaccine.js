@@ -22,7 +22,7 @@ import {
 	DISEASES_FETCH_MATCHES,
 	DISEASES_CLEAR_MATCHES,
 	DISEASES_CREATE,
-	PET_TYPE_CLEAR_MATCHES, PET_TYPE_CREATE
+	PET_TYPE_CLEAR_MATCHES, PET_TYPE_CREATE, PET_TYPE_FETCH_MATCHES
 } from "../../../store/super-admin/app-data-actions";
 
 const Index = withRoot(style)(class extends React.Component {
@@ -39,7 +39,7 @@ const Index = withRoot(style)(class extends React.Component {
     }
 
 	handlePetTypeSuggestionsFetchRequested({value}) {
-		this.props.dispatch({type: DISEASES_FETCH_MATCHES, payload: {query: value}})
+		this.props.dispatch({type: PET_TYPE_FETCH_MATCHES, payload: {query: value}})
 	}
 
     render() {
@@ -82,17 +82,17 @@ const Index = withRoot(style)(class extends React.Component {
                                 }}
                             />
 	                        <AutoSuggest
-		                        suggestions={this.props.adminData.diseaseList.matched_diseases.length == 0 ? [{
+		                        suggestions={this.props.adminData.petTypeList.matched_pet_types.length == 0 ? [{
 			                        name: `+ Create ${this.state.pet_type_query}`,
 			                        action: "create_new",
 			                        value: {name:this.state.pet_type_query}
-		                        }] : this.props.adminData.diseaseList.matched_diseases}
+		                        }] : this.props.adminData.petTypeList.matched_pet_types}
 		                        onSuggestionsFetchRequested={this.handlePetTypeSuggestionsFetchRequested.bind(this)}
 		                        onSuggestionsClearRequested={() => {
 			                        this.props.dispatch({type: PET_TYPE_CLEAR_MATCHES})
 		                        }}
 		                        placeholder={"Pet Type"}
-		                        value={this.state.disease_query}
+		                        value={this.state.pet_type_query}
 		                        onChange={(event, payload) => {
 			                        const {newValue} = payload;
 			                        if(newValue.action){

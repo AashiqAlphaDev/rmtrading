@@ -12,12 +12,12 @@ const DISEASES_CREATE_FAILED = "diseases.CREATE_FAILED";
 
 
 const PET_TYPE_FETCH_MATCHES = "petTypes.FETCH_MATCHES";
-const PET_TYPE_CLEAR_MATCHES = "petTypes.DISEASES_CLEAR_MATCHES";
-const PET_TYPE_FETCH_MATCHES_SUCCEDED = "petTypes.FETCH_MATCHES_SUCCEDED";
-const PET_TYPE_FETCH_MATCHES_FAILED = "petTypes.FETCH_MATCHES_FAILED";
-const PET_TYPE_CREATE = "petTypes.CREATE";
-const PET_TYPE_CREATE_SUCCEDED = "petTypes.CREATE_SUCCEDED";
-const PET_TYPE_CREATE_FAILED = "petTypes.CREATE_FAILED";
+const PET_TYPE_CLEAR_MATCHES = "petTypes.PET_TYPE_CLEAR_MATCHES";
+const PET_TYPE_FETCH_MATCHES_SUCCEDED = "petTypes.PET_TYPE_FETCH_MATCHES_SUCCEDED";
+const PET_TYPE_FETCH_MATCHES_FAILED = "petTypes.PET_TYPE_FETCH_MATCHES_FAILED";
+const PET_TYPE_CREATE = "petTypes.PET_TYPE_CREATE";
+const PET_TYPE_CREATE_SUCCEDED = "petTypes.PET_TYPE_CREATE_SUCCEDED";
+const PET_TYPE_CREATE_FAILED = "petTypes.PET_TYPE_CREATE_FAILED";
 
 
 const fetchDiseaseMatches = function*(action){
@@ -89,14 +89,13 @@ const createDisease = function*(action){
 const appDataSaga = function* () {
 	yield takeLatest(DISEASES_FETCH_MATCHES, fetchDiseaseMatches);
 	yield takeEvery(DISEASES_CREATE, createDisease);
-
 	yield takeLatest(PET_TYPE_FETCH_MATCHES, fetchPetTypeMatches);
-	yield takeEvery(PET_TYPE_CREATE, createDisease);
-
+	yield takeEvery(PET_TYPE_CREATE, createPetType);
 };
 
 export {
 	appDataSaga,
+
 	DISEASES_FETCH_MATCHES,
 	DISEASES_FETCH_MATCHES_SUCCEDED,
 	DISEASES_FETCH_MATCHES_FAILED,
@@ -112,4 +111,5 @@ export {
 	PET_TYPE_CREATE,
 	PET_TYPE_CREATE_SUCCEDED,
 	PET_TYPE_CREATE_FAILED,
+
 }

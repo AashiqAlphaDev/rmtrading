@@ -83,7 +83,7 @@ const initialPetTypes = {
 const petTypeListReducer = function(state=initialPetTypes, action){
 	switch (action.type) {
 		case PET_TYPE_CLEAR_MATCHES:{
-			state = {...state, matched_diseases:[]};
+			state = {...state, matched_pet_types:[]};
 			return state;
 		}
 		case PET_TYPE_FETCH_MATCHES:{
@@ -91,7 +91,7 @@ const petTypeListReducer = function(state=initialPetTypes, action){
 			return state;
 		}
 		case PET_TYPE_FETCH_MATCHES_SUCCEDED:{
-			state = {...state, matched_diseases:action.payload};
+			state = {...state, matched_pet_types:action.payload};
 			return state;
 		}
 		case PET_TYPE_FETCH_MATCHES_FAILED:{

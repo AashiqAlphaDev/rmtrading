@@ -68,7 +68,7 @@ export default withStyles((theme)=>{
 	class extends React.Component {
 		render() {
 			const {classes} = this.props;
-			return <InputContainer label={"Disease"}>
+			return <InputContainer label={this.props.placeholder}>
 				<AutoSuggest
 					theme={{
 						container: classes.autoSuggest,
