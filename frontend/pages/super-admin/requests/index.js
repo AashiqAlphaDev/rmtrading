@@ -46,8 +46,9 @@ const Index = withRoot(style)(class extends React.Component {
 										<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
 											<Layout direction="column">
 
-
+												<div>
 													Request Type:
+												</div>>
 													Request ID:
 													Vaccination Center:
 													Status:
