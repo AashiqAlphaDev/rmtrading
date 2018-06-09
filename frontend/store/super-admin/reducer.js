@@ -15,6 +15,11 @@ import {
 	PET_TYPE_FETCH_MATCHES_FAILED,
 	PET_TYPE_FETCH_MATCHES_SUCCEDED,
 
+	PET_BREED_CLEAR_MATCHES,
+	PET_BREED_FETCH_MATCHES,
+	PET_BREED_FETCH_MATCHES_FAILED,
+	PET_BREED_FETCH_MATCHES_SUCCEDED,
+
 } from "./app-data-actions";
 
 import {
@@ -48,7 +53,8 @@ const authReducer = function (state = initialAuthState, action) {
 const initialDiseases = {
 	query:null,
 	matched_diseases:[],
-	fetch_matches_error:null
+	fetch_matches_error:null,
+	selected_disease:null
 };
 
 const diseaseListReducer = function(state=initialDiseases, action){
@@ -77,7 +83,8 @@ const diseaseListReducer = function(state=initialDiseases, action){
 const initialPetTypes = {
 	query:null,
 	matched_pet_types:[],
-	fetch_matches_error:null
+	fetch_matches_error:null,
+	selected_type:null
 };
 
 const petTypeListReducer = function(state=initialPetTypes, action){
@@ -102,5 +109,35 @@ const petTypeListReducer = function(state=initialPetTypes, action){
 	return state;
 };
 
+const initialPetBreeds = {
+	query:null,
+	matched_pet_breeds:[],
+	fetch_matches_error:null,
+	selected_breed:null
+};
 
-export default combineReducers({authData: authReducer, diseaseList:diseaseListReducer, petTypeList:petTypeListReducer});
+const petBreedListReducer = function(state=initialPetBreeds, action){
+	switch (action.type) {
+		case PET_BREED_CLEAR_MATCHES:{
+			state = {...state, matched_pet_breeds:[]};
+			return state;
+		}
+		case PET_BREED_FETCH_MATCHES:{
+			state = {...state, fetch_matches_error:null, query:action.payload.query};
+			return state;
+		}
+		case PET_BREED_FETCH_MATCHES_SUCCEDED:{
+			state = {...state, matched_pet_breeds:action.payload};
+			return state;
+		}
+		case PET_BREED_FETCH_MATCHES_FAILED:{
+			state = {...state, fetch_matches_error:action.payload};
+			return state;
+		}
+	}
+	return state;
+};
+
+
+
+export default combineReducers({authData: authReducer, diseaseList:diseaseListReducer, petTypeList:petTypeListReducer, petBreedList:petBreedListReducer});
