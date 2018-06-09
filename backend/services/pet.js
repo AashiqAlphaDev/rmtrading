@@ -25,6 +25,10 @@ module.exports.petWithId = function*(petId){
 	return yield Pet.findOne({_id:petId}).exec();
 };
 
+module.exports.petsOfOwner = function*(ownerId){
+	return yield Pet.find({owner:ownerId}).exec();
+};
+
 module.exports.petWithName = function*(name){
 	return yield Pet.findOne({name:name}).exec();
 };
@@ -32,4 +36,3 @@ module.exports.petWithName = function*(name){
 module.exports.deleteAll = function*(){
 	return yield Pet.remove({});
 };
-

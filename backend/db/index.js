@@ -1,19 +1,29 @@
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://db/ADDB');
-var mongoosePaginate = require('mongoose-paginate');
-var Schema = mongoose.Schema;
+const mongoosePaginate = require('mongoose-paginate');
+const Schema = mongoose.Schema;
 const ObjectID = ObjectId = Schema.ObjectId;
 
 //User
-var userSchema = new Schema({
-    name:String,
+const userSchema = new Schema({
     email:String,
-    password:String
+    password:String,
+    email_verified:Boolean,
+    profile:{
+	    first_name:String,
+	    last_name:String,
+	    address:String,
+	    mobile_number:String,
+	    government_issued_id_type:String,
+	    government_issued_id:String
+    }
 });
+userSchema.plugin(mongoosePaginate);
 mongoose.model('User', userSchema);
 
+
 //Vaccine Metadata
-var vaccinesSchema = new Schema({
+const vaccinesSchema = new Schema({
     name: String,
     available:Boolean,
     related_disease:String,
@@ -37,10 +47,8 @@ var vaccinesSchema = new Schema({
 vaccinesSchema.plugin(mongoosePaginate);
 mongoose.model('Vaccine', vaccinesSchema);
 
-
-
 //Vaccination Centers
-var vaccinationCenterSchema = new Schema({
+const vaccinationCenterSchema = new Schema({
     name:String,
     status:String,
     type:String,
@@ -62,28 +70,25 @@ var vaccinationCenterSchema = new Schema({
 vaccinationCenterSchema.plugin(mongoosePaginate);
 mongoose.model('VaccinationCenter', vaccinationCenterSchema);
 
-var vaccinationCenterAdminSchema = new Schema({
+const vaccinationCenterAdminSchema = new Schema({
 	email:String,
     status:String,
     vaccination_center:ObjectID
 });
 mongoose.model('VaccinationCenterAdmin', vaccinationCenterAdminSchema);
 
-var vaccinationCenterStaffSchema = new Schema({
+const vaccinationCenterStaffSchema = new Schema({
 	email:String,
 	status:String,
 	vaccination_center:ObjectID
 });
 mongoose.model('VaccinationCenterStaff', vaccinationCenterStaffSchema);
 
-
 var inventoryItemSchema = new Schema({
 	name:String,
 	desc:String
 });
 mongoose.model('InventoryItem', inventoryItemSchema);
-
-
 
 //Pet Metadata
 var breedSchema = new Schema({
@@ -115,7 +120,6 @@ var petSchema = new Schema({
 petSchema.plugin(mongoosePaginate);
 mongoose.model('Pet', petSchema);
 
-
 var countriesSchema = new Schema({
     name:String,
     states:[String]
@@ -123,9 +127,8 @@ var countriesSchema = new Schema({
 countriesSchema.plugin(mongoosePaginate);
 mongoose.model('Country', countriesSchema);
 
-
 // Vaccination
-var vaccinationSchema = new Schema({
+const vaccinationSchema = new Schema({
     dosage:{
         date:Date
     },
@@ -140,12 +143,7 @@ var vaccinationSchema = new Schema({
 vaccinationSchema.plugin(mongoosePaginate);
 mongoose.model('Vaccination', vaccinationSchema);
 
-
-
-
-
-
-var DiseaseSchema = new Schema({
+const DiseaseSchema = new Schema({
     name:String
 });
 mongoose.model('Disease', DiseaseSchema);

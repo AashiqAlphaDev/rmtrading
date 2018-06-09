@@ -26,6 +26,11 @@ router.get("/:pet_id", co.wrap(function*(req, res, next){
 	res.send(pet);
 }));
 
+router.get("/of-owner/:user_id", co.wrap(function*(req, res, next){
+	let pets = yield PetsManagementService.petsOfOwner(req.params.user_id);
+	res.send(pets);
+}));
+
 router.post("/", co.wrap(function*(req, res, next){
 	let pet = yield PetsManagementService.createPet(req.body);
 	res.send(pet);

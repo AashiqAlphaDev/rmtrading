@@ -11,6 +11,7 @@ router.use("/pet-types",require("./manage-pet-types"));
 router.use("/inventory",require("./manage-inventory"));
 router.use("/session",require("./session"));
 router.use("/pets",haveCenterAccess,require("./manage-pets"));
+router.use("/users",haveCenterAccess,require("./manage-users"));
 
 router.use("/dev",require("./dev"));
 
