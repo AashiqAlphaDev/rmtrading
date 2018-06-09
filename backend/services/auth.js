@@ -15,6 +15,7 @@ module.exports.registerUser = function*({email, name, password}){
 		error.message = "User already exists";
 		error.statusCode = 400;
 		throw error;
+		return;
 	}
 	yield emailer.send({
 		to: email,
