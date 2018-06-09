@@ -1,7 +1,8 @@
 var Router = require("express").Router;
 var router = Router();
 const co = require("co");
-const PetTypeManagementService = require("../../services/pets-type");
+const PetTypeManagementService = require("../services/pets-type");
+const isAdmin = require("./super-admin/check-admin");
 
 router.get("/", co.wrap(function*(req, res, next){
 	var query = {};
@@ -17,22 +18,22 @@ router.get("/:pet_type_id", co.wrap(function*(req, res, next){
 	res.send(disease);
 }));
 
-router.post("/", co.wrap(function*(req, res, next){
+router.post("/", isAdmin,co.wrap(function*(req, res, next){
 	let disease = yield PetTypeManagementService.createPetType(req.body);
 	res.send(disease);
 }));
 
-router.put("/:pet_type_id", co.wrap(function*(req, res, next){
+router.put("/:pet_type_id",isAdmin, co.wrap(function*(req, res, next){
 	let disease = yield PetTypeManagementService.updatePetType(req.params.pet_type_id,req.body);
 	res.send(disease);
 }));
 
-router.delete("/:pet_type_id", co.wrap(function*(req, res, next){
+router.delete("/:pet_type_id", isAdmin,co.wrap(function*(req, res, next){
 	yield PetTypeManagementService.deletePetType(req.params.pet_type_id);
 	res.send({});
 }));
 
-router.get("/:pet_type_id/breed", co.wrap(function*(req, res, next){
+router.get("/:pet_type_id/breeds", co.wrap(function*(req, res, next){
 	let query = {};
 	if(req.query.q){
 		query.name = {$regex:`.*${req.query.q}.*`, '$options' : 'i'}
@@ -41,22 +42,22 @@ router.get("/:pet_type_id/breed", co.wrap(function*(req, res, next){
 	res.send(diseases);
 }));
 
-router.get("/:pet_type_id/breed/:breed_id", co.wrap(function*(req, res, next){
-	let disease = yield PetTypeManagementService.petBreedWithId(req.params.pet_type_id);
-	res.send(disease);
+router.get("/:pet_type_id/breeds/:breed_id", co.wrap(function*(req, res, next){
+	let petBreed = yield PetTypeManagementService.petBreedWithId(req.params.breed_id);
+	res.send(petBreed);
 }));
 
-router.post("/:pet_type_id/breed", co.wrap(function*(req, res, next){
+router.post("/:pet_type_id/breeds", isAdmin,co.wrap(function*(req, res, next){
 	let disease = yield PetTypeManagementService.createPetBreed(req.params.pet_type_id,req.body);
 	res.send(disease);
 }));
 
-router.put("/:pet_type_id/breed/:breed_id", co.wrap(function*(req, res, next){
+router.put("/:pet_type_id/breeds/:breed_id", isAdmin,co.wrap(function*(req, res, next){
 	let disease = yield PetTypeManagementService.updatePetBreed(req.params.breed_id,req.body);
 	res.send(disease);
 }));
 
-router.delete("/:pet_type_id/breed/:breed_id", co.wrap(function*(req, res, next){
+router.delete("/:pet_type_id/breeds/:breed_id", isAdmin,co.wrap(function*(req, res, next){
 	yield PetTypeManagementService.deletePetBreed(req.params.breed_id,req.params.pet_type_id);
 	res.send({});
 }));
