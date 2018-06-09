@@ -3,6 +3,10 @@ const PetType = mongoose.model('PetType');
 const PetBreed = mongoose.model('Breed');
 
 module.exports.createPetType = function*(petTypeData){
+	let existingPetType = yield PetType.findOne({name:petTypeData.name})
+	if(existingPetType){
+		return existingPetType;
+	}
 	return yield PetType.create(petTypeData);
 };
 
@@ -27,6 +31,10 @@ module.exports.petTypeWithName = function*(name){
 };
 
 module.exports.createPetBreed = function*(petTypeId,petBreedData){
+	let existingBreed = yield PetBreed.findOne({pet_type:petTypeId, name:petBreedData.name});
+	if(existingBreed){
+		return existingBreed;
+	}
 	petBreedData.pet_type = petTypeId;
 	return yield PetBreed.create(petBreedData);
 };
@@ -50,4 +58,13 @@ module.exports.petBreedWithId = function*(petBreedId){
 
 module.exports.petBreedWithName = function*(petTypeId,name){
 	return yield PetBreed.findOne({name:name}).exec();
+};
+
+
+module.exports.deleteAll = function*(){
+	return yield PetType.remove({});
+};
+
+module.exports.deleteAllBreeds = function*(){
+	return yield PetBreed.remove({});
 };

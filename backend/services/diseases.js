@@ -2,6 +2,10 @@ const mongoose = require("mongoose")
 const Disease = mongoose.model('Disease');
 
 module.exports.createDisease = function*(diseaseData){
+	let existingDisease = yield Disease.findOne({name:diseaseData.name});
+	if(existingDisease){
+		return existingDisease;
+	}
 	return yield Disease.create(diseaseData);
 };
 
@@ -24,3 +28,8 @@ module.exports.diseaseWithId = function*(diseaseId){
 module.exports.diseaseWithName = function*(name){
 	return yield Disease.findOne({name:name}).exec();
 };
+
+module.exports.deleteAll = function*(){
+	return yield Disease.remove({});
+};
+
