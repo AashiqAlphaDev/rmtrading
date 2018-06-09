@@ -4,7 +4,7 @@ const co = require("co");
 const PetsManagementService = require("../services/pet")
 
 router.get("/", co.wrap(function*(req, res, next){
-	var query = {};
+	var query = req.query.query?req.query.query:{};
 	if(req.query.q){
 		query.name = {$regex:`.*${req.query.q}.*`, '$options' : 'i'}
 	}

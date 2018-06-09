@@ -5,7 +5,7 @@ const PetTypeManagementService = require("../services/pets-type");
 const isAdmin = require("./super-admin/check-admin");
 
 router.get("/", co.wrap(function*(req, res, next){
-	var query = {};
+	var query = req.query.query?req.query.query:{};
 	if(req.query.q){
 		query.name = {$regex:`.*${req.query.q}.*`, '$options' : 'i'}
 	}
