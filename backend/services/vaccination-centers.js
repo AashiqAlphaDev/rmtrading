@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const VaccinationCenters = mongoose.model('VaccinationCenter');
 const VaccinationCenterAdmins = mongoose.model('VaccinationCenterAdmin');
-const emailer = require("./emailer")
+const emailer = require("./emailer");
 
 module.exports.createVaccinationCenter = function*(vaccinationCenterData){
 	return yield VaccinationCenters.create(vaccinationCenterData);

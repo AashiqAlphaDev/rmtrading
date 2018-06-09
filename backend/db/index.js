@@ -8,10 +8,7 @@ const ObjectID = ObjectId = Schema.ObjectId;
 var userSchema = new Schema({
     name:String,
     email:String,
-    username:String,
-    password:String,
-    mobile:String,
-    role:[String]
+    password:String
 });
 userSchema.plugin(mongoosePaginate);
 mongoose.model('User', userSchema);
