@@ -10,4 +10,4 @@ module.exports.send = function*(msg) {
 			resolve();
 		});
 	});
-}
+};

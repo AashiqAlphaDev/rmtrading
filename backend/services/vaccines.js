@@ -17,8 +17,8 @@ module.exports.deleteVaccine = function*(vaccineId){
 	return yield Vaccines.remove({_id:vaccineId});
 };
 
-module.exports.vaccines = function*(query={}){
-	return yield Vaccines.find(query).exec();
+module.exports.vaccines = function*(query={}, page){
+	return yield Vaccines.paginate(query, page);
 };
 
 module.exports.vaccineWithId = function*(vaccineId){

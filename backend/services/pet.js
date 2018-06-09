@@ -1,51 +1,38 @@
-const mongoose = require("mongoose");
-const pets = mongoose.model("PetType");
+const mongoose = require("mongoose")
+const Pet = mongoose.model('Pet');
 
-module.exports.createPetType= function(petData,callback){
-    var createPromise = pets.create(petData);
-    createPromise.then(function (pet) {
-        callback(null,pet)
-    });
-}
+module.exports.createPet = function*(petData){
+	let existingPet = yield Pet.findOne({name:petData.name});
+	if(existingPet){
+		return existingPet;
+	}
+	return yield Pet.create(petData);
+};
 
+module.exports.updatePet = function*(id, petData){
+	return yield Pet.update({_id:id},petData);
+};
 
-module.exports.petsTypes = function(query, page,callback){
-    var promise = pets.find().exec();
-    promise.then(function (pet) {
-        callback(null, pet)
-    });
-    promise.catch(function (err) {
-        callback(err);
-    })
-}
+module.exports.deletePet = function*(petId){
+	return yield Pet.remove({_id:petId});
+};
 
+module.exports.pets = function*(query={}, page){
+	return yield Pet.paginate(query, page);
+};
 
-module.exports.petTypeWithId = function(id, callback){
-    var promise = pets.findById(id).exec();
-    promise.then(function (pet) {
-        callback(null, pet);
-    })
-    promise.catch(function (err) {
-        callback(err);
-    })
-}
+module.exports.petWithId = function*(petId){
+	return yield Pet.findOne({_id:petId}).exec();
+};
 
-module.exports.updatePetType = function(id, data, callback){
-    var update = pets.update({_id:id}, data);
-    update.then(function () {
-        callback(null, true);
-    })
-    update.catch(function(err){
-        callback(err)
-    })
-}
+module.exports.petsOfOwner = function*(ownerId){
+	return yield Pet.find({owner:ownerId}).exec();
+};
 
-module.exports.deletePetType = function(id, callback){
-    var promise = pets.remove({_id:id});
-    promise.then(function () {
-        callback(null, true);
-    })
-    promise.catch(function(err){
-        callback(err)
-    })
-}
+module.exports.petWithName = function*(name){
+	return yield Pet.findOne({name:name}).exec();
+};
+
+module.exports.deleteAll = function*(){
+	return yield Pet.remove({});
+};

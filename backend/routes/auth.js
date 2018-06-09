@@ -1,4 +1,4 @@
-var authService = require("../services/authService")
+var authService = require("../services/auth")
 var Router = require("express").Router
 var router = Router();
 var co = require("co");
@@ -8,9 +8,13 @@ router.post("/register", co.wrap(function*(req, res, next){
 	    yield authService.registerUser(req.body);
 	    res.send({});
     }catch (e) {
-        console.log(e);
 	    res.status(e.statusCode).send({message:e.message});
     }
+}));
+
+router.delete("/logout", co.wrap(function*(req, res, next){
+	delete req.session.user_id;
+	res.send({})
 }));
 
 router.post("/login", co.wrap(function*(req, res, next){
