@@ -1,11 +1,19 @@
-import {SUPER_SIGN_OUT_REQUESTED, SUPER_SIGN_OUT_FAILED, SUPER_SIGN_OUT_SUCCEEDED} from "./auth-actions";
+import {
+	SUPER_SIGN_OUT_REQUESTED,
+	SUPER_SIGN_OUT_FAILED,
+	SUPER_SIGN_OUT_SUCCEEDED
+} from "./auth-actions";
+
 import {
 	DISEASES_CLEAR_MATCHES,
 	DISEASES_FETCH_MATCHES,
 	DISEASES_FETCH_MATCHES_FAILED,
 	DISEASES_FETCH_MATCHES_SUCCEDED
 } from "./app-data-actions";
-import {combineReducers} from "redux";
+
+import {
+	combineReducers
+} from "redux";
 
 const initialAuthState = {
 	authInProgress: false,
@@ -57,7 +65,7 @@ const diseaseListReducer = function(state=initialDiseases, action){
 		}
 	}
 	return state;
-}
+};
 
 
 export default combineReducers({authData: authReducer, diseaseList:diseaseListReducer});
