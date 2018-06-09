@@ -1,7 +1,7 @@
 var Router = require("express").Router
 var router = Router();
 const co = require("co");
-const DiseaseManagementService = require("../services/diseases")
+const DiseaseManagementService = require("../services/disease")
 const isAdmin = require("./super-admin/check-admin")
 
 router.get("/", co.wrap(function*(req, res, next){

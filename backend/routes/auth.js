@@ -12,6 +12,11 @@ router.post("/register", co.wrap(function*(req, res, next){
     }
 }));
 
+router.delete("/logout", co.wrap(function*(req, res, next){
+	delete req.session.user_id;
+	res.send({})
+}));
+
 router.post("/login", co.wrap(function*(req, res, next){
 	var result = yield authService.authenticateUser(req.body);
 	if(result){

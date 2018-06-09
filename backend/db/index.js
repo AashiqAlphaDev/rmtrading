@@ -10,7 +10,6 @@ var userSchema = new Schema({
     email:String,
     password:String
 });
-userSchema.plugin(mongoosePaginate);
 mongoose.model('User', userSchema);
 
 //Vaccine Metadata
@@ -69,6 +68,13 @@ var vaccinationCenterAdminSchema = new Schema({
     vaccination_center:ObjectID
 });
 mongoose.model('VaccinationCenterAdmin', vaccinationCenterAdminSchema);
+
+var vaccinationCenterStaffSchema = new Schema({
+	email:String,
+	status:String,
+	vaccination_center:ObjectID
+});
+mongoose.model('VaccinationCenterStaff', vaccinationCenterStaffSchema);
 
 
 var inventoryItemSchema = new Schema({

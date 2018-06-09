@@ -9,4 +9,6 @@ var isAdmin = co.wrap(function*(req, res, next){
 	}
 });
 
+
+
 module.exports = isAdmin

@@ -3,20 +3,26 @@ var router = Router();
 const co = require("co");
 var adminService = require("../services/admin")
 
-
 router.post("/select-vaccination-center", co.wrap(function*(req, res, next){
 	if(!req.session.user_id){
 		res.status(401).send({});
 		return;
 	}
 	let isAdmin = yield adminService.checkAdmin(req.session.user_id, req.body.center_id);
-	if(isAdmin){
+	let isStaff = false;
+	if(!isAdmin){
+		isStaff = yield adminService.checkStaff(req.session.user_id, req.body.center_id);
+	}
+	if(isAdmin || isStaff){
 		req.session.center_id = req.body.center_id;
+		req.session.isCenterAdmin = isAdmin;
 		res.send({});
 	}
 	else{
 		res.status(401).send({});
 	}
 }));
+
+
 
 module.exports = router;
