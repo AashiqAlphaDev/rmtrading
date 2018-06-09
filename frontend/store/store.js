@@ -4,7 +4,7 @@ import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import createSagaMiddleware from "redux-saga";
 import {authSaga} from "./auth/actions";
 import {adminSaga} from "./super-admin/auth-actions";
-import {diseaseListSaga} from "./super-admin/app-data-actions";
+import {appDataSaga} from "./super-admin/app-data-actions";
 
 const composeEnhancers =
 	typeof window === 'object' &&
@@ -25,7 +25,7 @@ export default (initState)=>{
 	const store = createStore(combineReducers({authData, adminData}), initState, enhancer);
 	authSagaMiddleware.run(authSaga);
 	authSagaMiddleware.run(adminSaga);
-	authSagaMiddleware.run(diseaseListSaga);
+	authSagaMiddleware.run(appDataSaga);
 	return store;
 }
 

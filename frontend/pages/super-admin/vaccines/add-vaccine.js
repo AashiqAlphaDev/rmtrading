@@ -18,19 +18,29 @@ import {
 import {AnnotatedSection} from "../../../components/page-layout";
 import InputContainer from "../../../components/input"
 import AutoSuggest from "../../../components/auto-suggest"
-import {DISEASES_FETCH_MATCHES, DISEASES_CLEAR_MATCHES, DISEASES_CREATE} from "../../../store/super-admin/app-data-actions";
+import {
+	DISEASES_FETCH_MATCHES,
+	DISEASES_CLEAR_MATCHES,
+	DISEASES_CREATE,
+	PET_TYPE_CLEAR_MATCHES, PET_TYPE_CREATE
+} from "../../../store/super-admin/app-data-actions";
 
 const Index = withRoot(style)(class extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            disease_query: ""
+            disease_query: "",
+	        pet_type_query: ""
         };
     }
 
-    handleSuggestionsFetchRequested({value}) {
+    handleDiseaseSuggestionsFetchRequested({value}) {
         this.props.dispatch({type: DISEASES_FETCH_MATCHES, payload: {query: value}})
     }
+
+	handlePetTypeSuggestionsFetchRequested({value}) {
+		this.props.dispatch({type: DISEASES_FETCH_MATCHES, payload: {query: value}})
+	}
 
     render() {
         const {classes} = this.props;
@@ -54,7 +64,7 @@ const Index = withRoot(style)(class extends React.Component {
                                     action: "create_new",
                                     value: {name:this.state.disease_query}
                                 }] : this.props.adminData.diseaseList.matched_diseases}
-                                onSuggestionsFetchRequested={this.handleSuggestionsFetchRequested.bind(this)}
+                                onSuggestionsFetchRequested={this.handleDiseaseSuggestionsFetchRequested.bind(this)}
                                 onSuggestionsClearRequested={() => {
                                     this.props.dispatch({type: DISEASES_CLEAR_MATCHES})
                                 }}
@@ -71,9 +81,29 @@ const Index = withRoot(style)(class extends React.Component {
                                     }
                                 }}
                             />
-                            <InputContainer label={"Pet"}>
-                                <TextField></TextField>
-                            </InputContainer>
+	                        <AutoSuggest
+		                        suggestions={this.props.adminData.diseaseList.matched_diseases.length == 0 ? [{
+			                        name: `+ Create ${this.state.pet_type_query}`,
+			                        action: "create_new",
+			                        value: {name:this.state.pet_type_query}
+		                        }] : this.props.adminData.diseaseList.matched_diseases}
+		                        onSuggestionsFetchRequested={this.handlePetTypeSuggestionsFetchRequested.bind(this)}
+		                        onSuggestionsClearRequested={() => {
+			                        this.props.dispatch({type: PET_TYPE_CLEAR_MATCHES})
+		                        }}
+		                        placeholder={"Pet Type"}
+		                        value={this.state.disease_query}
+		                        onChange={(event, payload) => {
+			                        const {newValue} = payload;
+			                        if(newValue.action){
+				                        this.props.dispatch({type:PET_TYPE_CREATE, payload:newValue.value})
+				                        this.setState({pet_type_query:""});
+			                        }
+			                        else{
+				                        this.setState({pet_type_query:newValue})
+			                        }
+		                        }}
+	                        />
                             <InputContainer label={"Breed"}>
                                 <Select
                                     value={10}
