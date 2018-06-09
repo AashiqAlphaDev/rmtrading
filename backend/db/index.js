@@ -74,6 +74,12 @@ var vaccinationCenterAdminSchema = new Schema({
 mongoose.model('VaccinationCenterAdmin', vaccinationCenterAdminSchema);
 
 
+var inventoryItemSchema = new Schema({
+	name:String,
+	desc:String
+});
+mongoose.model('InventoryItem', inventoryItemSchema);
+
 
 
 //Pet Metadata
