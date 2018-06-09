@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
 const VaccinationCenters = mongoose.model('VaccinationCenter');
 const VaccinationCenterAdmins = mongoose.model('VaccinationCenterAdmin');
+const emailer = require("./emailer")
 
 module.exports.createVaccinationCenter = function*(vaccinationCenterData){
 	return yield VaccinationCenters.create(vaccinationCenterData);
@@ -36,7 +37,15 @@ module.exports.createAdmin = function*(centerId,adminData){
 	if(existingBreed){
 		return existingBreed;
 	}
+	var vaccinationCenter = yield VaccinationCenters.findOne({_id:centerId}).exec();
 	adminData.vaccination_center = centerId;
+	adminData.status = "pending";
+	yield emailer.send({
+		to: adminData.email,
+		from: 'aashiq@appsfly.io',
+		subject: `Added as Administrator of ${vaccinationCenter.name}`,
+		html: `<p align="center"> You are added as Administrator for ${vaccinationCenter.name}. You can access dashboard from <a href="${process.env.FRONTEND_HOST}/auth">here</a> </p>`
+	});
 	return yield VaccinationCenterAdmins.create(adminData);
 };
 

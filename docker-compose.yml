@@ -5,6 +5,7 @@ services:
     environment:
       - SUPER_ADMIN_USER=karthik1729
       - SUPER_ADMIN_PASSWORD=karthik001
+      - FRONTEND_HOST=http://localhost:3001
     depends_on:
       - db
     volumes:

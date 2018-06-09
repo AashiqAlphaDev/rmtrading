@@ -1,22 +1,17 @@
 var Router = require("express").Router
 var router = Router();
-const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey("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");
+
 
 
 
 
 router.get("/emailer/verification", function(req, res, next) {
-
     const msg = {
         to: 'aashiqalimohammed@gmail.com',
         from: 'aashiq@appsfly.io',
         subject: 'PetPiper : Verify Your Email',
         html: '<p align="center"> Please verify your email ID <p> <img src="http://www.supercoloring.com/sites/default/files/silhouettes/2015/05/dog-paws-deep-sky-blue-silhouette.svg" alt="">'
-
-
     };
-
 
     sgMail.send(msg, function (err) {
         if (err) {

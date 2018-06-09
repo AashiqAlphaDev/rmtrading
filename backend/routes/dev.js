@@ -32,5 +32,10 @@ router.get("/clear-vaccination-centers", co.wrap(function*(req, res, next){
 	yield VaccinationCenterManagementService.deleteAll();
 }));
 
+router.get("/clear-vaccination-centers-admins", co.wrap(function*(req, res, next){
+	res.send({});
+	yield VaccinationCenterManagementService.deleteAllAdmins();
+}));
+
 
 module.exports = router;
