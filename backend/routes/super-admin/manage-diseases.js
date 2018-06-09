@@ -4,11 +4,12 @@ const co = require("co");
 const DiseaseManagementService = require("../../services/diseases")
 
 router.get("/", co.wrap(function*(req, res, next){
-	var query = {}
+	var query = {};
 	if(req.query.q){
-		query.name = {$regex:`.*${req.query.q}.*`}
+		query.name = {$regex:`.*${req.query.q}.*`, '$options' : 'i'}
 	}
-	let diseases = yield DiseaseManagementService.diseases(req.query);
+	console.log(query)
+	let diseases = yield DiseaseManagementService.diseases(query);
 	res.send(diseases);
 }));
 

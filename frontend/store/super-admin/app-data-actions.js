@@ -11,7 +11,6 @@ const DISEASES_CREATE_FAILED = "diseases.CREATE_FAILED";
 
 
 const fetchMatches = function*(action){
-	console.log("here", action)
 	try {
 		let response = yield call(fetch, `${BaseUrl.frontend}/super-admin/diseases?q=${action.payload.query}`);
 		if (response.ok) {
@@ -25,8 +24,9 @@ const fetchMatches = function*(action){
 };
 
 const createDisease = function*(action){
+	console.log(action)
 	try {
-		let response = yield call(fetch, `${BaseUrl.frontend}/super-admin/disease`, {
+		let response = yield call(fetch, `${BaseUrl.frontend}/super-admin/diseases`, {
 			method:"POST",
 			headers:{
 				"Content-Type":"application/json"
