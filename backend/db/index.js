@@ -173,3 +173,17 @@ const DiseaseSchema = new Schema({
     name:String
 });
 mongoose.model('Disease', DiseaseSchema);
+
+const TokenSchema = new Schema({
+	status:String,
+    pet:ObjectID
+});
+mongoose.model('Token', TokenSchema);
+
+const RequestSchema = new Schema({
+	title:String,
+	desc:String,
+	status:String,
+	center:ObjectID
+});
+mongoose.model('Request', RequestSchema);

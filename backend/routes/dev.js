@@ -7,6 +7,9 @@ const VaccinesManagementService = require("../services/vaccines")
 const VaccinationCenterManagementService = require("../services/vaccination-centers")
 const InventoryManagementService = require("../services/inventory")
 const PetManagementService = require("../services/pet")
+const VaccinationManagementService = require("../services/vaccinations")
+const TokensManagementService = require("../services/token")
+const RequestsManagementService = require("../services/request")
 
 
 router.get("/clear-diseases", co.wrap(function*(req, res, next){
@@ -48,6 +51,21 @@ router.get("/clear-inventory", co.wrap(function*(req, res, next){
 router.get("/clear-pets", co.wrap(function*(req, res, next){
 	res.send({});
 	yield PetManagementService.deleteAll();
+}));
+
+router.get("/clear-vaccinations", co.wrap(function*(req, res, next){
+	res.send({});
+	yield VaccinationManagementService.deleteAll();
+}));
+
+router.get("/clear-tokens", co.wrap(function*(req, res, next){
+	res.send({});
+	yield TokensManagementService.deleteAll();
+}));
+
+router.get("/clear-requests", co.wrap(function*(req, res, next){
+	res.send({});
+	yield RequestsManagementService.deleteAll();
 }));
 
 
