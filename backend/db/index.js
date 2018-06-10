@@ -27,22 +27,45 @@ const vaccinesSchema = new Schema({
     name: String,
     available:Boolean,
     related_disease:String,
-    pet_kind:ObjectID,
-    breed_type:ObjectID,
+    pet_type:ObjectID,
+    breed:ObjectID,
     gender:String,
     country:String,
     remarks:String,
     number_of_doses:Number,
-    schedules:[{
-        interval_from_birth:{
-            weeks:Number,
-            months:Number
-        }
+    child_vaccine_schedules:[{
+	    catch_up_period:{
+		    notify_period:Number,
+		    due_period:Number
+	    },
+        interval:Number,
+        period:{
+            start:Number,
+            end:Number
+        },
     }],
-    recurring_interval:{
-        weeks:Number,
-        months:Number
-    }
+	adult_vaccine_schedules:[{
+		catch_up_period:{
+			notify_period:Number,
+			due_period:Number
+		},
+		interval:Number,
+		period:{
+			start:Number,
+			end:Number
+		},
+	}],
+	booster_vaccine_schedules:[{
+		catch_up_period:{
+			notify_period:Number,
+			due_period:Number
+		},
+		interval:Number,
+		period:{
+			start:Number,
+			end:Number
+		},
+	}]
 });
 vaccinesSchema.plugin(mongoosePaginate);
 mongoose.model('Vaccine', vaccinesSchema);
@@ -105,7 +128,8 @@ mongoose.model('Breed', breedSchema);
 var petTypeSchema = new Schema({
     name:String,
     description:String,
-    scientific_name:String
+    scientific_name:String,
+	life_span:Number
 });
 petTypeSchema.plugin(mongoosePaginate);
 mongoose.model('PetType', petTypeSchema);
@@ -115,7 +139,8 @@ var petSchema = new Schema({
     name:String,
     pet_type:ObjectID,
     breed:ObjectID,
-    owner:ObjectID
+    owner:ObjectID,
+    date_of_birth:Date
 });
 petSchema.plugin(mongoosePaginate);
 mongoose.model('Pet', petSchema);
@@ -138,7 +163,8 @@ const vaccinationSchema = new Schema({
     },
     pet:ObjectID,
     vaccine:ObjectID,
-    status:Boolean
+    status:Boolean,
+    data:{}
 });
 vaccinationSchema.plugin(mongoosePaginate);
 mongoose.model('Vaccination', vaccinationSchema);
@@ -147,3 +173,17 @@ const DiseaseSchema = new Schema({
     name:String
 });
 mongoose.model('Disease', DiseaseSchema);
+
+const TokenSchema = new Schema({
+	status:String,
+    pet:ObjectID
+});
+mongoose.model('Token', TokenSchema);
+
+const RequestSchema = new Schema({
+	title:String,
+	desc:String,
+	status:String,
+	center:ObjectID
+});
+mongoose.model('Request', RequestSchema);
