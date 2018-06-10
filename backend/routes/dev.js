@@ -6,6 +6,8 @@ const PetTypeManagementService = require("../services/pets-type")
 const VaccinesManagementService = require("../services/vaccines")
 const VaccinationCenterManagementService = require("../services/vaccination-centers")
 const InventoryManagementService = require("../services/inventory")
+const PetManagementService = require("../services/pet")
+
 
 router.get("/clear-diseases", co.wrap(function*(req, res, next){
 	res.send({});
@@ -41,6 +43,11 @@ router.get("/clear-vaccination-centers-admins", co.wrap(function*(req, res, next
 router.get("/clear-inventory", co.wrap(function*(req, res, next){
 	res.send({});
 	yield InventoryManagementService.deleteAll();
+}));
+
+router.get("/clear-pets", co.wrap(function*(req, res, next){
+	res.send({});
+	yield PetManagementService.deleteAll();
 }));
 
 

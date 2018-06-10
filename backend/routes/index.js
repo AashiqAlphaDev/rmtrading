@@ -12,6 +12,7 @@ router.use("/inventory",require("./manage-inventory"));
 router.use("/session",require("./session"));
 router.use("/pets",haveCenterAccess,require("./manage-pets"));
 router.use("/users",haveCenterAccess,require("./manage-users"));
+router.use("/pets/:pet_id/vaccinations",haveCenterAccess,require("./manage-vaccinations"));
 
 router.use("/dev",require("./dev"));
 
