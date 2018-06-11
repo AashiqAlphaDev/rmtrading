@@ -1,35 +1,55 @@
 const mongoose = require("mongoose")
-const Disease = mongoose.model('Disease');
+const Appointment = mongoose.model('Appointment');
+const VaccintionCenter = mongoose.model('VaccinationCenter');
 
-module.exports.createDisease = function*(diseaseData){
-	let existingDisease = yield Disease.findOne({name:diseaseData.name});
-	if(existingDisease){
-		return existingDisease;
+
+const AppointmentSchema = new Schema({
+    center:ObjectID,
+    owner:ObjectID,
+    time_slots:{
+        from:Number,
+        to:Number
+    }
+});
+
+
+
+
+
+module.exports.createAppointment = function*(appointmentData){
+
+    let vaccinationCenter = yield VaccintionCenter.findOne({_id:appointmentData.center}).exec();
+
+
+
+    let existingAppointment = yield Appointment.findOne({name:appointmentData.name});
+	if(existingAppointment){
+		return existingAppointment;
 	}
-	return yield Disease.create(diseaseData);
+	return yield Appointment.create(appointmentData);
 };
 
-module.exports.updateDisease = function*(id, diseaseData){
-	return yield Disease.update({_id:id},diseaseData);
+module.exports.updateAppointment = function*(id, appointmentData){
+	return yield Appointment.update({_id:id},appointmentData);
 };
 
-module.exports.deleteDisease = function*(diseaseId){
-	return yield Disease.remove({_id:diseaseId});
+module.exports.deleteAppointment = function*(appointmentId){
+	return yield Appointment.remove({_id:appointmentId});
 };
 
-module.exports.diseases = function*(query={}){
-	return yield Disease.find(query).exec();
+module.exports.appointments = function*(query={}){
+	return yield Appointment.find(query).exec();
 };
 
-module.exports.diseaseWithId = function*(diseaseId){
-	return yield Disease.findOne({_id:diseaseId}).exec();
+module.exports.appointmentWithId = function*(appointmentId){
+	return yield Appointment.findOne({_id:appointmentId}).exec();
 };
 
-module.exports.diseaseWithName = function*(name){
-	return yield Disease.findOne({name:name}).exec();
+module.exports.appointmentWithName = function*(name){
+	return yield Appointment.findOne({name:name}).exec();
 };
 
 module.exports.deleteAll = function*(){
-	return yield Disease.remove({});
+	return yield Appointment.remove({});
 };
 

@@ -3,12 +3,7 @@ import {connect} from "react-redux";
 import withRoot from "../../../src/withRoot";
 import {
 	Typography,
-	Table,
-	TableHead,
-	TableRow,
-	TableCell,
-	TableBody,
-	Paper,
+	Paper
 } from "@material-ui/core";
 import style from "../style"
 import VaccineCenterTmpl from "./vaccine-centers-tmpl"
@@ -25,34 +20,7 @@ const Index = withRoot(style)(class extends React.Component {
 				</Typography>
 			</div>
 			<Paper>
-				<Table>
-					<TableHead>
-						<TableRow>
-							<TableCell>Vaccine</TableCell>
-							<TableCell>Disease</TableCell>
-							<TableCell>Country</TableCell>
-							<TableCell>Pet</TableCell>
-							<TableCell>Breed</TableCell>
-							<TableCell>Gender</TableCell>
-							<TableCell>Notes</TableCell>
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{
-							[1, 2, 3, 4, 5, 6, 7, 8, 9,1, 2, 3, 4, 5, 6, 7, 8, 9,1, 2, 3, 4, 5, 6, 7, 8, 9].map((i, index) => {
-								return <TableRow key={index}>
-									<TableCell>Vaccine</TableCell>
-									<TableCell>Disease</TableCell>
-									<TableCell >Country</TableCell>
-									<TableCell >Pet</TableCell>
-									<TableCell >Breed</TableCell>
-									<TableCell >Gender</TableCell>
-									<TableCell >Notes</TableCell>
-								</TableRow>
-							})
-						}
-					</TableBody>
-				</Table>
+				q
 			</Paper>
 		</div>
 		</VaccineCenterTmpl>
