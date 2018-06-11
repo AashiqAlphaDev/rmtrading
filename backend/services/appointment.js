@@ -2,26 +2,8 @@ const mongoose = require("mongoose")
 const Appointment = mongoose.model('Appointment');
 const VaccintionCenter = mongoose.model('VaccinationCenter');
 
-
-const AppointmentSchema = new Schema({
-    center:ObjectID,
-    owner:ObjectID,
-    time_slots:{
-        from:Number,
-        to:Number
-    }
-});
-
-
-
-
-
 module.exports.createAppointment = function*(appointmentData){
-
     let vaccinationCenter = yield VaccintionCenter.findOne({_id:appointmentData.center}).exec();
-
-
-
     let existingAppointment = yield Appointment.findOne({name:appointmentData.name});
 	if(existingAppointment){
 		return existingAppointment;

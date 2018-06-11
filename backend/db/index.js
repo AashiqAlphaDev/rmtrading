@@ -89,12 +89,18 @@ const vaccinationCenterSchema = new Schema({
         email:String,
         fax:String
     },
-    time_slots:[
-        {
-            from:Number,
-            to:Number
-        }
-    ]
+	appointments_per_hour:Number,
+	queues:[
+		{
+			name:String,
+			time_slots:[
+				{
+					from:Number,
+					to:Number
+				}
+			]
+		}
+	]
 });
 vaccinationCenterSchema.plugin(mongoosePaginate);
 mongoose.model('VaccinationCenter', vaccinationCenterSchema);
@@ -198,9 +204,9 @@ mongoose.model('Request', RequestSchema);
 const AppointmentSchema = new Schema({
     center:ObjectID,
     owner:ObjectID,
-    time_slots:{
-        from:Number,
-        to:Number
-    }
+	date:Date,
+	status:String,
+	queue_name:String,
+	slot_index:Number
 });
 mongoose.model('Appointment', AppointmentSchema);

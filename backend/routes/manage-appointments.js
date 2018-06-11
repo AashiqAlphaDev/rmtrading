@@ -1,46 +1,60 @@
 var Router = require("express").Router
-var router = Router();
+var router = Router({mergeParams: true});
 const co = require("co");
-const appointmentManagementService = require("../services/appointment")
-const isAdmin = require("./super-admin/check-admin")
+const vaccinationCenterManagementService = require("../services/vaccination-centers")
 
-router.get("/", co.wrap(function*(req, res, next){
-	var query = req.query.query?req.query.query:{};
-	if(req.query.q){
-		query.name = {$regex:`.*${req.query.q}.*`, '$options' : 'i'}
-	}
-	if(req.query.page && req.query.limit){
-		var page = {};
-		page.page = parseInt(req.query.page);
-		page.limit = parseInt(req.query.limit);
-		let pets = yield appointmentManagementService.appointment(query, page);
-		res.send(pets);
+router.get("/available", co.wrap(function *(req, res, next) {
+	var appointments = yield vaccinationCenterManagementService.availableAppointmentSlots(req.params.center_id, new Date(req.query.date));
+	res.send(appointments);
+}));
+
+router.get("/", co.wrap(function *(req, res, next) {
+	if (req.session.user_id && req.session.center_id) {
+		var appointments = yield vaccinationCenterManagementService.appointments(req.params.center_id, new Date(req.query.date));
+		res.send(appointments);
 	}
 	else{
-		let appointment = yield appointmentManagementService.appointment(query);
-		res.send(appointment);
+		next();
 	}
 }));
 
-router.get("/:vaccine_id", co.wrap(function*(req, res, next){
-	let vaccine = yield appointmentManagementService.vaccineWithId(req.params.vaccine_id);
-	res.send(vaccine);
+router.get("/", co.wrap(function *(req, res, next) {
+	var appointments = yield vaccinationCenterManagementService.appointments(req.params.center_id, new Date(req.query.date), req.session.user_id);
+	res.send(appointments);
 }));
 
-router.post("/",isAdmin, co.wrap(function*(req, res, next){
-	let vaccine = yield appointmentManagementService.createVaccine(req.body);
-	res.send(vaccine);
+router.post("/", co.wrap(function *(req, res, next) {
+	try{
+		var appointments = yield vaccinationCenterManagementService.bookAppointment(req.body);
+		res.send(appointments);
+	} catch(err){
+		res.status(err.statusCode).send({message:err.message});
+	}
 }));
 
-router.put("/:vaccine_id",isAdmin, co.wrap(function*(req, res, next){
-	let vaccine = yield appointmentManagementService.updateVaccine(req.params.vaccine_id,req.body);
-	res.send(vaccine);
+
+router.delete("/:appointment_id", co.wrap(function *(req, res, next) {
+	if (req.session.user_id && req.session.center_id) {
+		try{
+			var appointments = yield vaccinationCenterManagementService.cancelAppointment(req.params.appointment_id);
+			res.send(appointments);
+		} catch(err){
+			res.status(err.statusCode).send({message:err.message});
+		}
+	}
+	else{
+		next()
+	}
 }));
 
-router.delete("/:vaccine_id",isAdmin, co.wrap(function*(req, res, next){
-	yield appointmentManagementService.deleteVaccine(req.params.vaccine_id);
-	res.send({});
-}));
 
+router.delete("/:appointment_id", co.wrap(function *(req, res, next) {
+	try{
+		var appointments = yield vaccinationCenterManagementService.cancelAppointment(req.params.appointment_id, req.sesion.user_id);
+		res.send(appointments);
+	} catch(err){
+		res.status(err.statusCode).send({message:err.message});
+	}
+}));
 
 module.exports = router;

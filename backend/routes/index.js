@@ -1,5 +1,5 @@
 var Router = require("express").Router
-var router = Router();
+var router = Router({mergeParams: true});
 const haveCenterAccess = require("./check-center-access")
 
 router.use(require("./auth"));
@@ -15,6 +15,9 @@ router.use("/session",require("./session"));
 router.use("/pets",haveCenterAccess,require("./manage-pets"));
 router.use("/users",haveCenterAccess,require("./manage-users"));
 router.use("/pets/:pet_id/vaccinations",haveCenterAccess,require("./manage-vaccinations"));
+
+router.use("/vaccination-centers/:center_id/appointments",require("./manage-appointments"));
+
 router.use("/dev",require("./dev"));
 
 module.exports = router
