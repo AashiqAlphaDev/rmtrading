@@ -56,7 +56,7 @@ export default withRoot((theme) => {
 				<AppBar color={"inherit"} position={"static"}>
 					<Toolbar className={"container"}>
 						<Layout className={"flex"}>
-							<Link prefetch href={"/super-admin"}>
+							<Link href={"/super-admin"}>
 								<a>
 									<Typography variant="title">
 										Admin Dashboard

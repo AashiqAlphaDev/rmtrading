@@ -55,7 +55,7 @@ export default withRoot((theme) => {
 				<AppBar color={"inherit"} position={"static"}>
 					<Toolbar className={"container"}>
 						<Layout className={"flex"}>
-							<Link prefetch href={"/super-admin"}>
+							<Link href={"/super-admin"}>
 								<a>
 									<Typography variant="title">
 										Admin Dashboard
@@ -71,7 +71,7 @@ export default withRoot((theme) => {
 						{
 							pages.map((page, index) => {
 								return <Link href={page.url} key={page.url}>
-									<Button className={classes.navButton}
+									<Button href="#" className={classes.navButton}
 									        color={(index === this.state.selectedTab) ? 'primary' : 'default'}>
 										{page.label}
 									</Button>
