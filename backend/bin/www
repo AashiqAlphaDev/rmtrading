@@ -8,6 +8,17 @@ require("../db")
 var app = require('../app');
 var debug = require('debug')('adbackend:server');
 var http = require('http');
+var co = require("co");
+
+global.httpCoWrap = function(generator){
+    return co.wrap(function *(req, res, next) {
+        try {
+            yield generator(req, res, next);
+        }catch (err){
+          next(err);
+        }
+    });
+}
 
 
 /**

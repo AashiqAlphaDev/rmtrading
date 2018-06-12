@@ -3,13 +3,9 @@ var Router = require("express").Router
 var router = Router();
 var co = require("co");
 
-router.post("/register", co.wrap(function*(req, res, next){
-    try{
-	    yield authService.registerUser(req.body);
-	    res.send({});
-    }catch (e) {
-	    res.status(e.statusCode).send({message:e.message});
-    }
+router.post("/register", httpCoWrap(function*(req, res, next){
+	yield authService.registerUser(req.body);
+	res.send({});
 }));
 
 router.delete("/logout", co.wrap(function*(req, res, next){

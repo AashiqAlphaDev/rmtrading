@@ -1,3 +1,4 @@
+const createError = require('http-errors');
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
 const md5 = require("md5");
@@ -12,7 +13,9 @@ module.exports.registerUser = function*({email, name, password}){
 	let existingUser = yield User.findOne({email:email}).exec();
 	if (existingUser) {
 		yield User.update({email:email},{password});
-		return yield User.findOne({email:email}).exec();
+        let error = createError(400);
+        error.message = "User with this email is already registered.";
+        throw error;
 	}
 	yield emailer.send({
 		to: email,
