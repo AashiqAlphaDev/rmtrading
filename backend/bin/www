@@ -3,22 +3,55 @@
 /**
  * Module dependencies.
  */
+var co = require("co");
+const createError = require('http-errors')
+const _ = require("underscore")
+
+global.httpCoWrap = function(generator){
+    return co.wrap(function *(req, res, next) {
+        try {
+            yield generator(req, res);
+        } catch (err){
+          if(!err.statusCode){
+              err.statusCode = 500;
+          }
+          next(err);
+        }
+    });
+}
+
+
+
+
+global.validate = function (data, params, message){
+    for(var param in params){
+        var key = _.find(data, function(value, key) {
+        return (params[param] == key)
+      });
+        if(!key){
+            var err = createError(400);
+            err.message = _.template(message)({param:params[param]});
+            throw err;
+        }
+    }
+}
+
+global.queryValidate = function (queryParam, message){
+        if(!queryParam){
+            var err = createError(400);
+            err.message = message;
+            throw err;
+        }
+    }
+
+
+
 
 require("../db")
 var app = require('../app');
 var debug = require('debug')('adbackend:server');
 var http = require('http');
-var co = require("co");
 
-global.httpCoWrap = function(generator){
-    return co.wrap(function *(req, res, next) {
-        try {
-            yield generator(req, res, next);
-        }catch (err){
-          next(err);
-        }
-    });
-}
 
 
 /**

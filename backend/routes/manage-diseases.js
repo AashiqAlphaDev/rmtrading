@@ -4,7 +4,7 @@ const co = require("co");
 const DiseaseManagementService = require("../services/disease")
 const isAdmin = require("./super-admin/check-admin")
 
-router.get("/", co.wrap(function*(req, res, next){
+router.get("/", httpCoWrap(function*(req, res, next){
 	var query = req.query.query?req.query.query:{};
 	if(req.query.q){
 		query.name = {$regex:`.*${req.query.q}.*`, '$options' : 'i'}
@@ -13,22 +13,22 @@ router.get("/", co.wrap(function*(req, res, next){
 	res.send(diseases);
 }));
 
-router.get("/:disease_id", co.wrap(function*(req, res, next){
+router.get("/:disease_id", httpCoWrap(function*(req, res, next){
 	let disease = yield DiseaseManagementService.diseaseWithId(req.params.disease_id);
 	res.send(disease);
 }));
 
-router.post("/",isAdmin, co.wrap(function*(req, res, next){
+router.post("/",isAdmin, httpCoWrap(function*(req, res, next){
 	let disease = yield DiseaseManagementService.createDisease(req.body);
 	res.send(disease);
 }));
 
-router.put("/:disease_id", isAdmin,co.wrap(function*(req, res, next){
+router.put("/:disease_id", isAdmin,httpCoWrap(function*(req, res, next){
 	let disease = yield DiseaseManagementService.updateDisease(req.params.disease_id,req.body);
 	res.send(disease);
 }));
 
-router.delete("/:disease_id", isAdmin, co.wrap(function*(req, res, next){
+router.delete("/:disease_id", isAdmin, httpCoWrap(function*(req, res, next){
 	yield DiseaseManagementService.deleteDisease(req.params.disease_id);
 	res.send({});
 }));

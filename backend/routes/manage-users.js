@@ -3,7 +3,7 @@ var router = Router();
 const co = require("co");
 const UsersManagementService = require("../services/user")
 
-router.get("/", co.wrap(function*(req, res, next){
+router.get("/", httpCoWrap(function*(req, res, next){
 	var query = req.query.query?req.query.query:{};
 	if(req.query.q){
 		query.name = {$regex:`.*${req.query.q}.*`, '$options' : 'i'}
@@ -21,32 +21,32 @@ router.get("/", co.wrap(function*(req, res, next){
 	}
 }));
 
-router.get("/:user_id", co.wrap(function*(req, res, next){
+router.get("/:user_id", httpCoWrap(function*(req, res, next){
 	let user = yield UsersManagementService.userWithId(req.params.user_id);
 	res.send(user);
 }));
 
-router.get("/by-mobile/:mobile_number", co.wrap(function*(req, res, next){
+router.get("/by-mobile/:mobile_number", httpCoWrap(function*(req, res, next){
 	let user = yield UsersManagementService.userByMobileNo(req.params.mobile_number);
 	res.send(user);
 }));
 
-router.get("/by-gov-id/:gov_id", co.wrap(function*(req, res, next){
+router.get("/by-gov-id/:gov_id", httpCoWrap(function*(req, res, next){
 	let user = yield UsersManagementService.userByGovernmentId(req.params.gov_id);
 	res.send(user);
 }));
 
-router.get("/by-email/:email", co.wrap(function*(req, res, next){
+router.get("/by-email/:email", httpCoWrap(function*(req, res, next){
 	let user = yield UsersManagementService.userByEmail(req.params.email);
 	res.send(user);
 }));
 
-router.post("/", co.wrap(function*(req, res, next){
+router.post("/", httpCoWrap(function*(req, res, next){
 	let user = yield UsersManagementService.createUser(req.body);
 	res.send(user);
 }));
 
-router.put("/:user_id", co.wrap(function*(req, res, next){
+router.put("/:user_id", httpCoWrap(function*(req, res, next){
 	let user = yield UsersManagementService.updateUser(req.params.user_id,req.body);
 	res.send(user);
 }));
