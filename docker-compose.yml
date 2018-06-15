@@ -19,9 +19,9 @@ services:
     depends_on:
       - web
     volumes:
-      - "./frontend:/tmp"
+      - "./frontend-client:/tmp"
     working_dir: /tmp
-    entrypoint: npm run dev
+    entrypoint: npm start
     ports:
      - 3001:3000
   db:
