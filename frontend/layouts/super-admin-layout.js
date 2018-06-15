@@ -1,18 +1,39 @@
 import React from 'react';
 import withRoot from '../src/withRoot';
-import {connect} from 'react-redux';
-import {AppBar, Toolbar, Button, Typography} from "@material-ui/core";
+import {
+	connect
+} from 'react-redux';
+import {
+	AppBar,
+	Toolbar,
+	Button,
+	Typography
+} from "@material-ui/core";
 import Layout from "../components/layout";
-import {SUPER_SIGN_OUT_REQUESTED} from "../store/super-admin/auth-actions";
-import _ from "underscore"
-import Link from "next/link"
+import {
+	SUPER_SIGN_OUT_REQUESTED
+} from "../store/super-admin/auth-actions";
+import _ from "underscore";
+import Link from "next/link";
 
 
 const pages = [
-	{label: "Manage Vaccines", url: "/super-admin/vaccines"},
-	{label: "Manage Vaccination Center", url: "/super-admin/vaccination-centers"},
-	{label: "Requests", url: "/super-admin/requests"},
-	{label: "Inventory", url: "/super-admin/inventory"},
+	{
+		label: "Manage Vaccines",
+		url: "/super-admin/vaccines"
+	},
+	{
+		label: "Manage Vaccination Center",
+		url: "/super-admin/vaccination-centers"
+	},
+	{
+		label: "Requests",
+		url: "/super-admin/requests"
+	},
+	{
+		label: "Inventory",
+		url: "/super-admin/inventory"
+	},
 ];
 
 
@@ -33,13 +54,13 @@ export default withRoot((theme) => {
 })(connect(store => store)(
 	class extends React.Component {
 
-		constructor(props){
+		constructor(props) {
 			super(props);
 			this.state = {};
 		}
 
-		componentDidMount(){
-			this.setState({selectedTab:_.findIndex(pages, ({url}) => (this.props.url == url))});
+		componentDidMount() {
+			this.setState({selectedTab: _.findIndex(pages, ({url}) => (this.props.url == url))});
 		}
 
 		componentWillReceiveProps(nextProps) {

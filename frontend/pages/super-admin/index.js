@@ -87,33 +87,6 @@ const Index = withRoot((theme) => {
                                     Search Results
                                 </Typography>
                             </div>
-                            {/*<Paper>*/}
-                            {/*<Table>*/}
-                            {/*<TableHead>*/}
-                            {/*<TableRow>*/}
-                            {/*<TableCell>Center Name</TableCell>*/}
-                            {/*<TableCell>Center Code</TableCell>*/}
-                            {/*<TableCell>Center Status</TableCell>*/}
-                            {/*<TableCell>Center Type</TableCell>*/}
-                            {/*<TableCell>Location</TableCell>*/}
-                            {/*</TableRow>*/}
-                            {/*</TableHead>*/}
-                            {/*<TableBody>*/}
-                            {/*{*/}
-                            {/*[1, 2, 3, 4, 5, 6, 7, 8, 9,1, 2, 3, 4, 5, 6, 7, 8, 9,1, 2, 3, 4, 5, 6, 7, 8, 9].map((i, index) => {*/}
-                            {/*return <TableRow key={index}>*/}
-                            {/*<TableCell>Center Name</TableCell>*/}
-                            {/*<TableCell>Center Code</TableCell>*/}
-                            {/*<TableCell>Center Status</TableCell>*/}
-                            {/*<TableCell>Center Type</TableCell>*/}
-                            {/*<TableCell>Location</TableCell>*/}
-                            {/*</TableRow>*/}
-
-                            {/*})*/}
-                            {/*}*/}
-                            {/*</TableBody>*/}
-                            {/*</Table>*/}
-                            {/*</Paper>*/}
                             <Layout>
                                 <Card className={classes.card}>
                                     <CardContent>
