@@ -1,10 +1,11 @@
 module.exports = {
-  webpack: (config) => {
-    // Fixes npm packages that depend on `fs` module
+  webpack: (config,{dev}) => {
+    if(dev){
+      config.devtool='cheap-module-source-map'
+    }
     config.node = {
       fs: 'empty'
-    }
-
+    };
     return config
   }
 }
