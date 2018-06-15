@@ -139,10 +139,7 @@ breedSchema.plugin(mongoosePaginate);
 mongoose.model('Breed', breedSchema);
 
 var petTypeSchema = new Schema({
-    name:{
-    	type:String,
-	    required:true
-    },
+    name:String,
     description:String,
     scientific_name:String,
 	life_span:Number

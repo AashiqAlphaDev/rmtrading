@@ -2,6 +2,7 @@ const mongoose = require("mongoose")
 const Token = mongoose.model('Token');
 
 module.exports.createToken = function*(tokenData){
+    validate(tokenData, ["pet"], "you missed <%=param%>.");
 	let existingToken = yield Token.findOne({name:tokenData.name});
 	if(existingToken){
 		return existingToken;
@@ -10,7 +11,9 @@ module.exports.createToken = function*(tokenData){
 };
 
 module.exports.updateToken = function*(id, tokenData){
-	let token = yield Token.findOne({_id:id});
+    queryValidate(id,"you missed token-id.");
+
+    let token = yield Token.findOne({_id:id});
 	if(token.pet){
 		let err = new Error();
 		err.message = "Token already assigned to a different pet. You cannot modify.";
@@ -21,6 +24,7 @@ module.exports.updateToken = function*(id, tokenData){
 };
 
 module.exports.deleteToken = function*(tokenId){
+    queryValidate(tokenId,"you missed token-id.");
 	return yield Token.remove({_id:tokenId});
 };
 
@@ -29,14 +33,22 @@ module.exports.tokens = function*(query={}){
 };
 
 module.exports.tokenWithId = function*(tokenId){
+    queryValidate(tokenId,"you missed token-id.");
 	return yield Token.findOne({_id:tokenId}).exec();
 };
 
 module.exports.tokenWithName = function*(name){
+    queryValidate(name,"you missed token-name.");
 	return yield Token.findOne({name:name}).exec();
 };
 
 module.exports.deleteAll = function*(){
 	return yield Token.remove({});
 };
+
+
+
+
+
+
 

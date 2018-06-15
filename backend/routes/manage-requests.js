@@ -5,7 +5,7 @@ const RequestsManagementService = require("../services/request");
 const isCenterAdmin = require("./check-center-admin")
 const isAdmin = require("./super-admin/check-admin")
 
-router.get("/", isAdmin, co.wrap(function*(req, res, next){
+router.get("/", isAdmin, httpCoWrap(function*(req, res, next){
 	var query = req.query.query?req.query.query:{};
 	if(req.query.q){
 		query.name = {$regex:`.*${req.query.q}.*`, '$options' : 'i'}
@@ -23,7 +23,7 @@ router.get("/", isAdmin, co.wrap(function*(req, res, next){
 	}
 }));
 
-router.get("/", isCenterAdmin, co.wrap(function*(req, res, next){
+router.get("/", isCenterAdmin, httpCoWrap(function*(req, res, next){
 	var query = req.query.query?req.query.query:{center:req.session.center_id};
 	if(req.query.q){
 		query.name = {$regex:`.*${req.query.q}.*`, '$options' : 'i'}
@@ -41,17 +41,17 @@ router.get("/", isCenterAdmin, co.wrap(function*(req, res, next){
 	}
 }));
 
-router.get("/:request_id", isCenterAdmin, co.wrap(function*(req, res, next){
+router.get("/:request_id", isCenterAdmin, httpCoWrap(function*(req, res, next){
 	let request = yield RequestsManagementService.requestWithId(req.params.request_id);
 	res.send(request);
 }));
 
-router.post("/", isCenterAdmin,co.wrap(function*(req, res, next){
+router.post("/", isCenterAdmin,httpCoWrap(function*(req, res, next){
 	let request = yield RequestsManagementService.createRequest(req.body);
 	res.send(request);
 }));
 
-router.put("/:request_id", isAdmin,co.wrap(function*(req, res, next){
+router.put("/:request_id", isAdmin,httpCoWrap(function*(req, res, next){
 	let request = yield RequestsManagementService.updateRequest(req.params.request_id,req.body);
 	res.send(request);
 }));

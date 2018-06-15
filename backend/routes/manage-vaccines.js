@@ -4,7 +4,7 @@ const co = require("co");
 const VaccinesManagementService = require("../services/vaccines")
 const isAdmin = require("./super-admin/check-admin")
 
-router.get("/", co.wrap(function*(req, res, next){
+router.get("/", httpCoWrap(function*(req, res, next){
 	var query = req.query.query?req.query.query:{};
 	if(req.query.q){
 		query.name = {$regex:`.*${req.query.q}.*`, '$options' : 'i'}
@@ -22,22 +22,22 @@ router.get("/", co.wrap(function*(req, res, next){
 	}
 }));
 
-router.get("/:vaccine_id", co.wrap(function*(req, res, next){
+router.get("/:vaccine_id", httpCoWrap(function*(req, res, next){
 	let vaccine = yield VaccinesManagementService.vaccineWithId(req.params.vaccine_id);
 	res.send(vaccine);
 }));
 
-router.post("/",isAdmin, co.wrap(function*(req, res, next){
+router.post("/",isAdmin, httpCoWrap(function*(req, res, next){
 	let vaccine = yield VaccinesManagementService.createVaccine(req.body);
 	res.send(vaccine);
 }));
 
-router.put("/:vaccine_id",isAdmin, co.wrap(function*(req, res, next){
+router.put("/:vaccine_id",isAdmin, httpCoWrap(function*(req, res, next){
 	let vaccine = yield VaccinesManagementService.updateVaccine(req.params.vaccine_id,req.body);
 	res.send(vaccine);
 }));
 
-router.delete("/:vaccine_id",isAdmin, co.wrap(function*(req, res, next){
+router.delete("/:vaccine_id",isAdmin, httpCoWrap(function*(req, res, next){
 	yield VaccinesManagementService.deleteVaccine(req.params.vaccine_id);
 	res.send({});
 }));

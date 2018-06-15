@@ -3,7 +3,7 @@ var router = Router();
 const co = require("co");
 var adminService = require("../services/admin")
 
-router.post("/select-vaccination-center", co.wrap(function*(req, res, next){
+router.post("/select-vaccination-center", httpCoWrap(function*(req, res, next){
 	if(!req.session.user_id){
 		res.status(401).send({});
 		return;
