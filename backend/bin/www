@@ -10,7 +10,7 @@ const _ = require("underscore")
 global.httpCoWrap = function(generator){
     return co.wrap(function *(req, res, next) {
         try {
-            yield generator(req, res);
+            yield generator(req, res, next);
         } catch (err){
           if(!err.statusCode){
               err.statusCode = 500;

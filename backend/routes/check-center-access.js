@@ -11,3 +11,6 @@ var isCenterAccess = httpCoWrap(function*(req, res, next){
 
 
 module.exports = isCenterAccess
+
+
+
