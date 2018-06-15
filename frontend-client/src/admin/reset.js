@@ -32,14 +32,9 @@ let Index = withStyles(style)(class extends React.Component {
 							></TextField>
 							<Layout alignItems={"center"} className={classes.actions}>
 								<Typography gutterBottom className={"flex"}>
-									Forgot password?
+									Instructions will be sent to your email.
 								</Typography>
-								<Button type={"submit"} color={"primary"} variant={"raised"}>Login</Button>
-							</Layout>
-							<Layout justifyContent={"center"} className={classes.row}>
-								<Typography gutterBottom>
-									Don't have an account? <Link to={"/admin/sign-up"}>Signup</Link>
-								</Typography>
+								<Button type={"submit"} color={"primary"} variant={"raised"}>Reset Password</Button>
 							</Layout>
 						</Layout>
 					</CardContent>
