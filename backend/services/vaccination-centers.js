@@ -20,8 +20,8 @@ module.exports.deleteVaccinationCenter = function*(vaccinationCenterId){
 	return yield VaccinationCenters.remove({_id:vaccinationCenterId});
 };
 
-module.exports.vaccinationCenters = function*(query={}){
-	return yield VaccinationCenters.find(query).exec();
+module.exports.vaccinationCenters = function*(query={}, page){
+	return yield VaccinationCenters.paginate(query, page);
 };
 
 module.exports.vaccinationCenterWithId = function*(vaccinationCenterId){

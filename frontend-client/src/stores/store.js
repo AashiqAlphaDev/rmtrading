@@ -4,6 +4,9 @@ import createSagaMiddleware from 'redux-saga'
 import authReducer from './auth/reducers'
 import authSaga from './auth/sagas'
 
+import vetCenterReducer from './vet-centers/reducers'
+import vetCenterSaga from './vet-centers/sagas'
+
 const composeEnhancers =
 	typeof window === 'object' &&
 	window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
@@ -23,11 +26,12 @@ const enhancer = composeEnhancers(
 
 // mount it on the Store
 const store = createStore(
-	combineReducers({auth:authReducer}),
+	combineReducers({auth:authReducer, vetCenters:vetCenterReducer}),
 	enhancer
 )
 
 // then run the saga
 sagaMiddleware.run(authSaga)
+sagaMiddleware.run(vetCenterSaga)
 
 export default store;

@@ -6,6 +6,7 @@ import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
 import AddCenter from "./add-center"
 import Overview from "./overview"
+import {connect} from "react-redux"
 
 const sideNavPages = [
 	{label:"Add Vet Center", url:"/super-admin/dashboard/vet-centers/add-center"},
@@ -41,11 +42,11 @@ let Index = withStyles((theme)=>{
 				</Layout>
 				<Layout direction={"column"} className={classes.rightSection}>
 					<Switch>
-						<Route exact path={"/super-admin/dashboard/vet-centers/"} render={()=>{
-							return <Overview />;
+						<Route exact path={"/super-admin/dashboard/vet-centers/"} render={(props)=>{
+							return <Overview location={props.location} />;
 						}}/>
-						<Route path={"/super-admin/dashboard/vet-centers/add-center"} render={()=>{
-							return <AddCenter />;
+						<Route path={"/super-admin/dashboard/vet-centers/add-center"} render={(props)=>{
+							return <AddCenter location={props.location}/>;
 						}}/>
 						<Route path={"/super-admin/dashboard/vet-centers/search"} render={()=>{
 							return <div>Search</div>;
@@ -60,4 +61,4 @@ let Index = withStyles((theme)=>{
 	}
 });
 
-export default Index;
+export default connect(store=>store)(Index);

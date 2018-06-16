@@ -25,7 +25,8 @@ export default withStyles((theme) => {
 		_body: {
 			marginTop: theme.spacing.unit * 2,
 			flex: 2,
-			marginLeft:300+theme.spacing.unit * 2
+			marginLeft:300+theme.spacing.unit * 2,
+			marginBottom: theme.spacing.unit * 2,
 		}
 	}
 })(class extends React.Component {

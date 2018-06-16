@@ -9,8 +9,12 @@ import style from "../style";
 export default withStyles((theme)=>{
 	return {
 		...style(theme),
+		actions:{
+			marginTop:theme.spacing.unit*4,
+			marginBottom:theme.spacing.unit*4
+		}
 	}
-})(class extends React.Component{
+})(class extends React.PureComponent{
 	render(){
 		const {classes} = this.props;
 		return <AnnotatedSection title={"Add Vaccination Center"}
@@ -21,22 +25,22 @@ export default withStyles((theme)=>{
 					<InputContainer label={"Vaccination Center Name"}>
 						<TextField></TextField>
 					</InputContainer>
-					<InputContainer label={"Vaccination Center Code"}>
+					<InputContainer label={"Type"}>
 						<TextField></TextField>
 					</InputContainer>
-					<InputContainer label={"Center Type"}>
-
-					</InputContainer>
-					<InputContainer label={"Country"}>
-
+					<InputContainer label={"City"}>
+						<TextField></TextField>
 					</InputContainer>
 					<InputContainer label={"State"}>
-
+						<TextField></TextField>
 					</InputContainer>
-					<InputContainer label={"City"}>
-
+					<InputContainer label={"Country"}>
+						<TextField></TextField>
 					</InputContainer>
 					<InputContainer label={"Address"}>
+						<TextField></TextField>
+					</InputContainer>
+					<InputContainer label={"Address Line 2"}>
 						<TextField></TextField>
 					</InputContainer>
 					<InputContainer label={"Zip Code"}>
@@ -54,27 +58,8 @@ export default withStyles((theme)=>{
 					<InputContainer label={"Center Fax"}>
 						<TextField></TextField>
 					</InputContainer>
-					<InputContainer label={"Center Email"}>
-						<TextField></TextField>
-					</InputContainer>
-					<InputContainer label={"Center Fax"}>
-						<TextField></TextField>
-					</InputContainer>
-					<InputContainer label={"Center Email"}>
-						<TextField></TextField>
-					</InputContainer>
-					<InputContainer label={"Center Fax"}>
-						<TextField></TextField>
-					</InputContainer>
-					<InputContainer label={"Center Email"}>
-						<TextField></TextField>
-					</InputContainer>
-					<InputContainer label={"Center Fax"}>
-						<TextField></TextField>
-					</InputContainer>
 
-
-					<Layout justifyContent={"flex-end"}>
+					<Layout justifyContent={"flex-end"} className={classes.actions}>
 						<Button> Clear </Button>
 						<Button variant={"raised"} color={"primary"}> Add </Button>
 					</Layout>

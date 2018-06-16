@@ -18,7 +18,7 @@ let Index = (class extends React.Component {
 						this.props.auth.redirect &&
 						<Redirect to={this.props.auth.redirect}/>
 					}
-					<VetCenters />
+					<VetCenters location={this.props.location} />
 				</DashboardLayout>
 			}
 			else{

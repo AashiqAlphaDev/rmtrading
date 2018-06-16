@@ -2,7 +2,6 @@ import { call, put, takeEvery} from 'redux-saga/effects'
 import {
 	CHECK_SUPER_ADMIN,
 	CHECK_SUPER_ADMIN_FAILED,
-	CHECK_SUPER_ADMIN_PASS,
 	CHECK_SUPER_ADMIN_PASSED,
 	LOGIN_FAILED,
 	LOGIN_SUCCEDED,
