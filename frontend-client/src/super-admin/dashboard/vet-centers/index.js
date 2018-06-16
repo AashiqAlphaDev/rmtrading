@@ -4,9 +4,11 @@ import {Typography,TextField,List,ListItem} from "@material-ui/core/index";
 import {Link, Switch, Route} from "react-router-dom";
 import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
+import AddCenter from "./add-center"
+import Overview from "./overview"
 
 const sideNavPages = [
-	{label:"Add Vet Center", url:"/super-admin/dashboard/vet-centers/add-vet-center"},
+	{label:"Add Vet Center", url:"/super-admin/dashboard/vet-centers/add-center"},
 	{label:"Upload Vet Centers", url:"/super-admin/dashboard/vet-centers/upload-vet-centers"},
 	{label:"Download Vet Centers", url:"/super-admin/dashboard/vet-centers/download-vet-centers"},
 ]
@@ -40,10 +42,10 @@ let Index = withStyles((theme)=>{
 				<Layout direction={"column"} className={classes.rightSection}>
 					<Switch>
 						<Route exact path={"/super-admin/dashboard/vet-centers/"} render={()=>{
-							return <div>Vet Centers</div>;
+							return <Overview />;
 						}}/>
 						<Route path={"/super-admin/dashboard/vet-centers/add-center"} render={()=>{
-							return <div>Add Center</div>;
+							return <AddCenter />;
 						}}/>
 						<Route path={"/super-admin/dashboard/vet-centers/search"} render={()=>{
 							return <div>Search</div>;

@@ -40,8 +40,7 @@ export default (theme) => {
 			borderRight: "1px solid #cccccc6b"
 		},
 		rightSection: {
-			flex: 1,
-			margin: theme.spacing.unit
+			flex: 1
 		},
 		staticSection: {
 			width: 300,

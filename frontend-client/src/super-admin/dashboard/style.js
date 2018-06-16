@@ -1,4 +1,4 @@
-import style from "../../dashboard-style"
+import style from "../../dashboard-style";
 export default (theme) => ({
 	...style(theme),
 	navButton: {
