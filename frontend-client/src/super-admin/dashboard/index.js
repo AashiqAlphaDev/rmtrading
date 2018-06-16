@@ -1,9 +1,10 @@
 import React from "react";
 import DashboardLayout from "./dashboard-layout"
 import VetCenters from "./vet-centers"
+import ApplicationData from "./application-data"
 import {connect} from "react-redux"
 import {CHECK_SUPER_ADMIN} from "../../stores/auth/actions";
-import {Redirect} from "react-router-dom";
+import {Redirect, Route} from "react-router-dom";
 
 
 let Index = (class extends React.Component {
@@ -18,7 +19,12 @@ let Index = (class extends React.Component {
 						this.props.auth.redirect &&
 						<Redirect to={this.props.auth.redirect}/>
 					}
-					<VetCenters location={this.props.location} />
+					<Route path={"/super-admin/dashboard/vet-centers"} render={()=>{
+						return <VetCenters location={this.props.location} />
+					}}/>
+					<Route path={"/super-admin/dashboard/application-data"} render={()=>{
+						return <ApplicationData location={this.props.location} />
+					}}/>
 				</DashboardLayout>
 			}
 			else{
