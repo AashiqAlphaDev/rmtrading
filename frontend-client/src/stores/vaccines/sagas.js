@@ -1,25 +1,25 @@
 import { call, put, takeEvery} from 'redux-saga/effects';
 import {
-	ADD_VET_CENTER_FAILED, ADD_VET_CENTER_SUCCEDED,
-	QUERY_VET_CENTERS, REQUEST_ADD_VET_CENTER,
+	ADD_VACCINE_FAILED, ADD_VACCINE_SUCCEDED,
+	QUERY_VACCINES, REQUEST_ADD_VACCINE,
 } from "./actions";
 import base_url from "../base_url";
-import {FAILED_FETCH_VET_CENTERS, FETCHED_VET_CENTERS,REQUEST_UPDATE_VET_CENTER,REQUEST_DELETE_VET_CENTER} from "./actions";
+import {FAILED_FETCH_VACCINES, FETCHED_VACCINES,REQUEST_UPDATE_VACCINE,REQUEST_DELETE_VACCINE} from "./actions";
 
 
-let queryVetCenters = function*(action){
+let queryVaccines = function*(action){
 	try {
 		const response = yield call(fetch, `${base_url}/vaccination-centers?query=${action.payload.query}`, {
 			credentials: 'include'
 		});
 		if(response.ok){
-			yield put({type: FETCHED_VET_CENTERS, payload:yield response.json()});
+			yield put({type: FETCHED_VACCINES, payload:yield response.json()});
 		}
 		else {
-			yield put({type: FAILED_FETCH_VET_CENTERS, payload:yield response.json()});
+			yield put({type: FAILED_FETCH_VACCINES, payload:yield response.json()});
 		}
 	} catch (error) {
-		yield put({type: FAILED_FETCH_VET_CENTERS, payload:error});
+		yield put({type: FAILED_FETCH_VACCINES, payload:error});
 	}
 };
 
@@ -34,13 +34,13 @@ let addVetCenter = function*(action) {
 			body:JSON.stringify(action.payload)
 		});
 		if(response.ok){
-			yield put({type: ADD_VET_CENTER_SUCCEDED, payload:yield response.json()});
+			yield put({type: ADD_VACCINE_SUCCEDED, payload:yield response.json()});
 		}
 		else {
-			yield put({type: ADD_VET_CENTER_FAILED, payload:yield response.json()});
+			yield put({type: ADD_VACCINE_FAILED, payload:yield response.json()});
 		}
 	} catch (error) {
-		yield put({type: ADD_VET_CENTER_FAILED, payload:error});
+		yield put({type: ADD_VACCINE_FAILED, payload:error});
 	}
 };
 
@@ -56,13 +56,13 @@ let deleteVetCenter = function*(action) {
 			body:JSON.stringify(action.payload)
 		});
 		if(response.ok){
-			yield put({type: ADD_VET_CENTER_SUCCEDED, payload:yield response.json()});
+			yield put({type: ADD_VACCINE_SUCCEDED, payload:yield response.json()});
 		}
 		else {
-			yield put({type: ADD_VET_CENTER_FAILED, payload:yield response.json()});
+			yield put({type: ADD_VACCINE_FAILED, payload:yield response.json()});
 		}
 	} catch (error) {
-		yield put({type: ADD_VET_CENTER_FAILED, payload:error});
+		yield put({type: ADD_VACCINE_FAILED, payload:error});
 	}
 };
 
@@ -77,23 +77,23 @@ let updateVetCenter = function*(action) {
 			body:JSON.stringify(action.payload)
 		});
 		if(response.ok){
-			yield put({type: ADD_VET_CENTER_SUCCEDED, payload:yield response.json()});
+			yield put({type: ADD_VACCINE_SUCCEDED, payload:yield response.json()});
 		}
 		else {
-			yield put({type: ADD_VET_CENTER_FAILED, payload:yield response.json()});
+			yield put({type: ADD_VACCINE_FAILED, payload:yield response.json()});
 		}
 	} catch (error) {
-		yield put({type: ADD_VET_CENTER_FAILED, payload:error});
+		yield put({type: ADD_VACCINE_FAILED, payload:error});
 	}
 };
 
 
 
 function* vetCentersSaga() {
-	yield takeEvery(QUERY_VET_CENTERS, queryVetCenters);
-	yield takeEvery(REQUEST_ADD_VET_CENTER, addVetCenter);
-	yield takeEvery(REQUEST_UPDATE_VET_CENTER, updateVetCenter);
-	yield takeEvery(REQUEST_DELETE_VET_CENTER, deleteVetCenter);
+	yield takeEvery(QUERY_VACCINES, queryVaccines);
+	yield takeEvery(REQUEST_ADD_VACCINE, addVetCenter);
+	yield takeEvery(REQUEST_UPDATE_VACCINE, updateVetCenter);
+	yield takeEvery(REQUEST_DELETE_VACCINE, deleteVetCenter);
 }
 
 export default vetCentersSaga;
