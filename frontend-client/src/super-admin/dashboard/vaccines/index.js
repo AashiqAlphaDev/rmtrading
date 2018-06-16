@@ -1,17 +1,17 @@
 import React from "react"
 import Layout from "../../../components/layout";
-import {Typography,List,ListItem} from "@material-ui/core/index";
-import {Link, Switch} from "react-router-dom";
+import {Typography,TextField,List,ListItem} from "@material-ui/core/index";
+import {Link, Switch, Route} from "react-router-dom";
 import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
+import AddVaccine from "./add-vaccine"
+import Overview from "./overview"
 import {connect} from "react-redux"
 
 const sideNavPages = [
-	{label:"Countries", url:"/super-admin/dashboard/application-data/countries"},
-	{label:"Vet Center Types", url:"/super-admin/dashboard/application-data/vet-center-types"},
-	{label:"Inventory", url:"/super-admin/dashboard/application-data/inventory"},
-	{label:"Pet Types", url:"/super-admin/dashboard/application-data/pet-types"},
-	{label:"Diseases", url:"/super-admin/dashboard/application-data/diseases"}
+	{label:"Add Vaccine", url:"/super-admin/dashboard/vaccines/add-vaccine"},
+	{label:"Upload Vaccines", url:"/super-admin/dashboard/vaccines/upload-vaccines"},
+	{label:"Download Vaccines", url:"/super-admin/dashboard/vaccines/download-vaccines"},
 ];
 
 let Index = withStyles((theme)=>{
@@ -26,8 +26,9 @@ let Index = withStyles((theme)=>{
 				<Layout className={classes.leftSection}>
 					<Layout direction={"column"} className={classes.staticSection}>
 						<Typography variant="title" className={classes.title}>
-							Application Data
+							Manage Vaccines
 						</Typography>
+						<TextField className={classes.searchField} placeholder={"Search"}/>
 						<List>
 							{
 								sideNavPages.map((item, index)=>{
@@ -41,7 +42,18 @@ let Index = withStyles((theme)=>{
 				</Layout>
 				<Layout direction={"column"} className={classes.rightSection}>
 					<Switch>
-
+						<Route exact path={"/super-admin/dashboard/vaccines/"} render={(props)=>{
+							return <Overview location={props.location} />;
+						}}/>
+						<Route path={"/super-admin/dashboard/vaccines/add-vaccine"} render={(props)=>{
+							return <AddVaccine location={props.location}/>;
+						}}/>
+						<Route path={"/super-admin/dashboard/vaccines/search"} render={()=>{
+							return <div>Search</div>;
+						}}/>
+						<Route exact path={"/super-admin/dashboard/vaccines/:vaccine_id/detail"} render={()=>{
+							return <div>Center Id</div>;
+						}}/>
 					</Switch>
 				</Layout>
 			</Layout>

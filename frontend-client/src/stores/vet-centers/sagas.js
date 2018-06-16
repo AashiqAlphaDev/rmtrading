@@ -8,7 +8,6 @@ import {FAILED_FETCH_VET_CENTERS, FETCHED_VET_CENTERS} from "./actions";
 
 let queryVetCenters = function*(action){
 	try {
-		console.log(action)
 		const response = yield call(fetch, `${base_url}/vaccination-centers?query=${action.payload.query}`, {
 			credentials: 'include'
 		});
