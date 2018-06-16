@@ -20,7 +20,6 @@ module.exports.updateAppointment = function*(id, appointmentData) {
 
 module.exports.deleteAppointment = function*(appointmentId) {
     queryValidate(appointmentId,"you missed appointment-id.");
-
     return yield Appointment.remove({_id: appointmentId});
 };
 

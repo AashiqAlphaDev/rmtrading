@@ -5,7 +5,6 @@ var co = require("co");
 
 router.post("/register", httpCoWrap(function*(req, res){
 	yield authService.registerUser(req.body);
-
     res.send({});
 }));
 

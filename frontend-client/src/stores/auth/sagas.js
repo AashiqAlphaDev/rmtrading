@@ -1,9 +1,10 @@
 import { call, put, takeEvery} from 'redux-saga/effects'
-import {LOGIN_FAILED, LOGIN_SUCCEDED, REQUEST_LOGIN, REQUEST_SIGNUP} from "./actions";
+import {LOGIN_FAILED, LOGIN_SUCCEDED, REQUEST_LOGIN, REQUEST_SIGNUP,SIGNUP_FAILED,SIGNUP_SUCCEDED} from "./actions";
 
 function* loginUser(action) {
 	try {
 		const response = yield call(fetch, "/api/login", {
+			method:"POST",
 			headers:{
 				"Content-Type":"application/json"
 			},
@@ -23,7 +24,7 @@ function* loginUser(action) {
 
 function* signupUser(action) {
 	try {
-		const response = yield call(fetch, "/api/sign-up", {
+		const response = yield call(fetch, "/api/register", {
 			method:"POST",
 			headers:{
 				"Content-Type":"application/json"
@@ -31,14 +32,14 @@ function* signupUser(action) {
 			body:JSON.stringify(action.payload)
 		});
 		if(response.ok){
-			yield put({type: LOGIN_SUCCEDED, payload:yield response.json()});
+			yield put({type: SIGNUP_SUCCEDED, payload:yield response.json()});
 		}
 		else {
-			yield put({type: LOGIN_FAILED, payload:yield response.json()});
+			yield put({type: SIGNUP_FAILED, payload:yield response.json()});
 		}
 	} catch (error) {
 		console.log(error)
-		yield put({type: LOGIN_FAILED, payload:error});
+		yield put({type: SIGNUP_FAILED, payload:error});
 	}
 }
 
