@@ -1,14 +1,18 @@
 const createError = require('http-errors');
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
+const VaccinationCenterAdmin = mongoose.model("VaccinationCenterAdmin");
 const md5 = require("md5");
 const emailer = require("./emailer");
 
 module.exports.authenticateUser = function*(credientials){
-
     validate(credientials, ["email", "password"], "You missed <%=param%>.");
 	return yield User.findOne({email:credientials.email, password:md5(credientials.password)}).exec();
 };
+
+module.exports.adminOfCenters = function*(email){
+	return yield VaccinationCenterAdmin.find({email:email}).exec()
+}
 
 module.exports.registerUser = function*(userData){
 
@@ -43,7 +47,6 @@ module.exports.resetPassword = function*(userData){
         html: `<a align="center"> Hey it seems like you have forgotten your password. Please reset your Account password by clicking <a href="${existingUser.id}/resetPassword">here.</a> </p>`
     });
     userData.resetPasswordInProgress=true;
-
 
     return yield User.create(userData);
 };

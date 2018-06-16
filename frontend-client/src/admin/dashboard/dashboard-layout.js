@@ -5,7 +5,8 @@ import _ from "underscore";
 import Layout from "../../components/layout";
 import {AppBar,Toolbar,Button} from "@material-ui/core/index";
 import {Link} from "react-router-dom";
-import {CHECK_LOGIN} from "../../stores/auth/actions";
+import {CHECK_ADMIN} from "../../stores/auth/actions";
+import {connect} from "react-redux"
 
 const pages = [
 	{label: "Pet Registration", url: "/admin/dashboard/pet-registration"},

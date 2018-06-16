@@ -13,7 +13,7 @@ const pages = [
 	{label: "Requests", url: "/super-admin/dashboard/requests"},
 ];
 
-export default withStyles((theme)=>(
+export default withStyles(()=>(
 	{
 		fullScreen: {
 			width: "100%",

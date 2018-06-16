@@ -1,9 +1,8 @@
 var authService = require("../services/auth")
 var Router = require("express").Router
 var router = Router();
-var co = require("co");
 
-router.post("/register", httpCoWrap(function*(req, res){
+router.post("/register", httpCoWrap(function*(req, res, next){
 	yield authService.registerUser(req.body);
     res.send({});
 }));
@@ -13,29 +12,34 @@ router.delete("/logout", httpCoWrap(function*(req, res, next){
 	res.send({})
 }));
 
-router.post("/login", httpCoWrap(function*(req, res){
+router.post("/login", httpCoWrap(function*(req, res, next){
 	var result = yield authService.authenticateUser(req.body);
+	var centers = yield authService.adminOfCenters(result.email);
 	if(result){
+		if(centers.length==1){
+			req.session.isCenterAdmin = true;
+			req.session.center_id = centers[0].vaccination_center;
+		}
 	    req.session.user_id = result._id;
 		res.send({session_id:req.sessionID});
-    }
-    else{
+    } else{
 		res.status(401).send({message:"You have entered the wrong username and password"});
     }
 }));
 
+router.get("/is-admin", httpCoWrap(function *(req, res, next) {
+	yield authService.resetPassword(req.body);
+	res.send({});
+}));
+
+router.get("/is-super-admin", httpCoWrap(function *(req, res, next) {
+	yield authService.resetPassword(req.body);
+	res.send({});
+}));
 
 router.get("/resetPassword", httpCoWrap(function *(req, res, next) {
     yield authService.resetPassword(req.body);
     res.send({});
 }));
 
-
-
 module.exports = router;
-
-
-
-
-
-

@@ -7,10 +7,12 @@ import Login from "./login"
 let Index = withStyles(style)(class extends React.Component {
 	render(){
 		const {classes} = this.props;
-		return <div className={classes.container}>
-			<Login />
-		</div>;
+		return <AuthLayout>
+			<div className={classes.container}>
+				<Login />
+			</div>
+		</AuthLayout>;
 	}
 });
 
-export default AuthLayout(Index)
+export default Index
