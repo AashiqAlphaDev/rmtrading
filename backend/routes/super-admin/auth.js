@@ -6,11 +6,12 @@ let sessionStore = require("../../session-store");
 router.post("/login", co.wrap(function*(req, res, next) {
 	if(req.body.username == process.env.SUPER_ADMIN_USER && req.body.password == process.env.SUPER_ADMIN_PASSWORD){
 		req.session.isAdmin = true;
+		console.log(req.session);
 		res.send({sessionID:req.sessionID});
 	}
 	else{
 		req.session.isAdmin = false;
-		res.status(401).send({});
+		res.status(401).send({message:"You have entered the wrong username and password"});
 	}
 }));
 
@@ -33,6 +34,7 @@ router.get("/logout/:session_id", co.wrap(function*(req, res, next) {
 }));
 
 router.get("/", co.wrap(function*(req, res, next) {
+	console.log(req.session);
 	if (req.session.isAdmin) {
 		res.send({base:"root"});
 	}
@@ -56,4 +58,4 @@ router.get("/session-check/:session_id", co.wrap(function*(req, res, next) {
 	});
 }));
 
-module.exports = router
+module.exports = router;

@@ -1,5 +1,6 @@
 import { call, put, takeEvery} from 'redux-saga/effects'
 import {
+	CHECK_SUPER_ADMIN, CHECK_SUPER_ADMIN_FAILED, CHECK_SUPER_ADMIN_PASS, CHECK_SUPER_ADMIN_PASSED,
 	LOGIN_FAILED,
 	LOGIN_SUCCEDED,
 	REQUEST_LOGIN,
@@ -70,11 +71,31 @@ function* loginSuperAdmin(action){
 	}
 }
 
+function* checkSuperAdmin(){
+	try {
+		let sessionId = localStorage.get("sessionId");
+		const response = yield call(fetch, "/api/super-admin/", {
+			headers:{
+				"X-Session-ID":sessionId
+			}
+		});
+		if(response.ok){
+			yield put({type: CHECK_SUPER_ADMIN_PASSED, payload:yield response.json()});
+		}
+		else {
+			yield put({type: CHECK_SUPER_ADMIN_FAILED, payload:yield response.json()});
+		}
+	} catch (error) {
+		yield put({type: CHECK_SUPER_ADMIN_FAILED, payload:error});
+	}
+}
+
 
 function* authSaga() {
 	yield takeEvery(REQUEST_LOGIN, loginUser);
 	yield takeEvery(REQUEST_SIGNUP, signupUser);
 	yield takeEvery(REQUEST_SUPER_ADMIN_LOGIN, loginSuperAdmin);
+	yield takeEvery(CHECK_SUPER_ADMIN, checkSuperAdmin);
 }
 
 export default authSaga;
