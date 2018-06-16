@@ -5,6 +5,7 @@ import _ from "underscore";
 import Layout from "../../components/layout";
 import {AppBar,Toolbar,Button} from "@material-ui/core/index";
 import {Link} from "react-router-dom";
+import {CHECK_LOGIN} from "../../stores/auth/actions";
 
 const pages = [
 	{label: "Pet Registration", url: "/admin/dashboard/pet-registration"},
@@ -14,7 +15,7 @@ const pages = [
 	{label: "Manage Appointments", url: "/admin/dashboard/inventory"},
 ];
 
-export default withStyles((theme)=>(
+let Index = withStyles((theme)=>(
 	{
 		...style(theme),
 		fullScreen: {
@@ -25,6 +26,9 @@ export default withStyles((theme)=>(
 		}
 	}
 ))(class extends React.Component {
+	componentWillMount(){
+		this.props.dispatch({type:CHECK_ADMIN})
+	}
 	render() {
 		const {classes} = this.props;
 		return <div className={classes.fullScreen}>
@@ -49,4 +53,6 @@ export default withStyles((theme)=>(
 			</Layout>
 		</div>;
 	}
-})
+});
+
+export default connect(store=>store)(Index);

@@ -38,9 +38,9 @@ let Index = withStyles(style)(class extends React.Component {
 								disabled={this.props.auth.loginInProgress}
 								placeholder={"Email"}
 								className={classes.input}
-								value={this.state.username}
+								value={this.state.email}
 								onChange={(event) => {
-									this.setState({username: event.target.value})
+									this.setState({email: event.target.value})
 								}}
 								helperText={" "}
 							></TextField>
