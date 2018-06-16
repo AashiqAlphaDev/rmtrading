@@ -8,7 +8,7 @@ import {connect} from "react-redux";
 import {REQUEST_SUPER_ADMIN_LOGOUT, SUPER_ADMIN_LOGOUT_SUCCEDED} from "../../stores/auth/actions";
 
 const pages = [
-	{label: "Overview", url: "/super-admin/dashboard/overview"},
+	{label: "Overview", url: "/super-admin/dashboard/"},
 	{label: "Vet Centers", url: "/super-admin/dashboard/vet-centers"},
 	{label: "Vaccines", url: "/super-admin/dashboard/vaccines"},
 	{label: "Application Data", url: "/super-admin/dashboard/application-data"},
