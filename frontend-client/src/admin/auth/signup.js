@@ -1,7 +1,7 @@
 import React from "react";
 import {withStyles} from "@material-ui/core/styles"
 import {Card,Typography, CardContent, TextField, Button} from "@material-ui/core/index";
-import Layout from "../components/layout";
+import Layout from "../../components/layout";
 import {Link} from 'react-router-dom'
 import style from "./style"
 
@@ -49,13 +49,13 @@ let Index = withStyles(style)(class extends React.Component {
 						></TextField>
 						<Layout alignItems={"center"} className={classes.actions}>
 							<Typography gutterBottom className={"flex"}>
-								Forgot password? <Link to={"/admin/reset"}>Reset</Link>
+								By signing in you are agreeing to our terms.
 							</Typography>
-							<Button type={"submit"} color={"primary"} variant={"raised"}>Login</Button>
+							<Button type={"submit"} color={"primary"} variant={"raised"}>Sign Up</Button>
 						</Layout>
 						<Layout justifyContent={"center"} className={classes.row}>
 							<Typography gutterBottom>
-								Don't have an account? <Link to={"/admin/login"}>SignIn</Link>
+								Don't have an account? <Link to={"/admin/auth/login"}>SignIn</Link>
 							</Typography>
 						</Layout>
 					</Layout>

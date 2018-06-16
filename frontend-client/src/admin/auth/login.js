@@ -1,10 +1,9 @@
 import React from "react";
 import {withStyles} from "@material-ui/core/styles"
 import {Card,Typography, CardContent, TextField, Button} from "@material-ui/core/index";
-import Layout from "../components/layout";
+import Layout from "../../components/layout";
 import {Link} from 'react-router-dom'
 import style from "./style"
-import AuthLayout from "./auth-layout"
 
 let Index = withStyles(style)(class extends React.Component {
 	state = {
@@ -41,13 +40,13 @@ let Index = withStyles(style)(class extends React.Component {
 							></TextField>
 							<Layout alignItems={"center"} className={classes.actions}>
 								<Typography gutterBottom className={"flex"}>
-									Forgot password? <Link to={"/admin/reset"}>Reset</Link>
+									Forgot password? <Link to={"/admin/auth/reset"}>Reset</Link>
 								</Typography>
 								<Button type={"submit"} color={"primary"} variant={"raised"}>Login</Button>
 							</Layout>
 							<Layout justifyContent={"center"} className={classes.row}>
 								<Typography gutterBottom>
-									Don't have an account? <Link to={"/admin/sign-up"}>Signup</Link>
+									Don't have an account? <Link to={"/admin/auth/sign-up"}>Signup</Link>
 								</Typography>
 							</Layout>
 						</Layout>

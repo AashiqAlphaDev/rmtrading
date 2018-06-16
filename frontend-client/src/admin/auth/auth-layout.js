@@ -1,5 +1,5 @@
 import React from "react";
-import Layout from "../components/layout";
+import Layout from "../../components/layout";
 import {withStyles} from "@material-ui/core/styles"
 
 
@@ -17,7 +17,7 @@ export default function (Component) {
 			const {classes} = this.props;
 			return <div className={classes.fullScreen}>
 				<Layout alignItems={"center"} justifyContent={"center"}>
-					<Component />
+					<Component {...this.props}/>
 				</Layout>
 			</div>
 		}
