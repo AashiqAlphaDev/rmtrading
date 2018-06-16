@@ -1,19 +1,25 @@
 import React from "react";
+import { connect } from 'react-redux'
 import {withStyles} from "@material-ui/core/styles"
 import {Card,Typography, CardContent, TextField, Button} from "@material-ui/core/index";
 import Layout from "../../components/layout";
 import {Link} from 'react-router-dom'
 import style from "./style"
+import {REQUEST_SIGNUP} from "../../stores/auth/actions";
 
 let Index = withStyles(style)(class extends React.Component {
 	state = {
-		username:""
-	}
+		name:"",
+		email:"",
+		password:""
+	};
 	render(){
 		const {classes} = this.props;
 		return <Card className={classes.card}>
 			<form onSubmit={(event) => {
 				event.preventDefault();
+				const {name, email, password} = this.state;
+				this.props.dispatch({type:REQUEST_SIGNUP, payload:{name, email, password}});
 			}}>
 				<CardContent>
 					<Layout direction={"column"}>
@@ -23,18 +29,19 @@ let Index = withStyles(style)(class extends React.Component {
 						<TextField
 							placeholder={"Name"}
 							className={classes.input}
-							value={this.state.username}
+							value={this.state.name}
 							onChange={(event) => {
-								this.setState({username: event.target.value})
+								this.setState({name: event.target.value})
 							}}
 							helperText={" "}
 						></TextField>
 						<TextField
 							placeholder={"Email"}
+							type={"email"}
 							className={classes.input}
-							value={this.state.username}
+							value={this.state.email}
 							onChange={(event) => {
-								this.setState({username: event.target.value})
+								this.setState({email: event.target.value})
 							}}
 							helperText={" "}
 						></TextField>
@@ -42,11 +49,13 @@ let Index = withStyles(style)(class extends React.Component {
 							placeholder={"Password"}
 							type={"password"}
 							className={classes.input}
+							value={this.state.password}
 							onChange={(event) => {
 								this.setState({password: event.target.value})
 							}}
 							helperText={" "}
 						></TextField>
+
 						<Layout alignItems={"center"} className={classes.actions}>
 							<Typography gutterBottom className={"flex"}>
 								By signing in you are agreeing to our terms.
@@ -66,4 +75,4 @@ let Index = withStyles(style)(class extends React.Component {
 	}
 });
 
-export default Index
+export default connect()(Index)

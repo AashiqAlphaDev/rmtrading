@@ -3,7 +3,7 @@ import {withStyles} from "@material-ui/core/styles";
 import style from "./style";
 import _ from "underscore";
 import Layout from "../../components/layout";
-import {AppBar,Toolbar,Typography,Button} from "@material-ui/core/index";
+import {AppBar,Toolbar,Button} from "@material-ui/core/index";
 import {Link} from "react-router-dom";
 
 const pages = [

@@ -2,7 +2,6 @@ import React from "react";
 import {withStyles} from "@material-ui/core/styles"
 import {Card,Typography, CardContent, TextField, Button} from "@material-ui/core/index";
 import Layout from "../../components/layout";
-import {Link} from 'react-router-dom'
 import style from "./style"
 
 let Index = withStyles(style)(class extends React.Component {

@@ -8,22 +8,24 @@ import SignUp from "./signup"
 import ResetPassword from "./reset"
 
 let Index = withStyles(style)(class extends React.Component {
-	render(){
+	render() {
 		const {classes} = this.props;
-		return <div className={classes.container}>
-			<Switch>
-				<Route path={"/admin/auth/login"} render={() => {
-					return <Login />;
-				}}/>,
-				<Route path={"/admin/auth/sign-up"} render={() => {
-					return <SignUp />;
-				}}/>,
-				<Route path={"/admin/auth/reset"} render={() => {
-					return <ResetPassword />;
-				}}/>
-			</Switch>
-		</div>;
+		return <AuthLayout>
+			<div className={classes.container}>
+				<Switch>
+					<Route path={"/admin/auth/login"} render={() => {
+						return <Login/>;
+					}}/>,
+					<Route path={"/admin/auth/sign-up"} render={() => {
+						return <SignUp/>;
+					}}/>,
+					<Route path={"/admin/auth/reset"} render={() => {
+						return <ResetPassword/>;
+					}}/>
+				</Switch>
+			</div>
+		</AuthLayout>;
 	}
 });
 
-export default AuthLayout(Index)
+export default Index;

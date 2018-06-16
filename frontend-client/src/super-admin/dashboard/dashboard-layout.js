@@ -30,7 +30,7 @@ export default withStyles((theme)=>(
 				<AppBar position="static" color="default">
 					<Toolbar className={`container`}>
 						<div className={`flex`}>
-							<img src={"/logo.png"} style={{height:40}}/>
+							<img src={"/logo.png"} style={{height:40}} alt={"logo"}/>
 						</div>
 						<Layout>
 							{
