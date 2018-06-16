@@ -4,16 +4,18 @@ import _ from "underscore";
 import Layout from "../../components/layout";
 import {AppBar,Toolbar,Button} from "@material-ui/core/index";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {REQUEST_SUPER_ADMIN_LOGOUT, SUPER_ADMIN_LOGOUT_SUCCEDED} from "../../stores/auth/actions";
 
 const pages = [
 	{label: "Overview", url: "/super-admin/dashboard/overview"},
 	{label: "Vet Centers", url: "/super-admin/dashboard/vet-centers"},
 	{label: "Vaccines", url: "/super-admin/dashboard/vaccines"},
 	{label: "Application Data", url: "/super-admin/dashboard/application-data"},
-	{label: "Requests", url: "/super-admin/dashboard/requests"},
+	{label: "Requests", url: "/super-admin/dashboard/requests"}
 ];
 
-export default withStyles(()=>(
+let Index = withStyles(()=>(
 	{
 		fullScreen: {
 			width: "100%",
@@ -40,6 +42,11 @@ export default withStyles(()=>(
 									</Button></Link>
 								})
 							}
+							<Button className={classes.navButton} onClick={()=>{
+								this.props.dispatch({type:REQUEST_SUPER_ADMIN_LOGOUT})
+							}}>
+								Logout
+							</Button>
 						</Layout>
 					</Toolbar>
 				</AppBar>
@@ -47,4 +54,5 @@ export default withStyles(()=>(
 			</Layout>
 		</div>;
 	}
-})
+});
+export default connect(store=>store)(Index)

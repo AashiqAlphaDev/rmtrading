@@ -1,11 +1,11 @@
 import {
 	AUTH_CLEAR, CHECK_SUPER_ADMIN, CHECK_SUPER_ADMIN_FAILED, CHECK_SUPER_ADMIN_PASSED,
 	LOGIN_FAILED,
-	LOGIN_SUCCEDED,
+	LOGIN_SUCCEDED, LOGOUT_SUCCEDED,
 	REQUEST_LOGIN,
 	REQUEST_SIGNUP, REQUEST_SUPER_ADMIN_LOGIN,
 	SIGNUP_FAILED,
-	SIGNUP_SUCCEDED, SUPER_ADMIN_LOGIN_FAILED, SUPER_ADMIN_LOGIN_SUCCEDED
+	SIGNUP_SUCCEDED, SUPER_ADMIN_LOGIN_FAILED, SUPER_ADMIN_LOGIN_SUCCEDED, SUPER_ADMIN_LOGOUT_SUCCEDED
 } from "./actions";
 
 const initAuthData = {};
@@ -51,12 +51,15 @@ function authReducer(state = initAuthData, action) {
 			break;
 		}
 		case CHECK_SUPER_ADMIN:{
-			state = {...state, superAdminCheckInProgress:true};
+				state = {...state, superAdminCheckInProgress:true};
 			break;
 		}
 		case LOGIN_SUCCEDED:{
-			localStorage.set("sessionId", action.payload.sessionID);
 			state = {...state, redirect:"/admin/dashboard"};
+			break;
+		}
+		case SUPER_ADMIN_LOGOUT_SUCCEDED:{
+			state = {...state, redirect:"/super-admin/auth"};
 			break;
 		}
 		default: {

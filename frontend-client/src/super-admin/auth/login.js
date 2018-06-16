@@ -13,9 +13,7 @@ let Index = withStyles(style)(class extends React.Component {
 		password:"",
 		showToast:false
 	}
-	componentWillMount(){
-		this.props.dispatch({type:AUTH_CLEAR});
-	}
+
 	render(){
 		const {classes} = this.props;
 		return <Card className={classes.card}>

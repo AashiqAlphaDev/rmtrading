@@ -11,10 +11,13 @@ let Index = (class extends React.Component {
 		this.props.dispatch({type:CHECK_SUPER_ADMIN});
 	}
 	render(){
-		console.log(this.props);
-		if(!this.props.auth.superAdminCheckInProgress){
+		if(this.props.auth.hasOwnProperty('superAdminCheckInProgress') && !this.props.auth.superAdminCheckInProgress){
 			if(this.props.auth.isSuperAdmin){
 				return <DashboardLayout location={this.props.location}>
+					{
+						this.props.auth.redirect &&
+						<Redirect to={this.props.auth.redirect}/>
+					}
 					<VetCenters />
 				</DashboardLayout>
 			}

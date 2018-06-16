@@ -50,6 +50,7 @@ const signIn = function* (action) {
 	try {
 		let response = yield call(fetch, `${BaseUrl.frontend}/auth/login`, {
 			method: "POST",
+			credentials: 'include',
 			headers: {
 				'Content-Type': 'application/json'
 			},

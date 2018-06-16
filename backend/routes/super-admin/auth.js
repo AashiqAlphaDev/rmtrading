@@ -15,22 +15,9 @@ router.post("/login", co.wrap(function*(req, res, next) {
 	}
 }));
 
-router.get("/logout/:session_id", co.wrap(function*(req, res, next) {
-	sessionStore.get(req.params.session_id, function (err,session) {
-		if(err || !session){
-			res.send({});
-			return
-		}
-		session.isAdmin = false;
-		sessionStore.set(req.params.session_id, session, function (err) {
-			if(!err){
-				res.send({});
-			}
-			else{
-				next(err);
-			}
-		})
-	});
+router.get("/logout", co.wrap(function*(req, res, next) {
+	req.session.isAdmin = false;
+	res.send({})
 }));
 
 router.get("/", co.wrap(function*(req, res, next) {
