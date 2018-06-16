@@ -22,7 +22,7 @@ let Index = withStyles(style)(class extends React.Component {
 								Reset
 							</Typography>
 							<TextField
-								placeholder={"Username / Email"}
+								placeholder={"Email"}
 								className={classes.input}
 								value={this.state.username}
 								onChange={(event) => {
