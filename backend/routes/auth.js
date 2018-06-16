@@ -20,9 +20,17 @@ router.post("/login", httpCoWrap(function*(req, res){
 		res.send({session_id:req.sessionID});
     }
     else{
-		res.status(401).send({});
+		res.status(401).send({message:"You have entered the wrong username and password"});
     }
 }));
+
+
+router.get("/resetPassword", httpCoWrap(function *(req, res, next) {
+    yield authService.resetPassword(req.body);
+    res.send({});
+}));
+
+
 
 module.exports = router;
 

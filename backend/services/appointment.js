@@ -4,7 +4,7 @@ const VaccintionCenter = mongoose.model('VaccinationCenter');
 
 
 module.exports.createAppointment = function*(appointmentData) {
-    validate(appointmentData, ["center"], "you missed <%=param%>.");
+    validate(appointmentData, ["center"], "You missed <%=param%>.");
     let vaccinationCenter = yield VaccintionCenter.findOne({_id: appointmentData.center}).exec();
     let existingAppointment = yield Appointment.findOne({name: appointmentData.name});
     if (existingAppointment) {
@@ -14,12 +14,13 @@ module.exports.createAppointment = function*(appointmentData) {
 };
 
 module.exports.updateAppointment = function*(id, appointmentData) {
-    queryValidate(id,"you missed appointment-id.");
+    queryValidate(id,"You missed appointment-id.");
     return yield Appointment.update({_id: id}, appointmentData);
 };
 
 module.exports.deleteAppointment = function*(appointmentId) {
-    queryValidate(appointmentId,"you missed appointment-id.");
+    queryValidate(appointmentId,"You missed appointment-id.");
+
     return yield Appointment.remove({_id: appointmentId});
 };
 
@@ -28,12 +29,12 @@ module.exports.appointments = function*(query = {}) {
 };
 
 module.exports.appointmentWithId = function*(appointmentId) {
-    queryValidate(appointmentId,"you missed appointment-id.");
+    queryValidate(appointmentId,"You missed appointment-id.");
     return yield Appointment.findOne({_id: appointmentId}).exec();
 };
 
 module.exports.appointmentWithName = function*(name) {
-    queryValidate(name,"you missed name.");
+    queryValidate(name,"You missed name.");
     return yield Appointment.findOne({name: name}).exec();
 };
 

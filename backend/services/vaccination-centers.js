@@ -6,17 +6,17 @@ const emailer = require("./emailer");
 const _ = require("underscore");
 
 module.exports.createVaccinationCenter = function*(vaccinationCenterData){
-    validate(vaccinationCenterData, ["name","contact","appointments_per_hour","queues"], "you missed <%=param%>.");
+    validate(vaccinationCenterData, ["name","contact","appointments_per_hour","queues"], "You missed <%=param%>.");
 	return yield VaccinationCenters.create(vaccinationCenterData);
 };
 
 module.exports.updateVaccinationCenter = function*(id, vaccinationCenterData){
-    queryValidate(id,"you missed vaccination-center-id.");
+    queryValidate(id,"You missed vaccination-center-id.");
 	return yield VaccinationCenters.update({_id:id},vaccinationCenterData);
 };
 
 module.exports.deleteVaccinationCenter = function*(vaccinationCenterId){
-    queryValidate(vaccinationCenterId,"you missed vaccination-center-id.");
+    queryValidate(vaccinationCenterId,"You missed vaccination-center-id.");
 	return yield VaccinationCenters.remove({_id:vaccinationCenterId});
 };
 
@@ -25,7 +25,7 @@ module.exports.vaccinationCenters = function*(query={}){
 };
 
 module.exports.vaccinationCenterWithId = function*(vaccinationCenterId){
-    queryValidate(vaccinationCenterId,"you missed vaccination-center-id.");
+    queryValidate(vaccinationCenterId,"You missed vaccination-center-id.");
 	return yield VaccinationCenters.findOne({_id:vaccinationCenterId}).exec();
 };
 
@@ -34,13 +34,13 @@ module.exports.deleteAll = function*(){
 };
 
 module.exports.admins = function*(centerId){
-    queryValidate(centerId,"you missed vaccination-center-id.");
+    queryValidate(centerId,"You missed vaccination-center-id.");
 	return yield VaccinationCenterAdmins.find({vaccination_center:centerId});
 };
 
 
 module.exports.bookAppointment = function*(appointmentData){
-    validate(appointmentData, ["center","owner","queue_name","slot_index","date"], "you missed <%=param%>.");
+    validate(appointmentData, ["center","owner","queue_name","slot_index","date"], "You missed <%=param%>.");
 	let extend = _.extend({},appointmentData);
 	delete extend.owner;
 	extend.status = {$ne:"cancelled"};
@@ -58,7 +58,7 @@ module.exports.bookAppointment = function*(appointmentData){
 }
 
 module.exports.cancelAppointment = function*(appointmentId, userId){
-    queryValidate(appointmentId,"you missed appointment-id.");
+    queryValidate(appointmentId,"You missed appointment-id.");
 	let query = {_id:appointmentId};
 	if (userId) {
 		query.owner = userId;
@@ -68,9 +68,9 @@ module.exports.cancelAppointment = function*(appointmentId, userId){
 };
 
 module.exports.appointments = function*(centerId, date, ownerId){
-    queryValidate(centerId,"you missed center-id.");
-    queryValidate(date,"you missed the date.");
-    queryValidate(ownerId,"you missed owner-id.");
+    queryValidate(centerId,"You missed center-id.");
+    queryValidate(date,"You missed the date.");
+    queryValidate(ownerId,"You missed owner-id.");
 
     let query = {center:centerId, date:date};
 	if (ownerId) {
@@ -80,8 +80,8 @@ module.exports.appointments = function*(centerId, date, ownerId){
 };
 
 module.exports.availableAppointmentSlots = function*(centerId, date){
-    queryValidate(centerId,"you missed center-id.");
-    queryValidate(date,"you missed the date.");
+    queryValidate(centerId,"You missed center-id.");
+    queryValidate(date,"You missed the date.");
 	let center = yield VaccinationCenters.findOne({_id:centerId}).exec();
 	let appointments = yield Appointment.find({center:centerId, date:date, status:{$ne:"cancelled"}});
 	var slots ={};
@@ -113,7 +113,7 @@ module.exports.availableAppointmentSlots = function*(centerId, date){
 };
 
 module.exports.createAdmin = function*(centerId,adminData){
-    queryValidate(adminData.email,"you missed the email.");
+    queryValidate(adminData.email,"You missed the email.");
 
 	let existingBreed = yield VaccinationCenterAdmins.findOne({vaccination_center:centerId, email:adminData.email});
 	if(existingBreed){
@@ -132,7 +132,7 @@ module.exports.createAdmin = function*(centerId,adminData){
 };
 
 module.exports.deleteAdmin = function*(adminId){
-    queryValidate(adminId,"you missed the admin id.");
+    queryValidate(adminId,"You missed the admin id.");
 	return yield VaccinationCenterAdmins.remove({_id:adminId});
 };
 

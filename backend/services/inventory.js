@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 const InventoryItems = mongoose.model('InventoryItem');
 
 module.exports.createInventoryItem = function*(inventoryItemData){
-    validate(inventoryItemData, ["name"], "you missed <%=param%>.");
+    validate(inventoryItemData, ["name"], "You missed <%=param%>.");
 	let existingInventoryItems = yield InventoryItems.findOne({name:inventoryItemData.name});
 	if(existingInventoryItems){
 		return existingInventoryItems;
@@ -11,12 +11,12 @@ module.exports.createInventoryItem = function*(inventoryItemData){
 };
 
 module.exports.updateInventoryItem = function*(id, inventoryItemData){
-    queryValidate(id,"you missed inventory-id.");
+    queryValidate(id,"You missed inventory-id.");
 	return yield InventoryItems.update({_id:id},inventoryItemData);
 };
 
 module.exports.deleteInventoryItem = function*(inventoryItemId){
-    queryValidate(id,"you missed inventory-id.");
+    queryValidate(id,"You missed inventory-id.");
 
     return yield InventoryItems.remove({_id:inventoryItemId});
 };
@@ -26,13 +26,13 @@ module.exports.inventoryItems = function*(query={}){
 };
 
 module.exports.inventoryItemWithId = function*(inventoryItemId){
-    queryValidate(id,"you missed inventory-id.");
+    queryValidate(id,"You missed inventory-id.");
 
     return yield InventoryItems.findOne({_id:inventoryItemId}).exec();
 };
 
 module.exports.InventoryItemWithName = function*(name){
-    queryValidate(name,"you missed inventory-name.");
+    queryValidate(name,"You missed inventory-name.");
 
     return yield InventoryItems.findOne({name:name}).exec();
 };
