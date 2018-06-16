@@ -3,7 +3,7 @@ const PetType = mongoose.model('PetType');
 const PetBreed = mongoose.model('Breed');
 
 module.exports.createPetType = function*(petTypeData){
-    validate(petTypeData, ["name","life_span"], "you missed <%=param%>.");
+    validate(petTypeData, ["name","life_span"], "You missed <%=param%>.");
 
     let existingPetType = yield PetType.findOne({name:petTypeData.name})
 	if(existingPetType){
@@ -13,13 +13,13 @@ module.exports.createPetType = function*(petTypeData){
 };
 
 module.exports.updatePetType = function*(id, petTypeData){
-    queryValidate(id,"you missed pet-type-id.");
+    queryValidate(id,"You missed pet-type-id.");
 
     return yield PetType.update({_id:id},petTypeData);
 };
 
 module.exports.deletePetType = function*(petTypeId){
-    queryValidate(petTypeId,"you missed pet-type-id.");
+    queryValidate(petTypeId,"You missed pet-type-id.");
     return yield PetType.remove({_id:petTypeId});
 };
 
@@ -28,13 +28,13 @@ module.exports.petTypes = function*(query={}){
 };
 
 module.exports.petTypeWithId = function*(petTypeId){
-    queryValidate(petTypeId,"you missed pet-type-id.");
+    queryValidate(petTypeId,"You missed pet-type-id.");
 
     return yield PetType.findOne({_id:petTypeId}).exec();
 };
 
 module.exports.petTypeWithName = function*(name){
-    queryValidate(name,"you missed pet-type-name.");
+    queryValidate(name,"You missed pet-type-name.");
 	return yield PetType.findOne({name:name}).exec();
 };
 
@@ -44,17 +44,17 @@ module.exports.createPetBreed = function*(petTypeId,petBreedData){
 		return existingBreed;
 	}
 	petBreedData.pet_type = petTypeId;
-    validate(petBreedData, ["pet_type","name"], "you missed <%=param%>.");
+    validate(petBreedData, ["pet_type","name"], "You missed <%=param%>.");
     return yield PetBreed.create(petBreedData);
 };
 
 module.exports.updatePetBreed = function*(id, petBreedData){
-    queryValidate(id,"you missed pet-breed-id.");
+    queryValidate(id,"You missed pet-breed-id.");
 	return yield PetBreed.update({_id:id},petBreedData);
 };
 
 module.exports.deletePetBreed = function*(petBreedId){
-    queryValidate(petBreedId,"you missed pet-breed-id.");
+    queryValidate(petBreedId,"You missed pet-breed-id.");
 	return yield PetBreed.remove({_id:petBreedId});
 };
 
@@ -64,12 +64,12 @@ module.exports.petBreeds = function*(petTypeId,query={}){
 };
 
 module.exports.petBreedWithId = function*(petBreedId){
-    queryValidate(petBreedId,"you missed pet-breed-id.");
+    queryValidate(petBreedId,"You missed pet-breed-id.");
 	return yield PetBreed.findOne({_id:petBreedId}).exec();
 };
 
 module.exports.petBreedWithName = function*(petTypeId,name){
-    queryValidate(name,"you missed pet-breed-name.");
+    queryValidate(name,"You missed pet-breed-name.");
 	return yield PetBreed.findOne({name:name}).exec();
 };
 

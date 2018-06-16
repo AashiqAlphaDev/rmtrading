@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 const Token = mongoose.model('Token');
 
 module.exports.createToken = function*(tokenData){
-    validate(tokenData, ["pet"], "you missed <%=param%>.");
+    validate(tokenData, ["pet"], "You missed <%=param%>.");
 	let existingToken = yield Token.findOne({name:tokenData.name});
 	if(existingToken){
 		return existingToken;
@@ -11,7 +11,7 @@ module.exports.createToken = function*(tokenData){
 };
 
 module.exports.updateToken = function*(id, tokenData){
-    queryValidate(id,"you missed token-id.");
+    queryValidate(id,"You missed token-id.");
 
     let token = yield Token.findOne({_id:id});
 	if(token.pet){
@@ -24,7 +24,7 @@ module.exports.updateToken = function*(id, tokenData){
 };
 
 module.exports.deleteToken = function*(tokenId){
-    queryValidate(tokenId,"you missed token-id.");
+    queryValidate(tokenId,"You missed token-id.");
 	return yield Token.remove({_id:tokenId});
 };
 
@@ -33,12 +33,12 @@ module.exports.tokens = function*(query={}){
 };
 
 module.exports.tokenWithId = function*(tokenId){
-    queryValidate(tokenId,"you missed token-id.");
+    queryValidate(tokenId,"You missed token-id.");
 	return yield Token.findOne({_id:tokenId}).exec();
 };
 
 module.exports.tokenWithName = function*(name){
-    queryValidate(name,"you missed token-name.");
+    queryValidate(name,"You missed token-name.");
 	return yield Token.findOne({name:name}).exec();
 };
 

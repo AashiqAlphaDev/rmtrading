@@ -12,7 +12,7 @@ Date.prototype.addDays = function(days) {
 }
 
 module.exports.createPet = function*(petData){
-    validate(petData, ["name","pet_type","owner","date_of_birth"], "you missed <%=param%>.");
+    validate(petData, ["name","pet_type","owner","date_of_birth"], "You missed <%=param%>.");
 
     let vaccines = yield Vaccine.find({pet_type:petData.pet_type}).lean().exec();
 	petData.date_of_birth = new Date(petData.date_of_birth);
@@ -168,12 +168,12 @@ module.exports.createPet = function*(petData){
 };
 
 module.exports.updatePet = function*(id, petData){
-    queryValidate(id,"you missed pet-id.");
+    queryValidate(id,"You missed pet-id.");
 	return yield Pet.update({_id:id},petData);
 };
 
 module.exports.deletePet = function*(petId){
-    queryValidate(id,"you missed pet-id.");
+    queryValidate(id,"You missed pet-id.");
 	return yield Pet.remove({_id:petId});
 };
 
@@ -182,17 +182,17 @@ module.exports.pets = function*(query={}, page){
 };
 
 module.exports.petWithId = function*(petId){
-    queryValidate(id,"you missed pet-id.");
+    queryValidate(id,"You missed pet-id.");
 	return yield Pet.findOne({_id:petId}).exec();
 };
 
 module.exports.petsOfOwner = function*(ownerId){
-    queryValidate(ownerId,"you missed owner-id.");
+    queryValidate(ownerId,"You missed owner-id.");
 	return yield Pet.find({owner:ownerId}).exec();
 };
 
 module.exports.petWithName = function*(name){
-    queryValidate(name,"you missed pet-name.");
+    queryValidate(name,"You missed pet-name.");
 	return yield Pet.findOne({name:name}).exec();
 };
 
