@@ -5,6 +5,8 @@ const haveCenterAccess = require("./check-center-access")
 router.use(require("./auth"));
 router.use("/super-admin", require("./super-admin"));
 router.use("/diseases",require("./manage-diseases"));
+router.use("/countries",require("./manage-countries"));
+router.use("/center-types",require("./manage-center-type"));
 router.use("/tokens",require("./manage-tokens"));
 router.use("/requests",require("./manage-requests"));
 router.use("/vaccines",require("./manage-vaccines"));

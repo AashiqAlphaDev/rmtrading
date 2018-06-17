@@ -10,6 +10,7 @@ import {CHECK_SUPER_ADMIN} from "../../stores/auth/actions";
 import {Redirect, Route} from "react-router-dom";
 
 
+
 let Index = (class extends React.Component {
 	componentDidMount(){
 		this.props.dispatch({type:CHECK_SUPER_ADMIN});

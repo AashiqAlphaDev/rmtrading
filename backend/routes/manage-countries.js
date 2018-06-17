@@ -22,6 +22,7 @@ router.post("/",isAdmin, httpCoWrap(function*(req, res, next){
 	res.send(country);
 }));
 
+
 router.post("/:country_id/states",isAdmin, httpCoWrap(function*(req, res, next){
 	let country = yield CountryManagementService.createState(req.params.country_id,req.body);
 	res.send(country);
@@ -34,11 +35,6 @@ router.get("/:country_id/states",isAdmin, httpCoWrap(function*(req, res, next){
 	}
 	let states = yield CountryManagementService.states(req.params.country_id,query);
 	res.send(states);
-}));
-
-router.delete("/:country_id", isAdmin, httpCoWrap(function*(req, res, next){
-	yield CountryManagementService.deleteCountry(req.params.country_id);
-	res.send({});
 }));
 
 

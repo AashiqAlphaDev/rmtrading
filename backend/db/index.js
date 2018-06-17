@@ -208,6 +208,12 @@ const RequestSchema = new Schema({
 mongoose.model('Request', RequestSchema);
 
 
+const CenterTypeSchema = new Schema({
+	name:String
+});
+mongoose.model('CenterType', CenterTypeSchema);
+
+
 const AppointmentSchema = new Schema({
     center:ObjectID,
     owner:ObjectID,
@@ -217,3 +223,5 @@ const AppointmentSchema = new Schema({
 	slot_index:Number
 });
 mongoose.model('Appointment', AppointmentSchema);
+
+

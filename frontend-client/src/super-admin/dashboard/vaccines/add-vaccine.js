@@ -17,55 +17,45 @@ export default withStyles((theme)=>{
 })(class extends React.PureComponent{
 	render(){
 		const {classes} = this.props;
-		return <AnnotatedSection title={"Add Vaccination Center"}
-		                         desc={"Please provide the information to register Vaccination Center."}
+		return <AnnotatedSection title={"Add Vaccine "}
+		                         desc={"Please provide the information to register a Vaccine."}
 		                         backButton={{url: "/super-admin/dashboard/vet-centers"}}>
 			<Paper className={classes.paperPage}>
 				<Layout direction={"column"}>
-					<InputContainer label={"Vaccination Center Name"}>
+					<InputContainer label={"Vaccine Name"}>
 						<TextField></TextField>
 					</InputContainer>
-					<InputContainer label={"Type"}>
-						<TextField></TextField>
-					</InputContainer>
-					<Layout>
-						<InputContainer label={"City"}>
-							<TextField></TextField>
-						</InputContainer>
-						<InputContainer label={"State"}>
-							<TextField></TextField>
-						</InputContainer>
-					</Layout>
-					<InputContainer label={"Country"}>
+					<InputContainer label={"Related Disease"}>
 						<TextField></TextField>
 					</InputContainer>
 					<Layout>
-					<InputContainer label={"Address"}>
-						<TextField></TextField>
-					</InputContainer>
-					<InputContainer label={"Address Line 2"}>
-						<TextField></TextField>
-					</InputContainer>
-					</Layout>
-					<InputContainer label={"Zip Code"}>
-						<TextField></TextField>
-					</InputContainer>
-					<Layout>
-						<InputContainer label={"Contact Person"}>
+						<InputContainer label={"Pet-type"}>
 							<TextField></TextField>
 						</InputContainer>
-						<InputContainer label={"Contact Number"}>
+						<InputContainer label={"Breed"}>
 							<TextField></TextField>
 						</InputContainer>
 					</Layout>
 					<Layout>
-						<InputContainer label={"Center Email"}>
+						<InputContainer label={"Country"}>
 							<TextField></TextField>
 						</InputContainer>
-						<InputContainer label={"Center Fax"}>
+						<InputContainer label={"Gender"}>
 							<TextField></TextField>
 						</InputContainer>
 					</Layout>
+					<InputContainer label={"Remarks"}>
+						<TextField></TextField>
+					</InputContainer>
+					<Layout>
+						<InputContainer label={"Child Schedule"}>
+							<TextField></TextField>
+						</InputContainer>
+						<InputContainer label={"Adult Schedule"}>
+							<TextField></TextField>
+						</InputContainer>
+					</Layout>
+
 					<Layout justifyContent={"flex-end"} className={classes.actions}>
 						<Button> Clear </Button>
 						<Button variant={"raised"} color={"primary"}> Add </Button>
