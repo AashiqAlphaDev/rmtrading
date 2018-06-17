@@ -5,7 +5,7 @@ import Layout from "../../components/layout";
 import {AppBar,Toolbar,Button} from "@material-ui/core/index";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {REQUEST_SUPER_ADMIN_LOGOUT, SUPER_ADMIN_LOGOUT_SUCCEDED} from "../../stores/auth/actions";
+import {REQUEST_SUPER_ADMIN_LOGOUT} from "../../stores/auth/actions";
 
 const pages = [
 	{label: "Overview", url: "/super-admin/dashboard/"},
@@ -37,7 +37,7 @@ let Index = withStyles(()=>(
 						<Layout>
 							{
 								pages.map((page, index) => {
-									return <Link to={page.url} key={index}><Button key={index} className={classes.navButton} color={(index === _.findIndex(pages,(item)=>{return this.props.location.pathname===item.url})) ? 'primary' : 'default'}>
+									return <Link to={page.url} key={index}><Button key={index} className={classes.navButton} color={(index === _.findIndex(pages,(item)=>{return this.props.location.pathname.startsWith(item.url)})) ? 'primary' : 'default'}>
 										{page.label}
 									</Button></Link>
 								})

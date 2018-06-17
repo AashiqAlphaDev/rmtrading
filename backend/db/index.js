@@ -159,11 +159,17 @@ petSchema.plugin(mongoosePaginate);
 mongoose.model('Pet', petSchema);
 
 var countriesSchema = new Schema({
-    name:String,
-    states:[String]
+    name:String
 });
 countriesSchema.plugin(mongoosePaginate);
 mongoose.model('Country', countriesSchema);
+
+var statesSchema = new Schema({
+	name:String,
+	country:ObjectID
+});
+statesSchema.plugin(mongoosePaginate);
+mongoose.model('State', statesSchema);
 
 // Vaccination
 const vaccinationSchema = new Schema({
