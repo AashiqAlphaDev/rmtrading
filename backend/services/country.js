@@ -1,42 +1,37 @@
 const mongoose = require("mongoose")
-const Disease = mongoose.model('Disease');
+const Country = mongoose.model('Country');
 
-module.exports.createDisease = function*(diseaseData){
-	validate(diseaseData,["name"],"You missed <%=param%>.");
-    let existingDisease = yield Disease.findOne({name:diseaseData.name});
-	if(existingDisease){
-		return existingDisease;
+module.exports.createCountry = function*(countryData){
+	validate(countryData,["name"],"You missed <%=param%>.");
+    let existingCountry = yield Country.findOne({name:countryData.name});
+	if(existingCountry){
+		return existingCountry;
 	}
-	return yield Disease.create(diseaseData);
+	return yield Country.create(countryData);
 };
 
-module.exports.updateDisease = function*(id, diseaseData){
-    queryValidate(id,"You missed disease-id.");
-	return yield Disease.update({_id:id},diseaseData);
+module.exports.updateCountry = function*(id, countryData){
+    queryValidate(id,"You missed country-id.");
+	return yield Country.update({_id:id},countryData);
 };
 
-module.exports.deleteDisease = function*(diseaseId){
-    queryValidate(id,"You missed disease-id.");
-    return yield Disease.remove({_id:diseaseId});
+module.exports.deleteCountry = function*(countryId){
+    queryValidate(countryId,"You missed country-id.");
+    return yield Country.remove({_id:countryId});
 };
 
-module.exports.diseases = function*(query={}){
-	return yield Disease.find(query).exec();
+module.exports.countries = function*(query={}){
+	return yield Country.find(query).exec();
 };
 
-module.exports.diseaseWithId = function*(diseaseId){
-    queryValidate(id,"You missed disease-id.");
-    return yield Disease.findOne({_id:diseaseId}).exec();
-};
-
-module.exports.diseaseWithName = function*(name){
-    queryValidate(name,"You missed disease-name.");
-
-    return yield Disease.findOne({name:name}).exec();
+module.exports.countryWithId = function*(countryId){
+    console.log(countryId);
+    queryValidate(countryId,"You missed country-id.");
+    return yield Country.findOne({_id:countryId}).exec();
 };
 
 module.exports.deleteAll = function*(){
-	return yield Disease.remove({});
+	return yield Country.remove({});
 };
 
 
