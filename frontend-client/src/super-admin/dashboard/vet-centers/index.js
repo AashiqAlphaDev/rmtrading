@@ -6,12 +6,11 @@ import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
 import AddCenter from "./add-center"
 import Overview from "./overview"
+import VaccinationCenter from "./vaccination-center"
 import {connect} from "react-redux"
 
 const sideNavPages = [
 	{label:"Add Vet Center", url:"/super-admin/dashboard/vet-centers/add-center"},
-	{label:"Upload Vet Centers", url:"/super-admin/dashboard/vet-centers/upload-vet-centers"},
-	{label:"Download Vet Centers", url:"/super-admin/dashboard/vet-centers/download-vet-centers"},
 ];
 
 let Index = withStyles((theme)=>{
@@ -49,10 +48,10 @@ let Index = withStyles((theme)=>{
 							return <AddCenter location={props.location}/>;
 						}}/>
 						<Route path={"/super-admin/dashboard/vet-centers/search"} render={()=>{
-							return <div>Search</div>;
+							return <VaccinationCenter />;
 						}}/>
-						<Route exact path={"/super-admin/dashboard/vet-centers/:center_id/detail"} render={()=>{
-							return <div>Center Id</div>;
+						<Route exact path={"/super-admin/dashboard/vet-centers/:center_id/metadata"} render={()=>{
+							return <VaccinationCenter />;
 						}}/>
 					</Switch>
 				</Layout>

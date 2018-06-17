@@ -4,7 +4,7 @@ import createSagaMiddleware from 'redux-saga'
 import authReducer from './auth/reducers'
 import authSaga from './auth/sagas'
 
-import vetCenterReducer from './vet-centers/reducers'
+import {vetCenterReducer,vetCenterDetailReducer} from './vet-centers/reducers'
 import vetCenterSaga from './vet-centers/sagas'
 
 import countriesReducer from './countries/reducers'
@@ -14,7 +14,7 @@ const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_E
 
 const sagaMiddleware = createSagaMiddleware()
 const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware));
-const store = createStore(combineReducers({auth:authReducer, vetCenters:vetCenterReducer, countries:countriesReducer}), enhancer)
+const store = createStore(combineReducers({auth:authReducer, vetCenters:vetCenterReducer, countries:countriesReducer, vetCenterDetail:vetCenterDetailReducer}), enhancer)
 
 sagaMiddleware.run(authSaga);
 sagaMiddleware.run(vetCenterSaga);
