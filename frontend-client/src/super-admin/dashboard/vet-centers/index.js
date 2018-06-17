@@ -10,8 +10,6 @@ import {connect} from "react-redux"
 
 const sideNavPages = [
 	{label:"Add Vet Center", url:"/super-admin/dashboard/vet-centers/add-center"},
-	{label:"Upload Vet Centers", url:"/super-admin/dashboard/vet-centers/upload-vet-centers"},
-	{label:"Download Vet Centers", url:"/super-admin/dashboard/vet-centers/download-vet-centers"},
 ];
 
 let Index = withStyles((theme)=>{
