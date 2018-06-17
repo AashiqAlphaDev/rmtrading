@@ -1,31 +1,38 @@
 import { call, put, takeEvery} from 'redux-saga/effects';
 import {
-	ADD_VACCINE_FAILED, ADD_VACCINE_SUCCEDED,
-	QUERY_VACCINES, REQUEST_ADD_VACCINE,
+	ADD_VACCINE_FAILED,
+	ADD_VACCINE_SUCCEDED,
+	QUERY_VACCINES,
+	REQUEST_ADD_VACCINE,
+	DELETE_VACCINE_FAILED,
+	DELETE_VACCINE_SUCCEDED,
+	QUERY_VACCINES_SUCCEDED,
+	QUERY_VACCINES_FAILED,
+	REQUEST_DELETE_VACCINE
 } from "./actions";
 import base_url from "../base_url";
-import {FAILED_FETCH_VACCINES, FETCHED_VACCINES,REQUEST_UPDATE_VACCINE,REQUEST_DELETE_VACCINE} from "./actions";
 
-
-let queryVaccines = function*(action){
+let queryVetCenters = function*(action){
 	try {
-		const response = yield call(fetch, `${base_url}/vaccination-centers?query=${action.payload.query}`, {
+		var url = (action.payload && action.payload.query)?`${base_url}/vaccines?query=${action.payload.query}`:`${base_url}/vaccination-centers`;
+		const response = yield call(fetch, url, {
 			credentials: 'include'
 		});
 		if(response.ok){
-			yield put({type: FETCHED_VACCINES, payload:yield response.json()});
+			yield put({type: QUERY_VACCINES_SUCCEDED, payload:yield response.json()});
 		}
 		else {
-			yield put({type: FAILED_FETCH_VACCINES, payload:yield response.json()});
+			yield put({type: QUERY_VACCINES_FAILED, payload:yield response.json()});
 		}
 	} catch (error) {
-		yield put({type: FAILED_FETCH_VACCINES, payload:error});
+		console.log(error)
+		yield put({type: QUERY_VACCINES_FAILED, payload:error});
 	}
 };
 
 let addVetCenter = function*(action) {
 	try{
-		const response = yield call(fetch, `${base_url}/vaccination-centers`, {
+		const response = yield call(fetch, `${base_url}/vaccines`, {
 			method:"POST",
 			credentials: 'include',
 			headers:{
@@ -47,7 +54,7 @@ let addVetCenter = function*(action) {
 
 let deleteVetCenter = function*(action) {
 	try{
-		const response = yield call(fetch, `${base_url}/vaccination-centers/${action.payload.center_id}`, {
+		const response = yield call(fetch, `${base_url}/vaccines/${action.payload.center_id}`, {
 			method:"DELETE",
 			credentials: 'include',
 			headers:{
@@ -56,44 +63,21 @@ let deleteVetCenter = function*(action) {
 			body:JSON.stringify(action.payload)
 		});
 		if(response.ok){
-			yield put({type: ADD_VACCINE_SUCCEDED, payload:yield response.json()});
+			yield put({type: DELETE_VACCINE_SUCCEDED, payload:yield response.json()});
 		}
 		else {
-			yield put({type: ADD_VACCINE_FAILED, payload:yield response.json()});
+			yield put({type: DELETE_VACCINE_FAILED, payload:yield response.json()});
 		}
 	} catch (error) {
-		yield put({type: ADD_VACCINE_FAILED, payload:error});
+		yield put({type: DELETE_VACCINE_FAILED, payload:error});
 	}
 };
 
-let updateVetCenter = function*(action) {
-	try{
-		const response = yield call(fetch, `${base_url}/vaccination-centers/${action.payload.center_id}`, {
-			method:"PUT",
-			credentials: 'include',
-			headers:{
-				"Content-Type":"application/json"
-			},
-			body:JSON.stringify(action.payload)
-		});
-		if(response.ok){
-			yield put({type: ADD_VACCINE_SUCCEDED, payload:yield response.json()});
-		}
-		else {
-			yield put({type: ADD_VACCINE_FAILED, payload:yield response.json()});
-		}
-	} catch (error) {
-		yield put({type: ADD_VACCINE_FAILED, payload:error});
-	}
-};
-
-
-
-function* vetCentersSaga() {
-	yield takeEvery(QUERY_VACCINES, queryVaccines);
+function* vaccinesSaga() {
+	yield takeEvery(QUERY_VACCINES, queryVetCenters);
 	yield takeEvery(REQUEST_ADD_VACCINE, addVetCenter);
-	yield takeEvery(REQUEST_UPDATE_VACCINE, updateVetCenter);
 	yield takeEvery(REQUEST_DELETE_VACCINE, deleteVetCenter);
+	yield takeEvery(DELETE_VACCINE_SUCCEDED, queryVetCenters);
 }
 
-export default vetCentersSaga;
+export default vaccinesSaga;

@@ -12,7 +12,6 @@ import {
 } from "./actions";
 import base_url from "../base_url";
 
-
 let queryVetCenters = function*(action){
 	try {
 		var url = (action.payload && action.payload.query)?`${base_url}/vaccination-centers?query=${action.payload.query}`:`${base_url}/vaccination-centers`;
@@ -74,26 +73,6 @@ let deleteVetCenter = function*(action) {
 	}
 };
 
-let updateVetCenter = function*(action) {
-	try{
-		const response = yield call(fetch, `${base_url}/vaccination-centers/${action.payload.center_id}`, {
-			method:"PUT",
-			credentials: 'include',
-			headers:{
-				"Content-Type":"application/json"
-			},
-			body:JSON.stringify(action.payload)
-		});
-		if(response.ok){
-			yield put({type: ADD_VET_CENTER_SUCCEDED, payload:yield response.json()});
-		}
-		else {
-			yield put({type: ADD_VET_CENTER_FAILED, payload:yield response.json()});
-		}
-	} catch (error) {
-		yield put({type: ADD_VET_CENTER_FAILED, payload:error});
-	}
-};
 function* vetCentersSaga() {
 	yield takeEvery(QUERY_VET_CENTERS, queryVetCenters);
 	yield takeEvery(REQUEST_ADD_VET_CENTER, addVetCenter);
