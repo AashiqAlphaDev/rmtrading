@@ -4,15 +4,15 @@ import {
 	ADD_COUNTRY_SUCCEDED, ADD_STATE_FAILED, ADD_STATE_SUCCEDED,
 	DELETE_COUNTRY_FAILED,
 	DELETE_COUNTRY_SUCCEDED,
-	FAILED_FETCH_STATES,
-	FETCHED_STATES,
+	QUERY_STATES_FAILED,
+	QUERY_STATES_SUCCEDED,
 	QUERY_COUNTRIES,
 	QUERY_STATES,
 	REQUEST_ADD_COUNTRY,
 	REQUEST_ADD_STATE,
 } from "./actions";
 import base_url from "../base_url";
-import {FAILED_FETCH_COUNTRIES, FETCHED_COUNTRIES,REQUEST_DELETE_COUNTRY} from "./actions";
+import {QUERY_COUNTRIES_FAILED, QUERY_COUNTRIES_SUCCEDED,REQUEST_DELETE_COUNTRY} from "./actions";
 
 
 let queryCountries = function*(action){
@@ -21,13 +21,13 @@ let queryCountries = function*(action){
 			credentials: 'include'
 		});
 		if(response.ok){
-			yield put({type: FETCHED_COUNTRIES, payload:yield response.json()});
+			yield put({type: QUERY_COUNTRIES_SUCCEDED, payload:yield response.json()});
 		}
 		else {
-			yield put({type: FAILED_FETCH_COUNTRIES, payload:yield response.json()});
+			yield put({type: QUERY_COUNTRIES_FAILED, payload:yield response.json()});
 		}
 	} catch (error) {
-		yield put({type: FAILED_FETCH_COUNTRIES, payload:error});
+		yield put({type: QUERY_COUNTRIES_FAILED, payload:error});
 	}
 };
 
@@ -102,13 +102,13 @@ let queryStates = function*(action) {
 			credentials: 'include'
 		});
 		if(response.ok){
-			yield put({type: FETCHED_STATES, payload:yield response.json()});
+			yield put({type: QUERY_STATES_SUCCEDED, payload:yield response.json()});
 		}
 		else {
-			yield put({type: FAILED_FETCH_STATES, payload:yield response.json()});
+			yield put({type: QUERY_STATES_FAILED, payload:yield response.json()});
 		}
 	} catch (error) {
-		yield put({type: FAILED_FETCH_STATES, payload:error});
+		yield put({type: QUERY_STATES_FAILED, payload:error});
 	}
 };
 

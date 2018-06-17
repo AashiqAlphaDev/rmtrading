@@ -1,17 +1,20 @@
-import {FAILED_FETCH_VET_CENTERS, FETCHED_VET_CENTERS, QUERY_VET_CENTERS} from "./actions";
+import {
+	QUERY_VET_CENTERS,
+	QUERY_VET_CENTERS_SUCCEDED,
+	QUERY_VET_CENTERS_FAILED, REQUEST_VET_CENTER_FETCH, VET_CENTER_FETCH_SUCCEDED, VET_CENTER_FETCH_FAILED,
+} from "./actions";
 
 const initVetCenterData = {
 	centers:[]
 };
 
 function vetCenterReducer(state = initVetCenterData, action) {
-	console.log(action)
 	switch (action.type) {
-		case FETCHED_VET_CENTERS:{
+		case QUERY_VET_CENTERS_SUCCEDED:{
 			state = {...state, centers:action.payload, fetchError:null, isQueryInProgress:false};
 			break;
 		}
-		case FAILED_FETCH_VET_CENTERS:{
+		case QUERY_VET_CENTERS_FAILED:{
 			state = {...state, fetchError:action.payload, isQueryInProgress:false};
 			break;
 		}
@@ -26,4 +29,28 @@ function vetCenterReducer(state = initVetCenterData, action) {
 	return state;
 }
 
-export default vetCenterReducer;
+
+const initVetCenterDetail={}
+
+function vetCenterDetailReducer(state = initVetCenterDetail, action){
+	switch (action){
+		case REQUEST_VET_CENTER_FETCH:{
+			break;
+		}
+		case VET_CENTER_FETCH_SUCCEDED:{
+			state = action.payload;
+			break;
+		}
+		case VET_CENTER_FETCH_FAILED:{
+			break;
+		}
+		default:{
+			break;
+		}
+	}
+	return state;
+}
+
+
+
+export {vetCenterReducer,vetCenterDetailReducer};

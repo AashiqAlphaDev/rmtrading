@@ -10,8 +10,6 @@ import {connect} from "react-redux"
 
 const sideNavPages = [
 	{label:"Add Vaccine", url:"/super-admin/dashboard/vaccines/add-vaccine"},
-	{label:"Upload Vaccines", url:"/super-admin/dashboard/vaccines/upload-vaccines"},
-	{label:"Download Vaccines", url:"/super-admin/dashboard/vaccines/download-vaccines"},
 ];
 
 let Index = withStyles((theme)=>{

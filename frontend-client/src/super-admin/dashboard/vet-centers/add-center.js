@@ -12,7 +12,8 @@ import {
 	QUERY_COUNTRIES,
 	QUERY_STATES,
 	REQUEST_ADD_COUNTRY,
-	REQUEST_ADD_STATE, STATE_CLEAR_MATCHES
+	REQUEST_ADD_STATE,
+	STATE_CLEAR_MATCHES
 } from "../../../stores/countries/actions";
 import {REQUEST_ADD_VET_CENTER} from "../../../stores/vet-centers/actions";
 
@@ -106,6 +107,7 @@ let Index = withStyles((theme)=>{
 							}
 						}}
 						onChange={(event, payload) => {
+							event.preventDefault();
 							const {newValue} = payload;
 							if(typeof newValue === 'string'){
 								this.setState({selectedCountry:null});
@@ -142,6 +144,7 @@ let Index = withStyles((theme)=>{
 							placeholder={"State"}
 							value={this.state.state_query}
 							onChange={(event, payload) => {
+								event.preventDefault();
 								const {newValue} = payload;
 								if(typeof newValue === 'string'){
 									this.setState({selectedState:null});
