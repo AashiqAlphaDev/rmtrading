@@ -6,7 +6,7 @@ const emailer = require("./emailer");
 const _ = require("underscore");
 
 module.exports.createVaccinationCenter = function*(vaccinationCenterData){
-    validate(vaccinationCenterData, ["name","contact","appointments_per_hour","queues"], "You missed <%=param%>.");
+    validate(vaccinationCenterData, ["name","contact"], "You missed <%=param%>.");
 	return yield VaccinationCenters.create(vaccinationCenterData);
 };
 

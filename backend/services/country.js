@@ -12,6 +12,7 @@ module.exports.createCountry = function*(countryData){
 };
 
 module.exports.createState = function*(country_id,stateData){
+	console.log({country:country_id, ...stateData});
 	return yield State.create({country:country_id, ...stateData});
 };
 

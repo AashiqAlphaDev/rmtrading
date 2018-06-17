@@ -1,7 +1,15 @@
 import { call, put, takeEvery,takeLatest} from 'redux-saga/effects';
 import {
-	ADD_COUNTRY_FAILED, ADD_COUNTRY_SUCCEDED, DELETE_COUNTRY_FAILED, DELETE_COUNTRY_SUCCEDED,
-	QUERY_COUNTRIES, REQUEST_ADD_COUNTRY,
+	ADD_COUNTRY_FAILED,
+	ADD_COUNTRY_SUCCEDED,
+	DELETE_COUNTRY_FAILED,
+	DELETE_COUNTRY_SUCCEDED,
+	FAILED_FETCH_STATES,
+	FETCHED_STATES,
+	QUERY_COUNTRIES,
+	QUERY_STATES,
+	REQUEST_ADD_COUNTRY,
+	REQUEST_ADD_STATE,
 } from "./actions";
 import base_url from "../base_url";
 import {FAILED_FETCH_COUNTRIES, FETCHED_COUNTRIES,REQUEST_DELETE_COUNTRY} from "./actions";
@@ -45,6 +53,28 @@ let addCountry = function*(action) {
 };
 
 
+let addState = function*(action) {
+	try{
+		const response = yield call(fetch, `${base_url}/app-data/countries/${action.payload.country_id}/states`, {
+			method:"POST",
+			credentials: 'include',
+			headers:{
+				"Content-Type":"application/json"
+			},
+			body:JSON.stringify(action.payload.state_data)
+		});
+		if(response.ok){
+			yield put({type: ADD_COUNTRY_SUCCEDED, payload:yield response.json()});
+		}
+		else {
+			yield put({type: ADD_COUNTRY_FAILED, payload:yield response.json()});
+		}
+	} catch (error) {
+		yield put({type: ADD_COUNTRY_FAILED, payload:error});
+	}
+};
+
+
 let deleteCountry = function*(action) {
 	try{
 		const response = yield call(fetch, `${base_url}/app-data/countries/${action.payload.center_id}`, {
@@ -53,7 +83,7 @@ let deleteCountry = function*(action) {
 			headers:{
 				"Content-Type":"application/json"
 			},
-			body:JSON.stringify(action.payload)
+			body:JSON.stringify(action.payload.state_data)
 		});
 		if(response.ok){
 			yield put({type: DELETE_COUNTRY_SUCCEDED, payload:yield response.json()});
@@ -72,13 +102,13 @@ let queryStates = function*(action) {
 			credentials: 'include'
 		});
 		if(response.ok){
-			yield put({type: FETCHED_COUNTRIES, payload:yield response.json()});
+			yield put({type: FETCHED_STATES, payload:yield response.json()});
 		}
 		else {
-			yield put({type: FAILED_FETCH_COUNTRIES, payload:yield response.json()});
+			yield put({type: FAILED_FETCH_STATES, payload:yield response.json()});
 		}
 	} catch (error) {
-		yield put({type: FAILED_FETCH_COUNTRIES, payload:error});
+		yield put({type: FAILED_FETCH_STATES, payload:error});
 	}
 };
 
@@ -87,6 +117,7 @@ function* countriesSaga() {
 	yield takeLatest(QUERY_COUNTRIES, queryCountries);
 	yield takeLatest(QUERY_STATES, queryStates);
 	yield takeEvery(REQUEST_ADD_COUNTRY, addCountry);
+	yield takeEvery(REQUEST_ADD_STATE, addState);
 	yield takeEvery(REQUEST_DELETE_COUNTRY, deleteCountry);
 }
 

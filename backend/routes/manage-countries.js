@@ -28,8 +28,12 @@ router.post("/:country_id/states",isAdmin, httpCoWrap(function*(req, res, next){
 }));
 
 router.get("/:country_id/states",isAdmin, httpCoWrap(function*(req, res, next){
-	let country = yield CountryManagementService.states(req.params.country_id,req.body);
-	res.send(country);
+	var query = req.query.query?req.query.query:{};
+	if(req.query.q){
+		query.name = {$regex:`.*${req.query.q}.*`, '$options' : 'i'}
+	}
+	let states = yield CountryManagementService.states(req.params.country_id,query);
+	res.send(states);
 }));
 
 router.delete("/:country_id", isAdmin, httpCoWrap(function*(req, res, next){

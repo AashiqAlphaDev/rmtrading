@@ -95,6 +95,7 @@ export default withStyles((theme)=>{
 										inputRef: ref,
 										...InputProps,
 									}}
+									disabled={this.props.disabled}
 									{...other}
 								/>
 							</div>
