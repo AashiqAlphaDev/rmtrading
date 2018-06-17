@@ -12,7 +12,7 @@ import {
 	QUERY_COUNTRIES,
 	QUERY_STATES,
 	REQUEST_ADD_COUNTRY,
-	REQUEST_ADD_STATE
+	REQUEST_ADD_STATE, STATE_CLEAR_MATCHES
 } from "../../../stores/countries/actions";
 import {REQUEST_ADD_VET_CENTER} from "../../../stores/vet-centers/actions";
 
@@ -29,6 +29,7 @@ let Index = withStyles((theme)=>{
 	state={
 		country_query:"",
 		selectedCountry:null,
+		selectedState:null,
 		state_query:"",
 		matched_states:[]
 	};
@@ -46,6 +47,10 @@ let Index = withStyles((theme)=>{
 			this.setState({selectedCountry:nextProps.countries.addedCountry});
 			this.props.dispatch({type:COUNTRY_CLEAR_MATCHES});
 		}
+		if(nextProps.countries.addedState){
+			this.setState({selectedState:nextProps.countries.addedState});
+			this.props.dispatch({type:STATE_CLEAR_MATCHES});
+		}
 	}
 
 	render(){
@@ -56,6 +61,9 @@ let Index = withStyles((theme)=>{
 			<Paper className={classes.paperPage}>
 				<form onSubmit={(e)=>{
 					e.preventDefault();
+					if(!this.state.selectedState || !this.state.selectedCountry){
+						return;
+					}
 					let vetCenterData = {
 						name:this.state.name,
 						address:{
@@ -80,7 +88,7 @@ let Index = withStyles((theme)=>{
 						<TextField onChange={(e)=>{this.setState({name:e.target.value})}}/>
 					</InputContainer>
 					<AutoSuggest
-						suggestions={this.props.countries.list.length == 0 ? [{
+						suggestions={this.props.countries.list.length === 0 && !this.state.selectedCountry? [{
 							name: `+ Add ${this.state.country_query}`,
 							action: "create_new",
 							value: {name:this.state.country_query}
@@ -92,6 +100,11 @@ let Index = withStyles((theme)=>{
 						disabled={this.props.countries.addingCountryInProgress}
 						placeholder={"Country"}
 						value={this.state.country_query}
+						onBlur={()=>{
+							if(!this.state.selectedCountry){
+								this.setState({country_query:""})
+							}
+						}}
 						onChange={(event, payload) => {
 							const {newValue} = payload;
 							if(typeof newValue === 'string'){
@@ -111,7 +124,7 @@ let Index = withStyles((theme)=>{
 					/>
 					<Layout>
 						<AutoSuggest
-							suggestions={this.props.countries.state_list.length == 0 ? [{
+							suggestions={this.props.countries.state_list.length === 0 && !this.state.selectedState? [{
 								name: `+ Add ${this.state.state_query}`,
 								action: "create_new",
 								value: {name:this.state.state_query}
@@ -119,6 +132,11 @@ let Index = withStyles((theme)=>{
 							onSuggestionsFetchRequested={this.handleStateSuggestionsFetchRequested.bind(this)}
 							onSuggestionsClearRequested={() => {
 								this.props.dispatch({type: COUNTRY_CLEAR_MATCHES});
+							}}
+							onBlur={()=>{
+								if(!this.state.selectedState){
+									this.setState({state_query:""})
+								}
 							}}
 							disabled={!this.state.selectedCountry}
 							placeholder={"State"}
@@ -166,24 +184,24 @@ let Index = withStyles((theme)=>{
 					<Layout>
 						<InputContainer label={"Contact Person"}>
 							<TextField onChange={(event)=>{
-								this.setState({contant_name:event.target.value})
+								this.setState({contact_name:event.target.value})
 							}}></TextField>
 						</InputContainer>
 						<InputContainer label={"Contact Number"}>
 							<TextField onChange={(event)=>{
-								this.setState({contant_number:event.target.value})
+								this.setState({contact_number:event.target.value})
 							}}></TextField>
 						</InputContainer>
 					</Layout>
 					<Layout>
 						<InputContainer label={"Center Email"}>
 							<TextField onChange={(event)=>{
-								this.setState({contant_email:event.target.value})
+								this.setState({contact_email:event.target.value})
 							}}></TextField>
 						</InputContainer>
 						<InputContainer label={"Center Fax"}>
 							<TextField onChange={(event)=>{
-								this.setState({contant_fax:event.target.value})
+								this.setState({contact_fax:event.target.value})
 							}}></TextField>
 						</InputContainer>
 					</Layout>

@@ -42,7 +42,7 @@ let Index = withStyles((theme)=>{
 				</Layout>
 				<Layout direction={"column"} className={classes.rightSection}>
 					<Switch>
-						<Route exact path={"/super-admin/dashboard/vet-centers/"} render={(props)=>{
+						<Route exact path={"/super-admin/dashboard/vet-centers"} render={(props)=>{
 							return <Overview location={props.location} />;
 						}}/>
 						<Route path={"/super-admin/dashboard/vet-centers/add-center"} render={(props)=>{

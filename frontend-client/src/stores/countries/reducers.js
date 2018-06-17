@@ -1,10 +1,10 @@
 import {
 	ADD_COUNTRY_FAILED,
-	ADD_COUNTRY_SUCCEDED,
+	ADD_COUNTRY_SUCCEDED, ADD_STATE_SUCCEDED,
 	COUNTRY_CLEAR_MATCHES,
 	FAILED_FETCH_COUNTRIES, FAILED_FETCH_STATES,
 	FETCHED_COUNTRIES, FETCHED_STATES,
-	QUERY_COUNTRIES, REQUEST_ADD_COUNTRY
+	QUERY_COUNTRIES, REQUEST_ADD_COUNTRY, STATE_CLEAR_MATCHES
 } from "./actions";
 
 const initVetCenterData = {
@@ -16,6 +16,10 @@ function countriesReducer(state = initVetCenterData, action) {
 	switch (action.type) {
 		case COUNTRY_CLEAR_MATCHES:{
 			state = {...state, list:[], addedCountry:null};
+			break;
+		}
+		case STATE_CLEAR_MATCHES:{
+			state = {...state, state_list:[], addedState:null};
 			break;
 		}
 		case FETCHED_COUNTRIES:{
@@ -48,6 +52,10 @@ function countriesReducer(state = initVetCenterData, action) {
 		}
 		case QUERY_COUNTRIES:{
 			state = {...state, fetchError:null, isQueryInProgress:true};
+			break;
+		}
+		case ADD_STATE_SUCCEDED:{
+			state = {...state, addedState:action.payload, addingCountryInProgress:false};
 			break;
 		}
 		default:{

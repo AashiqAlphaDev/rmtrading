@@ -9,7 +9,7 @@ router.get("/", httpCoWrap(function*(req, res, next){
 	if(req.query.q){
 		query.name = {$regex:`.*${req.query.q}.*`, '$options' : 'i'}
 	}
-	let vaccinationCenters = yield VaccinationCenterManagementService.vaccinationCenters({query});
+	let vaccinationCenters = yield VaccinationCenterManagementService.vaccinationCenters(query);
 	res.send(vaccinationCenters);
 }));
 

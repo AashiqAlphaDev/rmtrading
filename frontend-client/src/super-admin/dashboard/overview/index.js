@@ -1,7 +1,5 @@
 import React from "react"
 import Layout from "../../../components/layout";
-import {Typography,List,ListItem} from "@material-ui/core/index";
-import {Link, Switch} from "react-router-dom";
 import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
 import {connect} from "react-redux"

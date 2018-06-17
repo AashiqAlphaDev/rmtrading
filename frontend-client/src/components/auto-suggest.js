@@ -70,6 +70,7 @@ export default withStyles((theme)=>{
 			const {classes} = this.props;
 			return <InputContainer label={this.props.placeholder}>
 				<AutoSuggest
+
 					theme={{
 						container: classes.autoSuggest,
 						suggestionsContainerOpen: classes.suggestionsContainerOpen,
@@ -87,6 +88,7 @@ export default withStyles((theme)=>{
 						const {InputProps, ref, classes, ...other} = inputProps;
 						return <div>
 								<TextField
+									autoComplete={false}
 									fullWidth
 									InputProps={{
 										classes: {
@@ -96,6 +98,7 @@ export default withStyles((theme)=>{
 										...InputProps,
 									}}
 									disabled={this.props.disabled}
+
 									{...other}
 								/>
 							</div>
@@ -106,6 +109,7 @@ export default withStyles((theme)=>{
 						placeholder: this.props.placeholder,
 						value: this.props.value,
 						onChange: this.props.onChange,
+						onBlur: this.props.onBlur
 					}}
 				/>
 			</InputContainer>

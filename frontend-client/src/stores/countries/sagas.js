@@ -1,7 +1,7 @@
 import { call, put, takeEvery,takeLatest} from 'redux-saga/effects';
 import {
 	ADD_COUNTRY_FAILED,
-	ADD_COUNTRY_SUCCEDED,
+	ADD_COUNTRY_SUCCEDED, ADD_STATE_FAILED, ADD_STATE_SUCCEDED,
 	DELETE_COUNTRY_FAILED,
 	DELETE_COUNTRY_SUCCEDED,
 	FAILED_FETCH_STATES,
@@ -64,13 +64,13 @@ let addState = function*(action) {
 			body:JSON.stringify(action.payload.state_data)
 		});
 		if(response.ok){
-			yield put({type: ADD_COUNTRY_SUCCEDED, payload:yield response.json()});
+			yield put({type: ADD_STATE_SUCCEDED, payload:yield response.json()});
 		}
 		else {
-			yield put({type: ADD_COUNTRY_FAILED, payload:yield response.json()});
+			yield put({type: ADD_STATE_FAILED, payload:yield response.json()});
 		}
 	} catch (error) {
-		yield put({type: ADD_COUNTRY_FAILED, payload:error});
+		yield put({type: ADD_STATE_FAILED, payload:error});
 	}
 };
 

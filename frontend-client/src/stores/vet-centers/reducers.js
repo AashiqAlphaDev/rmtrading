@@ -5,9 +5,10 @@ const initVetCenterData = {
 };
 
 function vetCenterReducer(state = initVetCenterData, action) {
+	console.log(action)
 	switch (action.type) {
 		case FETCHED_VET_CENTERS:{
-			state = {...state, fetchError:null, centers:action.payload, isQueryInProgress:false};
+			state = {...state, centers:action.payload, fetchError:null, isQueryInProgress:false};
 			break;
 		}
 		case FAILED_FETCH_VET_CENTERS:{
@@ -16,6 +17,9 @@ function vetCenterReducer(state = initVetCenterData, action) {
 		}
 		case QUERY_VET_CENTERS:{
 			state = {...state, fetchError:null, isQueryInProgress:true};
+			break;
+		}
+		default:{
 			break;
 		}
 	}

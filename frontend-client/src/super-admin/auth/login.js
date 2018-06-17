@@ -3,7 +3,7 @@ import {withStyles} from "@material-ui/core/styles"
 import {Card,Typography, CardContent, TextField, Button, Snackbar} from "@material-ui/core/index";
 import Layout from "../../components/layout";
 import style from "./style"
-import {AUTH_CLEAR, REQUEST_SUPER_ADMIN_LOGIN} from "../../stores/auth/actions";
+import {REQUEST_SUPER_ADMIN_LOGIN} from "../../stores/auth/actions";
 import {Redirect} from "react-router-dom";
 import {connect} from "react-redux"
 

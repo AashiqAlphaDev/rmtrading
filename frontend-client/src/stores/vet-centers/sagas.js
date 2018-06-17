@@ -9,7 +9,9 @@ import {FAILED_FETCH_VET_CENTERS, FETCHED_VET_CENTERS,REQUEST_UPDATE_VET_CENTER,
 
 let queryVetCenters = function*(action){
 	try {
-		const response = yield call(fetch, `${base_url}/vaccination-centers?query=${action.payload.query}`, {
+		var url = action.payload?`${base_url}/vaccination-centers?query=${action.payload.query}`:`${base_url}/vaccination-centers`;
+		console.log(url);
+		const response = yield call(fetch, url, {
 			credentials: 'include'
 		});
 		if(response.ok){
