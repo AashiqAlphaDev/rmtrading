@@ -10,13 +10,13 @@ import {connect} from "react-redux"
 
 
 let Index = withStyles((theme)=>{
-	return {
-		...style(theme),
-	}
+    return {
+        ...style(theme),
+    }
 })(class extends React.Component {
-	render(){
-		const {classes} = this.props;
-		return <Layout direction={"column"} flex={1} className={classes.body}>
+    render(){
+        const {classes} = this.props;
+        return <Layout direction={"column"} flex={1} className={classes.body}>
 			<Layout className={`container ${classes.flex}`}>
 				<Layout className={classes.leftSection}>
 					<Layout direction={"column"} className={classes.staticSection}>
@@ -46,23 +46,23 @@ let Index = withStyles((theme)=>{
 															Request Type:
 														</div>
 														<div>
-														Request ID:
+															Request ID:
 														</div>
 														<div>
-														Vaccination Center:
+															Vaccination Center:
 														</div>
 														<div>
-														Status:
+															Status:
 														</div>
 													</Layout>
 												</ExpansionPanelSummary>
 
 												<ExpansionPanelDetails>
 													<Layout style={{justifyContent:'flex-end', flex:1}}>
-														<IconButton style={{color: 'green'}} className={classes.button} aria-label="Add to shopping cart">
+														<IconButton style={{color: 'green',paddingRight:'10px'}} className={classes.button} aria-label="Add to shopping cart">
 															<Done />
 														</IconButton>
-														<IconButton style={{color: 'red'}} className={classes.button} aria-label="Add to shopping cart">
+														<IconButton style={{color: 'red',paddingRight:'10px'}} className={classes.button} aria-label="Add to shopping cart">
 															<Close />
 														</IconButton>
 													</Layout>
@@ -78,7 +78,7 @@ let Index = withStyles((theme)=>{
 				</Layout>
 			</Layout>
 		</Layout>;
-	}
+    }
 });
 
 export default connect(store=>store)(Index);
