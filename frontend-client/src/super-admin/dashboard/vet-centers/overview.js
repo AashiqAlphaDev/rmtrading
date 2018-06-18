@@ -34,7 +34,6 @@ let Index = withStyles((theme)=>{
 	}
 	render(){
 		const {classes} = this.props;
-		console.log(this.props);
 		return <div className={classes.body}>
 			<Typography variant="title" gutterBottom className={classes.title}>
 				20 Vaccination Centers around 10 countries.

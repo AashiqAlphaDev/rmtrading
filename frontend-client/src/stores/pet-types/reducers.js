@@ -15,7 +15,7 @@ const initPetTypes = {
 function petTypesReducer(state = initPetTypes, action) {
 	switch (action.type) {
 		case PET_TYPE_CLEAR_MATCHES:{
-			state = {...state, list:[], addedCountry:null};
+			state = {...state, list:[], addedPetType:null};
 			break;
 		}
 		case BREED_CLEAR_MATCHES:{
@@ -31,15 +31,15 @@ function petTypesReducer(state = initPetTypes, action) {
 			break;
 		}
 		case REQUEST_ADD_PET_TYPE:{
-			state = {...state, addingCountryInProgress:true};
+			state = {...state, addingPetTypeInProgress:true};
 			break;
 		}
 		case ADD_PET_TYPE_SUCCEDED:{
-			state = {...state, addedCountry:action.payload, addingCountryInProgress:false};
+			state = {...state, addedPetType:action.payload, addingPetTypeInProgress:false};
 			break;
 		}
 		case ADD_PET_TYPE_FAILED:{
-			state = {...state, addedCountryError:action.payload, addingCountryInProgress:false};
+			state = {...state, addedPetTypeError:action.payload, addingPetTypeInProgress:false};
 			break;
 		}
 		case QUERY_PET_TYPES_FAILED:{
@@ -55,7 +55,7 @@ function petTypesReducer(state = initPetTypes, action) {
 			break;
 		}
 		case ADD_BREED_SUCCEDED:{
-			state = {...state, addedBreed:action.payload, addingCountryInProgress:false};
+			state = {...state, addedBreed:action.payload, addingPetTypeInProgress:false};
 			break;
 		}
 		default:{

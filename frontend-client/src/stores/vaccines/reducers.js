@@ -5,13 +5,13 @@ import {
 } from "./actions";
 
 const initVaccineData = {
-	vaccines:[]
+	list:[]
 };
 
 function vaccineReducer(state = initVaccineData, action) {
 	switch (action.type) {
 		case QUERY_VACCINES_SUCCEDED:{
-			state = {...state, vaccines:action.payload, fetchError:null, isQueryInProgress:false};
+			state = {...state, list:action.payload, fetchError:null, isQueryInProgress:false};
 			break;
 		}
 		case QUERY_VACCINES_FAILED:{

@@ -13,7 +13,6 @@ import VetCenterTypes from "./vet-center-types"
 
 const sideNavPages = [
 	{label:"Countries", url:"/super-admin/dashboard/application-data/countries"},
-	{label:"Vet Center Types", url:"/super-admin/dashboard/application-data/vet-center-types"},
 	{label:"Inventory", url:"/super-admin/dashboard/application-data/inventory"},
 	{label:"Pet Types", url:"/super-admin/dashboard/application-data/pet-types"},
 	{label:"Diseases", url:"/super-admin/dashboard/application-data/diseases"}

@@ -17,7 +17,8 @@ import {QUERY_PET_TYPES_FAILED, QUERY_PET_TYPES_SUCCEDED,REQUEST_DELETE_PET_TYPE
 
 let queryPetTypes = function*(action){
 	try {
-		const response = yield call(fetch, `${base_url}/app-data/pet-types?q=${action.payload.query}`, {
+		var url = (action.payload && action.payload.query)?`${base_url}/app-data/pet-types?q=${action.payload.query}`:`${base_url}/app-data/pet-types`;
+		const response = yield call(fetch, url, {
 			credentials: 'include'
 		});
 		if(response.ok){
@@ -119,6 +120,7 @@ function* petTypesSaga() {
 	yield takeEvery(REQUEST_ADD_PET_TYPE, addPetType);
 	yield takeEvery(REQUEST_ADD_BREED, addBreed);
 	yield takeEvery(REQUEST_DELETE_PET_TYPE, deletePetType);
+	yield takeEvery(DELETE_PET_TYPE_SUCCEDED, queryPetTypes);
 }
 
 export default petTypesSaga;
