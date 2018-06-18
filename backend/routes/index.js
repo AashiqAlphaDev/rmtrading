@@ -11,7 +11,7 @@ router.use("/tokens",require("./manage-tokens"));
 router.use("/requests",require("./manage-requests"));
 router.use("/vaccines",require("./manage-vaccines"));
 router.use("/vaccination-centers",require("./manage-vaccination-centers"));
-router.use("/pet-types",require("./manage-pet-types"));
+router.use("/app-data/pet-types",require("./manage-pet-types"));
 router.use("/inventory",require("./manage-inventory"));
 router.use("/app-data/countries",require("./manage-countries"));
 router.use("/session",require("./session"));

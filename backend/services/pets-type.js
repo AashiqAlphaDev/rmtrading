@@ -3,7 +3,7 @@ const PetType = mongoose.model('PetType');
 const PetBreed = mongoose.model('Breed');
 
 module.exports.createPetType = function*(petTypeData){
-    validate(petTypeData, ["name","life_span"], "You missed <%=param%>.");
+    validate(petTypeData, ["name"], "You missed <%=param%>.");
 
     let existingPetType = yield PetType.findOne({name:petTypeData.name})
 	if(existingPetType){
@@ -60,6 +60,7 @@ module.exports.deletePetBreed = function*(petBreedId){
 
 module.exports.petBreeds = function*(petTypeId,query={}){
 	query.pet_type = petTypeId;
+	console.log(query)
 	return yield PetBreed.find(query).exec();
 };
 
