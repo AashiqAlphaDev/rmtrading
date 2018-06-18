@@ -5,7 +5,7 @@ import {
 	REQUEST_VET_CENTER_FETCH,
 	VET_CENTER_FETCH_SUCCEDED,
 	VET_CENTER_FETCH_FAILED,
-	CLEAR_VET_CENTER, ADMINS_FETCH_SUCCEDED, ADD_ADMIN_SUCCEDED,
+	CLEAR_VET_CENTER, ADMINS_FETCH_SUCCEDED, ADD_ADMIN_SUCCEDED, QUEUES_FETCH_SUCCEDED, ADD_QUEUE_SUCCEDED,
 } from "./actions";
 
 const initVetCenterData = {
@@ -38,10 +38,6 @@ const initVetCenterDetail={}
 
 function vetCenterDetailReducer(state = initVetCenterDetail, action){
 	switch (action.type){
-		case CLEAR_VET_CENTER:{
-			state = initVetCenterData;
-			break;
-		}
 		case REQUEST_VET_CENTER_FETCH:{
 			break;
 		}
@@ -58,6 +54,14 @@ function vetCenterDetailReducer(state = initVetCenterDetail, action){
 		}
 		case ADD_ADMIN_SUCCEDED:{
 			state = {...state, addedAdmin:action.payload};
+			break;
+		}
+		case QUEUES_FETCH_SUCCEDED:{
+			state = {...state, queues:action.payload};
+			break;
+		}
+		case ADD_QUEUE_SUCCEDED:{
+			state = {...state, addedQueue:action.payload};
 			break;
 		}
 		default:{

@@ -12,6 +12,7 @@ module.exports.createVaccinationCenter = function*(vaccinationCenterData){
 
 module.exports.updateVaccinationCenter = function*(id, vaccinationCenterData){
     queryValidate(id,"You missed vaccination-center-id.");
+    console.log(vaccinationCenterData);
 	return yield VaccinationCenters.update({_id:id},vaccinationCenterData);
 };
 

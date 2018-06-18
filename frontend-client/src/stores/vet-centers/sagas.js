@@ -17,7 +17,17 @@ import {
 	ADD_ADMIN_SUCCEDED,
 	ADD_ADMIN_FAILED,
 	REQUEST_ADMINS_FETCH,
-	ADMINS_FETCH_SUCCEDED, ADMINS_FETCH_FAILED, DELETE_ADMIN_SUCCEDED, DELETE_ADMIN_FAILED, REQUEST_DELETE_ADMIN
+	ADMINS_FETCH_SUCCEDED,
+	ADMINS_FETCH_FAILED,
+	DELETE_ADMIN_SUCCEDED,
+	DELETE_ADMIN_FAILED,
+	REQUEST_DELETE_ADMIN,
+	REQUEST_ADD_QUEUE,
+	ADD_QUEUE_SUCCEDED,
+	REQUEST_QUEUES_FETCH,
+	REQUEST_DELETE_QUEUE,
+	ADD_QUEUE_FAILED,
+	DELETE_QUEUE_SUCCEDED, DELETE_QUEUE_FAILED
 } from "./actions";
 import base_url from "../base_url";
 
@@ -84,7 +94,6 @@ let deleteVetCenter = function*(action) {
 
 let fetchVetCenter = function*(action){
 	try{
-		yield put({type: CLEAR_VET_CENTER})
 		const response = yield call(fetch, `${base_url}/vaccination-centers/${action.payload.center_id}`);
 		if(response.ok){
 			yield put({type: VET_CENTER_FETCH_SUCCEDED, payload:yield response.json()});
@@ -118,6 +127,30 @@ let addAdmin = function*(action){
 	}
 };
 
+let addQueue = function*(action){
+	try{
+		const response = yield call(fetch, `${base_url}/vaccination-centers/${action.payload.center_id}`, {
+			method:"PUT",
+			credentials: 'include',
+			headers:{
+				"Content-Type":"application/json"
+			},
+			body:JSON.stringify({ $push: { queues: action.payload.queue_data } })
+		});
+		if(response.ok){
+			yield put({type: ADD_QUEUE_SUCCEDED, payload:yield response.json()});
+			yield put({type: REQUEST_VET_CENTER_FETCH, payload:{center_id:action.payload.center_id}});
+
+		}
+		else {
+			yield put({type: ADD_QUEUE_FAILED, payload:yield response.json()});
+		}
+	} catch (error) {
+		yield put({type: ADD_QUEUE_FAILED, payload:error});
+	}
+};
+
+
 let deleteAdmin = function*(action){
 	try{
 		const response = yield call(fetch, `${base_url}/vaccination-centers/${action.payload.center_id}/admins/${action.payload.admin_id}`, {
@@ -133,6 +166,28 @@ let deleteAdmin = function*(action){
 		}
 	} catch (error) {
 		yield put({type: DELETE_ADMIN_FAILED, payload:error});
+	}
+}
+
+let deleteQueue = function*(action){
+	try{
+		const response = yield call(fetch, `${base_url}/vaccination-centers/${action.payload.center_id}`, {
+			method:"PUT",
+			credentials: 'include',
+			headers:{
+				"Content-Type":"application/json"
+			},
+			body:JSON.stringify({ $pull: { queues: {_id:action.payload.queue_id} } })
+		});
+		if(response.ok){
+			yield put({type: DELETE_QUEUE_SUCCEDED, payload:yield response.json()});
+			yield put({type: REQUEST_VET_CENTER_FETCH, payload:{center_id:action.payload.center_id}});
+		}
+		else {
+			yield put({type: DELETE_QUEUE_FAILED, payload:yield response.json()});
+		}
+	} catch (error) {
+		yield put({type: DELETE_QUEUE_FAILED, payload:error});
 	}
 }
 
@@ -162,11 +217,17 @@ function* vetCentersSaga() {
 	yield takeEvery(REQUEST_DELETE_VET_CENTER, deleteVetCenter);
 	yield takeEvery(DELETE_VET_CENTER_SUCCEDED, queryVetCenters);
 	yield takeEvery(REQUEST_VET_CENTER_FETCH, fetchVetCenter);
+
 	yield takeEvery(REQUEST_ADD_ADMIN, addAdmin);
 	yield takeEvery(ADD_ADMIN_SUCCEDED, fetchAdmins);
 	yield takeEvery(REQUEST_ADMINS_FETCH, fetchAdmins);
 	yield takeEvery(VET_CENTER_FETCH_SUCCEDED, fetchAdmins);
 	yield takeEvery(REQUEST_DELETE_ADMIN, deleteAdmin);
+
+
+	yield takeEvery(REQUEST_ADD_QUEUE, addQueue);
+	yield takeEvery(REQUEST_QUEUES_FETCH, fetchVetCenter);
+	yield takeEvery(REQUEST_DELETE_QUEUE, deleteQueue);
 }
 
 export default vetCentersSaga;
