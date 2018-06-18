@@ -23,6 +23,7 @@ import {
 	QUERY_PET_TYPES, REQUEST_ADD_BREED,
 	REQUEST_ADD_PET_TYPE
 } from "../../../stores/pet-types/actions";
+import {DISEASE_CLEAR_MATCHES, QUERY_DISEASES, REQUEST_ADD_DISEASE} from "../../../stores/diseases/actions";
 
 let Index = withStyles((theme)=>{
 	return {
@@ -40,7 +41,9 @@ let Index = withStyles((theme)=>{
 		selectedPetType:null,
 		country_query:"",
 		breed_query:"",
-		pet_type_query:""
+		pet_type_query:"",
+		disease_query:"",
+		selectedDisease:null
 	};
 
 	handleCountrySuggestionsFetchRequested(event){
@@ -49,6 +52,10 @@ let Index = withStyles((theme)=>{
 
 	handlePetTypesSuggestionsFetchRequested(event){
 		this.props.dispatch({type:QUERY_PET_TYPES, payload:{query:event.value}});
+	}
+
+	handleDiseaseSuggestionsFetchRequested(event){
+		this.props.dispatch({type:QUERY_DISEASES, payload:{query:event.value}});
 	}
 
 	handleBreedSuggestionsFetchRequested(event){
@@ -104,6 +111,42 @@ let Index = withStyles((theme)=>{
 					<InputContainer label={"Vaccine Name"}>
 						<TextField onChange={(e)=>{this.setState({name:e.target.value})}}/>
 					</InputContainer>
+					<AutoSuggest
+						suggestions={this.props.diseases.list.length === 0 && !this.state.selectedDisease? [{
+							name: `+ Add ${this.state.disease_query}`,
+							action: "create_new",
+							value: {name:this.state.disease_query}
+						}] : this.props.diseases.list}
+						onSuggestionsFetchRequested={this.handleDiseaseSuggestionsFetchRequested.bind(this)}
+						onSuggestionsClearRequested={() => {
+							this.props.dispatch({type: DISEASE_CLEAR_MATCHES});
+						}}
+						disabled={this.props.diseases.addingDiseaseInProgress}
+						placeholder={"Disease"}
+						value={this.state.disease_query}
+						onBlur={()=>{
+							if(!this.state.selectedDisease){
+								this.setState({disease_query:""})
+							}
+						}}
+						onChange={(event, payload) => {
+							event.preventDefault();
+							const {newValue} = payload;
+							if(typeof newValue === 'string'){
+								this.setState({selectedDisease:null});
+								this.setState({disease_query:newValue});
+							}
+							else{
+								if(newValue.action){
+									this.props.dispatch({type:REQUEST_ADD_DISEASE, payload:newValue.value});
+								}
+								else{
+									this.setState({selectedDisease:newValue});
+									this.setState({disease_query:newValue.name});
+								}
+							}
+						}}
+					/>
 					<AutoSuggest
 						suggestions={this.props.countries.list.length === 0 && !this.state.selectedCountry? [{
 							name: `+ Add ${this.state.country_query}`,

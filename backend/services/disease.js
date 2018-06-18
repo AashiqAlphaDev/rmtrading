@@ -16,7 +16,7 @@ module.exports.updateDisease = function*(id, diseaseData){
 };
 
 module.exports.deleteDisease = function*(diseaseId){
-    queryValidate(id,"You missed disease-id.");
+    queryValidate(diseaseId,"You missed disease-id.");
     return yield Disease.remove({_id:diseaseId});
 };
 

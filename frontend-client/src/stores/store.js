@@ -10,6 +10,9 @@ import vetCenterSaga from './vet-centers/sagas'
 import {vaccineReducer,vaccineDetailReducer} from './vaccines/reducers'
 import vaccinesSaga from './vaccines/sagas'
 
+import diseaseReducer from './diseases/reducers'
+import diseasesSaga from './diseases/sagas'
+
 import countriesReducer from './countries/reducers'
 import countriesSaga from './countries/sagas'
 
@@ -22,12 +25,13 @@ const sagaMiddleware = createSagaMiddleware()
 const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware));
 const store = createStore(combineReducers({
 	auth:authReducer,
+	countries:countriesReducer,
+	petTypes:petTypesReducer,
+	diseases:diseaseReducer,
 	vetCenters:vetCenterReducer,
 	vaccines:vaccineReducer,
-	countries:countriesReducer,
 	vetCenterDetail:vetCenterDetailReducer,
-	vaccineDetail:vaccineDetailReducer,
-	petTypes:petTypesReducer
+	vaccineDetail:vaccineDetailReducer
 }), enhancer)
 
 sagaMiddleware.run(authSaga);
@@ -35,5 +39,6 @@ sagaMiddleware.run(vetCenterSaga);
 sagaMiddleware.run(countriesSaga);
 sagaMiddleware.run(petTypesSaga);
 sagaMiddleware.run(vaccinesSaga);
+sagaMiddleware.run(diseasesSaga);
 
 export default store;
