@@ -4,6 +4,7 @@ import VetCenters from "./vet-centers"
 import ApplicationData from "./application-data"
 import Vaccines from "./vaccines"
 import Requests from "./requests"
+import Orders from "./oders"
 import Overview from "./overview"
 import {connect} from "react-redux"
 import {CHECK_SUPER_ADMIN} from "../../stores/auth/actions";
@@ -34,6 +35,9 @@ let Index = (class extends React.Component {
 					}}/>
 					<Route path={"/super-admin/dashboard/vaccines"} render={()=>{
 						return <Vaccines location={this.props.location} />
+					}}/>
+					<Route path={"/super-admin/dashboard/requests"} render={()=>{
+						return <Orders location={this.props.location} />
 					}}/>
 					<Route path={"/super-admin/dashboard/requests"} render={()=>{
 						return <Requests location={this.props.location} />

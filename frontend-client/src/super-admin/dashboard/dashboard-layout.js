@@ -12,6 +12,7 @@ const pages = [
 	{label: "Vet Centers", url: "/super-admin/dashboard/vet-centers"},
 	{label: "Vaccines", url: "/super-admin/dashboard/vaccines"},
 	{label: "Application Data", url: "/super-admin/dashboard/application-data"},
+	{label: "Orders", url: "/super-admin/dashboard/orders"},
 	{label: "Requests", url: "/super-admin/dashboard/requests"}
 ];
 
