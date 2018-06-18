@@ -17,7 +17,8 @@ import {QUERY_COUNTRIES_FAILED, QUERY_COUNTRIES_SUCCEDED,REQUEST_DELETE_COUNTRY}
 
 let queryCountries = function*(action){
 	try {
-		const response = yield call(fetch, `${base_url}/app-data/countries?q=${action.payload.query}`, {
+		var url = (action.payload && action.payload.query)?`${base_url}/app-data/countries?q=${action.payload.query}`:`${base_url}/app-data/countries`;
+		const response = yield call(fetch, url, {
 			credentials: 'include'
 		});
 		if(response.ok){
@@ -77,7 +78,7 @@ let addState = function*(action) {
 
 let deleteCountry = function*(action) {
 	try{
-		const response = yield call(fetch, `${base_url}/app-data/countries/${action.payload.center_id}`, {
+		const response = yield call(fetch, `${base_url}/app-data/countries/${action.payload.country_id}`, {
 			method:"DELETE",
 			credentials: 'include',
 			headers:{
@@ -119,6 +120,7 @@ function* countriesSaga() {
 	yield takeEvery(REQUEST_ADD_COUNTRY, addCountry);
 	yield takeEvery(REQUEST_ADD_STATE, addState);
 	yield takeEvery(REQUEST_DELETE_COUNTRY, deleteCountry);
+	yield takeEvery(DELETE_COUNTRY_SUCCEDED, queryCountries);
 }
 
 export default countriesSaga;

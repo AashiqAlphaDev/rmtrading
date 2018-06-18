@@ -27,8 +27,7 @@ module.exports.updateCountry = function*(id, countryData){
 };
 
 module.exports.deleteCountry = function*(countryId){
-
-    queryValidate(id,"You missed country-id.");
+    queryValidate(countryId,"You missed country-id.");
     return yield Country.remove({_id:countryId});
 };
 

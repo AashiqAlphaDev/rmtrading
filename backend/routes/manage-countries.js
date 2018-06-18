@@ -17,6 +17,11 @@ router.get("/:country_id", httpCoWrap(function*(req, res, next){
 	res.send(country);
 }));
 
+router.delete("/:country_id", httpCoWrap(function*(req, res, next){
+	yield CountryManagementService.deleteCountry(req.params.country_id);
+	res.send({});
+}));
+
 router.post("/",isAdmin, httpCoWrap(function*(req, res, next){
 	let country = yield CountryManagementService.createCountry(req.body);
 	res.send(country);
