@@ -6,7 +6,7 @@ import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
 import AddCenter from "./add-center"
 import Overview from "./overview"
-import VaccinationCenter from "./vaccination-center"
+import VaccinationCenterManage from "./vaccination-center-manage"
 import {connect} from "react-redux"
 
 const sideNavPages = [
@@ -47,11 +47,8 @@ let Index = withStyles((theme)=>{
 						<Route path={"/super-admin/dashboard/vet-centers/add-center"} render={(props)=>{
 							return <AddCenter location={props.location}/>;
 						}}/>
-						<Route path={"/super-admin/dashboard/vet-centers/search"} render={()=>{
-							return <VaccinationCenter />;
-						}}/>
-						<Route exact path={"/super-admin/dashboard/vet-centers/:center_id/metadata"} render={()=>{
-							return <VaccinationCenter />;
+						<Route exact path={"/super-admin/dashboard/vet-centers/:center_id/manage"} render={(props)=>{
+							return <VaccinationCenterManage location={props.location} centerId={props.match.params.center_id} />;
 						}}/>
 					</Switch>
 				</Layout>

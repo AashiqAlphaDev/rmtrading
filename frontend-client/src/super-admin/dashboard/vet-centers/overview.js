@@ -75,9 +75,11 @@ let Index = withStyles((theme)=>{
 													<EditIcon color="primary" />
 												</IconButton>
 											</Link>
-											<IconButton>
-												<ArrowRightIcon color="primary" />
-											</IconButton>
+											<Link to={`/super-admin/dashboard/vet-centers/${item._id}/manage`}>
+												<IconButton>
+													<ArrowRightIcon color="primary" />
+												</IconButton>
+											</Link>
 										</TableCell>
 									</TableRow>
 								})
