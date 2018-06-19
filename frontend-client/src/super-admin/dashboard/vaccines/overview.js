@@ -7,6 +7,7 @@ import {ArrowRightIcon, DeleteIcon, EditIcon} from "mdi-react";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux"
 import {QUERY_VACCINES, REQUEST_DELETE_VACCINE} from "../../../stores/vaccines/actions";
+import {REQUEST_DELETE_VET_CENTER} from "../../../stores/vet-centers/actions";
 
 let Index = withStyles((theme)=>{
 	return {
@@ -35,13 +36,19 @@ let Index = withStyles((theme)=>{
 	render(){
 		const {classes} = this.props;
 		return <div className={classes.body}>
+			<Typography variant="title" gutterBottom className={classes.title}>
+				20 Vaccination Centers around 10 countries.
+			</Typography>
 			<Paper className={classes.list} elevation={0}>
 				{
 					this.props.vaccines.list.docs &&
 					<Table>
 						<TableHead>
 							<TableRow>
-								<TableCell>Vaccination Center Name</TableCell>
+								<TableCell>Name</TableCell>
+								<TableCell>Disease</TableCell>
+								<TableCell>Pet</TableCell>
+								<TableCell>Country</TableCell>
 								<TableCell></TableCell>
 							</TableRow>
 						</TableHead>
@@ -55,20 +62,25 @@ let Index = withStyles((theme)=>{
 												{item.name}
 											</Typography>
 										</TableCell>
+										<TableCell>{item.data.disease}</TableCell>
+										<TableCell>{item.data.pet_type}</TableCell>
+										<TableCell>{item.data.country}</TableCell>
 										<TableCell>
 											<IconButton>
 												<DeleteIcon color="primary" onClick={()=>{
 													this.props.dispatch({type:REQUEST_DELETE_VACCINE, payload:{vaccine_id:item._id}});
 												}}/>
 											</IconButton>
-											<Link to={`/super-admin/dashboard/vaccines/${item._id}/`}>
+											<Link to={`/super-admin/dashboard/vet-centers/${item._id}/`}>
 												<IconButton>
 													<EditIcon color="primary" />
 												</IconButton>
 											</Link>
-											<IconButton>
-												<ArrowRightIcon color="primary" />
-											</IconButton>
+											<Link to={`/super-admin/dashboard/vet-centers/${item._id}/manage`}>
+												<IconButton>
+													<ArrowRightIcon color="primary" />
+												</IconButton>
+											</Link>
 										</TableCell>
 									</TableRow>
 								})
@@ -76,6 +88,7 @@ let Index = withStyles((theme)=>{
 						</TableBody>
 					</Table>
 				}
+
 			</Paper>
 		</div>;
 	}

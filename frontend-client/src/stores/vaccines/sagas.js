@@ -14,7 +14,7 @@ import base_url from "../base_url";
 
 let queryVaccines = function* (action) {
 	try {
-		var url = (action.payload && action.payload.query) ? `${base_url}/vaccines?q=${action.payload.query}` : `${base_url}/vaccination-centers`;
+		var url = (action.payload && action.payload.query) ? `${base_url}/vaccines?q=${action.payload.query}` : `${base_url}/vaccines`;
 		const response = yield call(fetch, url, {
 			credentials: 'include'
 		});
@@ -53,7 +53,7 @@ let addVaccine = function* (action) {
 
 let deleteVaccine = function* (action) {
 	try {
-		const response = yield call(fetch, `${base_url}/vaccines/${action.payload.center_id}`, {
+		const response = yield call(fetch, `${base_url}/vaccines/${action.payload.vaccine_id}`, {
 			method: "DELETE",
 			credentials: 'include',
 			headers: {

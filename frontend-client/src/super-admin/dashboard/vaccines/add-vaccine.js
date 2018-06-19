@@ -41,7 +41,9 @@ let Index = withStyles((theme)=>{
 		pet_type_query:"",
 		disease_query:"",
 		selectedDisease:null,
-		remarks:""
+		remarks:"",
+		forFemale:true,
+		forMale:true
 	};
 
 	handleCountrySuggestionsFetchRequested(event){
@@ -257,7 +259,7 @@ let Index = withStyles((theme)=>{
 								<Checkbox
 									checked={this.state.forMale}
 									onChange={(e)=>{this.setState({forMale:e.target.value})}}
-									value="checkedB"
+									value={this.state.forMale}
 									color="primary"
 								/>
 							}
@@ -268,7 +270,7 @@ let Index = withStyles((theme)=>{
 								<Checkbox
 									checked={this.state.forFemale}
 									onChange={(e)=>{this.setState({forFemale:e.target.value})}}
-									value="checkedB"
+									value={this.state.forFemale}
 									color="primary"
 								/>
 							}

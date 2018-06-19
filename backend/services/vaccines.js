@@ -7,6 +7,7 @@ module.exports.createVaccine = function*(vaccineData){
 	if(existingVaccines){
 		return existingVaccines;
 	}
+	console.log("here")
 	return yield Vaccines.create(vaccineData);
 };
 

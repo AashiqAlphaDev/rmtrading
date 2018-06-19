@@ -27,14 +27,14 @@ mongoose.model('User', userSchema);
 const vaccinesSchema = new Schema({
     name: String,
     available:Boolean,
-    related_disease:String,
+    disease:ObjectID,
     pet_type:ObjectID,
     breed:ObjectID,
 	gender:{
 		for_male:Boolean,
 		for_female:Boolean,
 	},
-    country:String,
+    country:ObjectID,
     remarks:String,
     number_of_doses:Number,
     child_vaccine_schedules:[{
@@ -69,9 +69,23 @@ const vaccinesSchema = new Schema({
 			start:Number,
 			end:Number
 		},
-	}]
-});
+	}],
+	data:{}
+});;
 vaccinesSchema.plugin(mongoosePaginate);
+vaccinesSchema.pre("save", async function(next){
+	let Disease = mongoose.model("Disease");
+	let disease = await Disease.findOne({_id:this.disease});
+	let PetType = mongoose.model("PetType");
+	let pet_type = await PetType.findOne({_id:this.pet_type});
+	let Country = mongoose.model("Country");
+	let country = await Country.findOne({_id:this.country});
+	this.data = {};
+	this.data.disease = disease.name;
+	this.data.pet_type = pet_type.name;
+	this.data.country = country.name;
+	next();
+});
 mongoose.model('Vaccine', vaccinesSchema);
 
 //Vaccination Centers
