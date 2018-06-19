@@ -10,11 +10,7 @@ import style from "../style";
 import {
 	COUNTRY_CLEAR_MATCHES,
 	QUERY_COUNTRIES,
-	QUERY_STATES,
-	REQUEST_ADD_COUNTRY,
-	REQUEST_ADD_STATE,
-	STATE_CLEAR_MATCHES
-} from "../../../stores/countries/actions";
+	REQUEST_ADD_COUNTRY} from "../../../stores/countries/actions";
 import {REQUEST_ADD_VACCINE} from "../../../stores/vaccines/actions";
 import {
 	BREED_CLEAR_MATCHES,
@@ -24,6 +20,7 @@ import {
 	REQUEST_ADD_PET_TYPE
 } from "../../../stores/pet-types/actions";
 import {DISEASE_CLEAR_MATCHES, QUERY_DISEASES, REQUEST_ADD_DISEASE} from "../../../stores/diseases/actions";
+import {Checkbox, FormControlLabel} from "@material-ui/core/es/index";
 
 let Index = withStyles((theme)=>{
 	return {
@@ -43,7 +40,8 @@ let Index = withStyles((theme)=>{
 		breed_query:"",
 		pet_type_query:"",
 		disease_query:"",
-		selectedDisease:null
+		selectedDisease:null,
+		remarks:""
 	};
 
 	handleCountrySuggestionsFetchRequested(event){
@@ -79,33 +77,27 @@ let Index = withStyles((theme)=>{
 
 	render(){
 		const {classes} = this.props;
-		return <AnnotatedSection title={"Add Vaccination Center"}
-		                         desc={"Please provide the information to register Vaccination Center."}
+		return <AnnotatedSection title={"Add Vaccine"}
+		                         desc={"Please provide the information to add Vaccine."}
 		                         backButton={{url: "/super-admin/dashboard/vaccines"}}>
 			<Paper className={classes.paperPage}>
 				<form onSubmit={(e)=>{
 					e.preventDefault();
-					if(!this.state.selectedState || !this.state.selectedCountry){
-						return;
-					}
-					let vaccineData = {
-						name:this.state.name,
-						address:{
-							city:this.state.city,
+					if(this.state.selectedDisease && this.state.selectedCountry && this.state.selectedPetType){
+						let vaccineData = {
+							name:this.state.name,
+							disease:this.state.selectedDisease._id,
 							country:this.state.selectedCountry._id,
-							state:this.state.selectedState._id,
-							address:this.state.address,
-							address2:this.state.address2,
-							zip_code:this.state.zip_code
-						},
-						contact:{
-							name:this.state.contact_name,
-							phNo:this.state.contact_number,
-							email:this.state.contact_email,
-							fax:this.state.contact_fax,
-						}
-					};
-					this.props.dispatch({type:REQUEST_ADD_VACCINE, payload:vaccineData})
+							pet_type:this.state.selectedPetType._id,
+							breed:this.state.selectedBreed?this.state.selectedBreed._id:null,
+							remarks:this.state.remarks,
+							gender:{
+								for_male:this.state.forMale,
+								for_female:this.state.forFemale,
+							}
+						};
+						this.props.dispatch({type:REQUEST_ADD_VACCINE, payload:vaccineData})
+					}
 				}}>
 				<Layout direction={"column"}>
 					<InputContainer label={"Vaccine Name"}>
@@ -258,46 +250,36 @@ let Index = withStyles((theme)=>{
 						/>
 					</Layout>
 					<Layout>
-						<InputContainer label={"Address"}>
-							<TextField onChange={(event)=>{
-								this.setState({address:event.target.value})
-							}}></TextField>
-						</InputContainer>
-						<InputContainer label={"Address Line 2"}>
-							<TextField onChange={(event)=>{
-								this.setState({address2:event.target.value})
-							}}></TextField>
+						<InputContainer label={"Gender"}>
+						<Layout>
+						<FormControlLabel
+							control={
+								<Checkbox
+									checked={this.state.forMale}
+									onChange={(e)=>{this.setState({forMale:e.target.value})}}
+									value="checkedB"
+									color="primary"
+								/>
+							}
+							label="Male"
+						/>
+						<FormControlLabel
+							control={
+								<Checkbox
+									checked={this.state.forFemale}
+									onChange={(e)=>{this.setState({forFemale:e.target.value})}}
+									value="checkedB"
+									color="primary"
+								/>
+							}
+							label="Female"
+						/>
+						</Layout>
 						</InputContainer>
 					</Layout>
-					<InputContainer label={"Zip Code"}>
-						<TextField onChange={(event)=>{
-							this.setState({zip_code:event.target.value})
-						}}></TextField>
+					<InputContainer label={"Remarks"}>
+						<TextField value={this.state.remarks} onChange={(e)=>{this.setState({remarks:e.target.value})}}/>
 					</InputContainer>
-					<Layout>
-						<InputContainer label={"Contact Person"}>
-							<TextField onChange={(event)=>{
-								this.setState({contact_name:event.target.value})
-							}}></TextField>
-						</InputContainer>
-						<InputContainer label={"Contact Number"}>
-							<TextField onChange={(event)=>{
-								this.setState({contact_number:event.target.value})
-							}}></TextField>
-						</InputContainer>
-					</Layout>
-					<Layout>
-						<InputContainer label={"Center Email"}>
-							<TextField onChange={(event)=>{
-								this.setState({contact_email:event.target.value})
-							}}></TextField>
-						</InputContainer>
-						<InputContainer label={"Center Fax"}>
-							<TextField onChange={(event)=>{
-								this.setState({contact_fax:event.target.value})
-							}}></TextField>
-						</InputContainer>
-					</Layout>
 					<Layout justifyContent={"flex-end"} className={classes.actions}>
 						<Button> Clear </Button>
 						<Button variant={"raised"} color={"primary"} type={"submit"}> Add </Button>

@@ -14,7 +14,7 @@ import {
 	TableRow,
 	Typography
 } from "@material-ui/core/es/index";
-import {HospitalIcon} from "mdi-react"
+import {HospitalIcon,AccountBoxIcon} from "mdi-react"
 
 let Index = withStyles((theme)=>{
 	return {
@@ -67,7 +67,7 @@ let Index = withStyles((theme)=>{
 					</Paper>
 					<Paper className={classes.card} elevation={0}>
 						<Layout>
-							<HospitalIcon size={50}/>
+							<AccountBoxIcon size={50}/>
 							<Layout direction={"column"} className={classes.cardInfo}>
 								<Typography variant={"title"}>Visits</Typography>
 								<Typography>30,000</Typography>

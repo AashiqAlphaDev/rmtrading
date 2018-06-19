@@ -30,7 +30,10 @@ const vaccinesSchema = new Schema({
     related_disease:String,
     pet_type:ObjectID,
     breed:ObjectID,
-    gender:String,
+	gender:{
+		for_male:Boolean,
+		for_female:Boolean,
+	},
     country:String,
     remarks:String,
     number_of_doses:Number,
