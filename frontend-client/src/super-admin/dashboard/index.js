@@ -31,22 +31,22 @@ let Index = (class extends React.Component {
 						<Redirect to={this.props.auth.redirect}/>
 					}
 					<Route exact path={"/super-admin/dashboard/"} render={()=>{
-						return <Overview location={this.props.location} onPageChange={this.onPageChange.bind(this)} />
+						return <Overview location={this.props} onPageChange={this.onPageChange.bind(this)} />
 					}}/>
 					<Route path={"/super-admin/dashboard/vet-centers"} render={()=>{
-						return <VetCenters location={this.props.location} onPageChange={this.onPageChange.bind(this)} />
+						return <VetCenters {... this.props} onPageChange={this.onPageChange.bind(this)} />
 					}}/>
 					<Route path={"/super-admin/dashboard/application-data"} render={()=>{
-						return <ApplicationData location={this.props.location} onPageChange={this.onPageChange.bind(this)} />
+						return <ApplicationData {... this.props} onPageChange={this.onPageChange.bind(this)} />
 					}}/>
 					<Route path={"/super-admin/dashboard/vaccines"} render={()=>{
-						return <Vaccines location={this.props.location} onPageChange={this.onPageChange.bind(this)} />
+						return <Vaccines {... this.props} onPageChange={this.onPageChange.bind(this)} />
 					}}/>
 					<Route path={"/super-admin/dashboard/orders"} render={()=>{
-						return <Orders location={this.props.location} onPageChange={this.onPageChange.bind(this)} />
+						return <Orders {... this.props} onPageChange={this.onPageChange.bind(this)} />
 					}}/>
 					<Route path={"/super-admin/dashboard/requests"} render={()=>{
-						return <Requests location={this.props.location} onPageChange={this.onPageChange.bind(this)} />
+						return <Requests {... this.props} onPageChange={this.onPageChange.bind(this)} />
 					}}/>
 				</DashboardLayout>
 			}

@@ -1,11 +1,12 @@
 import React from "react"
 import Layout from "../../../components/layout";
 import {Typography,TextField,List,ListItem} from "@material-ui/core/index";
-import {Link, Switch, Route} from "react-router-dom";
+import {Link, Switch, Route, Redirect} from "react-router-dom";
 import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
 import AddVaccine from "./add-vaccine"
 import Overview from "./overview"
+ import Search from "./search"
 import {connect} from "react-redux"
 
 const sideNavPages = [
@@ -15,12 +16,24 @@ const sideNavPages = [
 let Index = withStyles((theme)=>{
 	return {
 		...style(theme),
+		searchForm:{
+			display:"flex",
+			flexDirection:"column"
+		}
 	}
 })(class extends React.Component {
+
+	state={
+		query:""
+	}
 
 	componentWillMount(){
 		if(this.props.onPageChange){
 			this.props.onPageChange("/super-admin/dashboard/vaccines");
+		}
+		if(this.props.location.search){
+			let searchParams = new URLSearchParams(this.props.location.search);
+			this.setState({query:searchParams.get("q")})
 		}
 	}
 
@@ -33,7 +46,15 @@ let Index = withStyles((theme)=>{
 						<Typography variant="title" className={classes.title}>
 							Manage Vaccines
 						</Typography>
-						<TextField className={classes.searchField} placeholder={"Search"}/>
+						<form className={classes.searchForm} onSubmit={(e)=>{
+							e.preventDefault();
+							this.props.history.push(`/super-admin/dashboard/vaccines/search?q=${this.state.query}`);
+						}}>
+							<TextField className={classes.searchField} value={this.state.query} placeholder={"Search"} onChange={(e)=>{
+								this.setState({query:e.target.value});
+							}}/>
+							<input type={"submit"} style={{display:"none"}} />
+						</form>
 						<List>
 							{
 								sideNavPages.map((item, index)=>{
@@ -53,8 +74,8 @@ let Index = withStyles((theme)=>{
 						<Route path={"/super-admin/dashboard/vaccines/add-vaccine"} render={(props)=>{
 							return <AddVaccine location={props.location}/>;
 						}}/>
-						<Route path={"/super-admin/dashboard/vaccines/search"} render={()=>{
-							return <div>Search</div>;
+						<Route path={"/super-admin/dashboard/vaccines/search"} render={(props)=>{
+							return <Search {...props}/>;
 						}}/>
 						<Route exact path={"/super-admin/dashboard/vaccines/:vaccine_id/detail"} render={()=>{
 							return <div>Center Id</div>;
