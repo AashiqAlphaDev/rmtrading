@@ -3,6 +3,7 @@ import {
 	QUERY_VACCINES_SUCCEDED,
 	QUERY_VACCINES_FAILED, REQUEST_VACCINE_FETCH, VACCINE_FETCH_SUCCEDED, VACCINE_FETCH_FAILED,
 } from "./actions";
+import {VET_CENTER_FETCH_SUCCEDED} from "../vet-centers/actions";
 
 const initVaccineData = {
 	list:[]
@@ -33,12 +34,12 @@ function vaccineReducer(state = initVaccineData, action) {
 const initVaccineDetail={}
 
 function vaccineDetailReducer(state = initVaccineDetail, action){
-	switch (action){
-		case REQUEST_VACCINE_FETCH:{
+	switch (action.type){
+		case VACCINE_FETCH_SUCCEDED:{
+			state = {...state, ...action.payload};
 			break;
 		}
-		case VACCINE_FETCH_SUCCEDED:{
-			state = action.payload;
+		case REQUEST_VACCINE_FETCH:{
 			break;
 		}
 		case VACCINE_FETCH_FAILED:{

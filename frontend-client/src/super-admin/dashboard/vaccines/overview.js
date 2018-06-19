@@ -7,7 +7,6 @@ import {ArrowRightIcon, DeleteIcon, EditIcon} from "mdi-react";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux"
 import {QUERY_VACCINES, REQUEST_DELETE_VACCINE} from "../../../stores/vaccines/actions";
-import {REQUEST_DELETE_VET_CENTER} from "../../../stores/vet-centers/actions";
 
 let Index = withStyles((theme)=>{
 	return {
@@ -71,12 +70,12 @@ let Index = withStyles((theme)=>{
 													this.props.dispatch({type:REQUEST_DELETE_VACCINE, payload:{vaccine_id:item._id}});
 												}}/>
 											</IconButton>
-											<Link to={`/super-admin/dashboard/vet-centers/${item._id}/`}>
+											<Link to={`/super-admin/dashboard/vaccines/${item._id}/`}>
 												<IconButton>
 													<EditIcon color="primary" />
 												</IconButton>
 											</Link>
-											<Link to={`/super-admin/dashboard/vet-centers/${item._id}/manage`}>
+											<Link to={`/super-admin/dashboard/vaccines/${item._id}/manage`}>
 												<IconButton>
 													<ArrowRightIcon color="primary" />
 												</IconButton>

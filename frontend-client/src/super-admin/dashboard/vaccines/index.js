@@ -7,6 +7,7 @@ import style from "../style";
 import AddVaccine from "./add-vaccine"
 import Overview from "./overview"
  import Search from "./search"
+ import ManageVaccine from "./vaccine-manage"
 import {connect} from "react-redux"
 
 const sideNavPages = [
@@ -69,16 +70,16 @@ let Index = withStyles((theme)=>{
 				<Layout direction={"column"} className={classes.rightSection}>
 					<Switch>
 						<Route exact path={"/super-admin/dashboard/vaccines/"} render={(props)=>{
-							return <Overview location={props.location} />;
+							return <Overview {...props} />;
 						}}/>
 						<Route path={"/super-admin/dashboard/vaccines/add-vaccine"} render={(props)=>{
-							return <AddVaccine location={props.location}/>;
+							return <AddVaccine {...props}/>;
 						}}/>
 						<Route path={"/super-admin/dashboard/vaccines/search"} render={(props)=>{
 							return <Search {...props}/>;
 						}}/>
-						<Route exact path={"/super-admin/dashboard/vaccines/:vaccine_id/detail"} render={()=>{
-							return <div>Center Id</div>;
+						<Route exact path={"/super-admin/dashboard/vaccines/:vaccine_id/manage"} render={(props)=>{
+							return <ManageVaccine {...props} vaccineId={props.match.params.vaccine_id}/>;
 						}}/>
 					</Switch>
 				</Layout>
