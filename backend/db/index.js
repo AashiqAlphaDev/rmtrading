@@ -234,6 +234,6 @@ const EmailVerificationSchema = new Schema({
    user:ObjectID,
    verified:Boolean
 });
-mongoose.model('EmailVerification', AppointmentSchema);
+mongoose.model('EmailVerification', EmailVerificationSchema);
 
 
