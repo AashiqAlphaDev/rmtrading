@@ -1,33 +1,38 @@
 import { call, put, takeEvery} from 'redux-saga/effects';
 import {
-    ADD_VET_CENTER_FAILED,
-    ADD_VET_CENTER_SUCCEDED,
-    QUERY_VET_CENTERS,
-    REQUEST_ADD_VET_CENTER,
-    DELETE_VET_CENTER_FAILED,
-    DELETE_VET_CENTER_SUCCEDED,
-    QUERY_VET_CENTERS_SUCCEDED,
-    QUERY_VET_CENTERS_FAILED,
-    REQUEST_DELETE_VET_CENTER,
-    REQUEST_VET_CENTER_FETCH,
-    VET_CENTER_FETCH_SUCCEDED,
-    VET_CENTER_FETCH_FAILED,
-    CLEAR_VET_CENTER,
-    REQUEST_ADD_ADMIN,
-    ADD_ADMIN_SUCCEDED,
-    ADD_ADMIN_FAILED,
-    REQUEST_ADMINS_FETCH,
-    ADMINS_FETCH_SUCCEDED,
-    ADMINS_FETCH_FAILED,
-    DELETE_ADMIN_SUCCEDED,
-    DELETE_ADMIN_FAILED,
-    REQUEST_DELETE_ADMIN,
-    REQUEST_ADD_QUEUE,
-    ADD_QUEUE_SUCCEDED,
-    REQUEST_QUEUES_FETCH,
-    REQUEST_DELETE_QUEUE,
-    ADD_QUEUE_FAILED,
-    DELETE_QUEUE_SUCCEDED, DELETE_QUEUE_FAILED, REQUEST_ADD_SLOT, REQUEST_DELETE_SLOT, REQUEST_UPDATE_SLOT_INTERVAL
+	ADD_VET_CENTER_FAILED,
+	ADD_VET_CENTER_SUCCEDED,
+	QUERY_VET_CENTERS,
+	REQUEST_ADD_VET_CENTER,
+	DELETE_VET_CENTER_FAILED,
+	DELETE_VET_CENTER_SUCCEDED,
+	QUERY_VET_CENTERS_SUCCEDED,
+	QUERY_VET_CENTERS_FAILED,
+	REQUEST_DELETE_VET_CENTER,
+	REQUEST_VET_CENTER_FETCH,
+	VET_CENTER_FETCH_SUCCEDED,
+	VET_CENTER_FETCH_FAILED,
+	CLEAR_VET_CENTER,
+	REQUEST_ADD_ADMIN,
+	ADD_ADMIN_SUCCEDED,
+	ADD_ADMIN_FAILED,
+	REQUEST_ADMINS_FETCH,
+	ADMINS_FETCH_SUCCEDED,
+	ADMINS_FETCH_FAILED,
+	DELETE_ADMIN_SUCCEDED,
+	DELETE_ADMIN_FAILED,
+	REQUEST_DELETE_ADMIN,
+	REQUEST_ADD_QUEUE,
+	ADD_QUEUE_SUCCEDED,
+	REQUEST_QUEUES_FETCH,
+	REQUEST_DELETE_QUEUE,
+	ADD_QUEUE_FAILED,
+	DELETE_QUEUE_SUCCEDED,
+	DELETE_QUEUE_FAILED,
+	REQUEST_ADD_SLOT,
+	REQUEST_DELETE_SLOT,
+	REQUEST_UPDATE_SLOT_INTERVAL,
+	ADD_SLOT_SUCCEDED, ADD_SLOT_FAILED
 } from "./actions";
 import base_url from "../base_url";
 
@@ -159,18 +164,17 @@ let addSlot = function*(action){
             headers:{
                 "Content-Type":"application/json"
             },
-            body:JSON.stringify({ $push: { time_slots: action.payload.slot_data } })
+            body:JSON.stringify({ $push: { "queues.$.time_slots": action.payload.slot_data } })
         });
         if(response.ok){
-            yield put({type: ADD_QUEUE_SUCCEDED, payload:yield response.json()});
+            yield put({type: ADD_SLOT_SUCCEDED, payload:yield response.json()});
             yield put({type: REQUEST_VET_CENTER_FETCH, payload:{center_id:action.payload.center_id}});
-
         }
         else {
-            yield put({type: ADD_QUEUE_FAILED, payload:yield response.json()});
+            yield put({type: ADD_SLOT_FAILED, payload:yield response.json()});
         }
     } catch (error) {
-        yield put({type: ADD_QUEUE_FAILED, payload:error});
+        yield put({type: ADD_SLOT_FAILED, payload:error});
     }
 };
 
@@ -182,7 +186,7 @@ let deleteSlot = function*(action){
             headers:{
                 "Content-Type":"application/json"
             },
-            body:JSON.stringify({ $pull: { time_slots: {_id:action.payload.slot_id} } })
+	        body:JSON.stringify({ $pull: { "queues.$.time_slots": {_id:action.payload.slot_id} } })
         });
 
         if(response.ok){

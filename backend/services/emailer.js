@@ -13,4 +13,24 @@ module.exports.send = function*(msg) {
 };
 
 
+module.exports.sendUserVerificationEmail = function*(email, name, verificationId) {
+	return new Promise(function (resolve, reject) {
+		sgMail.send({
+			to:email,
+			from:"help@immunify.me",
+			subject:"Account Verification",
+			substitutions:{
+				name:name||""
+			},
+			templateId:"403f543f-d8d7-4262-853d-03a7119a89bd"
+		}, function (err) {
+			if (err) {
+				reject(err);
+			}
+			resolve();
+		});
+	});
+};
+
+
 

@@ -25,12 +25,6 @@ module.exports.registerUser = function*(userData){
         error.message = "User with this email is already registered.";
         throw error;
 	}
-	yield emailer.send({
-		to: userData.email,
-		from: 'aashiq@appsfly.io',
-		subject: `Welcome to Pet Piper`,
-		html: `<p align="center"> Welcome to pet piper. Please verify your Account by clicking here. </p>`
-	});
 	userData.email_verified=false;
     return yield User.create(userData);
 };
