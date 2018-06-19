@@ -230,7 +230,7 @@ const AppointmentSchema = new Schema({
 });
 mongoose.model('Appointment', AppointmentSchema);
 
-const AppointmentSchema = new Schema({
+const EmailVerificationSchema = new Schema({
    user:ObjectID,
    verified:Boolean
 });
