@@ -4,10 +4,22 @@ import AnnotatedSection from "../../../components/annotated-section";
 import {withStyles} from "@material-ui/core/styles/index";
 import {connect} from "react-redux";
 import style from "../style";
-import {REQUEST_VACCINE_FETCH} from "../../../stores/vaccines/actions";
-import {Button, IconButton, List, ListItem, ListItemSecondaryAction, ListItemText} from "@material-ui/core/es/index";
-import {REQUEST_DELETE_QUEUE} from "../../../stores/vet-centers/actions";
+import {REQUEST_ADD_DOSAGE, REQUEST_DELETE_DOSAGE, REQUEST_VACCINE_FETCH} from "../../../stores/vaccines/actions";
+import {
+	Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton,
+	ListItem,
+	List,
+	ListItemSecondaryAction,
+	ListItemText, Slide, TextField, Typography
+} from "@material-ui/core/es/index";
 import {DeleteIcon} from "mdi-react";
+import {Add} from "@material-ui/icons/es/index";
+import Layout from "../../../components/layout";
+import InputContainer from "../../../components/input";
+
+function Transition(props) {
+	return <Slide direction="up" {...props} />;
+}
 
 let Index = withStyles((theme) => {
 	return {
@@ -32,16 +44,24 @@ let Index = withStyles((theme) => {
 	}
 })(class extends React.Component {
 
-
-	state = {};
+	state = {
+		openAddDosage:false,
+		newDosageNotifyPeriod:0,
+		newDosageDuePeriod:0,
+		newDosageInterval:0,
+		newDosageIntervalStart:0,
+		newDosageIntervalEnd:0,
+		newDosageType:null
+	};
 
 	componentWillMount() {
-		// console.log(this.props);
 		this.props.dispatch({type: REQUEST_VACCINE_FETCH, payload: {vaccine_id: this.props.vaccineId}})
 	}
 
 	componentWillReceiveProps(nextProps) {
-
+		if (nextProps.vaccineDetail.addedDosage) {
+			this.setState({openAddDosage:false});
+		}
 	}
 
 	render() {
@@ -53,29 +73,33 @@ let Index = withStyles((theme) => {
 				<div>
 					<Paper className={`${classes.paperPage} ${classes.paper}`}>
 						<div className={`${classes.section}`}>
-							Child Dosages
+							<Typography variant="subheading" gutterBottom className={`flex`}>
+								Child Dosages
+							</Typography>
+							<Button size={"small"} color={`primary`} variant={`raised`} onClick={() => {
+								this.setState({openAddDosage: true, newDosageType:"child"});
+							}}>
+								<Add/>
+								Add Dosage
+							</Button>
 						</div>
 						<div className={`${classes.section2}`}>
+							<List>
 							{
 								this.props.vaccineDetail.child_vaccine_schedules.length > 0 &&
-								this.props.vaccineDetail.child_vaccine_schedules.map((item) => {
+								this.props.vaccineDetail.child_vaccine_schedules.map((item,i) => {
 									return <ListItem key={item._id}>
 										<ListItemText>
-											{item.name}
+											{`Dose ${i+1}`}
 										</ListItemText>
 										<ListItemSecondaryAction>
-											<Button onClick={() => {
-												this.setState({currentQueue: item, openAddSlot: true});
-
-											}}>
-												Manage Slots
-											</Button>
 											<IconButton onClick={() => {
 												this.props.dispatch({
-													type: REQUEST_DELETE_QUEUE,
+													type: REQUEST_DELETE_DOSAGE,
 													payload: {
+														dosageType:"child",
 														vaccine_id: this.props.vaccineDetail._id,
-														schedules_id: item._id
+														schedule_id: item._id
 													}
 												})
 											}}>
@@ -87,35 +111,40 @@ let Index = withStyles((theme) => {
 							}
 							{
 								(this.props.vaccineDetail.child_vaccine_schedules.length === 0) &&
-								<ListItem>No Queues Created</ListItem>
+								<ListItem>No Schedules Created</ListItem>
 							}
+							</List>
 						</div>
 					</Paper>
 					<Paper className={`${classes.paperPage} ${classes.paper}`}>
 						<div className={`${classes.section}`}>
-							Adult Dosages
+							<Typography variant="subheading" gutterBottom className={`flex`}>
+								Adult Dosages
+							</Typography>
+							<Button size={"small"} color={`primary`} variant={`raised`} onClick={() => {
+								this.setState({openAddDosage: true, newDosageType:"adult"});
+							}}>
+								<Add/>
+								Add Dosage
+							</Button>
 						</div>
 						<div className={`${classes.section2}`}>
+							<List>
 							{
-								this.props.vaccineDetail.child_vaccine_schedules.length > 0 &&
-								this.props.vaccineDetail.child_vaccine_schedules.map((item) => {
+								this.props.vaccineDetail.adult_vaccine_schedules.length > 0 &&
+								this.props.vaccineDetail.adult_vaccine_schedules.map((item,i) => {
 									return <ListItem key={item._id}>
 										<ListItemText>
-											{item.name}
+											{`Dose ${i+1}`}
 										</ListItemText>
 										<ListItemSecondaryAction>
-											<Button onClick={() => {
-												this.setState({currentQueue: item, openAddSlot: true});
-
-											}}>
-												Manage Slots
-											</Button>
 											<IconButton onClick={() => {
 												this.props.dispatch({
-													type: REQUEST_DELETE_QUEUE,
+													type: REQUEST_DELETE_DOSAGE,
 													payload: {
+														dosageType:"adult",
 														vaccine_id: this.props.vaccineDetail._id,
-														schedules_id: item._id
+														schedule_id: item._id
 													}
 												})
 											}}>
@@ -126,36 +155,41 @@ let Index = withStyles((theme) => {
 								})
 							}
 							{
-								(this.props.vaccineDetail.child_vaccine_schedules.length === 0) &&
-								<ListItem>No Queues Created</ListItem>
+								(this.props.vaccineDetail.adult_vaccine_schedules.length === 0) &&
+								<ListItem>No Schedules Created</ListItem>
 							}
+							</List>
 						</div>
 					</Paper>
 					<Paper className={`${classes.paperPage} ${classes.paper}`}>
 						<div className={`${classes.section}`}>
-							Booster Dosages
+							<Typography variant="subheading" gutterBottom className={`flex`}>
+								Booster Dosages
+							</Typography>
+							<Button size={"small"} color={`primary`} variant={`raised`} onClick={() => {
+								this.setState({openAddDosage: true, newDosageType:"booster"});
+							}}>
+								<Add/>
+								Add Dosage
+							</Button>
 						</div>
 						<div className={`${classes.section2}`}>
+							<List>
 							{
-								this.props.vaccineDetail.child_vaccine_schedules.length > 0 &&
-								this.props.vaccineDetail.child_vaccine_schedules.map((item) => {
+								this.props.vaccineDetail.booster_vaccine_schedules.length > 0 &&
+								this.props.vaccineDetail.booster_vaccine_schedules.map((item,i) => {
 									return <ListItem key={item._id}>
 										<ListItemText>
-											{item.name}
+											{`Dose ${i+1}`}
 										</ListItemText>
 										<ListItemSecondaryAction>
-											<Button onClick={() => {
-												this.setState({currentQueue: item, openAddSlot: true});
-
-											}}>
-												Manage Slots
-											</Button>
 											<IconButton onClick={() => {
 												this.props.dispatch({
-													type: REQUEST_DELETE_QUEUE,
+													type: REQUEST_DELETE_DOSAGE,
 													payload: {
+														dosageType:"booster",
 														vaccine_id: this.props.vaccineDetail._id,
-														schedules_id: item._id
+														schedule_id: item._id
 													}
 												})
 											}}>
@@ -166,18 +200,91 @@ let Index = withStyles((theme) => {
 								})
 							}
 							{
-								(this.props.vaccineDetail.child_vaccine_schedules.length === 0) &&
-								<ListItem>No Queues Created</ListItem>
+								(this.props.vaccineDetail.booster_vaccine_schedules.length === 0) &&
+								<ListItem>No Schedules Created</ListItem>
 							}
+							</List>
 						</div>
 					</Paper>
 				</div>
+				<Dialog
+					TransitionComponent={Transition}
+					open={this.state.openAddDosage}
+					onClose={() => {
+						this.setState({openAddDosage: false})
+					}}
+				>
+					<form className={classes.dialog} onSubmit={(event) => {
+						event.preventDefault();
+						this.props.dispatch({
+							type: REQUEST_ADD_DOSAGE,
+							payload: {
+								vaccine_id:this.props.vaccineDetail._id,
+								dosageType:this.state.newDosageType,
+								schedule_data:{
+									catch_up_period:{
+										notify_period:this.state.newDosageNotifyPeriod,
+										due_period:this.state.newDosageDuePeriod
+									},
+									interval:this.state.newDosageInterval,
+									period:{
+										start:this.state.newDosageIntervalStart,
+										end:this.state.newDosageIntervalEnd
+									}
+								}
+							}
+						});
+					}}>
+						<DialogTitle>Add Dosage</DialogTitle>
+						<DialogContent>
+							<Layout direction={"column"} className={classes.paper}>
+								<Layout>
+									<InputContainer label={"Notify Period (in weeks)" }  >
+										<TextField placeholder={"Notify Period"} type={"number"}  onChange={(event) => {
+											this.setState({newDosageNotifyPeriod: event.target.value})
+										}}/>
+									</InputContainer>
+									<InputContainer label={"Due Period (in weeks)"} >
+										<TextField placeholder={"Due Period"} type={"number"}  onChange={(event) => {
+											this.setState({newDosageDuePeriod: event.target.value})
+										}}/>
+									</InputContainer>
+
+								</Layout>
+								<InputContainer label={"Interval (in weeks)"}>
+									<TextField placeholder={"Interval"} type={"number"}  onChange={(event) => {
+										this.setState({newDosageInterval: event.target.value})
+									}}/>
+								</InputContainer>
+								<Layout>
+									<InputContainer label={"Start (in weeks)"}>
+										<TextField placeholder={"Start"} type={"number"}  onChange={(event) => {
+											this.setState({newDosageIntervalStart: event.target.value})
+										}}/>
+									</InputContainer>
+									<InputContainer label={"End (in weeks)"}>
+										<TextField placeholder={"End"} type={"number"}  onChange={(event) => {
+											this.setState({newDosageIntervalEnd: event.target.value})
+										}}/>
+									</InputContainer>
+								</Layout>
+							</Layout>
+						</DialogContent>
+						<DialogActions>
+							<Button onClick={()=>{this.setState({openAddDosage: false});}} color="primary">
+								Cancel
+							</Button>
+							<Button color="primary" type={"submit"}>
+								Subscribe
+							</Button>
+						</DialogActions>
+					</form>
+				</Dialog>
 			</AnnotatedSection>;
 		} else {
 			return <div>sample</div>;
 		}
 	}
-
 });
 
 export default connect(store => store)(Index);

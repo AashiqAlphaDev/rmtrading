@@ -8,10 +8,15 @@ import {
 	DELETE_VACCINE_SUCCEDED,
 	QUERY_VACCINES_SUCCEDED,
 	QUERY_VACCINES_FAILED,
-	REQUEST_DELETE_VACCINE, REQUEST_VACCINE_FETCH, VACCINE_FETCH_SUCCEDED, VACCINE_FETCH_FAILED
+	REQUEST_DELETE_VACCINE,
+	REQUEST_VACCINE_FETCH,
+	VACCINE_FETCH_SUCCEDED,
+	VACCINE_FETCH_FAILED,
+	REQUEST_ADD_DOSAGE,
+	ADD_DOSAGE_SUCCEDED, ADD_DOSAGE_FAILED, REQUEST_DELETE_DOSAGE, DELETE_DOSAGE_SUCCEDED, DELETE_DOSAGE_FAILED
 } from "./actions";
 import base_url from "../base_url";
-import {VET_CENTER_FETCH_FAILED, VET_CENTER_FETCH_SUCCEDED} from "../vet-centers/actions";
+import {REQUEST_DELETE_SLOT, VET_CENTER_FETCH_FAILED, VET_CENTER_FETCH_SUCCEDED} from "../vet-centers/actions";
 
 let queryVaccines = function* (action) {
 	try {
@@ -73,7 +78,7 @@ let deleteVaccine = function* (action) {
 };
 
 let fetchVaccine = function*(action){
-	try{
+	try {
 		const response = yield call(fetch, `${base_url}/vaccines/${action.payload.vaccine_id}`);
 		if(response.ok){
 			yield put({type: VACCINE_FETCH_SUCCEDED, payload:yield response.json()});
@@ -86,13 +91,92 @@ let fetchVaccine = function*(action){
 	}
 };
 
+let deleteDosage = function*(action) {
+	try {
+		var body;
+		switch (action.payload.dosageType) {
+			default:
+			case "child":{
+				body = {$pull:{child_vaccine_schedules:{_id:action.payload.schedule_id}}}
+				break;
+			}
+			case "adult":{
+				body = {$pull:{adult_vaccine_schedules:{_id:action.payload.schedule_id}}}
+				break;
+			}
+			case "booster":{
+				body = {$pull:{booster_vaccine_schedules:{_id:action.payload.schedule_id}}}
+				break;
+			}
+		}
+		const response = yield call(fetch, `${base_url}/vaccines/${action.payload.vaccine_id}`, {
+			method:"PUT",
+			credentials: 'include',
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body:JSON.stringify(body)
+		});
+		if(response.ok){
+			yield put({type: DELETE_DOSAGE_SUCCEDED, payload:{vaccine_id:action.payload.vaccine_id}});
+		}
+		else {
+			yield put({type: DELETE_DOSAGE_FAILED, payload:yield response.json()});
+		}
+	} catch (e) {
+		yield put({type: DELETE_DOSAGE_FAILED, payload:e});
+	}
+};
+
+
+let addDosage = function*(action) {
+	try {
+		var body;
+		switch (action.payload.dosageType) {
+			default:
+			case "child":{
+				body = {$push:{child_vaccine_schedules:action.payload.schedule_data}}
+				break;
+			}
+			case "adult":{
+				body = {$push:{adult_vaccine_schedules:action.payload.schedule_data}}
+				break;
+			}
+			case "booster":{
+				body = {$push:{booster_vaccine_schedules:action.payload.schedule_data}}
+				break;
+			}
+		}
+		console.log(action.payload);
+		const response = yield call(fetch, `${base_url}/vaccines/${action.payload.vaccine_id}`, {
+			method:"PUT",
+			credentials: 'include',
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body:JSON.stringify(body)
+		});
+		if(response.ok){
+			yield put({type: ADD_DOSAGE_SUCCEDED, payload:{vaccine_id:action.payload.vaccine_id}});
+		}
+		else {
+			yield put({type: ADD_DOSAGE_FAILED, payload:yield response.json()});
+		}
+	} catch (e) {
+		yield put({type: ADD_DOSAGE_FAILED, payload:e});
+	}
+};
+
 function* vaccinesSaga() {
 	yield takeEvery(QUERY_VACCINES, queryVaccines);
 	yield takeEvery(REQUEST_ADD_VACCINE, addVaccine);
 	yield takeEvery(REQUEST_DELETE_VACCINE, deleteVaccine);
 	yield takeEvery(DELETE_VACCINE_SUCCEDED, queryVaccines);
 	yield takeEvery(REQUEST_VACCINE_FETCH, fetchVaccine);
-
+	yield takeEvery(REQUEST_ADD_DOSAGE, addDosage);
+	yield takeEvery(REQUEST_DELETE_DOSAGE, deleteDosage);
+	yield takeEvery(DELETE_DOSAGE_SUCCEDED, fetchVaccine);
+	yield takeEvery(ADD_DOSAGE_SUCCEDED, fetchVaccine);
 }
 
 export default vaccinesSaga;
