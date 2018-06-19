@@ -358,14 +358,14 @@ let Index = withStyles((theme) => {
                                 <Layout>
                                     <select>
                                         {
-                                            _.range((24*60)/this.props.vetCenterDetail.appointments_per_hour).map((i)=>{
+                                            _.range((24)/this.props.vetCenterDetail.appointments_per_hour).map((i)=>{
                                                 return <option>{i}</option>
                                             })
                                         }
                                     </select>
                                     <select>
                                         {
-                                            _.range((24*60)/this.props.vetCenterDetail.appointments_per_hour).map((i)=>{
+                                            _.range((24)/this.props.vetCenterDetail.appointments_per_hour).map((i)=>{
                                                 return <option>{i}</option>
                                             })
                                         }

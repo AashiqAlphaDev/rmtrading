@@ -2,6 +2,7 @@ const createError = require('http-errors');
 const mongoose = require("mongoose");
 const User = mongoose.model("User");
 const VaccinationCenterAdmin = mongoose.model("VaccinationCenterAdmin");
+const EmailVerification = mongoose.model("EmailVerification");
 const md5 = require("md5");
 const emailer = require("./emailer");
 
@@ -15,7 +16,6 @@ module.exports.adminOfCenters = function*(email){
 }
 
 module.exports.registerUser = function*(userData){
-
     validate(userData, ["email","name","password"], "You missed <%=param%>.");
     userData.password = md5(userData.password);
 	let existingUser = yield User.findOne({email:userData.email}).exec();
@@ -25,14 +25,17 @@ module.exports.registerUser = function*(userData){
         error.message = "User with this email is already registered.";
         throw error;
 	}
+
+    let user = yield User.create(userData);
+    let emailVerification = yield EmailVerification.create({user:user._id})
 	yield emailer.send({
 		to: userData.email,
 		from: 'aashiq@appsfly.io',
 		subject: `Welcome to Pet Piper`,
-		html: `<p align="center"> Welcome to pet piper. Please verify your Account by clicking here. </p>`
+		html: `<p align="center"> Welcome to pet piper. Please verify your Account by clicking <a>here</a>. </p>`
 	});
 	userData.email_verified=false;
-    return yield User.create(userData);
+    return user;
 };
 
 module.exports.resetPassword = function*(userData){

@@ -220,8 +220,17 @@ const AppointmentSchema = new Schema({
 	date:Date,
 	status:String,
 	queue_name:String,
-	slot_index:Number
+	slot_index:Number,
+    booking_time:[{
+        to:Number,
+        from:Number}]
 });
 mongoose.model('Appointment', AppointmentSchema);
+
+const AppointmentSchema = new Schema({
+   user:ObjectID,
+   verified:Boolean
+});
+mongoose.model('EmailVerification', AppointmentSchema);
 
 
