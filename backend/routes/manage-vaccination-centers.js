@@ -28,6 +28,14 @@ router.put("/:vaccination_center_id",isAdmin, httpCoWrap(function*(req, res, nex
 	res.send(vaccinationCenter);
 }));
 
+//updateVaccinationCenterQueue
+
+router.put("/:vaccination_center_id/queues/:queue_id",isAdmin, httpCoWrap(function*(req, res, next){
+    let update = yield VaccinationCenterManagementService.updateVaccinationCenterQueue(req.params.vaccination_center_id, req.params.queue_id,req.body);
+    res.send(update);
+}));
+
+
 router.delete("/:vaccination_center_id", isAdmin,httpCoWrap(function*(req, res, next){
 	yield VaccinationCenterManagementService.deleteVaccinationCenter(req.params.vaccination_center_id);
 	res.send({});

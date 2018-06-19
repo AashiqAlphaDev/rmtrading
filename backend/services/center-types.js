@@ -40,6 +40,11 @@ module.exports.deleteAll = function*(){
 };
 
 
+module.exports.findByIdAndUpdate= function*(){
+
+}
+
+
 
 
 
