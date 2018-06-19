@@ -25,6 +25,12 @@ let Index = withStyles((theme) => {
 		...style(theme),
 	}
 })(class extends React.Component {
+	componentWillMount(){
+		if(this.props.onPageChange){
+			this.props.onPageChange("/super-admin/dashboard/orders");
+		}
+	}
+
 	render() {
 		const {classes} = this.props;
 		return <Layout direction={"column"} flex={1} className={classes.body}>
