@@ -99,7 +99,8 @@ let deletePetType = function*(action) {
 
 let queryBreeds = function*(action) {
 	try {
-		const response = yield call(fetch, `${base_url}/app-data/pet-types/${action.payload.pet_type_id}/breeds?q=${action.payload.query}`, {
+		var url = (action.payload && action.payload.query)?`${base_url}/app-data/pet-types/${action.payload.pet_type_id}/breeds?q=${action.payload.query}`:`${base_url}/app-data/pet-types/${action.payload.pet_type_id}/breeds`;
+		const response = yield call(fetch, url, {
 			credentials: 'include'
 		});
 		if(response.ok){

@@ -5,8 +5,10 @@ import AnnotatedSection from "../../../components/annotated-section";
 import {withStyles} from "@material-ui/core/styles/index";
 import {connect} from "react-redux";
 import style from "../style";
-import {Redirect} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {REQUEST_GUARDIAN_FETCH} from "../../../stores/pets/actions";
+import {Button, Typography} from "@material-ui/core/es/index";
+import Layout from "../../../components/layout";
 
 let Index = withStyles((theme)=>{
 	return {
@@ -25,7 +27,7 @@ let Index = withStyles((theme)=>{
 	render(){
 		const {classes} = this.props;
 		return <AnnotatedSection title={"Add Vaccination Center"}
-		                         backButton={{url: "/super-admin/dashboard/pets"}}>
+		                         backButton={{url: "/admin/dashboard/pets"}}>
 
 			<Paper className={classes.paperPage}>
                 <form onSubmit={(e)=>{
@@ -44,7 +46,18 @@ let Index = withStyles((theme)=>{
 			{
                 this.props.guardianDetail._id &&
 				<Paper className={classes.paperPage}>
-					{this.props.guardianDetail._id}
+					<Layout alignItems={"flex-end"}>
+						<div className={`flex`}>
+							<Typography>{this.props.guardianDetail.profile.first_name}</Typography>
+							<Typography>{this.props.guardianDetail.profile.mobile_number}</Typography>
+							<Typography>{this.props.guardianDetail.profile.government_issued_id}</Typography>
+							<Typography>{this.props.guardianDetail.profile.address}</Typography>
+							<Typography>{this.props.guardianDetail.email}</Typography>
+						</div>
+						<Link to={`/admin/dashboard/pets/${this.props.guardianDetail._id}/add-pet`}>
+							<Button>Choose</Button>
+						</Link>
+					</Layout>
 				</Paper>
             }
 			{

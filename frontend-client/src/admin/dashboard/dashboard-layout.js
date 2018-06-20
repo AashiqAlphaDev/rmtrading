@@ -1,15 +1,14 @@
 import React from "react";
 import {withStyles} from "@material-ui/core/styles";
 import style from "./style";
-import _ from "underscore";
 import Layout from "../../components/layout";
 import {AppBar,Toolbar,Button} from "@material-ui/core/index";
 import {Link} from "react-router-dom";
-import {CHECK_ADMIN, REQUEST_LOGOUT, REQUEST_SUPER_ADMIN_LOGOUT} from "../../stores/auth/actions";
+import {CHECK_ADMIN, REQUEST_LOGOUT} from "../../stores/auth/actions";
 import {connect} from "react-redux"
 
 const pages = [
-	{label: "Pet Registration", url: "/admin/dashboard/pets"},
+	{label: "Pets", url: "/admin/dashboard/pets"},
 	{label: "Vaccination", url: "/admin/dashboard/vaccination-centers"},
 	{label: "Manage Appointments", url: "/admin/dashboard/inventory"},
 	{label: "Settings", url: "/admin/dashboard/staff"},
@@ -49,7 +48,7 @@ let Index = withStyles((theme)=>(
                                 })
                             }
 							<Button className={classes.navButton} onClick={()=>{
-                                this.props.dispatch({type:REQUEST_SUPER_ADMIN_LOGOUT})
+                                this.props.dispatch({type:REQUEST_LOGOUT})
                             }}>
 								Logout
 							</Button>
