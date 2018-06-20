@@ -9,6 +9,8 @@ const initIUserData = {};
 
 function userReducer(state = initIUserData, action) {
 	switch (action.type) {
+
+
         case REQUEST_CREATE_USER:{
             state = {...state};
             break;

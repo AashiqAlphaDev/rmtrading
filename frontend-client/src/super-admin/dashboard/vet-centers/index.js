@@ -10,7 +10,7 @@ import VaccinationCenterManage from "./vaccination-center-manage"
 import {connect} from "react-redux"
 
 const sideNavPages = [
-	{label:"Add Vet Center", url:"/super-admin/dashboard/pets/add-center"},
+	{label:"Add Vet Center", url:"/super-admin/dashboard/vet-centers/add-center"},
 ];
 
 let Index = withStyles((theme)=>{
@@ -46,13 +46,13 @@ let Index = withStyles((theme)=>{
 				</Layout>
 				<Layout direction={"column"} className={classes.rightSection}>
 					<Switch>
-						<Route exact path={"/super-admin/dashboard/pets"} render={(props)=>{
+						<Route exact path={"/super-admin/dashboard/vet-centers"} render={(props)=>{
 							return <Overview location={props.location} />;
 						}}/>
-						<Route path={"/supera-admin/dashboard/pets/add-center"} render={(props)=>{
+						<Route path={"/super-admin/dashboard/vet-centers/add-center"} render={(props)=>{
 							return <AddCenter location={props.location}/>;
 						}}/>
-						<Route exact path={"/super-admin/dashboard/pets/:center_id/manage"} render={(props)=>{
+						<Route exact path={"/super-admin/dashboard/vet-centers/:center_id/manage"} render={(props)=>{
 							return <VaccinationCenterManage location={props.location} centerId={props.match.params.center_id} />;
 						}}/>
 					</Switch>

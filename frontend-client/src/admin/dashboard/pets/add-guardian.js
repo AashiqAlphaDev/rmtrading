@@ -37,6 +37,7 @@ let Index = withStyles((theme) => {
 			<Paper className={classes.paperPage}>
 				<form onSubmit={(e) => {
 					e.preventDefault();
+
 					let guardianData = {
 						name: this.state.name,
 						mobile_number: this.state.mobile_number,
@@ -48,9 +49,11 @@ let Index = withStyles((theme) => {
 							government_issued_id_type: this.state.government_issued_id_type,
 							government_issued_id: this.state.government_issued_id
 						}
+
 					};
 					this.props.dispatch({type: REQUEST_CREATE_USER, payload: guardianData});
 				}}>
+
 					<Layout direction={"column"}>
 						<Typography variant="subheading" className={classes.title}>
 							Guardian Details
@@ -65,6 +68,7 @@ let Index = withStyles((theme) => {
 								this.setState({mobile_number: e.target.value})
 							}}/>
 						</InputContainer>
+
 
 						<InputContainer label={"Email"}>
 							<TextField onChange={(e) => {

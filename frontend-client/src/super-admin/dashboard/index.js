@@ -33,7 +33,7 @@ let Index = (class extends React.Component {
 					<Route exact path={"/super-admin/dashboard/"} render={()=>{
 						return <Overview location={this.props} onPageChange={this.onPageChange.bind(this)} />
 					}}/>
-					<Route path={"/super-admin/dashboard/pets"} render={()=>{
+					<Route path={"/super-admin/dashboard/vet-centers"} render={()=>{
 						return <VetCenters {... this.props} onPageChange={this.onPageChange.bind(this)} />
 					}}/>
 					<Route path={"/super-admin/dashboard/application-data"} render={()=>{
