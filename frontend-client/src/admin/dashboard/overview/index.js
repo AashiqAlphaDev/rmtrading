@@ -4,53 +4,53 @@ import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
 import {connect} from "react-redux"
 import {
-	Divider,
-	Paper,
-	Table,
-	TableBody, TableCell, TableHead,
-	TableRow,
-	Typography
+    Divider,
+    Paper,
+    Table,
+    TableBody, TableCell, TableHead,
+    TableRow,
+    Typography
 } from "@material-ui/core/es/index";
 import {HospitalIcon,AccountBoxIcon} from "mdi-react"
 
 let Index = withStyles((theme)=>{
-	return {
-		...style(theme),
-		body:{
-			overflow:"scroll"
-		},
-		content:{
-			marginTop:theme.spacing.unit*2,
-		},
-		listCard:{
-			flex:1,
-			minWidth:200,
-			margin:theme.spacing.unit*1
-		},
-		listTitle:{
-			padding:theme.spacing.unit*2
-		},
-		card:{
-			flex:1,
-			minWidth:200,
-			margin:theme.spacing.unit*1,
-			padding:theme.spacing.unit*2
-		},
-		cardInfo:{
-			marginLeft:theme.spacing.unit*2,
-		}
-	}
+    return {
+        ...style(theme),
+        body:{
+            overflow:"scroll"
+        },
+        content:{
+            marginTop:theme.spacing.unit*2,
+        },
+        listCard:{
+            flex:1,
+            minWidth:200,
+            margin:theme.spacing.unit*1
+        },
+        listTitle:{
+            padding:theme.spacing.unit*2
+        },
+        card:{
+            flex:1,
+            minWidth:200,
+            margin:theme.spacing.unit*1,
+            padding:theme.spacing.unit*2
+        },
+        cardInfo:{
+            marginLeft:theme.spacing.unit*2,
+        }
+    }
 })(class extends React.Component {
 
-	componentWillMount(){
-		if(this.props.onPageChange){
-			this.props.onPageChange("/super-admin/dashboard/");
-		}
-	}
+    componentWillMount(){
+        if(this.props.onPageChange){
+            this.props.onPageChange("/super-admin/dashboard/");
+        }
+    }
 
-	render(){
-		const {classes} = this.props;
-		return <div direction={"column"} flex={1} className={`${classes.body}`}>
+    render(){
+        const {classes} = this.props;
+        return <div direction={"column"} flex={1} className={`${classes.body}`}>
 			<div className={`container ${classes.content}`}>
 				<Layout>
 					<Paper className={classes.card} elevation={0}>
@@ -123,14 +123,14 @@ let Index = withStyles((theme)=>{
 									</TableRow>
 								</TableHead>
 								<TableBody>
-									{
-										[1,2,3,4,5,6].map((i)=>{
-											return <TableRow key={i}>
+                                    {
+                                        [1,2,3,4,5,6].map((i)=>{
+                                            return <TableRow key={i}>
 												<TableCell>Sample {i}</TableCell>
 												<TableCell numeric>100</TableCell>
 											</TableRow>
-										})
-									}
+                                        })
+                                    }
 								</TableBody>
 							</Table>
 						</Layout>
@@ -147,14 +147,14 @@ let Index = withStyles((theme)=>{
 									</TableRow>
 								</TableHead>
 								<TableBody>
-									{
-										[1,2,3,4,5,6].map((i)=>{
-											return <TableRow key={i}>
+                                    {
+                                        [1,2,3,4,5,6].map((i)=>{
+                                            return <TableRow key={i}>
 												<TableCell>Sample {i}</TableCell>
 												<TableCell numeric>100</TableCell>
 											</TableRow>
-										})
-									}
+                                        })
+                                    }
 								</TableBody>
 							</Table>
 						</Layout>
@@ -171,14 +171,14 @@ let Index = withStyles((theme)=>{
 									</TableRow>
 								</TableHead>
 								<TableBody>
-									{
-										[1,2,3,4,5,6].map((i)=>{
-											return <TableRow key={i}>
+                                    {
+                                        [1,2,3,4,5,6].map((i)=>{
+                                            return <TableRow key={i}>
 												<TableCell>Sample {i}</TableCell>
 												<TableCell numeric>100</TableCell>
 											</TableRow>
-										})
-									}
+                                        })
+                                    }
 								</TableBody>
 							</Table>
 						</Layout>
@@ -197,14 +197,14 @@ let Index = withStyles((theme)=>{
 									</TableRow>
 								</TableHead>
 								<TableBody>
-									{
-										[1,2,3,4,5,6].map((i)=>{
-											return <TableRow key={i}>
+                                    {
+                                        [1,2,3,4,5,6].map((i)=>{
+                                            return <TableRow key={i}>
 												<TableCell>Sample {i}</TableCell>
 												<TableCell numeric>100</TableCell>
 											</TableRow>
-										})
-									}
+                                        })
+                                    }
 								</TableBody>
 							</Table>
 						</Layout>
@@ -212,7 +212,7 @@ let Index = withStyles((theme)=>{
 				</Layout>
 			</div>
 		</div>;
-	}
+    }
 });
 
 export default connect(store=>store)(Index);
