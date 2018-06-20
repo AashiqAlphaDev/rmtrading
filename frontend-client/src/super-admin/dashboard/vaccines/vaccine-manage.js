@@ -10,7 +10,7 @@ import {
 	ListItem,
 	List,
 	ListItemSecondaryAction,
-	ListItemText, Slide, TextField, Typography
+	ListItemText, Slide, TextField, Typography, Tabs, Tab
 } from "@material-ui/core/es/index";
 import {DeleteIcon} from "mdi-react";
 import {Add} from "@material-ui/icons/es/index";
@@ -51,7 +51,8 @@ let Index = withStyles((theme) => {
 		newDosageInterval:0,
 		newDosageIntervalStart:0,
 		newDosageIntervalEnd:0,
-		newDosageType:null
+		newDosageType:null,
+		newDosageRecurringType:false
 	};
 
 	componentWillMount() {
@@ -216,22 +217,26 @@ let Index = withStyles((theme) => {
 				>
 					<form className={classes.dialog} onSubmit={(event) => {
 						event.preventDefault();
+						let scheduleData = {
+							catch_up_period:{
+								notify_period:this.state.newDosageNotifyPeriod,
+								due_period:this.state.newDosageDuePeriod
+							}
+						};
+						if(this.state.newDosageRecurringType){
+							scheduleData.interval = this.state.newDosageInterval;
+						} else {
+							scheduleData.period = {
+								start:this.state.newDosageIntervalStart,
+								end:this.state.newDosageIntervalEnd
+							};
+						}
 						this.props.dispatch({
 							type: REQUEST_ADD_DOSAGE,
 							payload: {
 								vaccine_id:this.props.vaccineDetail._id,
 								dosageType:this.state.newDosageType,
-								schedule_data:{
-									catch_up_period:{
-										notify_period:this.state.newDosageNotifyPeriod,
-										due_period:this.state.newDosageDuePeriod
-									},
-									interval:this.state.newDosageInterval,
-									period:{
-										start:this.state.newDosageIntervalStart,
-										end:this.state.newDosageIntervalEnd
-									}
-								}
+								schedule_data: scheduleData
 							}
 						});
 					}}>
@@ -249,25 +254,40 @@ let Index = withStyles((theme) => {
 											this.setState({newDosageDuePeriod: event.target.value})
 										}}/>
 									</InputContainer>
-
 								</Layout>
-								<InputContainer label={"Interval (in weeks)"}>
-									<TextField placeholder={"Interval"} type={"number"}  onChange={(event) => {
-										this.setState({newDosageInterval: event.target.value})
-									}}/>
+								<InputContainer>
+									<Tabs fullWidth value={this.state.newDosageRecurringType?1:0} onChange={(e,v)=>{
+										this.setState({newDosageRecurringType:v==1});
+									}}>
+										<Tab  label={"One Time"}></Tab>
+										<Tab label={"Recurring"}></Tab>
+									</Tabs>
 								</InputContainer>
-								<Layout>
-									<InputContainer label={"Start (in weeks)"}>
-										<TextField placeholder={"Start"} type={"number"}  onChange={(event) => {
-											this.setState({newDosageIntervalStart: event.target.value})
+								{
+									this.state.newDosageRecurringType &&
+									<InputContainer label={"Interval (in weeks)"}>
+										<TextField placeholder={"Interval"} type={"number"}  onChange={(event) => {
+											this.setState({newDosageInterval: event.target.value})
 										}}/>
 									</InputContainer>
-									<InputContainer label={"End (in weeks)"}>
-										<TextField placeholder={"End"} type={"number"}  onChange={(event) => {
-											this.setState({newDosageIntervalEnd: event.target.value})
-										}}/>
-									</InputContainer>
-								</Layout>
+								}
+								{
+									!this.state.newDosageRecurringType &&
+									<Layout>
+										<InputContainer label={"Start (in weeks)"}>
+											<TextField placeholder={"Start"} type={"number"}  onChange={(event) => {
+												this.setState({newDosageIntervalStart: event.target.value})
+											}}/>
+										</InputContainer>
+										<InputContainer label={"End (in weeks)"}>
+											<TextField placeholder={"End"} type={"number"}  onChange={(event) => {
+												this.setState({newDosageIntervalEnd: event.target.value})
+											}}/>
+										</InputContainer>
+									</Layout>
+								}
+
+
 							</Layout>
 						</DialogContent>
 						<DialogActions>
@@ -275,14 +295,14 @@ let Index = withStyles((theme) => {
 								Cancel
 							</Button>
 							<Button color="primary" type={"submit"}>
-								Subscribe
+								Add Dosage
 							</Button>
 						</DialogActions>
 					</form>
 				</Dialog>
 			</AnnotatedSection>;
 		} else {
-			return <div>sample</div>;
+			return <div></div>;
 		}
 	}
 });
