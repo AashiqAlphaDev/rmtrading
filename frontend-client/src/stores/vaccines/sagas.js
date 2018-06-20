@@ -16,7 +16,6 @@ import {
 	ADD_DOSAGE_SUCCEDED, ADD_DOSAGE_FAILED, REQUEST_DELETE_DOSAGE, DELETE_DOSAGE_SUCCEDED, DELETE_DOSAGE_FAILED
 } from "./actions";
 import base_url from "../base_url";
-import {REQUEST_DELETE_SLOT, VET_CENTER_FETCH_FAILED, VET_CENTER_FETCH_SUCCEDED} from "../vet-centers/actions";
 
 let queryVaccines = function* (action) {
 	try {

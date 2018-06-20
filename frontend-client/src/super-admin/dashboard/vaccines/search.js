@@ -85,7 +85,7 @@ let Index = withStyles((theme) => {
 					</Table>
 				}
 				{
-					(this.props.vaccines.list.docs && this.props.vaccines.list.docs.length == 0) &&
+					(this.props.vaccines.list.docs && this.props.vaccines.list.docs.length === 0) &&
 					<p>No Results</p>
 				}
 			</Paper>

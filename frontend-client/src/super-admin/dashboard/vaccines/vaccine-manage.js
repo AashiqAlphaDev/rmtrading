@@ -257,7 +257,7 @@ let Index = withStyles((theme) => {
 								</Layout>
 								<InputContainer>
 									<Tabs fullWidth value={this.state.newDosageRecurringType?1:0} onChange={(e,v)=>{
-										this.setState({newDosageRecurringType:v==1});
+										this.setState({newDosageRecurringType:v===1});
 									}}>
 										<Tab  label={"One Time"}></Tab>
 										<Tab label={"Recurring"}></Tab>

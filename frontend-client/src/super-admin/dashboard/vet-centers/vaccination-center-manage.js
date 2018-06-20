@@ -74,7 +74,7 @@ let Index = withStyles((theme) => {
             this.setState({openAddQueue: false, newQueueName: ""});
         }
         if (this.state.currentQueue) {
-	        this.setState({currentQueue:_.find(this.props.vetCenterDetail.queues, (item)=>{return item._id==this.state.currentQueue._id})});
+	        this.setState({currentQueue:_.find(this.props.vetCenterDetail.queues, (item)=>{return item._id===this.state.currentQueue._id})});
         }
     }
 
@@ -354,7 +354,7 @@ let Index = withStyles((theme) => {
                                             })
                                         }
                                         {
-                                            this.state.currentQueue.time_slots.length == 0 &&
+                                            this.state.currentQueue.time_slots.length === 0 &&
                                             <ListItem >No Slots Added</ListItem>
                                         }
                                     </List>
