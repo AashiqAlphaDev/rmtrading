@@ -13,6 +13,10 @@ module.exports.userByEmail = function *(email) {
 	return yield User.findOne({email}).exec();
 };
 
+module.exports.userByMobileNoOrGovId = function *(query) {
+    return yield User.findOne({$or:[{"profile.mobile_number":query},{"profile.government_issued_id":query}]}).exec();
+};
+
 module.exports.userByMobileNo = function *(mobile_number) {
     queryValidate(mobile_number,"You missed mobile_number.");
 	return yield User.findOne({"profile.mobile_number":mobile_number}).exec();

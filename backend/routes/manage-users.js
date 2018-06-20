@@ -1,6 +1,6 @@
 var Router = require("express").Router
+const createError = require('http-errors');
 var router = Router();
-const co = require("co");
 const UsersManagementService = require("../services/user")
 
 router.get("/", httpCoWrap(function*(req, res, next){
@@ -24,6 +24,18 @@ router.get("/", httpCoWrap(function*(req, res, next){
 router.get("/:user_id", httpCoWrap(function*(req, res, next){
 	let user = yield UsersManagementService.userWithId(req.params.user_id);
 	res.send(user);
+}));
+
+router.get("/by-mobile-or-gov-id/:query", httpCoWrap(function*(req, res, next){
+    let user = yield UsersManagementService.userByMobileNoOrGovId(req.params.query);
+    if(user){
+        res.send(user);
+	}
+	else{
+    	let error = createError(204);
+        error.message="No Matches";
+        throw error;
+	}
 }));
 
 router.get("/by-mobile/:mobile_number", httpCoWrap(function*(req, res, next){

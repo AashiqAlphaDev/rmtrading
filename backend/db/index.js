@@ -12,7 +12,6 @@ const userSchema = new Schema({
     email_verified:Boolean,
     profile:{
 	    first_name:String,
-	    last_name:String,
 	    address:String,
 	    mobile_number:String,
 	    government_issued_id_type:String,
