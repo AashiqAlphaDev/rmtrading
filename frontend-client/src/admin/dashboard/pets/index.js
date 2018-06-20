@@ -49,7 +49,7 @@ let Index = withStyles((theme)=>{
 						<Route exact path={"/super-admin/dashboard/pets"} render={(props)=>{
 							return <Overview location={props.location} />;
 						}}/>
-						<Route path={"/supera-admin/dashboard/pets/add-center"} render={(props)=>{
+						<Route path={"/super-admin/dashboard/pets/add-center"} render={(props)=>{
 							return <AddCenter location={props.location}/>;
 						}}/>
 						<Route exact path={"/super-admin/dashboard/pets/:center_id/manage"} render={(props)=>{

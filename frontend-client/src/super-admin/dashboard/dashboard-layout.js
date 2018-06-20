@@ -8,7 +8,7 @@ import {REQUEST_SUPER_ADMIN_LOGOUT} from "../../stores/auth/actions";
 
 const pages = [
 	{label: "Overview", url: "/super-admin/dashboard/"},
-	{label: "Vet Centers", url: "/super-admin/dashboard/vet-centers"},
+	{label: "Vet Centers", url: "/super-admin/dashboard/pets"},
 	{label: "Vaccines", url: "/super-admin/dashboard/vaccines"},
 	{label: "Application Data", url: "/super-admin/dashboard/application-data"},
 	{label: "Orders", url: "/super-admin/dashboard/orders"},
