@@ -36,7 +36,6 @@ const vaccinesSchema = new Schema({
 	},
     country:ObjectID,
     remarks:String,
-    number_of_doses:Number,
     child_vaccine_schedules:[{
 	    catch_up_period:{
 		    notify_period:Number,
