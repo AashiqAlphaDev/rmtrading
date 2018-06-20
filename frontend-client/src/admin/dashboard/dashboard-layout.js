@@ -1,11 +1,10 @@
 import React from "react";
 import {withStyles} from "@material-ui/core/styles";
 import style from "./style";
-import _ from "underscore";
 import Layout from "../../components/layout";
 import {AppBar,Toolbar,Button} from "@material-ui/core/index";
 import {Link} from "react-router-dom";
-import {CHECK_ADMIN, REQUEST_LOGOUT, REQUEST_SUPER_ADMIN_LOGOUT} from "../../stores/auth/actions";
+import {CHECK_ADMIN, REQUEST_LOGOUT} from "../../stores/auth/actions";
 import {connect} from "react-redux"
 
 const pages = [
@@ -49,7 +48,7 @@ let Index = withStyles((theme)=>(
                                 })
                             }
 							<Button className={classes.navButton} onClick={()=>{
-                                this.props.dispatch({type:REQUEST_SUPER_ADMIN_LOGOUT})
+                                this.props.dispatch({type:REQUEST_LOGOUT})
                             }}>
 								Logout
 							</Button>

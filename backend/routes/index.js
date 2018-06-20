@@ -15,8 +15,8 @@ router.use("/app-data/pet-types",require("./manage-pet-types"));
 router.use("/inventory",require("./manage-inventory"));
 router.use("/app-data/countries",require("./manage-countries"));
 router.use("/session",require("./session"));
-router.use("/pets",haveCenterAccess,require("./manage-pets"));
-router.use("/users",haveCenterAccess,require("./manage-users"));
+router.use("/pets", require("./manage-pets"));
+router.use("/users", require("./manage-users"));
 router.use("/pets/:pet_id/vaccinations",haveCenterAccess,require("./manage-vaccinations"));
 
 router.use("/vaccination-centers/:center_id/appointments",require("./manage-appointments"));
