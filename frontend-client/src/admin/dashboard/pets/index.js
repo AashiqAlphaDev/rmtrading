@@ -52,10 +52,10 @@ let Index = withStyles((theme)=>{
 				<Layout direction={"column"} className={classes.rightSection}>
 					<Switch>
 						<Route exact path={"/admin/dashboard/pets"} render={(props)=>{
-							return <Overview location={props.location} />;
+							return <Overview {...props.location} />;
 						}}/>
 						<Route exact path={"/admin/dashboard/pets/choose-guardian"} render={(props)=>{
-                            return <ChooseGuardian location={props.location} />;
+                            return <ChooseGuardian {...props.location} />;
                         }}/>
 						<Route exact path={"/admin/dashboard/pets/add-guardian"} render={(props)=>{
                             return <AddGuardian {...props.location} />;
