@@ -4,64 +4,63 @@ const co = require("co");
 const PetTypeManagementService = require("../services/pets-type");
 const isAdmin = require("./super-admin/check-admin");
 
-router.get("/", httpCoWrap(function*(req, res, next){
-	var query = req.query.query?req.query.query:{};
-	if(req.query.q){
-		query.name = {$regex:`.*${req.query.q}.*`, '$options' : 'i'}
+router.get("/", httpCoWrap(function* (req, res, next) {
+	var query = req.query.query ? req.query.query : {};
+	if (req.query.q) {
+		query.name = {$regex: `.*${req.query.q}.*`, '$options': 'i'}
 	}
 	let petTypes = yield PetTypeManagementService.petTypes(query);
 	res.send(petTypes);
 }));
 
-router.get("/:pet_type_id", httpCoWrap(function*(req, res, next){
+router.get("/:pet_type_id", httpCoWrap(function* (req, res, next) {
 	let petType = yield PetTypeManagementService.petTypeWithId(req.params.pet_type_id);
 	res.send(petType);
 }));
 
-router.post("/", isAdmin,httpCoWrap(function*(req, res, next){
+router.post("/", isAdmin, httpCoWrap(function* (req, res, next) {
 	let petType = yield PetTypeManagementService.createPetType(req.body);
 	res.send(petType);
 }));
 
-router.put("/:pet_type_id",isAdmin, httpCoWrap(function*(req, res, next){
-	let petType = yield PetTypeManagementService.updatePetType(req.params.pet_type_id,req.body);
+router.put("/:pet_type_id", isAdmin, httpCoWrap(function* (req, res, next) {
+	let petType = yield PetTypeManagementService.updatePetType(req.params.pet_type_id, req.body);
 	res.send(petType);
 }));
 
-router.delete("/:pet_type_id", isAdmin,httpCoWrap(function*(req, res, next){
+router.delete("/:pet_type_id", isAdmin, httpCoWrap(function* (req, res, next) {
 	yield PetTypeManagementService.deletePetType(req.params.pet_type_id);
 	res.send({});
 }));
 
-router.get("/:pet_type_id/breeds", httpCoWrap(function*(req, res, next){
+router.get("/:pet_type_id/breeds", httpCoWrap(function* (req, res, next) {
 	let query = {};
-	if(req.query.q){
-		query.name = {$regex:`.*${req.query.q}.*`, '$options' : 'i'}
+	if (req.query.q) {
+		query.name = {$regex: `.*${req.query.q}.*`, '$options': 'i'}
 	}
-	let petTypes = yield PetTypeManagementService.petBreeds(req.params.pet_type_id,query);
+	let petTypes = yield PetTypeManagementService.petBreeds(req.params.pet_type_id, query);
 	res.send(petTypes);
 }));
 
-router.get("/:pet_type_id/breeds/:breed_id", httpCoWrap(function*(req, res, next){
+router.get("/:pet_type_id/breeds/:breed_id", httpCoWrap(function* (req, res, next) {
 	let petBreed = yield PetTypeManagementService.petBreedWithId(req.params.breed_id);
 	res.send(petBreed);
 }));
 
-router.post("/:pet_type_id/breeds", isAdmin,httpCoWrap(function*(req, res, next){
-	let petType = yield PetTypeManagementService.createPetBreed(req.params.pet_type_id,req.body);
+router.post("/:pet_type_id/breeds", isAdmin, httpCoWrap(function* (req, res, next) {
+	let petType = yield PetTypeManagementService.createPetBreed(req.params.pet_type_id, req.body);
 	res.send(petType);
 }));
 
-router.put("/:pet_type_id/breeds/:breed_id", isAdmin,httpCoWrap(function*(req, res, next){
-	let petType = yield PetTypeManagementService.updatePetBreed(req.params.breed_id,req.body);
+router.put("/:pet_type_id/breeds/:breed_id", isAdmin, httpCoWrap(function* (req, res, next) {
+	let petType = yield PetTypeManagementService.updatePetBreed(req.params.breed_id, req.body);
 	res.send(petType);
 }));
 
-router.delete("/:pet_type_id/breeds/:breed_id", isAdmin,httpCoWrap(function*(req, res, next){
-	yield PetTypeManagementService.deletePetBreed(req.params.breed_id,req.params.pet_type_id);
+router.delete("/:pet_type_id/breeds/:breed_id", isAdmin, httpCoWrap(function* (req, res, next) {
+	yield PetTypeManagementService.deletePetBreed(req.params.breed_id, req.params.pet_type_id);
 	res.send({});
 }));
-
 
 
 module.exports = router;
