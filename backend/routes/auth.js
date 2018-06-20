@@ -37,7 +37,7 @@ router.get("/admin", httpCoWrap(function*(req, res, next) {
 	}
 }));
 
-router.get("/resetPassword", httpCoWrap(function *(req, res, next) {
+router.get("/reset-password", httpCoWrap(function *(req, res, next) {
     yield authService.resetPassword(req.body);
     res.send({});
 }));
