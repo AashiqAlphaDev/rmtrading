@@ -52,7 +52,7 @@ let Index = withStyles((theme)=>{
                         email_verified:Boolean,
                         profile:{
                             first_name:this.state.name,
-                            address:this.state.address + this.state.address2,
+                            address:this.state.address +" "+this.state.address2,
                             mobile_number:this.state.mobile_number,
                             government_issued_id_type:this.state.government_issued_id_type,
                             government_issued_id:this.state.government_issued_id
@@ -67,7 +67,7 @@ let Index = withStyles((theme)=>{
 					<InputContainer label={"Gaurdian Name"}>
 						<TextField onChange={(e)=>{this.setState({name:e.target.value})}}/>
 					</InputContainer>
-					<InputContainer label={"Gaurdian number"}>
+					<InputContainer label={"Gaurdian Mobile Number"}>
 						<TextField onChange={(e)=>{this.setState({mobile_number:e.target.value})}}/>
 					</InputContainer>
 
