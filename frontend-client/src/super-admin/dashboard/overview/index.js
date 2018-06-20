@@ -5,9 +5,6 @@ import style from "../style";
 import {connect} from "react-redux"
 import {
 	Divider,
-	List,
-	ListItem,
-	ListItemText,
 	Paper,
 	Table,
 	TableBody, TableCell, TableHead,
