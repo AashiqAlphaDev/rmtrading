@@ -1,38 +1,39 @@
 import React from "react"
 import {withStyles} from "@material-ui/core/styles/index";
 import style from "../style";
-import {Typography,Paper,Table,TableHead,TableRow,TableCell,TableBody} from "@material-ui/core/index";
+import {Typography, Paper, Table, TableHead, TableRow, TableCell, TableBody} from "@material-ui/core/index";
 import {IconButton} from "@material-ui/core/es/index";
 import {ArrowRightIcon, DeleteIcon, EditIcon} from "mdi-react";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux"
 import {QUERY_VACCINES, REQUEST_DELETE_VACCINE} from "../../../stores/vaccines/actions";
 
-let Index = withStyles((theme)=>{
+let Index = withStyles((theme) => {
 	return {
 		...style(theme),
-		body:{
-			marginLeft:theme.spacing.unit*2,
-			display:"flex",
-			flexDirection:"column"
+		body: {
+			marginLeft: theme.spacing.unit * 2,
+			display: "flex",
+			flexDirection: "column"
 		},
-		title:{
-			background:"#e6ecf0",
-			width:"100%",
-			paddingTop:theme.spacing.unit*3,
-			paddingBottom:theme.spacing.unit*2,
+		title: {
+			background: "#e6ecf0",
+			width: "100%",
+			paddingTop: theme.spacing.unit * 3,
+			paddingBottom: theme.spacing.unit * 2,
 		},
 
-		segment:{
-			marginBottom:theme.spacing.unit*3,
-			padding:theme.spacing.unit*1
+		segment: {
+			marginBottom: theme.spacing.unit * 3,
+			padding: theme.spacing.unit * 1
 		}
 	}
-})(class extends React.Component{
-	componentWillMount(){
-		this.props.dispatch({type:QUERY_VACCINES});
+})(class extends React.Component {
+	componentWillMount() {
+		this.props.dispatch({type: QUERY_VACCINES});
 	}
-	render(){
+
+	render() {
 		const {classes} = this.props;
 		return <div className={classes.body}>
 			<Typography variant="title" gutterBottom className={classes.title}>
@@ -66,18 +67,21 @@ let Index = withStyles((theme)=>{
 										<TableCell>{item.data.country}</TableCell>
 										<TableCell>
 											<IconButton>
-												<DeleteIcon color="primary" onClick={()=>{
-													this.props.dispatch({type:REQUEST_DELETE_VACCINE, payload:{vaccine_id:item._id}});
+												<DeleteIcon color="primary" onClick={() => {
+													this.props.dispatch({
+														type: REQUEST_DELETE_VACCINE,
+														payload: {vaccine_id: item._id}
+													});
 												}}/>
 											</IconButton>
 											<Link to={`/super-admin/dashboard/vaccines/${item._id}/`}>
 												<IconButton>
-													<EditIcon color="primary" />
+													<EditIcon color="primary"/>
 												</IconButton>
 											</Link>
 											<Link to={`/super-admin/dashboard/vaccines/${item._id}/manage`}>
 												<IconButton>
-													<ArrowRightIcon color="primary" />
+													<ArrowRightIcon color="primary"/>
 												</IconButton>
 											</Link>
 										</TableCell>
@@ -93,4 +97,4 @@ let Index = withStyles((theme)=>{
 	}
 });
 
-export default connect(store=>store)(Index)
+export default connect(store => store)(Index)

@@ -1,68 +1,69 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import {createMuiTheme} from '@material-ui/core/styles';
+
 const primaryColor = "#3a87ca";
 
 const theme = createMuiTheme({
-	palette:{
-		primary:{
-			main:primaryColor
+	palette: {
+		primary: {
+			main: primaryColor
 		}
 	},
-	typography:{
-		fontFamily:'Open Sans'
+	typography: {
+		fontFamily: 'Open Sans'
 	},
-	props:{
-		MuiButton:{
+	props: {
+		MuiButton: {
 			disableRipple: true,
-			elevation:0
+			elevation: 0
 		},
-		MuiAppBar:{
-			elevation:0
+		MuiAppBar: {
+			elevation: 0
 		},
-		MuiCheckbox:{
-			disableRipple: true,
-		},
-		MuiSwitch:{
+		MuiCheckbox: {
 			disableRipple: true,
 		},
-		MuiInput:{
-			disableUnderline:true
+		MuiSwitch: {
+			disableRipple: true,
 		},
-		MuiTab:{
-			disableRipple:true
+		MuiInput: {
+			disableUnderline: true
 		},
-		MuiInputLabel:{
-			shrink:true
+		MuiTab: {
+			disableRipple: true
+		},
+		MuiInputLabel: {
+			shrink: true
 		}
 
 	},
-	overrides:{
-		MuiTabs:{
-			indicator:{
-				display:"none"
+	overrides: {
+		MuiTabs: {
+			indicator: {
+				display: "none"
 			}
 		},
-		MuiTab:{
-			root:{
+		MuiTab: {
+			root: {
 				// textTransform:"none"
 			},
-			selected:{
-				color:primaryColor
+			selected: {
+				color: primaryColor
 			}
 		},
-		MuiButton:{
-			root:{
+		MuiButton: {
+			root: {
 				textTransform: 'none',
 				borderRadius: 4,
 				fontSize: 16,
 				padding: '6px 12px'
 			},
-			raised:{
+			raised: {
 				boxShadow: 'none',
 				'&:active': {
 					boxShadow: 'none',
 				}
 			},
-			fab:{
+			fab: {
 				boxShadow: 'none',
 				'&:active': {
 					boxShadow: 'none',
@@ -70,59 +71,59 @@ const theme = createMuiTheme({
 			},
 
 		},
-		MuiInputLabel:{
-			root:{
-				marginLeft:5,
-				paddingBottom:5
+		MuiInputLabel: {
+			root: {
+				marginLeft: 5,
+				paddingBottom: 5
 			}
 		},
-		MuiAppBar:{
-			root:{
+		MuiAppBar: {
+			root: {
 				boxShadow: '0px 0px 24px rgba(0,0,0,0.2)',
 				//borderBottom: "1px solid #e8e8e8"
 			}
 		},
-		MuiPopover:{
-			paper:{
+		MuiPopover: {
+			paper: {
 				boxShadow: 'none',
 				border: "1px solid #e8e8e8"
 			}
 		},
-		MuiDialog:{
-			paper:{
+		MuiDialog: {
+			paper: {
 				boxShadow: 'none',
 				border: "1px solid #e8e8e8"
 			}
 		},
-		MuiExpansionPanel:{
-			root:{
+		MuiExpansionPanel: {
+			root: {
 				boxShadow: 'none',
 				border: "1px solid #e8e8e8"
 			}
 		},
-		MuiInput:{
-			input:{
-				padding:10,
-				borderRadius:4,
+		MuiInput: {
+			input: {
+				padding: 10,
+				borderRadius: 4,
 				background: '#FFF',
 				border: "2px solid #e8e8e8",
-				'&:focus':{
-					borderRadius:4,
-					borderColor:primaryColor
+				'&:focus': {
+					borderRadius: 4,
+					borderColor: primaryColor
 				}
 			}
 		},
-		MuiList:{
-			padding:{
-				padding:0
+		MuiList: {
+			padding: {
+				padding: 0
 			}
 		},
-		MuiSwitch:{
-			icon:{
+		MuiSwitch: {
+			icon: {
 				boxShadow: 'none',
 				border: "1px solid #e8e8e8"
 			},
-			iconChecked:{
+			iconChecked: {
 				boxShadow: 'none',
 				border: "1px solid #e8e8e8"
 			}

@@ -15,27 +15,28 @@ let Index = withStyles({
 		justifyContent: "center"
 	}
 })(class extends React.Component {
-	componentDidMount(){
-		this.props.dispatch({type:AUTH_CLEAR});
-		this.props.dispatch({type:CHECK_SUPER_ADMIN});
+	componentDidMount() {
+		this.props.dispatch({type: AUTH_CLEAR});
+		this.props.dispatch({type: CHECK_SUPER_ADMIN});
 	}
+
 	render() {
 		const {classes} = this.props;
-		if(this.props.auth.hasOwnProperty('superAdminCheckInProgress') && !this.props.auth.superAdminCheckInProgress){
-			if(!this.props.auth.isSuperAdmin){
+		if (this.props.auth.hasOwnProperty('superAdminCheckInProgress') && !this.props.auth.superAdminCheckInProgress) {
+			if (!this.props.auth.isSuperAdmin) {
 				return <div className={classes.fullScreen}>
 					<Layout alignItems={"center"} justifyContent={"center"}>
 						{this.props.children}
 					</Layout>
 				</div>
 			}
-			else{
+			else {
 				return <Redirect to={"/super-admin/dashboard"}/>
 			}
 		}
-		else{
+		else {
 			return <div></div>
 		}
 	}
 });
-export default connect(store=>store)(Index);
+export default connect(store => store)(Index);

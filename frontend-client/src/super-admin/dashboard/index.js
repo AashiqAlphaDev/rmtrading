@@ -11,53 +11,55 @@ import {CHECK_SUPER_ADMIN} from "../../stores/auth/actions";
 import {Redirect, Route} from "react-router-dom";
 
 
-
 let Index = (class extends React.Component {
-	state={
-		url:""
+	state = {
+		url: ""
 	};
-	componentDidMount(){
-		this.props.dispatch({type:CHECK_SUPER_ADMIN});
+
+	componentDidMount() {
+		this.props.dispatch({type: CHECK_SUPER_ADMIN});
 	}
-	onPageChange(url){
+
+	onPageChange(url) {
 		this.setState({url})
 	}
-	render(){
-		if(this.props.auth.hasOwnProperty('superAdminCheckInProgress') && !this.props.auth.superAdminCheckInProgress){
-			if(this.props.auth.isSuperAdmin){
+
+	render() {
+		if (this.props.auth.hasOwnProperty('superAdminCheckInProgress') && !this.props.auth.superAdminCheckInProgress) {
+			if (this.props.auth.isSuperAdmin) {
 				return <DashboardLayout location={this.props.location} currentPage={this.state.url}>
 					{
 						this.props.auth.redirect &&
 						<Redirect to={this.props.auth.redirect}/>
 					}
-					<Route exact path={"/super-admin/dashboard/"} render={()=>{
-						return <Overview location={this.props} onPageChange={this.onPageChange.bind(this)} />
+					<Route exact path={"/super-admin/dashboard/"} render={() => {
+						return <Overview location={this.props} onPageChange={this.onPageChange.bind(this)}/>
 					}}/>
-					<Route path={"/super-admin/dashboard/vet-centers"} render={()=>{
-						return <VetCenters {... this.props} onPageChange={this.onPageChange.bind(this)} />
+					<Route path={"/super-admin/dashboard/vet-centers"} render={() => {
+						return <VetCenters {...this.props} onPageChange={this.onPageChange.bind(this)}/>
 					}}/>
-					<Route path={"/super-admin/dashboard/application-data"} render={()=>{
-						return <ApplicationData {... this.props} onPageChange={this.onPageChange.bind(this)} />
+					<Route path={"/super-admin/dashboard/application-data"} render={() => {
+						return <ApplicationData {...this.props} onPageChange={this.onPageChange.bind(this)}/>
 					}}/>
-					<Route path={"/super-admin/dashboard/vaccines"} render={()=>{
-						return <Vaccines {... this.props} onPageChange={this.onPageChange.bind(this)} />
+					<Route path={"/super-admin/dashboard/vaccines"} render={() => {
+						return <Vaccines {...this.props} onPageChange={this.onPageChange.bind(this)}/>
 					}}/>
-					<Route path={"/super-admin/dashboard/orders"} render={()=>{
-						return <Orders {... this.props} onPageChange={this.onPageChange.bind(this)} />
+					<Route path={"/super-admin/dashboard/orders"} render={() => {
+						return <Orders {...this.props} onPageChange={this.onPageChange.bind(this)}/>
 					}}/>
-					<Route path={"/super-admin/dashboard/requests"} render={()=>{
-						return <Requests {... this.props} onPageChange={this.onPageChange.bind(this)} />
+					<Route path={"/super-admin/dashboard/requests"} render={() => {
+						return <Requests {...this.props} onPageChange={this.onPageChange.bind(this)}/>
 					}}/>
 				</DashboardLayout>
 			}
-			else{
+			else {
 				return <Redirect to={"/super-admin/auth"}/>
 			}
 		}
-		else{
+		else {
 			return <div></div>
 		}
 	}
 });
 
-export default connect(store=>store)(Index);
+export default connect(store => store)(Index);

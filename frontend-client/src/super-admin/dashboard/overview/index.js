@@ -11,44 +11,44 @@ import {
 	TableRow,
 	Typography
 } from "@material-ui/core/es/index";
-import {HospitalIcon,AccountBoxIcon} from "mdi-react"
+import {HospitalIcon, AccountBoxIcon} from "mdi-react"
 
-let Index = withStyles((theme)=>{
+let Index = withStyles((theme) => {
 	return {
 		...style(theme),
-		body:{
-			overflow:"scroll"
+		body: {
+			overflow: "scroll"
 		},
-		content:{
-			marginTop:theme.spacing.unit*2,
+		content: {
+			marginTop: theme.spacing.unit * 2,
 		},
-		listCard:{
-			flex:1,
-			minWidth:200,
-			margin:theme.spacing.unit*1
+		listCard: {
+			flex: 1,
+			minWidth: 200,
+			margin: theme.spacing.unit * 1
 		},
-		listTitle:{
-			padding:theme.spacing.unit*2
+		listTitle: {
+			padding: theme.spacing.unit * 2
 		},
-		card:{
-			flex:1,
-			minWidth:200,
-			margin:theme.spacing.unit*1,
-			padding:theme.spacing.unit*2
+		card: {
+			flex: 1,
+			minWidth: 200,
+			margin: theme.spacing.unit * 1,
+			padding: theme.spacing.unit * 2
 		},
-		cardInfo:{
-			marginLeft:theme.spacing.unit*2,
+		cardInfo: {
+			marginLeft: theme.spacing.unit * 2,
 		}
 	}
 })(class extends React.Component {
 
-	componentWillMount(){
-		if(this.props.onPageChange){
+	componentWillMount() {
+		if (this.props.onPageChange) {
 			this.props.onPageChange("/super-admin/dashboard/");
 		}
 	}
 
-	render(){
+	render() {
 		const {classes} = this.props;
 		return <div direction={"column"} flex={1} className={`${classes.body}`}>
 			<div className={`container ${classes.content}`}>
@@ -113,8 +113,9 @@ let Index = withStyles((theme)=>{
 				<Layout>
 					<Paper className={classes.listCard} elevation={0}>
 						<Layout direction={"column"}>
-							<Typography className={classes.listTitle} gutterBottom variant={"title"}>Top States</Typography>
-							<Divider />
+							<Typography className={classes.listTitle} gutterBottom variant={"title"}>Top
+								States</Typography>
+							<Divider/>
 							<Table>
 								<TableHead>
 									<TableRow>
@@ -124,7 +125,7 @@ let Index = withStyles((theme)=>{
 								</TableHead>
 								<TableBody>
 									{
-										[1,2,3,4,5,6].map((i)=>{
+										[1, 2, 3, 4, 5, 6].map((i) => {
 											return <TableRow key={i}>
 												<TableCell>Sample {i}</TableCell>
 												<TableCell numeric>100</TableCell>
@@ -137,8 +138,9 @@ let Index = withStyles((theme)=>{
 					</Paper>
 					<Paper className={classes.listCard} elevation={0}>
 						<Layout direction={"column"}>
-							<Typography className={classes.listTitle} gutterBottom variant={"title"}>Top Vet Centers</Typography>
-							<Divider />
+							<Typography className={classes.listTitle} gutterBottom variant={"title"}>Top Vet
+								Centers</Typography>
+							<Divider/>
 							<Table>
 								<TableHead>
 									<TableRow>
@@ -148,7 +150,7 @@ let Index = withStyles((theme)=>{
 								</TableHead>
 								<TableBody>
 									{
-										[1,2,3,4,5,6].map((i)=>{
+										[1, 2, 3, 4, 5, 6].map((i) => {
 											return <TableRow key={i}>
 												<TableCell>Sample {i}</TableCell>
 												<TableCell numeric>100</TableCell>
@@ -161,8 +163,9 @@ let Index = withStyles((theme)=>{
 					</Paper>
 					<Paper className={classes.listCard} elevation={0}>
 						<Layout direction={"column"}>
-							<Typography className={classes.listTitle} gutterBottom variant={"title"}>Top Vaccines</Typography>
-							<Divider />
+							<Typography className={classes.listTitle} gutterBottom variant={"title"}>Top
+								Vaccines</Typography>
+							<Divider/>
 							<Table>
 								<TableHead>
 									<TableRow>
@@ -172,7 +175,7 @@ let Index = withStyles((theme)=>{
 								</TableHead>
 								<TableBody>
 									{
-										[1,2,3,4,5,6].map((i)=>{
+										[1, 2, 3, 4, 5, 6].map((i) => {
 											return <TableRow key={i}>
 												<TableCell>Sample {i}</TableCell>
 												<TableCell numeric>100</TableCell>
@@ -187,8 +190,9 @@ let Index = withStyles((theme)=>{
 				<Layout>
 					<Paper className={classes.listCard} elevation={0}>
 						<Layout direction={"column"}>
-							<Typography className={classes.listTitle} gutterBottom variant={"title"}>Recent Vaccinations</Typography>
-							<Divider />
+							<Typography className={classes.listTitle} gutterBottom variant={"title"}>Recent
+								Vaccinations</Typography>
+							<Divider/>
 							<Table>
 								<TableHead>
 									<TableRow>
@@ -198,7 +202,7 @@ let Index = withStyles((theme)=>{
 								</TableHead>
 								<TableBody>
 									{
-										[1,2,3,4,5,6].map((i)=>{
+										[1, 2, 3, 4, 5, 6].map((i) => {
 											return <TableRow key={i}>
 												<TableCell>Sample {i}</TableCell>
 												<TableCell numeric>100</TableCell>
@@ -215,4 +219,4 @@ let Index = withStyles((theme)=>{
 	}
 });
 
-export default connect(store=>store)(Index);
+export default connect(store => store)(Index);

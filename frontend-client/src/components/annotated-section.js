@@ -13,8 +13,8 @@ export default withStyles((theme) => {
 			marginLeft: theme.spacing.unit * 2,
 			paddingRight: theme.spacing.unit * 2,
 			paddingBottom: theme.spacing.unit * 2,
-			position:"fixed",
-			width:300
+			position: "fixed",
+			width: 300
 		},
 		annotationBody: {
 			marginTop: theme.spacing.unit * 1,
@@ -25,7 +25,7 @@ export default withStyles((theme) => {
 		_body: {
 			marginTop: theme.spacing.unit * 2,
 			flex: 2,
-			marginLeft:300+theme.spacing.unit * 2,
+			marginLeft: 300 + theme.spacing.unit * 2,
 			marginBottom: theme.spacing.unit * 2,
 		}
 	}
@@ -49,20 +49,20 @@ export default withStyles((theme) => {
 							<Typography variant="title">
 								{title}
 							</Typography>
-								<Typography
-									color="textSecondary"
-									variant="body1"
-									gutterBottom
-									className={classes.annotationDesc}>
-									{
-										this.props.desc &&
-										desc
-									}
-									{
-										this.props.descTag &&
-										this.props.descTag()
-									}
-								</Typography>
+							<Typography
+								color="textSecondary"
+								variant="body1"
+								gutterBottom
+								className={classes.annotationDesc}>
+								{
+									this.props.desc &&
+									desc
+								}
+								{
+									this.props.descTag &&
+									this.props.descTag()
+								}
+							</Typography>
 						</Layout>
 					</Layout>
 				</div>

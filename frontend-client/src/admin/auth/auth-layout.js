@@ -3,7 +3,6 @@ import Layout from "../../components/layout";
 import {withStyles} from "@material-ui/core/styles"
 
 
-
 export default withStyles({
 	fullScreen: {
 		width: "100%",

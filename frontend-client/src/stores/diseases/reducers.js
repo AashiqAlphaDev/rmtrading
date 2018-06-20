@@ -1,27 +1,28 @@
 import {
 	QUERY_DISEASES,
 	QUERY_DISEASES_SUCCEDED,
-	QUERY_DISEASES_FAILED} from "./actions";
+	QUERY_DISEASES_FAILED
+} from "./actions";
 
 const initDiseaseData = {
-	list:[]
+	list: []
 };
 
 function diseaseReducer(state = initDiseaseData, action) {
 	switch (action.type) {
-		case QUERY_DISEASES_SUCCEDED:{
-			state = {...state, list:action.payload, fetchError:null, isQueryInProgress:false};
+		case QUERY_DISEASES_SUCCEDED: {
+			state = {...state, list: action.payload, fetchError: null, isQueryInProgress: false};
 			break;
 		}
-		case QUERY_DISEASES_FAILED:{
-			state = {...state, fetchError:action.payload, isQueryInProgress:false};
+		case QUERY_DISEASES_FAILED: {
+			state = {...state, fetchError: action.payload, isQueryInProgress: false};
 			break;
 		}
-		case QUERY_DISEASES:{
-			state = {...state, fetchError:null, isQueryInProgress:true};
+		case QUERY_DISEASES: {
+			state = {...state, fetchError: null, isQueryInProgress: true};
 			break;
 		}
-		default:{
+		default: {
 			break;
 		}
 	}

@@ -1,4 +1,4 @@
-import { call, put, takeEvery} from 'redux-saga/effects';
+import {call, put, takeEvery} from 'redux-saga/effects';
 import {
 	ADD_VET_CENTER_FAILED,
 	ADD_VET_CENTER_SUCCEDED,
@@ -35,253 +35,252 @@ import {
 } from "./actions";
 import base_url from "../base_url";
 
-let queryVetCenters = function*(action){
+let queryVetCenters = function* (action) {
 	try {
-		var url = (action.payload && action.payload.query)?`${base_url}/vaccination-centers?query=${action.payload.query}`:`${base_url}/vaccination-centers`;
+		var url = (action.payload && action.payload.query) ? `${base_url}/vaccination-centers?query=${action.payload.query}` : `${base_url}/vaccination-centers`;
 		const response = yield call(fetch, url, {
 			credentials: 'include'
 		});
-		if(response.ok){
-			yield put({type: QUERY_VET_CENTERS_SUCCEDED, payload:yield response.json()});
+		if (response.ok) {
+			yield put({type: QUERY_VET_CENTERS_SUCCEDED, payload: yield response.json()});
 		}
 		else {
-			yield put({type: QUERY_VET_CENTERS_FAILED, payload:yield response.json()});
+			yield put({type: QUERY_VET_CENTERS_FAILED, payload: yield response.json()});
 		}
 	} catch (error) {
 		console.log(error)
-		yield put({type: QUERY_VET_CENTERS_FAILED, payload:error});
+		yield put({type: QUERY_VET_CENTERS_FAILED, payload: error});
 	}
 };
 
-let addVetCenter = function*(action) {
-	try{
+let addVetCenter = function* (action) {
+	try {
 		const response = yield call(fetch, `${base_url}/vaccination-centers`, {
-			method:"POST",
+			method: "POST",
 			credentials: 'include',
-			headers:{
-				"Content-Type":"application/json"
+			headers: {
+				"Content-Type": "application/json"
 			},
-			body:JSON.stringify(action.payload)
+			body: JSON.stringify(action.payload)
 		});
-		if(response.ok){
-			yield put({type: ADD_VET_CENTER_SUCCEDED, payload:yield response.json()});
+		if (response.ok) {
+			yield put({type: ADD_VET_CENTER_SUCCEDED, payload: yield response.json()});
 		}
 		else {
-			yield put({type: ADD_VET_CENTER_FAILED, payload:yield response.json()});
+			yield put({type: ADD_VET_CENTER_FAILED, payload: yield response.json()});
 		}
 	} catch (error) {
-		yield put({type: ADD_VET_CENTER_FAILED, payload:error});
+		yield put({type: ADD_VET_CENTER_FAILED, payload: error});
 	}
 };
 
 
-let deleteVetCenter = function*(action) {
-	try{
+let deleteVetCenter = function* (action) {
+	try {
 		const response = yield call(fetch, `${base_url}/vaccination-centers/${action.payload.center_id}`, {
-			method:"DELETE",
+			method: "DELETE",
 			credentials: 'include',
-			headers:{
-				"Content-Type":"application/json"
+			headers: {
+				"Content-Type": "application/json"
 			},
-			body:JSON.stringify(action.payload)
+			body: JSON.stringify(action.payload)
 		});
-		if(response.ok){
-			yield put({type: DELETE_VET_CENTER_SUCCEDED, payload:yield response.json()});
+		if (response.ok) {
+			yield put({type: DELETE_VET_CENTER_SUCCEDED, payload: yield response.json()});
 		}
 		else {
-			yield put({type: DELETE_VET_CENTER_FAILED, payload:yield response.json()});
+			yield put({type: DELETE_VET_CENTER_FAILED, payload: yield response.json()});
 		}
 	} catch (error) {
-		yield put({type: DELETE_VET_CENTER_FAILED, payload:error});
+		yield put({type: DELETE_VET_CENTER_FAILED, payload: error});
 	}
 };
 
-let fetchVetCenter = function*(action){
-	try{
+let fetchVetCenter = function* (action) {
+	try {
 		const response = yield call(fetch, `${base_url}/vaccination-centers/${action.payload.center_id}`);
-		if(response.ok){
-			yield put({type: VET_CENTER_FETCH_SUCCEDED, payload:yield response.json()});
+		if (response.ok) {
+			yield put({type: VET_CENTER_FETCH_SUCCEDED, payload: yield response.json()});
 		}
 		else {
-			yield put({type: VET_CENTER_FETCH_FAILED, payload:yield response.json()});
+			yield put({type: VET_CENTER_FETCH_FAILED, payload: yield response.json()});
 		}
 	} catch (error) {
-		yield put({type: VET_CENTER_FETCH_FAILED, payload:error});
+		yield put({type: VET_CENTER_FETCH_FAILED, payload: error});
 	}
 };
 
-let addAdmin = function*(action){
-	try{
+let addAdmin = function* (action) {
+	try {
 		const response = yield call(fetch, `${base_url}/vaccination-centers/${action.payload.center_id}/admins`, {
-			method:"POST",
+			method: "POST",
 			credentials: 'include',
-			headers:{
-				"Content-Type":"application/json"
+			headers: {
+				"Content-Type": "application/json"
 			},
-			body:JSON.stringify(action.payload)
+			body: JSON.stringify(action.payload)
 		});
-		if(response.ok){
-			yield put({type: ADD_ADMIN_SUCCEDED, payload:yield response.json()});
+		if (response.ok) {
+			yield put({type: ADD_ADMIN_SUCCEDED, payload: yield response.json()});
 		}
 		else {
-			yield put({type: ADD_ADMIN_FAILED, payload:yield response.json()});
+			yield put({type: ADD_ADMIN_FAILED, payload: yield response.json()});
 		}
 	} catch (error) {
-		yield put({type: ADD_ADMIN_FAILED, payload:error});
+		yield put({type: ADD_ADMIN_FAILED, payload: error});
 	}
 };
 
-let addQueue = function*(action){
-	try{
+let addQueue = function* (action) {
+	try {
 		const response = yield call(fetch, `${base_url}/vaccination-centers/${action.payload.center_id}`, {
-			method:"PUT",
+			method: "PUT",
 			credentials: 'include',
-			headers:{
-				"Content-Type":"application/json"
+			headers: {
+				"Content-Type": "application/json"
 			},
-			body:JSON.stringify({ $push: { queues: action.payload.queue_data } })
+			body: JSON.stringify({$push: {queues: action.payload.queue_data}})
 		});
-		if(response.ok){
-			yield put({type: ADD_QUEUE_SUCCEDED, payload:yield response.json()});
-			yield put({type: REQUEST_VET_CENTER_FETCH, payload:{center_id:action.payload.center_id}});
+		if (response.ok) {
+			yield put({type: ADD_QUEUE_SUCCEDED, payload: yield response.json()});
+			yield put({type: REQUEST_VET_CENTER_FETCH, payload: {center_id: action.payload.center_id}});
 
 		}
 		else {
-			yield put({type: ADD_QUEUE_FAILED, payload:yield response.json()});
+			yield put({type: ADD_QUEUE_FAILED, payload: yield response.json()});
 		}
 	} catch (error) {
-		yield put({type: ADD_QUEUE_FAILED, payload:error});
+		yield put({type: ADD_QUEUE_FAILED, payload: error});
 	}
 };
 
-let addSlot = function*(action){
-    try{
-    	console.log({ $push: { time_slots: action.payload.slot_data } })
-        const response = yield call(fetch, `${base_url}/vaccination-centers/${action.payload.center_id}/queues/${action.payload.queue_id}`, {
-            method:"PUT",
-            credentials: 'include',
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({ $push: { "queues.$.time_slots": action.payload.slot_data } })
-        });
-        if(response.ok){
-            yield put({type: ADD_SLOT_SUCCEDED, payload:yield response.json()});
-            yield put({type: REQUEST_VET_CENTER_FETCH, payload:{center_id:action.payload.center_id}});
-        }
-        else {
-            yield put({type: ADD_SLOT_FAILED, payload:yield response.json()});
-        }
-    } catch (error) {
-        yield put({type: ADD_SLOT_FAILED, payload:error});
-    }
+let addSlot = function* (action) {
+	try {
+		console.log({$push: {time_slots: action.payload.slot_data}})
+		const response = yield call(fetch, `${base_url}/vaccination-centers/${action.payload.center_id}/queues/${action.payload.queue_id}`, {
+			method: "PUT",
+			credentials: 'include',
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({$push: {"queues.$.time_slots": action.payload.slot_data}})
+		});
+		if (response.ok) {
+			yield put({type: ADD_SLOT_SUCCEDED, payload: yield response.json()});
+			yield put({type: REQUEST_VET_CENTER_FETCH, payload: {center_id: action.payload.center_id}});
+		}
+		else {
+			yield put({type: ADD_SLOT_FAILED, payload: yield response.json()});
+		}
+	} catch (error) {
+		yield put({type: ADD_SLOT_FAILED, payload: error});
+	}
 };
 
-let deleteSlot = function*(action){
-    try{
-        const response = yield call(fetch, `${base_url}/vaccination-centers/${action.payload.center_id}/queues/${action.payload.queue_id}`, {
-            method:"PUT",
-            credentials: 'include',
-            headers:{
-                "Content-Type":"application/json"
-            },
-	        body:JSON.stringify({ $pull: { "queues.$.time_slots": {_id:action.payload.slot_id} } })
-        });
+let deleteSlot = function* (action) {
+	try {
+		const response = yield call(fetch, `${base_url}/vaccination-centers/${action.payload.center_id}/queues/${action.payload.queue_id}`, {
+			method: "PUT",
+			credentials: 'include',
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({$pull: {"queues.$.time_slots": {_id: action.payload.slot_id}}})
+		});
 
-        if(response.ok){
-            yield put({type: ADD_QUEUE_SUCCEDED, payload:yield response.json()});
-            yield put({type: REQUEST_VET_CENTER_FETCH, payload:{center_id:action.payload.center_id}});
+		if (response.ok) {
+			yield put({type: ADD_QUEUE_SUCCEDED, payload: yield response.json()});
+			yield put({type: REQUEST_VET_CENTER_FETCH, payload: {center_id: action.payload.center_id}});
 
-        }
-        else {
-            yield put({type: ADD_QUEUE_FAILED, payload:yield response.json()});
-        }
-    } catch (error) {
-        yield put({type: ADD_QUEUE_FAILED, payload:error});
-    }
+		}
+		else {
+			yield put({type: ADD_QUEUE_FAILED, payload: yield response.json()});
+		}
+	} catch (error) {
+		yield put({type: ADD_QUEUE_FAILED, payload: error});
+	}
 };
 
 
-let deleteAdmin = function*(action){
-	try{
+let deleteAdmin = function* (action) {
+	try {
 		const response = yield call(fetch, `${base_url}/vaccination-centers/${action.payload.center_id}/admins/${action.payload.admin_id}`, {
-			method:"DELETE",
+			method: "DELETE",
 			credentials: 'include',
 		});
-		if(response.ok){
-			yield put({type: DELETE_ADMIN_SUCCEDED, payload:yield response.json()});
-			yield put({type: REQUEST_ADMINS_FETCH, payload:{center_id:action.payload.center_id}});
+		if (response.ok) {
+			yield put({type: DELETE_ADMIN_SUCCEDED, payload: yield response.json()});
+			yield put({type: REQUEST_ADMINS_FETCH, payload: {center_id: action.payload.center_id}});
 		}
 		else {
-			yield put({type: DELETE_ADMIN_FAILED, payload:yield response.json()});
+			yield put({type: DELETE_ADMIN_FAILED, payload: yield response.json()});
 		}
 	} catch (error) {
-		yield put({type: DELETE_ADMIN_FAILED, payload:error});
+		yield put({type: DELETE_ADMIN_FAILED, payload: error});
 	}
 };
 
-let deleteQueue = function*(action){
-	try{
+let deleteQueue = function* (action) {
+	try {
 		const response = yield call(fetch, `${base_url}/vaccination-centers/${action.payload.center_id}`, {
-			method:"PUT",
+			method: "PUT",
 			credentials: 'include',
-			headers:{
-				"Content-Type":"application/json"
+			headers: {
+				"Content-Type": "application/json"
 			},
-			body:JSON.stringify({ $pull: { queues: {_id:action.payload.queue_id} } })
+			body: JSON.stringify({$pull: {queues: {_id: action.payload.queue_id}}})
 		});
-		if(response.ok){
-			yield put({type: DELETE_QUEUE_SUCCEDED, payload:yield response.json()});
-			yield put({type: REQUEST_VET_CENTER_FETCH, payload:{center_id:action.payload.center_id}});
+		if (response.ok) {
+			yield put({type: DELETE_QUEUE_SUCCEDED, payload: yield response.json()});
+			yield put({type: REQUEST_VET_CENTER_FETCH, payload: {center_id: action.payload.center_id}});
 		}
 		else {
-			yield put({type: DELETE_QUEUE_FAILED, payload:yield response.json()});
+			yield put({type: DELETE_QUEUE_FAILED, payload: yield response.json()});
 		}
 	} catch (error) {
-		yield put({type: DELETE_QUEUE_FAILED, payload:error});
+		yield put({type: DELETE_QUEUE_FAILED, payload: error});
 	}
 };
 
 
-let fetchAdmins = function*(action){
-	try{
-		var center_id =  action.payload.center_id || action.payload.vaccination_center || action.payload._id;
+let fetchAdmins = function* (action) {
+	try {
+		var center_id = action.payload.center_id || action.payload.vaccination_center || action.payload._id;
 		const response = yield call(fetch, `${base_url}/vaccination-centers/${center_id}/admins`, {
 			credentials: 'include'
 		});
-		if(response.ok){
-			yield put({type: ADMINS_FETCH_SUCCEDED, payload:yield response.json()});
+		if (response.ok) {
+			yield put({type: ADMINS_FETCH_SUCCEDED, payload: yield response.json()});
 		}
 		else {
-			yield put({type: ADMINS_FETCH_FAILED, payload:yield response.json()});
+			yield put({type: ADMINS_FETCH_FAILED, payload: yield response.json()});
 		}
 	} catch (error) {
-		yield put({type: ADMINS_FETCH_FAILED, payload:error});
+		yield put({type: ADMINS_FETCH_FAILED, payload: error});
 	}
 };
 
-let updateSlotInterval = function*(action){
-    try{
-        const response = yield call(fetch, `${base_url}/vaccination-centers/${action.payload.center_id}`, {
-            method:"PUT",
-            credentials: 'include',
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify({ appointments_per_hour: action.payload.slot_interval})
-        });
-        if(response.ok){
-            yield put({type: DELETE_QUEUE_SUCCEDED, payload:yield response.json()});
-            yield put({type: REQUEST_VET_CENTER_FETCH, payload:{center_id:action.payload.center_id}});
-        }
-        else {
-            yield put({type: DELETE_QUEUE_FAILED, payload:yield response.json()});
-        }
-    } catch (error) {
-        yield put({type: DELETE_QUEUE_FAILED, payload:error});
-    }
+let updateSlotInterval = function* (action) {
+	try {
+		const response = yield call(fetch, `${base_url}/vaccination-centers/${action.payload.center_id}`, {
+			method: "PUT",
+			credentials: 'include',
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({appointments_per_hour: action.payload.slot_interval})
+		});
+		if (response.ok) {
+			yield put({type: DELETE_QUEUE_SUCCEDED, payload: yield response.json()});
+			yield put({type: REQUEST_VET_CENTER_FETCH, payload: {center_id: action.payload.center_id}});
+		}
+		else {
+			yield put({type: DELETE_QUEUE_FAILED, payload: yield response.json()});
+		}
+	} catch (error) {
+		yield put({type: DELETE_QUEUE_FAILED, payload: error});
+	}
 };
-
 
 
 function* vetCentersSaga() {
@@ -302,10 +301,10 @@ function* vetCentersSaga() {
 	yield takeEvery(REQUEST_QUEUES_FETCH, fetchVetCenter);
 	yield takeEvery(REQUEST_DELETE_QUEUE, deleteQueue);
 
-    yield takeEvery(REQUEST_ADD_SLOT, addSlot);
-    yield takeEvery(REQUEST_DELETE_SLOT, deleteSlot);
+	yield takeEvery(REQUEST_ADD_SLOT, addSlot);
+	yield takeEvery(REQUEST_DELETE_SLOT, deleteSlot);
 
-    yield takeEvery(REQUEST_UPDATE_SLOT_INTERVAL, updateSlotInterval)
+	yield takeEvery(REQUEST_UPDATE_SLOT_INTERVAL, updateSlotInterval)
 
 }
 

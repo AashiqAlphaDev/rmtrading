@@ -1,5 +1,5 @@
 import React from "react"
-import {Paper,Typography,TableHead,TableRow,Table,TableCell,TableBody} from "@material-ui/core/index";
+import {Paper, Typography, TableHead, TableRow, Table, TableCell, TableBody} from "@material-ui/core/index";
 import {withStyles} from "@material-ui/core/styles/index";
 import style from "../style";
 import {connect} from "react-redux"
@@ -7,19 +7,20 @@ import {IconButton} from "@material-ui/core/es/index";
 import {DeleteIcon} from "mdi-react";
 import {QUERY_COUNTRIES, REQUEST_DELETE_COUNTRY} from "../../../stores/countries/actions";
 
-let Index = withStyles((theme)=>{
+let Index = withStyles((theme) => {
 	return {
 		...style(theme),
-		actions:{
-			marginTop:theme.spacing.unit*4,
-			marginBottom:theme.spacing.unit*4
+		actions: {
+			marginTop: theme.spacing.unit * 4,
+			marginBottom: theme.spacing.unit * 4
 		}
 	}
-})(class extends React.Component{
-	componentWillMount(){
-		this.props.dispatch({type:QUERY_COUNTRIES});
+})(class extends React.Component {
+	componentWillMount() {
+		this.props.dispatch({type: QUERY_COUNTRIES});
 	}
-	render(){
+
+	render() {
 		const {classes} = this.props;
 		return <div>
 			<div>
@@ -44,8 +45,11 @@ let Index = withStyles((theme)=>{
 									</TableCell>
 									<TableCell>
 										<IconButton>
-											<DeleteIcon color="primary" onClick={()=>{
-												this.props.dispatch({type:REQUEST_DELETE_COUNTRY, payload:{country_id:item._id}});
+											<DeleteIcon color="primary" onClick={() => {
+												this.props.dispatch({
+													type: REQUEST_DELETE_COUNTRY,
+													payload: {country_id: item._id}
+												});
 											}}/>
 										</IconButton>
 									</TableCell>
@@ -59,4 +63,4 @@ let Index = withStyles((theme)=>{
 
 	}
 });
-export default connect(store=>store)(Index)
+export default connect(store => store)(Index)

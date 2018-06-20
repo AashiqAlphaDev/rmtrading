@@ -76,93 +76,93 @@ let deleteVaccine = function* (action) {
 	}
 };
 
-let fetchVaccine = function*(action){
+let fetchVaccine = function* (action) {
 	try {
 		const response = yield call(fetch, `${base_url}/vaccines/${action.payload.vaccine_id}`);
-		if(response.ok){
-			yield put({type: VACCINE_FETCH_SUCCEDED, payload:yield response.json()});
+		if (response.ok) {
+			yield put({type: VACCINE_FETCH_SUCCEDED, payload: yield response.json()});
 		}
 		else {
-			yield put({type: VACCINE_FETCH_FAILED, payload:yield response.json()});
+			yield put({type: VACCINE_FETCH_FAILED, payload: yield response.json()});
 		}
 	} catch (error) {
-		yield put({type: VACCINE_FETCH_FAILED, payload:error});
+		yield put({type: VACCINE_FETCH_FAILED, payload: error});
 	}
 };
 
-let deleteDosage = function*(action) {
+let deleteDosage = function* (action) {
 	try {
 		var body;
 		switch (action.payload.dosageType) {
 			default:
-			case "child":{
-				body = {$pull:{child_vaccine_schedules:{_id:action.payload.schedule_id}}}
+			case "child": {
+				body = {$pull: {child_vaccine_schedules: {_id: action.payload.schedule_id}}}
 				break;
 			}
-			case "adult":{
-				body = {$pull:{adult_vaccine_schedules:{_id:action.payload.schedule_id}}}
+			case "adult": {
+				body = {$pull: {adult_vaccine_schedules: {_id: action.payload.schedule_id}}}
 				break;
 			}
-			case "booster":{
-				body = {$pull:{booster_vaccine_schedules:{_id:action.payload.schedule_id}}}
+			case "booster": {
+				body = {$pull: {booster_vaccine_schedules: {_id: action.payload.schedule_id}}}
 				break;
 			}
 		}
 		const response = yield call(fetch, `${base_url}/vaccines/${action.payload.vaccine_id}`, {
-			method:"PUT",
+			method: "PUT",
 			credentials: 'include',
 			headers: {
 				"Content-Type": "application/json"
 			},
-			body:JSON.stringify(body)
+			body: JSON.stringify(body)
 		});
-		if(response.ok){
-			yield put({type: DELETE_DOSAGE_SUCCEDED, payload:{vaccine_id:action.payload.vaccine_id}});
+		if (response.ok) {
+			yield put({type: DELETE_DOSAGE_SUCCEDED, payload: {vaccine_id: action.payload.vaccine_id}});
 		}
 		else {
-			yield put({type: DELETE_DOSAGE_FAILED, payload:yield response.json()});
+			yield put({type: DELETE_DOSAGE_FAILED, payload: yield response.json()});
 		}
 	} catch (e) {
-		yield put({type: DELETE_DOSAGE_FAILED, payload:e});
+		yield put({type: DELETE_DOSAGE_FAILED, payload: e});
 	}
 };
 
 
-let addDosage = function*(action) {
+let addDosage = function* (action) {
 	try {
 		var body;
 		switch (action.payload.dosageType) {
 			default:
-			case "child":{
-				body = {$push:{child_vaccine_schedules:action.payload.schedule_data}}
+			case "child": {
+				body = {$push: {child_vaccine_schedules: action.payload.schedule_data}}
 				break;
 			}
-			case "adult":{
-				body = {$push:{adult_vaccine_schedules:action.payload.schedule_data}}
+			case "adult": {
+				body = {$push: {adult_vaccine_schedules: action.payload.schedule_data}}
 				break;
 			}
-			case "booster":{
-				body = {$push:{booster_vaccine_schedules:action.payload.schedule_data}}
+			case "booster": {
+				body = {$push: {booster_vaccine_schedules: action.payload.schedule_data}}
 				break;
 			}
 		}
 		console.log(action.payload);
 		const response = yield call(fetch, `${base_url}/vaccines/${action.payload.vaccine_id}`, {
-			method:"PUT",
+			method: "PUT",
 			credentials: 'include',
 			headers: {
 				"Content-Type": "application/json"
 			},
-			body:JSON.stringify(body)
+			body: JSON.stringify(body)
 		});
-		if(response.ok){
-			yield put({type: ADD_DOSAGE_SUCCEDED, payload:{vaccine_id:action.payload.vaccine_id}});
+		if (response.ok) {
+			yield put({type: ADD_DOSAGE_SUCCEDED, payload: {vaccine_id: action.payload.vaccine_id}});
 		}
 		else {
-			yield put({type: ADD_DOSAGE_FAILED, payload:yield response.json()});
+			yield put({type: ADD_DOSAGE_FAILED, payload: yield response.json()});
 		}
 	} catch (e) {
-		yield put({type: ADD_DOSAGE_FAILED, payload:e});
+		yield put({type: ADD_DOSAGE_FAILED, payload: e});
 	}
 };
 

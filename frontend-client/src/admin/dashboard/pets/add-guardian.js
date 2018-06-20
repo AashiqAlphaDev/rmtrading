@@ -24,7 +24,7 @@ let Index = withStyles((theme) => {
 		email: "",
 		profile: {
 			first_name: "",
-			address:"",
+			address: "",
 			mobile_number: "",
 			government_issued_id: ""
 		}
