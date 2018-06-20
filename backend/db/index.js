@@ -168,7 +168,8 @@ var petSchema = new Schema({
     pet_type:ObjectID,
     breed:ObjectID,
     owner:ObjectID,
-    date_of_birth:Date
+    date_of_birth:Date,
+	chip_id:String
 });
 petSchema.plugin(mongoosePaginate);
 mongoose.model('Pet', petSchema);

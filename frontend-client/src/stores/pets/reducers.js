@@ -18,9 +18,7 @@ function petsReducer(state = initPets, action) {
 	return state;
 }
 
-
 const initGuardianDetail = {}
-
 
 function guardianDetailReducer(state = initGuardianDetail, action) {
     switch (action.type) {
@@ -29,7 +27,6 @@ function guardianDetailReducer(state = initGuardianDetail, action) {
             break;
         }
     	case GUARDIAN_FETCH_SUCCEDED:{
-            console.log(action.payload)
 			state = {...state, ...action.payload};
 			break;
 		}

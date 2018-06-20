@@ -5,12 +5,9 @@ import {withStyles} from "@material-ui/core/styles/index";
 import {connect} from "react-redux";
 import InputContainer from "../../../components/input"
 import style from "../style";
-import {
-	COUNTRY_CLEAR_MATCHES,
-	STATE_CLEAR_MATCHES
-} from "../../../stores/countries/actions";
 import {MenuItem, Select, TextField} from "@material-ui/core/es/index";
 import {QUERY_BREEDS, QUERY_PET_TYPES} from "../../../stores/pet-types/actions";
+import {REQUEST_CREATE_PET} from "../../../stores/pets/actions";
 
 let Index = withStyles((theme)=>{
 	return {
@@ -41,55 +38,71 @@ let Index = withStyles((theme)=>{
 	render(){
 		const {classes} = this.props;
 		return <AnnotatedSection title={"Add Pet"} backButton={{url: "/admin/dashboard/pets"}}>
-			<Paper className={classes.paperPage}>
-				<InputContainer label={"Name"}>
-					<TextField value={this.state.name} onChange={(event)=>{
-						this.setState({name:event.target.value});
-					}}></TextField>
-				</InputContainer>
-				<InputContainer label={"Pet Type"}>
-					{
-						this.props.petTypes.list.length>0 &&
-						<Select value={this.state.pet_type} onChange={(event)=>{
-							this.setState({pet_type:event.target.value})
-							this.props.dispatch({type:QUERY_BREEDS, payload:{pet_type_id:event.target.value}});
-						}}>
-							{
-								this.props.petTypes.list.map((item)=>{
-									return <MenuItem key={item._id} value={item._id}>{item.name}</MenuItem>
-								})
-							}
-						</Select>
-					}
-					{
-						this.props.petTypes.list.length==0 &&
-						<Select disabled>
-						</Select>
-					}
-				</InputContainer>
-				<InputContainer label={"Breed"}>
-					{
-						this.props.petTypes.breed_list.length>0 &&
-						<Select value={this.state.breed} onChange={(event)=>{this.setState({breed:event.target.value})}}>
-							{
-								this.props.petTypes.breed_list.map((item)=>{
-									return <MenuItem key={item._id} value={item._id}>{item.name}</MenuItem>
-								})
-							}
-						</Select>
-					}
-					{
-						this.props.petTypes.breed_list.length==0 &&
-						<Select disabled>
-						</Select>
-					}
-				</InputContainer>
-				<InputContainer label={"Date Of Birth"}>
-					<TextField value={this.state.dateOfBirth} onChange={(event)=>{
-						this.setState({dateOfBirth:event.target.value});
-					}}></TextField>
-				</InputContainer>
-			</Paper>
+			<form onSubmit={(e)=>{
+				e.preventDefault();
+				this.props.dispatch({type:REQUEST_CREATE_PET, payload:{
+						name:this.state.name,
+						pet_type:this.state.pet_type,
+						breed:this.state.breed,
+						chip_id:this.state.chip_id,
+						date_of_birth:this.state.date_of_birth,
+				}})
+			}}>
+				<Paper className={classes.paperPage}>
+					<InputContainer label={"Name"}>
+						<TextField value={this.state.name} onChange={(event)=>{
+							this.setState({name:event.target.value});
+						}}></TextField>
+					</InputContainer>
+					<InputContainer label={"Pet Type"}>
+						{
+							this.props.petTypes.list.length>0 &&
+							<Select value={this.state.pet_type} onChange={(event)=>{
+								this.setState({pet_type:event.target.value, breed:null});
+								this.props.dispatch({type:QUERY_BREEDS, payload:{pet_type_id:event.target.value}});
+							}}>
+								{
+									this.props.petTypes.list.map((item)=>{
+										return <MenuItem key={item._id} value={item._id}>{item.name}</MenuItem>
+									})
+								}
+							</Select>
+						}
+						{
+							this.props.petTypes.list.length==0 &&
+							<Select disabled>
+							</Select>
+						}
+					</InputContainer>
+					<InputContainer label={"Breed"}>
+						{
+							this.props.petTypes.breed_list.length>0 &&
+							<Select value={this.state.breed} onChange={(event)=>{this.setState({breed:event.target.value})}}>
+								{
+									this.props.petTypes.breed_list.map((item)=>{
+										return <MenuItem key={item._id} value={item._id}>{item.name}</MenuItem>
+									})
+								}
+							</Select>
+						}
+						{
+							this.props.petTypes.breed_list.length==0 &&
+							<Select disabled>
+							</Select>
+						}
+					</InputContainer>
+					<InputContainer label={"Chip Id"}>
+						<TextField value={this.state.chip_id} onChange={(event)=>{
+							this.setState({chip_id:event.target.value});
+						}}></TextField>
+					</InputContainer>
+					<InputContainer label={"Date Of Birth"}>
+						<TextField value={this.state.date_of_birth} onChange={(event)=>{
+							this.setState({date_of_birth:event.target.value});
+						}}></TextField>
+					</InputContainer>
+				</Paper>
+			</form>
 		</AnnotatedSection>;
 	}
 
