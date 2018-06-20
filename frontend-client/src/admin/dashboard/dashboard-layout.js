@@ -5,15 +5,14 @@ import _ from "underscore";
 import Layout from "../../components/layout";
 import {AppBar,Toolbar,Button} from "@material-ui/core/index";
 import {Link} from "react-router-dom";
-import {CHECK_ADMIN} from "../../stores/auth/actions";
+import {CHECK_ADMIN, REQUEST_LOGOUT, REQUEST_SUPER_ADMIN_LOGOUT} from "../../stores/auth/actions";
 import {connect} from "react-redux"
 
 const pages = [
-	{label: "Pet Registration", url: "/admin/dashboard/pet-registration"},
+	{label: "Pet Registration", url: "/admin/dashboard/pets"},
 	{label: "Vaccination", url: "/admin/dashboard/vaccination-centers"},
-	{label: "Manage Staff", url: "/admin/dashboard/staff"},
-	{label: "Requests", url: "/admin/dashboard/request"},
 	{label: "Manage Appointments", url: "/admin/dashboard/inventory"},
+	{label: "Settings", url: "/admin/dashboard/staff"},
 ];
 
 let Index = withStyles((theme)=>(
@@ -31,26 +30,33 @@ let Index = withStyles((theme)=>(
 		this.props.dispatch({type:CHECK_ADMIN})
 	}
 	render() {
-		const {classes} = this.props;
-		return <div className={classes.fullScreen}>
-			<Layout direction={"column"}>
+        const {classes} = this.props;
+        return <div className={classes.fullScreen}>
+			<Layout direction={"column"} className={`flex`}>
 				<AppBar position="static" color="default">
 					<Toolbar className={`container`}>
 						<div className={`flex`}>
-							<img src={"/logo.png"} style={{height:40}} alt={"logo"}/>
+							<Link to={"/admin/dashboard/"}>
+								<img src={"/logo.png"} style={{height:40}} alt={"logo"}/>
+							</Link>
 						</div>
 						<Layout>
-							{
-								pages.map((page, index) => {
-									return <Link to={page.url} key={index}><Button key={index} className={classes.navButton} color={(index === _.findIndex(pages,(item)=>{return this.props.location.pathname===item.url})) ? 'primary' : 'default'}>
-										{page.label}
+                            {
+                                pages.map((page, index) => {
+                                    return <Link to={page.url} key={index}><Button key={index} className={classes.navButton} color={(this.props.currentPage===page.url) ? 'primary' : 'default'}>
+                                        {page.label}
 									</Button></Link>
-								})
-							}
+                                })
+                            }
+							<Button className={classes.navButton} onClick={()=>{
+                                this.props.dispatch({type:REQUEST_SUPER_ADMIN_LOGOUT})
+                            }}>
+								Logout
+							</Button>
 						</Layout>
 					</Toolbar>
 				</AppBar>
-				{this.props.children}
+                {this.props.children}
 			</Layout>
 		</div>;
 	}

@@ -1,5 +1,7 @@
+import style from "../../dashboard-style";
 export default (theme) => ({
-	navButton: {
-		margin: theme.spacing.unit * 1
-	}
+    ...style(theme),
+    navButton: {
+        margin: theme.spacing.unit * 1
+    }
 });

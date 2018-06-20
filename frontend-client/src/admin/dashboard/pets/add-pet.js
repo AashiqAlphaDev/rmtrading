@@ -1,5 +1,5 @@
 import React from "react"
-import {Paper,TextField,Button} from "@material-ui/core/index";
+import {Paper,TextField,Button,Typography} from "@material-ui/core/index";
 import InputContainer from "../../../components/input"
 import Layout from "../../../components/layout";
 import AnnotatedSection from "../../../components/annotated-section";
@@ -42,8 +42,13 @@ let Index = withStyles((theme)=>{
 	handleStateSuggestionsFetchRequested(event){
 		this.props.dispatch({type:QUERY_STATES, payload:{country_id:this.state.selectedCountry._id,query:event.value}});
 	}
+    handleGaurdianPhoneSuggestionsFetchRequested(event){
+        this.props.dispatch({type:QUERY_STATES, payload:{country_id:this.state.selectedCountry._id,query:event.value}});
+    }
+
 
 	componentWillReceiveProps(nextProps){
+		console.log(nextProps)
 		if(nextProps.countries.addedCountry){
 			this.setState({selectedCountry:nextProps.countries.addedCountry});
 			this.props.dispatch({type:COUNTRY_CLEAR_MATCHES});
@@ -57,7 +62,6 @@ let Index = withStyles((theme)=>{
 	render(){
 		const {classes} = this.props;
 		return <AnnotatedSection title={"Add Vaccination Center"}
-		                         desc={"Please provide the information to register Vaccination Center."}
 		                         backButton={{url: "/super-admin/dashboard/pets"}}>
 			<Paper className={classes.paperPage}>
 				<form onSubmit={(e)=>{
@@ -85,88 +89,57 @@ let Index = withStyles((theme)=>{
 					this.props.dispatch({type:REQUEST_ADD_VET_CENTER, payload:vetCenterData})
 				}}>
 				<Layout direction={"column"}>
-					<InputContainer label={"Vaccination Center Name"}>
+					<Typography variant="subhead"  className={classes.title}>
+						Garudian Details
+					</Typography>
+					<InputContainer label={"Gaurdian Name"}>
 						<TextField onChange={(e)=>{this.setState({name:e.target.value})}}/>
 					</InputContainer>
+					<InputContainer label={"Gaurdian number"}>
+						<TextField onChange={(e)=>{this.setState({mobile_number:e.target.value})}}/>
+					</InputContainer>
+
 					<AutoSuggest
 						suggestions={this.props.countries.list.length === 0 && !this.state.selectedCountry? [{
-							name: `+ Add ${this.state.country_query}`,
-							action: "create_new",
-							value: {name:this.state.country_query}
-						}] : this.props.countries.list}
+                            name: `+ Add ${this.state.country_query}`,
+                            action: "create_new",
+                            value: {name:this.state.country_query}
+                        }] : this.props.countries.list}
 						onSuggestionsFetchRequested={this.handleCountrySuggestionsFetchRequested.bind(this)}
 						onSuggestionsClearRequested={() => {
-							this.props.dispatch({type: COUNTRY_CLEAR_MATCHES});
-						}}
+                            this.props.dispatch({type: COUNTRY_CLEAR_MATCHES});
+                        }}
 						disabled={this.props.countries.addingCountryInProgress}
 						placeholder={"Country"}
 						value={this.state.country_query}
 						onBlur={()=>{
-							if(!this.state.selectedCountry){
-								this.setState({country_query:""})
-							}
-						}}
+                            if(!this.state.selectedCountry){
+                                this.setState({country_query:""})
+                            }
+                        }}
 						onChange={(event, payload) => {
-							event.preventDefault();
-							const {newValue} = payload;
-							if(typeof newValue === 'string'){
-								this.setState({selectedCountry:null});
-								this.setState({country_query:newValue});
-							}
-							else{
-								if(newValue.action){
-									this.props.dispatch({type:REQUEST_ADD_COUNTRY, payload:newValue.value});
-								}
-								else{
-									this.setState({selectedCountry:newValue});
-									this.setState({country_query:newValue.name});
-								}
-							}
-						}}
+                            event.preventDefault();
+                            const {newValue} = payload;
+                            if(typeof newValue === 'string'){
+                                this.setState({selectedCountry:null});
+                                this.setState({country_query:newValue});
+                            }
+                            else{
+                                if(newValue.action){
+                                    this.props.dispatch({type:REQUEST_ADD_COUNTRY, payload:newValue.value});
+                                }
+                                else{
+                                    this.setState({selectedCountry:newValue});
+                                    this.setState({country_query:newValue.name});
+                                }
+                            }
+                        }}
 					/>
-					<Layout>
-						<AutoSuggest
-							suggestions={this.props.countries.state_list.length === 0 && !this.state.selectedState? [{
-								name: `+ Add ${this.state.state_query}`,
-								action: "create_new",
-								value: {name:this.state.state_query}
-							}] : this.props.countries.state_list}
-							onSuggestionsFetchRequested={this.handleStateSuggestionsFetchRequested.bind(this)}
-							onSuggestionsClearRequested={() => {
-								this.props.dispatch({type: COUNTRY_CLEAR_MATCHES});
-							}}
-							onBlur={()=>{
-								if(!this.state.selectedState){
-									this.setState({state_query:""})
-								}
-							}}
-							disabled={!this.state.selectedCountry}
-							placeholder={"State"}
-							value={this.state.state_query}
-							onChange={(event, payload) => {
-								event.preventDefault();
-								const {newValue} = payload;
-								if(typeof newValue === 'string'){
-									this.setState({selectedState:null});
-									this.setState({state_query:newValue});
-								}
-								else{
-									if(newValue.action){
-										this.props.dispatch({type:REQUEST_ADD_STATE, payload:{state_data:newValue.value, country_id:this.state.selectedCountry._id}});
-									}
-									else{
-										this.setState({selectedState:newValue});
-										this.setState({state_query:newValue.name});
-									}
-								}
-							}}
-						/>
 						<InputContainer label={"City"}>
 							<TextField onChange={(event)=>{
 								this.setState({city:event.target.value})
 							}}></TextField>
 						</InputContainer>
-					</Layout>
 					<Layout>
 						<InputContainer label={"Address"}>
 							<TextField onChange={(event)=>{
