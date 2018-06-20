@@ -1,7 +1,7 @@
 import {
 	AUTH_CLEAR, CHECK_SUPER_ADMIN, CHECK_SUPER_ADMIN_FAILED, CHECK_SUPER_ADMIN_PASSED,
 	LOGIN_FAILED,
-	LOGIN_SUCCEDED,
+	LOGIN_SUCCEDED, LOGOUT_SUCCEDED,
 	REQUEST_LOGIN,
 	REQUEST_SIGNUP, REQUEST_SUPER_ADMIN_LOGIN,
 	SIGNUP_FAILED,
@@ -56,6 +56,10 @@ function authReducer(state = initAuthData, action) {
 		}
 		case LOGIN_SUCCEDED:{
 			state = {...state, redirect:"/admin/dashboard"};
+			break;
+		}
+		case LOGOUT_SUCCEDED:{
+			state = {...state, redirect:"/admin/auth/login"};
 			break;
 		}
 		case SUPER_ADMIN_LOGOUT_SUCCEDED:{

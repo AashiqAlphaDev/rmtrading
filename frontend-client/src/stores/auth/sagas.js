@@ -4,8 +4,8 @@ import {
 	CHECK_SUPER_ADMIN_FAILED,
 	CHECK_SUPER_ADMIN_PASSED,
 	LOGIN_FAILED,
-	LOGIN_SUCCEDED,
-	REQUEST_LOGIN,
+	LOGIN_SUCCEDED, LOGOUT_FAILED, LOGOUT_SUCCEDED, REQUEST_ADMIN_LOGOUT,
+	REQUEST_LOGIN, REQUEST_LOGOUT,
 	REQUEST_SIGNUP,
 	REQUEST_SUPER_ADMIN_LOGIN,
 	REQUEST_SUPER_ADMIN_LOGOUT,
@@ -115,6 +115,22 @@ function* superAdminLogout(){
 	}
 }
 
+function* logout(){
+	try {
+		const response = yield call(fetch, `${base_url}/logout`, {
+			method:'DELETE',
+			credentials: 'include'
+		});
+		if(response.ok){
+			yield put({type: LOGOUT_SUCCEDED, payload:yield response.json()});
+		}
+		else {
+			yield put({type: LOGOUT_FAILED, payload:yield response.json()});
+		}
+	} catch (error) {
+		yield put({type: LOGOUT_FAILED, payload:error});
+	}
+}
 
 function* authSaga() {
 	yield takeEvery(REQUEST_LOGIN, loginUser);
@@ -122,6 +138,7 @@ function* authSaga() {
 	yield takeEvery(REQUEST_SUPER_ADMIN_LOGIN, loginSuperAdmin);
 	yield takeEvery(CHECK_SUPER_ADMIN, checkSuperAdmin);
 	yield takeEvery(REQUEST_SUPER_ADMIN_LOGOUT, superAdminLogout);
+	yield takeEvery(REQUEST_LOGOUT, logout);
 }
 
 export default authSaga;

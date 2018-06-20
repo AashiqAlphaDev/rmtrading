@@ -5,15 +5,14 @@ import _ from "underscore";
 import Layout from "../../components/layout";
 import {AppBar,Toolbar,Button} from "@material-ui/core/index";
 import {Link} from "react-router-dom";
-import {CHECK_ADMIN} from "../../stores/auth/actions";
+import {CHECK_ADMIN, REQUEST_LOGOUT, REQUEST_SUPER_ADMIN_LOGOUT} from "../../stores/auth/actions";
 import {connect} from "react-redux"
 
 const pages = [
 	{label: "Pet Registration", url: "/admin/dashboard/pet-registration"},
 	{label: "Vaccination", url: "/admin/dashboard/vaccination-centers"},
-	{label: "Manage Staff", url: "/admin/dashboard/staff"},
-	{label: "Requests", url: "/admin/dashboard/request"},
 	{label: "Manage Appointments", url: "/admin/dashboard/inventory"},
+	{label: "Settings", url: "/admin/dashboard/staff"},
 ];
 
 let Index = withStyles((theme)=>(
@@ -47,6 +46,11 @@ let Index = withStyles((theme)=>(
 									</Button></Link>
 								})
 							}
+							<Button className={classes.navButton} onClick={()=>{
+								this.props.dispatch({type:REQUEST_LOGOUT})
+							}}>
+								Logout
+							</Button>
 						</Layout>
 					</Toolbar>
 				</AppBar>
