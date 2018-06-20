@@ -5,9 +5,10 @@ import {withStyles} from "@material-ui/core/styles/index";
 import {connect} from "react-redux";
 import InputContainer from "../../../components/input"
 import style from "../style";
-import {MenuItem, Select, TextField} from "@material-ui/core/es/index";
+import {Button, MenuItem, Select, TextField} from "@material-ui/core/es/index";
 import {QUERY_BREEDS, QUERY_PET_TYPES} from "../../../stores/pet-types/actions";
 import {REQUEST_CREATE_PET} from "../../../stores/pets/actions";
+import Layout from "../../../components/layout";
 
 let Index = withStyles((theme)=>{
 	return {
@@ -17,21 +18,17 @@ let Index = withStyles((theme)=>{
 			marginBottom:theme.spacing.unit*4
 		}
 	}
-})(class extends React.PureComponent{
+})(class extends React.Component{
 
 	state={
-		name:""
+		name:"",
+		pet_type:null,
+		breed:null,
 	};
-
 
 	componentWillMount(){
 		this.props.dispatch({type:QUERY_PET_TYPES});
-	}
-
-	componentWillReceiveProps(nextProps){
-		if(nextProps.petTypes){
-
-		}
+		console.log(this.props)
 	}
 
 
@@ -46,6 +43,7 @@ let Index = withStyles((theme)=>{
 						breed:this.state.breed,
 						chip_id:this.state.chip_id,
 						date_of_birth:this.state.date_of_birth,
+						owner:this.props.match.params.guardian_id
 				}})
 			}}>
 				<Paper className={classes.paperPage}>
@@ -57,7 +55,7 @@ let Index = withStyles((theme)=>{
 					<InputContainer label={"Pet Type"}>
 						{
 							this.props.petTypes.list.length>0 &&
-							<Select value={this.state.pet_type} onChange={(event)=>{
+							<Select value={this.state.pet_type || ''} onChange={(event)=>{
 								this.setState({pet_type:event.target.value, breed:null});
 								this.props.dispatch({type:QUERY_BREEDS, payload:{pet_type_id:event.target.value}});
 							}}>
@@ -70,14 +68,14 @@ let Index = withStyles((theme)=>{
 						}
 						{
 							this.props.petTypes.list.length==0 &&
-							<Select disabled>
+							<Select disabled value={"none"}>
 							</Select>
 						}
 					</InputContainer>
 					<InputContainer label={"Breed"}>
 						{
 							this.props.petTypes.breed_list.length>0 &&
-							<Select value={this.state.breed} onChange={(event)=>{this.setState({breed:event.target.value})}}>
+							<Select value={this.state.breed || ''} onChange={(event)=>{this.setState({breed:event.target.value})}}>
 								{
 									this.props.petTypes.breed_list.map((item)=>{
 										return <MenuItem key={item._id} value={item._id}>{item.name}</MenuItem>
@@ -87,7 +85,7 @@ let Index = withStyles((theme)=>{
 						}
 						{
 							this.props.petTypes.breed_list.length==0 &&
-							<Select disabled>
+							<Select disabled value={"none"}>
 							</Select>
 						}
 					</InputContainer>
@@ -101,6 +99,10 @@ let Index = withStyles((theme)=>{
 							this.setState({date_of_birth:event.target.value});
 						}}></TextField>
 					</InputContainer>
+					<Layout justifyContent={"flex-end"} className={classes.actions}>
+						<Button> Clear </Button>
+						<Button variant={"raised"} color={"primary"} type={"submit"}> Add </Button>
+					</Layout>
 				</Paper>
 			</form>
 		</AnnotatedSection>;

@@ -22,7 +22,6 @@ let Index = withStyles((theme)=>{
 })(class extends React.Component {
 
 	componentWillMount(){
-		console.log("here")
 		if(this.props.onPageChange){
 			this.props.onPageChange("/admin/dashboard/pets");
 		}
@@ -52,16 +51,16 @@ let Index = withStyles((theme)=>{
 				<Layout direction={"column"} className={classes.rightSection}>
 					<Switch>
 						<Route exact path={"/admin/dashboard/pets"} render={(props)=>{
-							return <Overview {...props.location} />;
+							return <Overview {...props} />;
 						}}/>
 						<Route exact path={"/admin/dashboard/pets/choose-guardian"} render={(props)=>{
-                            return <ChooseGuardian {...props.location} />;
+                            return <ChooseGuardian {...props} />;
                         }}/>
 						<Route exact path={"/admin/dashboard/pets/add-guardian"} render={(props)=>{
-                            return <AddGuardian {...props.location} />;
+                            return <AddGuardian {...props} />;
                         }}/>
 						<Route exact path={"/admin/dashboard/pets/:guardian_id/add-pet"} render={(props)=>{
-                            return <AddPet {...props.location} />;
+                            return <AddPet {...props} />;
                         }}/>
 					</Switch>
 				</Layout>
