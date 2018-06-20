@@ -1,7 +1,7 @@
 import React from "react"
 import Layout from "../../../components/layout";
 import {Typography,TextField,List,ListItem} from "@material-ui/core/index";
-import {Link, Switch, Route, Redirect} from "react-router-dom";
+import {Link, Switch, Route} from "react-router-dom";
 import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
 import AddVaccine from "./add-vaccine"

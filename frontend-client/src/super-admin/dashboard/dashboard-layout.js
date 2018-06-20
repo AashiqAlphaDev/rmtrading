@@ -39,7 +39,7 @@ let Index = withStyles(()=>(
 						<Layout>
 							{
 								pages.map((page, index) => {
-									return <Link to={page.url} key={index}><Button key={index} className={classes.navButton} color={(this.props.currentPage==page.url) ? 'primary' : 'default'}>
+									return <Link to={page.url} key={index}><Button key={index} className={classes.navButton} color={(this.props.currentPage===page.url) ? 'primary' : 'default'}>
 										{page.label}
 									</Button></Link>
 								})

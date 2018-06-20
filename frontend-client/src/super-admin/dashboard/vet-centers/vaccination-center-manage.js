@@ -321,16 +321,16 @@ let Index = withStyles((theme) => {
                                             this.state.currentQueue.time_slots.map((item) => {
 	                                            var fromLabel;
 	                                            var toLabel;
-                                                {
+                                                (()=>{
 	                                                var hour = (item.from)/this.props.vetCenterDetail.appointments_per_hour;
 	                                                var min = (60 / this.props.vetCenterDetail.appointments_per_hour)*(item.from%this.props.vetCenterDetail.appointments_per_hour);
 	                                                fromLabel = `${("0"+Math.floor(hour)).slice(-2)}:${("0"+min).slice(-2)}`;
-                                                }
-	                                            {
+                                                })()
+                                                (()=>{
 		                                            var hour = (item.to)/this.props.vetCenterDetail.appointments_per_hour;
 		                                            var min = (60 / this.props.vetCenterDetail.appointments_per_hour)*(item.to%this.props.vetCenterDetail.appointments_per_hour);
 		                                            toLabel = `${("0"+Math.floor(hour)).slice(-2)}:${("0"+min).slice(-2)}`;
-	                                            }
+                                                })()
 
                                                 return <ListItem key={item._id}>
                                                     <ListItemText>
