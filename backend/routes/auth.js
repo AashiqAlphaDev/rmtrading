@@ -2,6 +2,7 @@ var authService = require("../services/auth")
 var Router = require("express").Router
 var router = Router();
 
+
 router.post("/register", httpCoWrap(function*(req, res, next){
 	yield authService.registerUser(req.body);
     res.send({});
@@ -27,14 +28,13 @@ router.post("/login", httpCoWrap(function*(req, res, next){
     }
 }));
 
-router.get("/is-admin", httpCoWrap(function *(req, res, next) {
-	yield authService.resetPassword(req.body);
-	res.send({});
-}));
-
-router.get("/is-super-admin", httpCoWrap(function *(req, res, next) {
-	yield authService.resetPassword(req.body);
-	res.send({});
+router.get("/admin", httpCoWrap(function*(req, res, next) {
+	if (req.session.user_id && req.session.isCenterAdmin) {
+		res.send({base:"root"});
+	}
+	else{
+		res.status(401).send({});
+	}
 }));
 
 router.get("/resetPassword", httpCoWrap(function *(req, res, next) {

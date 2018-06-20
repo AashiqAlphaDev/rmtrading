@@ -1,11 +1,21 @@
 import {
-	AUTH_CLEAR, CHECK_SUPER_ADMIN, CHECK_SUPER_ADMIN_FAILED, CHECK_SUPER_ADMIN_PASSED,
+	AUTH_CLEAR,
+	CHECK_ADMIN_FAILED,
+	CHECK_ADMIN_PASSED,
+	CHECK_SUPER_ADMIN,
+	CHECK_SUPER_ADMIN_FAILED,
+	CHECK_SUPER_ADMIN_PASSED,
 	LOGIN_FAILED,
-	LOGIN_SUCCEDED, LOGOUT_SUCCEDED,
+	LOGIN_SUCCEDED,
+	LOGOUT_SUCCEDED,
 	REQUEST_LOGIN,
-	REQUEST_SIGNUP, REQUEST_SUPER_ADMIN_LOGIN,
+	REQUEST_SIGNUP,
+	REQUEST_SUPER_ADMIN_LOGIN,
 	SIGNUP_FAILED,
-	SIGNUP_SUCCEDED, SUPER_ADMIN_LOGIN_FAILED, SUPER_ADMIN_LOGIN_SUCCEDED, SUPER_ADMIN_LOGOUT_SUCCEDED
+	SIGNUP_SUCCEDED,
+	SUPER_ADMIN_LOGIN_FAILED,
+	SUPER_ADMIN_LOGIN_SUCCEDED,
+	SUPER_ADMIN_LOGOUT_SUCCEDED
 } from "./actions";
 
 const initAuthData = {};
@@ -46,12 +56,24 @@ function authReducer(state = initAuthData, action) {
 			state = {...state, isSuperAdmin:true, superAdminCheckInProgress:false};
 			break;
 		}
+		case CHECK_ADMIN_PASSED:{
+			state = {...state, isAdmin:true, adminCheckInProgress:false};
+			break;
+		}
 		case CHECK_SUPER_ADMIN_FAILED:{
 			state = {...state, isSuperAdmin:false, superAdminCheckInProgress:false};
 			break;
 		}
+		case CHECK_ADMIN_FAILED:{
+			state = {...state, isAdmin:false, adminCheckInProgress:false};
+			break;
+		}
 		case CHECK_SUPER_ADMIN:{
 				state = {...state, superAdminCheckInProgress:true};
+			break;
+		}
+		case CHECK_SUPER_ADMIN:{
+			state = {...state, adminCheckInProgress:true};
 			break;
 		}
 		case LOGIN_SUCCEDED:{

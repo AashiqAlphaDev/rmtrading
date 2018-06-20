@@ -1,5 +1,6 @@
 import { call, put, takeEvery} from 'redux-saga/effects'
 import {
+	CHECK_ADMIN, CHECK_ADMIN_FAILED, CHECK_ADMIN_PASSED,
 	CHECK_SUPER_ADMIN,
 	CHECK_SUPER_ADMIN_FAILED,
 	CHECK_SUPER_ADMIN_PASSED,
@@ -98,6 +99,23 @@ function* checkSuperAdmin(){
 	}
 }
 
+function* checkAdmin(){
+	try {
+		const response = yield call(fetch, `${base_url}/admin/`, {
+			credentials: 'include'
+		});
+		if(response.ok){
+			yield put({type: CHECK_ADMIN_PASSED, payload:yield response.json()});
+		}
+		else {
+			yield put({type: CHECK_ADMIN_FAILED, payload:yield response.json()});
+		}
+	} catch (error) {
+		yield put({type: CHECK_ADMIN_FAILED, payload:error});
+	}
+}
+
+
 
 function* superAdminLogout(){
 	try {
@@ -137,6 +155,7 @@ function* authSaga() {
 	yield takeEvery(REQUEST_SIGNUP, signupUser);
 	yield takeEvery(REQUEST_SUPER_ADMIN_LOGIN, loginSuperAdmin);
 	yield takeEvery(CHECK_SUPER_ADMIN, checkSuperAdmin);
+	yield takeEvery(CHECK_ADMIN, checkAdmin);
 	yield takeEvery(REQUEST_SUPER_ADMIN_LOGOUT, superAdminLogout);
 	yield takeEvery(REQUEST_LOGOUT, logout);
 }
