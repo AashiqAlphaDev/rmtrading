@@ -39,7 +39,9 @@ let Index = withStyles((theme) => {
 
 					<TextField className={classes.searchField} placeholder={"Search"}/>
 					<Layout justifyContent={"flex-end"} className={classes.actions}>
+						<Link  to={"/super-admin/dashboard/vet-centers/add-center"}>
 						<Button variant={"raised"} color={"primary"} type={"submit"}> + Add </Button>
+						</Link>
 					</Layout>
 				</Layout>
 
@@ -52,9 +54,9 @@ let Index = withStyles((theme) => {
 						{/*<List>*/}
 							{/*{*/}
 								{/*sideNavPages.map((item, index) => {*/}
-									{/*return <Link key={index} to={item.url}>*/}
+									return
 										{/*<ListItem button> {item.label} </ListItem>*/}
-									{/*</Link>*/}
+
 								{/*})*/}
 							{/*}*/}
 						{/*</List>*/}
