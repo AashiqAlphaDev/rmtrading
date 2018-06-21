@@ -1,7 +1,6 @@
 import React from "react"
 import Layout from "../../../components/layout";
-import {Typography, TextField, Button} from "@material-ui/core/index";
-import {Link, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
 import {connect} from "react-redux"
@@ -13,6 +12,7 @@ let Index = withStyles((theme) => {
 		...style(theme),
 	}
 })(class extends React.Component {
+
 	componentWillMount() {
 		if (this.props.onPageChange) {
 			this.props.onPageChange("/super-admin/dashboard/pets");
