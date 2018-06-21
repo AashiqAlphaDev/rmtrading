@@ -7,6 +7,8 @@ import {QUERY_VET_CENTERS, REQUEST_DELETE_VET_CENTER} from "../../../stores/vet-
 import {Table, TableHead, TableRow, TableCell, TableBody} from "@material-ui/core/index";
 import {EditIcon, ArrowRightIcon, DeleteIcon} from "mdi-react";
 import {Link} from "react-router-dom";
+import {Button, TextField} from "@material-ui/core/es/index";
+import Layout from "../../../components/layout";
 
 let Index = withStyles((theme) => {
 	return {
@@ -18,9 +20,7 @@ let Index = withStyles((theme) => {
 		},
 		title: {
 			background: "#e6ecf0",
-			width: "100%",
-			paddingTop: theme.spacing.unit * 3,
-			paddingBottom: theme.spacing.unit * 2,
+			width: "100%"
 		},
 
 		segment: {
@@ -36,9 +36,17 @@ let Index = withStyles((theme) => {
 	render() {
 		const {classes} = this.props;
 		return <div className={classes.body}>
-			<Typography variant="title" gutterBottom className={classes.title}>
-				20 Vaccination Centers around 10 countries.
-			</Typography>
+			<Layout alignItems={"center"}>
+				<Layout flex={1}>
+					<Typography variant="title" className={classes.title}>
+						Manage Vet Centers
+					</Typography>
+				</Layout>
+				<Layout alignItems={"center"}>
+					<TextField className={classes.searchField} placeholder={"Search"}/>
+					<Button component={Link} to={"/super-admin/dashboard/vet-centers/add-center"} variant={"raised"} color={"primary"} type={"submit"}> + Add </Button>
+				</Layout>
+			</Layout>
 			<Paper className={classes.list} elevation={0}>
 				{
 					this.props.vetCenters.centers.docs &&

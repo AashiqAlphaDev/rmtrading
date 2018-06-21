@@ -23,6 +23,9 @@ let Index = withStyles((theme) => {
 		actions: {
 			marginTop: theme.spacing.unit * 4,
 			marginBottom: theme.spacing.unit * 4
+		},
+		body:{
+			marginTop: theme.spacing.unit * 2
 		}
 	}
 })(class extends React.PureComponent {
@@ -61,7 +64,7 @@ let Index = withStyles((theme) => {
 		const {classes} = this.props;
 		return <AnnotatedSection title={"Add Vaccination Center"}
 		                         desc={"Please provide the information to register Vaccination Center."}
-		                         backButton={{url: "/super-admin/dashboard/pets"}}>
+		                         backButton={{url: "/super-admin/dashboard/vet-centers"}} className={classes.body}>
 			<Paper className={classes.paperPage}>
 				<form onSubmit={(e) => {
 					e.preventDefault();
