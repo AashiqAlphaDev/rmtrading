@@ -38,8 +38,8 @@ let Index = withStyles((theme) => {
 			padding: theme.spacing.unit * 2
 		},
 		card: {
-			display:"flex",
-			flexDirection:"column",
+			display: "flex",
+			flexDirection: "column",
 			flex: 1,
 			margin: theme.spacing.unit * 1,
 			padding: theme.spacing.unit * 2,
@@ -47,7 +47,7 @@ let Index = withStyles((theme) => {
 		},
 		cardInfo: {
 			marginLeft: theme.spacing.unit * 1,
-			flex:1,
+			flex: 1,
 		},
 		cardIcon: {
 			border: `2px solid ${theme.palette.grey['200']}`,
@@ -60,15 +60,15 @@ let Index = withStyles((theme) => {
 			paddingRight: 1 * theme.spacing.unit,
 			fill: theme.palette.secondary.main
 		},
-		icon:{
+		icon: {
 			color: theme.palette.secondary.main
 		}
 	}
 })(class extends React.Component {
 	state = {
 		pet_id: "",
-		showResults:false,
-		showSearchDialogue:false
+		showResults: false,
+		showSearchDialogue: false
 	}
 
 	componentWillMount() {
@@ -85,8 +85,8 @@ let Index = withStyles((theme) => {
 		const {classes} = this.props;
 		return <Layout direction={"column"} className={classes.body} justifyContent={"center"}>
 			<Layout alignItems={"center"}>
-				<Paper className={classes.card} onClick={()=>{
-					this.setState({showSearchDialogue:true});
+				<Paper className={classes.card} onClick={() => {
+					this.setState({showSearchDialogue: true});
 				}}>
 					<Layout alignItems={"center"}>
 						<Avatar className={classes.cardIcon}>
@@ -96,11 +96,13 @@ let Index = withStyles((theme) => {
 							<Typography color={"textSecondary"}>Register to generate health record</Typography>
 							<Typography variant={"title"}>New Pet Registration</Typography>
 						</Layout>
-						<ArrowRightIcon />
+						<ArrowRightIcon/>
 					</Layout>
 				</Paper>
 
-				<Paper className={classes.card} onClick={()=>{this.setState({showGuardianDialogue:true})}}>
+				<Paper className={classes.card} onClick={() => {
+					this.setState({showGuardianDialogue: true})
+				}}>
 					<Layout alignItems={"center"}>
 						<Avatar className={classes.cardIcon}>
 							<span className={`icon-notepad ${classes.icon}`}></span>
@@ -109,7 +111,7 @@ let Index = withStyles((theme) => {
 							<Typography color={"textSecondary"}>Vaccination & Health records</Typography>
 							<Typography variant={"title"}>Open Record</Typography>
 						</Layout>
-						<ArrowRightIcon />
+						<ArrowRightIcon/>
 					</Layout>
 				</Paper>
 			</Layout>
@@ -125,36 +127,54 @@ let Index = withStyles((theme) => {
 						<Typography variant={"title"} gutterBottom>
 							Please enter Guardian's ID
 						</Typography>
-						<Typography variant={"body1"} gutterBottom color={"textSecondary"} >
+						<Typography variant={"body1"} gutterBottom color={"textSecondary"}>
 							Provide necessary information to identify existing guardian.
 						</Typography>
-						<form style={{display:"flex"}} onSubmit={(e)=>{
+						<form style={{display: "flex"}} onSubmit={(e) => {
 							e.preventDefault();
-							this.props.dispatch({type:REQUEST_GUARDIAN_FETCH, payload:{query:this.state.guardianQuery}});
+							this.props.dispatch({
+								type: REQUEST_GUARDIAN_FETCH,
+								payload: {query: this.state.guardianQuery}
+							});
 						}}>
-							<TextField className={`flex`} autoFocus placeholder={"Enter Guardian Mobile No / Gov Identity No"} onChange={(event)=>{
-								this.setState({guardianQuery:event.target.value})
+							<TextField className={`flex`} autoFocus
+							           placeholder={"Enter Guardian Mobile No / Gov Identity No"} onChange={(event) => {
+								this.setState({guardianQuery: event.target.value})
 							}}/>
-							<button style={{display:"none"}} type={"submit"}></button>
+							<button style={{display: "none"}} type={"submit"}></button>
 						</form>
-						<ExpansionPanel expanded={Boolean(this.props.guardianDetail._id)||Boolean(this.props.guardianDetail.noMatch)}>
+						<ExpansionPanel
+							expanded={Boolean(this.props.guardianDetail._id) || Boolean(this.props.guardianDetail.noMatch)}>
 							{
 								this.props.guardianDetail.noMatch &&
 
-									<Layout alignItems={"center"}>
-										<Typography variant={"body2"} className={`flex`}>
-											No Record found.
-										</Typography>
-										<Button component={Link} to={"/admin/dashboard/vaccinations/add-guardian"} color={"primary"}>Register</Button>
-									</Layout>
+								<Layout alignItems={"center"}>
+									<Typography variant={"body2"} className={`flex`}>
+										No Record found.
+									</Typography>
+									<Button component={Link} to={"/admin/dashboard/vaccinations/add-guardian"}
+									        color={"primary"}>Register</Button>
+								</Layout>
 							}
 							{
 								this.props.guardianDetail._id &&
-								<ExpansionPanelDetails>
-									<Typography>
-										{JSON.stringify(this.props.guardianDetail)}
-									</Typography>
-								</ExpansionPanelDetails>
+
+									<Layout direction={"row"} alignItems={"flex-end"} flex={1}>
+										<Layout direction={"column"} flex={1}>
+											<Typography variant={"title"}>
+												{this.props.guardianDetail.profile.first_name}
+											</Typography>
+											<Typography>
+												{this.props.guardianDetail.profile.mobile_number}
+											</Typography>
+											<Typography>
+												{this.props.guardianDetail.profile.address}
+											</Typography>
+										</Layout>
+										<Button component={Link} to={"/admin/dashboard/vaccinations/add-pet"}
+										        color={"primary"}>Choose</Button>
+									</Layout>
+
 							}
 						</ExpansionPanel>
 					</Layout>

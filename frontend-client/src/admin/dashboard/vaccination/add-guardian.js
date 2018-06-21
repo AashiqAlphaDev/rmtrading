@@ -6,7 +6,7 @@ import AnnotatedSection from "../../../components/annotated-section";
 import {withStyles} from "@material-ui/core/styles/index";
 import {connect} from "react-redux";
 import style from "../style";
-import {REQUEST_CREATE_USER} from "../../../stores/users/actions";
+import {CLEAR_USER, REQUEST_CREATE_USER} from "../../../stores/users/actions";
 import {
 	BREED_CLEAR_MATCHES,
 	PET_TYPE_CLEAR_MATCHES,
@@ -32,6 +32,10 @@ let Index = withStyles((theme) => {
 	}
 })(class extends React.PureComponent {
 
+	componentWillMount(){
+		this.props.dispatch({type:CLEAR_USER});
+	}
+
 	state = {
 		name: "",
 		mobile_number: "",
@@ -50,8 +54,8 @@ let Index = withStyles((theme) => {
 		                         desc={"Please provide the information to add Vaccine."}
 		                         backButton={{url: "/admin/dashboard/vaccinations"}} className={classes.body}>
 			{
-				this.props.vaccines.guardianAdded &&
-				<Redirect to={"/super-admin/dashboard/vaccinations"}/>
+				this.props.users.userCreated&&
+				<Redirect to={"/admin/dashboard/vaccinations"}/>
 			}
 			<Paper className={classes.paperPage}>
 				<form onSubmit={(e) => {
