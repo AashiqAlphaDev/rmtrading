@@ -1,5 +1,5 @@
 var Router = require("express").Router
-var router = Router();
+var router = Router({mergeParams: true});
 const co = require("co");
 const VaccinationManagementService = require("../services/vaccinations")
 

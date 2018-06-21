@@ -196,7 +196,7 @@ module.exports.pets = function* (query = {}, page) {
 };
 
 module.exports.petWithId = function* (petId) {
-	queryValidate(id, "You missed pet-id.");
+	queryValidate(petId, "You missed pet-id.");
 	return yield Pet.findOne({_id: petId}).exec();
 };
 

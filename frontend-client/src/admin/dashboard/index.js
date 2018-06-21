@@ -32,7 +32,7 @@ let Index = (class extends React.Component {
 			<Route path={"/admin/dashboard/pets"} render={(props) => {
 				return <Pets {...props} onPageChange={this.onPageChange.bind(this)}/>
 			}}/>
-			<Route exact path={"/admin/dashboard/vaccinations"} render={(props) => {
+			<Route path={"/admin/dashboard/vaccinations"} render={(props) => {
 				return <Vaccination {...props} onPageChange={this.onPageChange.bind(this)}/>
 			}}/>
 		</DashboardLayout>

@@ -14,6 +14,7 @@ module.exports.updateVaccination = function* (petId, id, vaccinationData) {
 };
 
 module.exports.vaccinations = function* (petId, query = {}, page) {
+	query.pet = petId;
 	return yield Vaccination.paginate(query, page);
 };
 

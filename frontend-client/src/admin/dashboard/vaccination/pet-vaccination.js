@@ -2,11 +2,10 @@ import React from "react"
 import {withStyles} from "@material-ui/core/styles/index";
 import style from "../style";
 import {connect} from "react-redux";
-import InputContainer from "../../../components/input"
-import {QUERY_VET_CENTERS} from "../../../stores/vet-centers/actions";
-import {TextField} from "@material-ui/core/es/index";
 import {REQUEST_PET_FETCH} from "../../../stores/pets/actions";
-import {Redirect} from "react-router-dom";
+import {QUERY_VACCINATIONS} from "../../../stores/vaccinations/actions";
+import List from "@material-ui/core/es/List/List";
+import {ListItem} from "@material-ui/core/es/index";
 
 let Index = withStyles((theme) => {
 	return {
@@ -34,7 +33,7 @@ let Index = withStyles((theme) => {
 	}
 
 	componentWillMount() {
-		this.props.dispatch({type: QUERY_VET_CENTERS});
+		this.props.dispatch({type: QUERY_VACCINATIONS, payload:{pet_id:this.props.match.params.pet_id}});
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -50,11 +49,13 @@ let Index = withStyles((theme) => {
 				e.preventDefault();
 				this.props.dispatch({type:REQUEST_PET_FETCH, payload:{pet_id:this.state.pet_id}});
 			}}>
-				<InputContainer label={"Scan / Enter pet ID / Chip Number"}>
-					<TextField onChange={(event)=>{
-						this.setState({pet_id:event.target.value})
-					}}/>
-				</InputContainer>
+				<List>
+					{
+						this.props.vaccinations.list.map((item)=>{
+							return <ListItem key={item._id}>{JSON.stringify(item)}</ListItem>
+						})
+					}
+				</List>
 			</form>
 		</div>;
 	}

@@ -52,6 +52,7 @@ let Index = withStyles((theme) => {
 							return <Overview {...props} />;
 						}}/>
 						<Route exact path={"/admin/dashboard/vaccinations/:pet_id"} render={(props) => {
+							console.log(props)
 							return <PetVaccination {...props} />;
 						}}/>
 					</Switch>
