@@ -199,7 +199,7 @@ const vaccinationSchema = new Schema({
 	},
 	pet: ObjectID,
 	vaccine: ObjectID,
-	status: Boolean,
+	status: String,
 	data: {}
 });
 vaccinationSchema.plugin(mongoosePaginate);
