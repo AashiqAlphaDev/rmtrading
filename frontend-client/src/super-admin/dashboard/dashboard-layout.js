@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 import _ from "underscore";
 import style from "./style";
 import {IconButton, Menu, MenuItem, Tabs,Tab} from "@material-ui/core/es/index";
-import {AccountIcon, AppsIcon, BellOutlineIcon} from "mdi-react";
+import {AccountIcon, AppsIcon, BellOutlineIcon, EmailOutlineIcon} from "mdi-react";
 
 let Icon = (_Icon)=>{return (props)=>(<_Icon {...props} size={20} />)};
 
@@ -16,8 +16,7 @@ const pages = [
     {icon:AppsIcon, label: "Vet Centers", 		url: "/super-admin/dashboard/vet-centers"},
     {icon:AppsIcon, label: "Vaccines", 			url: "/super-admin/dashboard/vaccines"},
     {icon:AppsIcon, label: "Application Data", 	url: "/super-admin/dashboard/application-data"},
-    {icon:AppsIcon, label: "Orders",			url: "/super-admin/dashboard/orders"},
-    {icon:AppsIcon, label: "Make Requests", 	url: "/super-admin/dashboard/requests"}
+    {icon:AppsIcon, label: "Orders",			url: "/super-admin/dashboard/orders"}
 ];
 
 let Index = withStyles((theme) => {
@@ -61,9 +60,20 @@ let Index = withStyles((theme) => {
 											<img src={"/logo.png"} style={{height: 40}} alt={"logo"}/>
 										</Link>
 									</div>
+									<Tabs centered fullWidth value={currentTab}>
+										{
+											pages.map((page, index) => {
+												let PageIcon = Icon(page.icon);
+												let iconClass = (index == currentTab)? classes.selected:'';
+												return <Tab classes={{label: classes.tabIcon}} label={<Layout alignItems={"center"}><PageIcon className={`${iconClass} ${this.props.classes.navIcon}`}/>{page.label}</Layout>}
+												            component={Link} to={page.url} key={index}>
+												</Tab>;
+											})
+										}
+									</Tabs>
 									<div>
 										<IconButton>
-											<BellOutlineIcon  />
+											<EmailOutlineIcon  />
 										</IconButton>
 										<IconButton onClick={(event)=>{this.setState({anchorEl:event.currentTarget})}}>
 											<AccountIcon />
@@ -76,19 +86,6 @@ let Index = withStyles((theme) => {
 											<MenuItem onClick={this.handleClose}>Logout</MenuItem>
 										</Menu>
 									</div>
-								</Layout>
-								<Layout direction="column">
-									<Tabs centered fullWidth value={currentTab}>
-										{
-											pages.map((page, index) => {
-												let PageIcon = Icon(page.icon);
-												let iconClass = (index == currentTab)? classes.selected:'';
-												return <Tab classes={{label: classes.tabIcon}} label={<Layout alignItems={"center"}><PageIcon className={`${iconClass} ${this.props.classes.navIcon}`}/>{page.label}</Layout>}
-															component={Link} to={page.url} key={index}>
-												</Tab>;
-											})
-										}
-									</Tabs>
 								</Layout>
 							</Layout>
 						</Toolbar>
