@@ -28,7 +28,7 @@ module.exports.registerUser = function* (userData) {
 	userData.email_verified = false;
 	let user = yield User.create(userData);
 	let emailVerification = yield EmailVerification.create({user: user._id})
-	yield emailer.sendUserVerificationEmail(userData.email,userData.name,emailVerification._id);
+	yield emailer.sendUserVerificationEmail(userData.email, userData.name, emailVerification._id);
 	return user;
 };
 

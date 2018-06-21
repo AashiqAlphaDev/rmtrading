@@ -5,14 +5,14 @@ export default (theme) => ({
 	input: {
 		marginTop: theme.spacing.unit * 1
 	},
-	actions:{
+	actions: {
 		marginTop: theme.spacing.unit * 1,
 		marginBottom: theme.spacing.unit * 1
 	},
 	row: {
 		marginTop: theme.spacing.unit * 1
 	},
-	marginedButton:{
-		margin:4,
+	marginedButton: {
+		margin: 4,
 	}
 });

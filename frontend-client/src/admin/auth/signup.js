@@ -1,7 +1,7 @@
 import React from "react";
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import {withStyles} from "@material-ui/core/styles"
-import {Card,Typography, CardContent, TextField, Button,Snackbar} from "@material-ui/core/index";
+import {Card, Typography, CardContent, TextField, Button, Snackbar} from "@material-ui/core/index";
 import Layout from "../../components/layout";
 import {Link, Redirect} from 'react-router-dom'
 import style from "./style"
@@ -9,15 +9,17 @@ import {AUTH_CLEAR, REQUEST_SIGNUP} from "../../stores/auth/actions";
 
 let Index = withStyles(style)(class extends React.Component {
 	state = {
-		name:"",
-		email:"",
-		password:"",
-		showToast:false
+		name: "",
+		email: "",
+		password: "",
+		showToast: false
 	};
-	componentWillMount(){
-		this.props.dispatch({type:AUTH_CLEAR})
+
+	componentWillMount() {
+		this.props.dispatch({type: AUTH_CLEAR})
 	}
-	render(){
+
+	render() {
 		const {classes} = this.props;
 		return <Card className={classes.card}>
 			{
@@ -27,8 +29,8 @@ let Index = withStyles(style)(class extends React.Component {
 			<form onSubmit={(event) => {
 				event.preventDefault();
 				const {name, email, password} = this.state;
-				this.props.dispatch({type:REQUEST_SIGNUP, payload:{name, email, password}});
-				this.setState({showToast:true});
+				this.props.dispatch({type: REQUEST_SIGNUP, payload: {name, email, password}});
+				this.setState({showToast: true});
 			}}>
 				<CardContent>
 					<Layout direction={"column"}>
@@ -71,7 +73,8 @@ let Index = withStyles(style)(class extends React.Component {
 							<Typography gutterBottom className={"flex"}>
 								By signing in you are agreeing to our terms.
 							</Typography>
-							<Button type={"submit"} color={"primary"} variant={"raised"} disabled={this.props.auth.signupInProgress}>Sign Up</Button>
+							<Button type={"submit"} color={"primary"} variant={"raised"}
+							        disabled={this.props.auth.signupInProgress}>Sign Up</Button>
 						</Layout>
 						<Layout justifyContent={"center"} className={classes.row}>
 							<Typography gutterBottom>
@@ -86,9 +89,11 @@ let Index = withStyles(style)(class extends React.Component {
 					vertical: 'bottom',
 					horizontal: 'center',
 				}}
-				open={this.state.showToast && this.props.auth.signupError!=null}
+				open={this.state.showToast && this.props.auth.signupError != null}
 				autoHideDuration={6000}
-				onClose={()=>{this.setState({showToast:false})}}
+				onClose={() => {
+					this.setState({showToast: false})
+				}}
 				message={this.props.auth.signupError && this.props.auth.signupError.message}
 			/>
 		</Card>
@@ -97,4 +102,4 @@ let Index = withStyles(style)(class extends React.Component {
 	}
 });
 
-export default connect(store=>store)(Index)
+export default connect(store => store)(Index)

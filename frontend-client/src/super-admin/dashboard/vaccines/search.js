@@ -45,7 +45,7 @@ let Index = withStyles((theme) => {
 			</Typography>
 			<Paper className={classes.list} elevation={0}>
 				{
-					(this.props.vaccines.list.docs && this.props.vaccines.list.docs.length>0) &&
+					(this.props.vaccines.list.docs && this.props.vaccines.list.docs.length > 0) &&
 					<Table>
 						<TableHead>
 							<TableRow>
@@ -65,17 +65,20 @@ let Index = withStyles((theme) => {
 										</TableCell>
 										<TableCell>
 											<IconButton>
-												<DeleteIcon color="primary" onClick={()=>{
-													this.props.dispatch({type:REQUEST_DELETE_VACCINE, payload:{vaccine_id:item._id}});
+												<DeleteIcon color="primary" onClick={() => {
+													this.props.dispatch({
+														type: REQUEST_DELETE_VACCINE,
+														payload: {vaccine_id: item._id}
+													});
 												}}/>
 											</IconButton>
 											<Link to={`/super-admin/dashboard/vaccines/${item._id}/`}>
 												<IconButton>
-													<EditIcon color="primary" />
+													<EditIcon color="primary"/>
 												</IconButton>
 											</Link>
 											<IconButton>
-												<ArrowRightIcon color="primary" />
+												<ArrowRightIcon color="primary"/>
 											</IconButton>
 										</TableCell>
 									</TableRow>

@@ -1,21 +1,21 @@
 import React from "react";
 
-export default class Layout extends React.Component{
-	render(){
-		let style = {...this.props.style, display:"flex"};
+export default class Layout extends React.Component {
+	render() {
+		let style = {...this.props.style, display: "flex"};
 		if (!this.props.direction) {
 			style.flexDirection = "row";
 		}
-		else{
+		else {
 			style.flexDirection = this.props.direction;
 		}
-		if (this.props.alignItems){
+		if (this.props.alignItems) {
 			style.alignItems = this.props.alignItems;
 		}
-		if (this.props.justifyContent){
+		if (this.props.justifyContent) {
 			style.justifyContent = this.props.justifyContent;
 		}
-		if (this.props.flex){
+		if (this.props.flex) {
 			style.flex = this.props.flex;
 		}
 		const {className} = this.props;

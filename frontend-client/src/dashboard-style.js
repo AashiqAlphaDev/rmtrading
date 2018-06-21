@@ -62,11 +62,11 @@ export default (theme) => {
 			boxShadow: "none"
 		},
 
-		uploadInput:{
-			display:"none"
+		uploadInput: {
+			display: "none"
 		},
 
-		suggestionsContainerOpen:{
+		suggestionsContainerOpen: {
 			position: 'absolute',
 			zIndex: 1,
 			marginTop: theme.spacing.unit,

@@ -42,9 +42,9 @@ function renderSuggestionsContainer(options) {
 	);
 }
 
-export default withStyles((theme)=>{
+export default withStyles((theme) => {
 	return {
-		suggestionsContainerOpen:{
+		suggestionsContainerOpen: {
 			position: 'absolute',
 			zIndex: 1,
 			marginTop: theme.spacing.unit,
@@ -87,21 +87,21 @@ export default withStyles((theme)=>{
 					renderInputComponent={(inputProps) => {
 						const {InputProps, ref, classes, ...other} = inputProps;
 						return <div>
-								<TextField
-									autoComplete={false}
-									fullWidth
-									InputProps={{
-										classes: {
-											input: classes.input,
-										},
-										inputRef: ref,
-										...InputProps,
-									}}
-									disabled={this.props.disabled}
+							<TextField
+								autoComplete={false}
+								fullWidth
+								InputProps={{
+									classes: {
+										input: classes.input,
+									},
+									inputRef: ref,
+									...InputProps,
+								}}
+								disabled={this.props.disabled}
 
-									{...other}
-								/>
-							</div>
+								{...other}
+							/>
+						</div>
 					}}
 					renderSuggestion={renderSuggestion}
 					inputProps={{

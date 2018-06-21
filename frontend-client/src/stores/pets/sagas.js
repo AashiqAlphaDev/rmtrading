@@ -1,4 +1,4 @@
-import { call, put, takeEvery} from 'redux-saga/effects';
+import {call, put, takeEvery} from 'redux-saga/effects';
 import base_url from "../base_url";
 import {
 	GUARDIAN_FETCH_SUCCEDED,
@@ -9,40 +9,40 @@ import {
 } from "./actions";
 
 
-let fetchGuardian = function*(action){
-    try {
-        const response = yield call(fetch, `${base_url}/users/by-mobile-or-gov-id/${action.payload.query}`, {
-            credentials: 'include'
-        });
-        if(response.ok){
-            yield put({type: GUARDIAN_FETCH_SUCCEDED, payload:yield response.json()});
-        }
-        else {
-            yield put({type: GUARDIAN_FETCH_FAILED, payload:yield response.json()});
-        }
-    } catch (error) {
-        yield put({type: GUARDIAN_FETCH_FAILED, payload:error});
-    }
-};
-
-let createPet = function*(action){
+let fetchGuardian = function* (action) {
 	try {
-		const response = yield call(fetch, `${base_url}/pets`, {
-		    method:'POST',
-			credentials: 'include',
-			headers:{
-		        "Content-Type":"application/json"
-            },
-            body:JSON.stringify(action.payload)
+		const response = yield call(fetch, `${base_url}/users/by-mobile-or-gov-id/${action.payload.query}`, {
+			credentials: 'include'
 		});
-		if(response.ok){
-			yield put({type: CREATE_PET_SUCCEDED, payload:yield response.json()});
+		if (response.ok) {
+			yield put({type: GUARDIAN_FETCH_SUCCEDED, payload: yield response.json()});
 		}
 		else {
-			yield put({type: CREATE_PET_FAILED, payload:yield response.json()});
+			yield put({type: GUARDIAN_FETCH_FAILED, payload: yield response.json()});
 		}
 	} catch (error) {
-		yield put({type: CREATE_PET_FAILED, payload:error});
+		yield put({type: GUARDIAN_FETCH_FAILED, payload: error});
+	}
+};
+
+let createPet = function* (action) {
+	try {
+		const response = yield call(fetch, `${base_url}/pets`, {
+			method: 'POST',
+			credentials: 'include',
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(action.payload)
+		});
+		if (response.ok) {
+			yield put({type: CREATE_PET_SUCCEDED, payload: yield response.json()});
+		}
+		else {
+			yield put({type: CREATE_PET_FAILED, payload: yield response.json()});
+		}
+	} catch (error) {
+		yield put({type: CREATE_PET_FAILED, payload: error});
 	}
 }
 

@@ -1,6 +1,17 @@
 import React from "react"
 import Layout from "../../../components/layout";
-import {Typography,TextField,Paper,Table,TableBody,TableRow,ExpansionPanel,ExpansionPanelSummary,ExpansionPanelDetails,IconButton} from "@material-ui/core/index";
+import {
+	Typography,
+	TextField,
+	Paper,
+	Table,
+	TableBody,
+	TableRow,
+	ExpansionPanel,
+	ExpansionPanelSummary,
+	ExpansionPanelDetails,
+	IconButton
+} from "@material-ui/core/index";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Done from '@material-ui/icons/Done';
 import Close from '@material-ui/icons/Close';
@@ -9,19 +20,20 @@ import style from "../style";
 import {connect} from "react-redux"
 
 
-let Index = withStyles((theme)=>{
-    return {
-        ...style(theme),
-    }
+let Index = withStyles((theme) => {
+	return {
+		...style(theme),
+	}
 })(class extends React.Component {
-	componentWillMount(){
-		if(this.props.onPageChange){
+	componentWillMount() {
+		if (this.props.onPageChange) {
 			this.props.onPageChange("/super-admin/dashboard/requests");
 		}
 	}
-    render(){
-        const {classes} = this.props;
-        return <Layout direction={"column"} flex={1} className={classes.body}>
+
+	render() {
+		const {classes} = this.props;
+		return <Layout direction={"column"} flex={1} className={classes.body}>
 			<Layout className={`container ${classes.flex}`}>
 				<Layout className={classes.leftSection}>
 					<Layout direction={"column"} className={classes.staticSection}>
@@ -41,11 +53,11 @@ let Index = withStyles((theme)=>{
 					<Paper>
 						<Table>
 							<TableBody>
-                                {
-                                    [1, 2, 3, 4, 5, 6, 7, 8, 9,1, 2, 3, 4, 5, 6, 7, 8, 9,1, 2, 3, 4, 5, 6, 7, 8, 9].map((i, index) => {
-                                        return <TableRow key={index}>
+								{
+									[1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i, index) => {
+										return <TableRow key={index}>
 											<ExpansionPanel>
-												<ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
+												<ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
 													<Layout direction={"column"}>
 														<div>
 															Request Type:
@@ -63,19 +75,23 @@ let Index = withStyles((theme)=>{
 												</ExpansionPanelSummary>
 
 												<ExpansionPanelDetails>
-													<Layout style={{justifyContent:'flex-end', flex:1}}>
-														<IconButton style={{color: 'green',paddingRight:'10px'}} className={classes.button} aria-label="Add to shopping cart">
-															<Done />
+													<Layout style={{justifyContent: 'flex-end', flex: 1}}>
+														<IconButton style={{color: 'green', paddingRight: '10px'}}
+														            className={classes.button}
+														            aria-label="Add to shopping cart">
+															<Done/>
 														</IconButton>
-														<IconButton style={{color: 'red',paddingRight:'10px'}} className={classes.button} aria-label="Add to shopping cart">
-															<Close />
+														<IconButton style={{color: 'red', paddingRight: '10px'}}
+														            className={classes.button}
+														            aria-label="Add to shopping cart">
+															<Close/>
 														</IconButton>
 													</Layout>
 												</ExpansionPanelDetails>
 											</ExpansionPanel>
 										</TableRow>
-                                    })
-                                }
+									})
+								}
 							</TableBody>
 						</Table>
 
@@ -83,7 +99,7 @@ let Index = withStyles((theme)=>{
 				</Layout>
 			</Layout>
 		</Layout>;
-    }
+	}
 });
 
-export default connect(store=>store)(Index);
+export default connect(store => store)(Index);

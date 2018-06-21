@@ -1,4 +1,4 @@
-import { call, put, takeEvery} from 'redux-saga/effects';
+import {call, put, takeEvery} from 'redux-saga/effects';
 import {
 	ADD_DISEASE_FAILED,
 	ADD_DISEASE_SUCCEDED,
@@ -12,60 +12,60 @@ import {
 } from "./actions";
 import base_url from "../base_url";
 
-let queryDiseases = function*(action){
+let queryDiseases = function* (action) {
 	try {
-		var url = (action.payload && action.payload.query)?`${base_url}/app-data/diseases?q=${action.payload.query}`:`${base_url}/app-data/diseases`;
+		var url = (action.payload && action.payload.query) ? `${base_url}/app-data/diseases?q=${action.payload.query}` : `${base_url}/app-data/diseases`;
 		const response = yield call(fetch, url, {
 			credentials: 'include'
 		});
-		if(response.ok){
-			yield put({type: QUERY_DISEASES_SUCCEDED, payload:yield response.json()});
+		if (response.ok) {
+			yield put({type: QUERY_DISEASES_SUCCEDED, payload: yield response.json()});
 		}
 		else {
-			yield put({type: QUERY_DISEASES_FAILED, payload:yield response.json()});
+			yield put({type: QUERY_DISEASES_FAILED, payload: yield response.json()});
 		}
 	} catch (error) {
 		console.log(error)
-		yield put({type: QUERY_DISEASES_FAILED, payload:error});
+		yield put({type: QUERY_DISEASES_FAILED, payload: error});
 	}
 };
 
-let addDisease = function*(action) {
-	try{
+let addDisease = function* (action) {
+	try {
 		const response = yield call(fetch, `${base_url}/app-data/diseases`, {
-			method:"POST",
+			method: "POST",
 			credentials: 'include',
-			headers:{
-				"Content-Type":"application/json"
+			headers: {
+				"Content-Type": "application/json"
 			},
-			body:JSON.stringify(action.payload)
+			body: JSON.stringify(action.payload)
 		});
-		if(response.ok){
-			yield put({type: ADD_DISEASE_SUCCEDED, payload:yield response.json()});
+		if (response.ok) {
+			yield put({type: ADD_DISEASE_SUCCEDED, payload: yield response.json()});
 		}
 		else {
-			yield put({type: ADD_DISEASE_FAILED, payload:yield response.json()});
+			yield put({type: ADD_DISEASE_FAILED, payload: yield response.json()});
 		}
 	} catch (error) {
-		yield put({type: ADD_DISEASE_FAILED, payload:error});
+		yield put({type: ADD_DISEASE_FAILED, payload: error});
 	}
 };
 
 
-let deleteDisease = function*(action) {
-	try{
+let deleteDisease = function* (action) {
+	try {
 		const response = yield call(fetch, `${base_url}/app-data/diseases/${action.payload.disease_id}`, {
-			method:"DELETE",
+			method: "DELETE",
 			credentials: 'include'
 		});
-		if(response.ok){
-			yield put({type: DELETE_DISEASE_SUCCEDED, payload:yield response.json()});
+		if (response.ok) {
+			yield put({type: DELETE_DISEASE_SUCCEDED, payload: yield response.json()});
 		}
 		else {
-			yield put({type: DELETE_DISEASE_FAILED, payload:yield response.json()});
+			yield put({type: DELETE_DISEASE_FAILED, payload: yield response.json()});
 		}
 	} catch (error) {
-		yield put({type: DELETE_DISEASE_FAILED, payload:error});
+		yield put({type: DELETE_DISEASE_FAILED, payload: error});
 	}
 };
 

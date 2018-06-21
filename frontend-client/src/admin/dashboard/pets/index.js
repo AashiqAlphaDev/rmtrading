@@ -1,6 +1,6 @@
 import React from "react"
 import Layout from "../../../components/layout";
-import {Typography,TextField,List,ListItem} from "@material-ui/core/index";
+import {Typography, TextField, List, ListItem} from "@material-ui/core/index";
 import {Link, Switch, Route} from "react-router-dom";
 import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
@@ -12,23 +12,22 @@ import AddGuardian from "./add-guardian"
 import {connect} from "react-redux"
 
 const sideNavPages = [
-	{label:"Register New Pet", url:"/admin/dashboard/pets/choose-guardian"},
+	{label: "Register New Pet", url: "/admin/dashboard/pets/choose-guardian"},
 ];
 
-let Index = withStyles((theme)=>{
+let Index = withStyles((theme) => {
 	return {
 		...style(theme),
 	}
 })(class extends React.Component {
 
-	componentWillMount(){
-		console.log("here")
-		if(this.props.onPageChange){
+	componentWillMount() {
+		if (this.props.onPageChange) {
 			this.props.onPageChange("/admin/dashboard/pets");
 		}
 	}
 
-	render(){
+	render() {
 		const {classes} = this.props;
 		return <Layout direction={"column"} flex={1} className={classes.body}>
 			<Layout className={`container ${classes.flex}`}>
@@ -40,7 +39,7 @@ let Index = withStyles((theme)=>{
 						<TextField className={classes.searchField} placeholder={"Search"}/>
 						<List>
 							{
-								sideNavPages.map((item, index)=>{
+								sideNavPages.map((item, index) => {
 									return <Link key={index} to={item.url}>
 										<ListItem button> {item.label} </ListItem>
 									</Link>
@@ -51,18 +50,18 @@ let Index = withStyles((theme)=>{
 				</Layout>
 				<Layout direction={"column"} className={classes.rightSection}>
 					<Switch>
-						<Route exact path={"/admin/dashboard/pets"} render={(props)=>{
-							return <Overview {...props.location} />;
+						<Route exact path={"/admin/dashboard/pets"} render={(props) => {
+							return <Overview {...props} />;
 						}}/>
-						<Route exact path={"/admin/dashboard/pets/choose-guardian"} render={(props)=>{
-                            return <ChooseGuardian {...props.location} />;
-                        }}/>
-						<Route exact path={"/admin/dashboard/pets/add-guardian"} render={(props)=>{
-                            return <AddGuardian {...props.location} />;
-                        }}/>
-						<Route exact path={"/admin/dashboard/pets/:guardian_id/add-pet"} render={(props)=>{
-                            return <AddPet {...props.location} />;
-                        }}/>
+						<Route exact path={"/admin/dashboard/pets/choose-guardian"} render={(props) => {
+							return <ChooseGuardian {...props} />;
+						}}/>
+						<Route exact path={"/admin/dashboard/pets/add-guardian"} render={(props) => {
+							return <AddGuardian {...props} />;
+						}}/>
+						<Route exact path={"/admin/dashboard/pets/:guardian_id/add-pet"} render={(props) => {
+							return <AddPet {...props} />;
+						}}/>
 					</Switch>
 				</Layout>
 			</Layout>
@@ -70,4 +69,4 @@ let Index = withStyles((theme)=>{
 	}
 });
 
-export default connect(store=>store)(Index);
+export default connect(store => store)(Index);

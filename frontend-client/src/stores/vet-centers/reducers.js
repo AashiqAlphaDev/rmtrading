@@ -9,24 +9,24 @@ import {
 } from "./actions";
 
 const initVetCenterData = {
-	centers:[]
+	centers: []
 };
 
 function vetCenterReducer(state = initVetCenterData, action) {
 	switch (action.type) {
-		case QUERY_VET_CENTERS_SUCCEDED:{
-			state = {...state, centers:action.payload, fetchError:null, isQueryInProgress:false};
+		case QUERY_VET_CENTERS_SUCCEDED: {
+			state = {...state, centers: action.payload, fetchError: null, isQueryInProgress: false};
 			break;
 		}
-		case QUERY_VET_CENTERS_FAILED:{
-			state = {...state, fetchError:action.payload, isQueryInProgress:false};
+		case QUERY_VET_CENTERS_FAILED: {
+			state = {...state, fetchError: action.payload, isQueryInProgress: false};
 			break;
 		}
-		case QUERY_VET_CENTERS:{
-			state = {...state, fetchError:null, isQueryInProgress:true};
+		case QUERY_VET_CENTERS: {
+			state = {...state, fetchError: null, isQueryInProgress: true};
 			break;
 		}
-		default:{
+		default: {
 			break;
 		}
 	}
@@ -34,37 +34,37 @@ function vetCenterReducer(state = initVetCenterData, action) {
 }
 
 
-const initVetCenterDetail={}
+const initVetCenterDetail = {}
 
-function vetCenterDetailReducer(state = initVetCenterDetail, action){
-	switch (action.type){
-		case REQUEST_VET_CENTER_FETCH:{
+function vetCenterDetailReducer(state = initVetCenterDetail, action) {
+	switch (action.type) {
+		case REQUEST_VET_CENTER_FETCH: {
 			break;
 		}
-		case VET_CENTER_FETCH_SUCCEDED:{
+		case VET_CENTER_FETCH_SUCCEDED: {
 			state = {...state, ...action.payload};
 			break;
 		}
-		case VET_CENTER_FETCH_FAILED:{
+		case VET_CENTER_FETCH_FAILED: {
 			break;
 		}
-		case ADMINS_FETCH_SUCCEDED:{
-			state = {...state, admins:action.payload};
+		case ADMINS_FETCH_SUCCEDED: {
+			state = {...state, admins: action.payload};
 			break;
 		}
-		case ADD_ADMIN_SUCCEDED:{
-			state = {...state, addedAdmin:action.payload};
+		case ADD_ADMIN_SUCCEDED: {
+			state = {...state, addedAdmin: action.payload};
 			break;
 		}
-		case QUEUES_FETCH_SUCCEDED:{
-			state = {...state, queues:action.payload};
+		case QUEUES_FETCH_SUCCEDED: {
+			state = {...state, queues: action.payload};
 			break;
 		}
-		case ADD_QUEUE_SUCCEDED:{
-			state = {...state, addedQueue:action.payload};
+		case ADD_QUEUE_SUCCEDED: {
+			state = {...state, addedQueue: action.payload};
 			break;
 		}
-		default:{
+		default: {
 			break;
 		}
 	}
@@ -72,5 +72,4 @@ function vetCenterDetailReducer(state = initVetCenterDetail, action){
 }
 
 
-
-export {vetCenterReducer,vetCenterDetailReducer};
+export {vetCenterReducer, vetCenterDetailReducer};
