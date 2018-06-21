@@ -37,11 +37,12 @@ import base_url from "../base_url";
 
 let queryVetCenters = function* (action) {
 	try {
-		var url = (action.payload && action.payload.query) ? `${base_url}/vaccination-centers?query=${action.payload.query}` : `${base_url}/vaccination-centers`;
+		var url = (action.payload && action.payload.query) ? `${base_url}/vaccination-centers?q=${action.payload.query}` : `${base_url}/vaccination-centers`;
 		const response = yield call(fetch, url, {
 			credentials: 'include'
 		});
 		if (response.ok) {
+			console.log(response)
 			yield put({type: QUERY_VET_CENTERS_SUCCEDED, payload: yield response.json()});
 		}
 		else {

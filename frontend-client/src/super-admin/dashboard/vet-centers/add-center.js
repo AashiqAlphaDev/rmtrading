@@ -15,7 +15,8 @@ import {
 	REQUEST_ADD_STATE,
 	STATE_CLEAR_MATCHES
 } from "../../../stores/countries/actions";
-import {REQUEST_ADD_VET_CENTER} from "../../../stores/vet-centers/actions";
+import {CLEAR_VET_CENTER, REQUEST_ADD_VET_CENTER} from "../../../stores/vet-centers/actions";
+import {Redirect} from "react-router-dom";
 
 let Index = withStyles((theme) => {
 	return {
@@ -37,6 +38,10 @@ let Index = withStyles((theme) => {
 		state_query: "",
 		matched_states: []
 	};
+
+	componentWillMount(){
+		this.props.dispatch({type: CLEAR_VET_CENTER});
+	}
 
 	handleCountrySuggestionsFetchRequested(event) {
 		this.props.dispatch({type: QUERY_COUNTRIES, payload: {query: event.value}});
@@ -67,6 +72,10 @@ let Index = withStyles((theme) => {
 					desc={"Please provide the information to register Vaccination Center."}
 		            backButton={{url: "/super-admin/dashboard/vet-centers"}}
 					className={classes.body}>
+			{
+				this.props.vetCenters.vaccinationCenterAdded &&
+					<Redirect to={"/super-admin/dashboard/vet-centers"}/>
+			}
 			<Paper className={classes.paperPage}>
 				<form onSubmit={(e) => {
 					e.preventDefault();

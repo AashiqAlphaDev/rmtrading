@@ -51,7 +51,7 @@ let Index = withStyles((theme) => {
 			</Layout>
 			<Paper className={classes.list} elevation={0}>
 				{
-					this.props.vetCenters.centers.docs &&
+					this.props.vetCenters.centers &&
 					<Table>
 						<TableHead>
 							<TableRow>
@@ -64,7 +64,7 @@ let Index = withStyles((theme) => {
 						</TableHead>
 						<TableBody>
 							{
-								this.props.vetCenters.centers.docs.map((item, index) => {
+								this.props.vetCenters.centers.map((item, index) => {
 									return <TableRow key={index}>
 
 										<TableCell>
