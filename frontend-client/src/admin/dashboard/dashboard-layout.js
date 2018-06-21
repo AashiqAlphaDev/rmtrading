@@ -12,7 +12,7 @@ const pages = [
 	{label: "Pets", url: "/admin/dashboard/pets"},
 	{label: "Vaccination", url: "/admin/dashboard/vaccinations"},
 	{label: "Manage Appointments", url: "/admin/dashboard/inventory"},
-	{label: "Settings", url: "/admin/dashboard/staff"},
+	{label: "Make Requests", url: "/admin/dashboard/requests"},
 ];
 
 let Index = withStyles((theme) => (

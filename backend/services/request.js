@@ -2,11 +2,7 @@ const mongoose = require("mongoose")
 const Request = mongoose.model('Request');
 
 module.exports.createRequest = function* (requestData) {
-	validate(requestData, ["title", "center"], "You missed <%=param%>.");
-	let existingRequest = yield Request.findOne({name: requestData.name});
-	if (existingRequest) {
-		return existingRequest;
-	}
+	validate(requestData, ["title"], "You missed <%=param%>.");
 	return yield Request.create(requestData);
 };
 
@@ -21,7 +17,6 @@ module.exports.deleteRequest = function* (requestId) {
 };
 
 module.exports.requests = function* (query = {}) {
-
 	return yield Request.find(query).exec();
 };
 
