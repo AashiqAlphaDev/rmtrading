@@ -15,7 +15,7 @@ let Icon = (_Icon)=>{return (props)=>(<_Icon {...props} size={20} />)};
 const pages = [
     {icon:AppsIcon, label: "Overview",  		url: "/super-admin/dashboard"},
     {icon:AppsIcon, label: "Vet Centers", 		url: "/super-admin/dashboard/vet-centers"},
-    {icon:AppsIcon, label: "App Data", 			url: "/super-admin/dashboard/vaccines"},
+    {icon:AppsIcon, label: "Vaccines", 			url: "/super-admin/dashboard/vaccines"},
     {icon:AppsIcon, label: "Settings",			url: "/super-admin/dashboard/orders"}
 ];
 
