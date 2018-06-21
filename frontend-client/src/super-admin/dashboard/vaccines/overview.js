@@ -1,26 +1,28 @@
 import React from "react"
 import {withStyles} from "@material-ui/core/styles/index";
 import style from "../style";
-import {Typography, Paper, Table, TableHead, TableRow, TableCell, TableBody} from "@material-ui/core/index";
-import {IconButton} from "@material-ui/core/es/index";
-import {ArrowRightIcon, DeleteIcon, EditIcon} from "mdi-react";
+import {Typography, Paper, IconButton} from "@material-ui/core/index";
+import {connect} from "react-redux";
+import {Table, TableHead, TableRow, TableCell, TableBody} from "@material-ui/core/index";
+import {EditIcon, ArrowRightIcon, DeleteIcon} from "mdi-react";
 import {Link} from "react-router-dom";
-import {connect} from "react-redux"
+import {Button, TextField} from "@material-ui/core/es/index";
+import Layout from "../../../components/layout";
 import {QUERY_VACCINES, REQUEST_DELETE_VACCINE} from "../../../stores/vaccines/actions";
 
 let Index = withStyles((theme) => {
-    return {
-        ...style(theme),
-        body: {
-            marginLeft: theme.spacing.unit * 2,
-            display: "flex",
-            flexDirection: "column"
-        },
-        title: {
-            background: "#e6ecf0",
-            width: "100%"
-        },
 
+	return {
+		...style(theme),
+		body: {
+			marginLeft: theme.spacing.unit * 2,
+			display: "flex",
+			flexDirection: "column"
+		},
+		title: {
+			background: "#e6ecf0",
+			width: "100%"
+		},
         segment: {
             marginBottom: theme.spacing.unit * 3,
             padding: theme.spacing.unit * 1
@@ -34,12 +36,22 @@ let Index = withStyles((theme) => {
 	render() {
 		const {classes} = this.props;
 		return <div className={classes.body}>
-			<Typography variant="title" gutterBottom className={classes.title}>
-				20 Vaccination Centers around 10 countries.
-			</Typography>
+			<Layout alignItems={"center"}>
+				<Layout flex={1}>
+					<Typography variant="title" className={classes.title}>
+						Manage Vaccines
+					</Typography>
+				</Layout>
+				<Layout alignItems={"center"}>
+					<TextField className={classes.searchField} placeholder={"Search"} onChange={(e)=>{
+						this.props.dispatch({type:QUERY_VACCINES, payload:{query:e.target.value}});
+					}}/>
+					<Button component={Link} to={"/super-admin/dashboard/vaccines/add-vaccine"} variant={"raised"} color={"primary"} type={"submit"}> + Add </Button>
+				</Layout>
+			</Layout>
 			<Paper className={classes.list} elevation={0}>
 				{
-					this.props.vaccines.list.docs &&
+					this.props.vetCenters.centers &&
 					<Table>
 						<TableHead>
 							<TableRow>
@@ -52,7 +64,7 @@ let Index = withStyles((theme) => {
 						</TableHead>
 						<TableBody>
 							{
-								this.props.vaccines.list.docs.map((item, index) => {
+								this.props.vaccines.list.map((item, index) => {
 									return <TableRow key={index}>
 
 										<TableCell>
@@ -89,7 +101,6 @@ let Index = withStyles((theme) => {
 						</TableBody>
 					</Table>
 				}
-
 			</Paper>
 		</div>;
 	}

@@ -5,6 +5,7 @@ import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
 import {connect} from "react-redux"
 import AddCenter from "./add-center"
+import ManageCenter from "./vaccination-center-manage"
 import OverView from "./overview"
 
 let Index = withStyles((theme) => {
@@ -28,6 +29,9 @@ let Index = withStyles((theme) => {
 				}}/>
 				<Route exact path={"/super-admin/dashboard/vet-centers/add-center"} render={(props)=>{
 					return <AddCenter {...props} />
+				}} />
+				<Route exact path={"/super-admin/dashboard/vet-centers/:center_id/manage"} render={(props)=>{
+					return <ManageCenter {...props} />
 				}} />
 			</Layout>
 		</Layout>;

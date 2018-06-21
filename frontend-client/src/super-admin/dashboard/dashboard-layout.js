@@ -16,9 +16,6 @@ const pages = [
     {icon:({className})=>{return <span className={`icon-home ${className}`}></span>}, label: "Overview",  		url: "/super-admin/dashboard"},
     {icon:({className})=>{return <span className={`icon-box ${className}`}></span>}, label: "Vet Centers", 		url: "/super-admin/dashboard/vet-centers"},
     {icon:({className})=>{return <span className={`icon-syringe-active ${className}`}></span>}, label: "Vaccines", 			url: "/super-admin/dashboard/vaccines"},
-
-
-
 ];
 
 let Index = withStyles((theme) => {

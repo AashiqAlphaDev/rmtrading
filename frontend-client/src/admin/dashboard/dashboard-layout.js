@@ -9,7 +9,7 @@ import {connect} from "react-redux"
 import {IconButton, Menu, MenuItem, Tabs} from "@material-ui/core/es/index";
 import Tab from "@material-ui/core/es/Tab/Tab";
 import _ from "underscore";
-import {AccountIcon, AppsIcon, BellOutlineIcon, SettingsOutlineIcon} from "mdi-react";
+import {AccountIcon, SettingsOutlineIcon} from "mdi-react";
 
 let Icon = (_Icon) => {
 	return (props) => (<_Icon {...props} size={20}/>)
@@ -46,7 +46,7 @@ let Index = withStyles((theme) => {
 	}
 
 	componentWillMount() {
-		this.props.dispatch({type: CHECK_ADMIN})
+
 	}
 
 	render() {
