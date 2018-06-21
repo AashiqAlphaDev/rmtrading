@@ -93,8 +93,9 @@ const theme = createMuiTheme({
 		},
 		MuiPopover: {
 			paper: {
-				boxShadow: 'none',
-				border: "1px solid #e8e8e8"
+				//boxShadow: 'none',
+				boxShadow: '0px 0px 16px rgba(0,0,0,0.1)',
+				// border: "1px solid #e8e8e8"
 			}
 		},
 		MuiDialog: {

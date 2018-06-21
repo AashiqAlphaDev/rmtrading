@@ -9,7 +9,7 @@ import {connect} from "react-redux"
 import {IconButton, Menu, MenuItem, Tabs} from "@material-ui/core/es/index";
 import Tab from "@material-ui/core/es/Tab/Tab";
 import _ from "underscore";
-import {AccountIcon, AppsIcon, BellOutlineIcon} from "mdi-react";
+import {AccountIcon, AppsIcon, BellOutlineIcon, SettingsOutlineIcon} from "mdi-react";
 
 let Icon = (_Icon)=>{return (props)=>(<_Icon {...props} size={20} />)};
 
@@ -18,8 +18,7 @@ const pages = [
 	{icon: AppsIcon, label: "Pets", url: "/admin/dashboard/pets"},
 	{icon: AppsIcon, label: "Vaccination", url: "/admin/dashboard/vaccinations"},
 	{icon: AppsIcon, label: "Appointments", url: "/admin/dashboard/appointments"},
-	{icon: AppsIcon, label: "Store", url: "/admin/dashboard/store"},
-	{icon: AppsIcon, label: "Settings", url: "/admin/dashboard/settings"},
+	{icon: AppsIcon, label: "Store", url: "/admin/dashboard/store"}
 ];
 
 let Index = withStyles((theme) => {
@@ -68,9 +67,26 @@ let Index = withStyles((theme) => {
 										<img src={"/logo.png"} style={{height: 40}} alt={"logo"}/>
 									</Link>
 								</div>
+								<Tabs centered value={currentTab}>
+									{
+										pages.map((page, index) => {
+											let PageIcon = Icon(page.icon);
+											let iconClass = (index == currentTab) ? classes.selected : '';
+											return <Tab classes={{label: classes.tabIcon}}
+											            label={<Layout alignItems={"center"}><PageIcon
+												            className={`${iconClass} ${this.props.classes.navIcon}`}/>{page.label}
+											            </Layout>}
+											            component={Link} to={page.url} key={index}>
+											</Tab>;
+										})
+									}
+								</Tabs>
 								<div>
 									<IconButton>
-										<BellOutlineIcon/>
+										<SettingsOutlineIcon />
+									</IconButton>
+									<IconButton>
+										<BellOutlineIcon />
 									</IconButton>
 									<IconButton onClick={(event) => {
 										this.setState({anchorEl: event.currentTarget})
@@ -87,22 +103,6 @@ let Index = withStyles((theme) => {
 										<MenuItem onClick={this.handleClose}>Logout</MenuItem>
 									</Menu>
 								</div>
-							</Layout>
-							<Layout direction="column">
-								<Tabs centered value={currentTab}>
-									{
-										pages.map((page, index) => {
-											let PageIcon = Icon(page.icon);
-											let iconClass = (index == currentTab) ? classes.selected : '';
-											return <Tab classes={{label: classes.tabIcon}}
-											            label={<Layout alignItems={"center"}><PageIcon
-												            className={`${iconClass} ${this.props.classes.navIcon}`}/>{page.label}
-											            </Layout>}
-											            component={Link} to={page.url} key={index}>
-											</Tab>;
-										})
-									}
-								</Tabs>
 							</Layout>
 						</Layout>
 					</Toolbar>
