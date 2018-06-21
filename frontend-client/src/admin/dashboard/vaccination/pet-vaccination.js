@@ -4,8 +4,7 @@ import style from "../style";
 import {connect} from "react-redux";
 import {REQUEST_PET_FETCH} from "../../../stores/pets/actions";
 import {QUERY_VACCINATIONS} from "../../../stores/vaccinations/actions";
-import List from "@material-ui/core/es/List/List";
-import {ListItem, Table, TableBody, TableCell, TableHead, TableRow} from "@material-ui/core/es/index";
+import {Table, TableBody, TableCell, TableHead, TableRow} from "@material-ui/core/es/index";
 
 let Index = withStyles((theme) => {
 	return {

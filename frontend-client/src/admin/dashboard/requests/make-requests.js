@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 import style from "../style";
 
 import {REQUEST_ADD_REQUEST} from "../../../stores/requests/actions";
-import {Button, Typography} from "@material-ui/core/es/index";
+import {Button} from "@material-ui/core/es/index";
 import Layout from "../../../components/layout";
 
 let Index = withStyles((theme) => {

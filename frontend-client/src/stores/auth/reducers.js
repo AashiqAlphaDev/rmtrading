@@ -72,10 +72,6 @@ function authReducer(state = initAuthData, action) {
 			state = {...state, superAdminCheckInProgress: true};
 			break;
 		}
-		case CHECK_SUPER_ADMIN: {
-			state = {...state, adminCheckInProgress: true};
-			break;
-		}
 		case LOGIN_SUCCEDED: {
 			state = {...state, redirect: "/admin/dashboard"};
 			break;

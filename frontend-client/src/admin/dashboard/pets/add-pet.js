@@ -69,7 +69,7 @@ let Index = withStyles((theme) => {
 							</Select>
 						}
 						{
-							this.props.petTypes.list.length == 0 &&
+							this.props.petTypes.list.length === 0 &&
 							<Select disabled value={"none"}>
 							</Select>
 						}
@@ -88,7 +88,7 @@ let Index = withStyles((theme) => {
 							</Select>
 						}
 						{
-							this.props.petTypes.breed_list.length == 0 &&
+							this.props.petTypes.breed_list.length === 0 &&
 							<Select disabled value={"none"}>
 							</Select>
 						}
