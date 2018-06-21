@@ -7,16 +7,15 @@ import {connect} from "react-redux";
 import _ from "underscore";
 import style from "./style";
 import {IconButton, Menu, MenuItem, Tabs,Tab} from "@material-ui/core/es/index";
-import {AccountIcon, AppsIcon, EmailOutlineIcon} from "mdi-react";
+import {AccountIcon, AppsIcon, EmailOutlineIcon, SettingsOutlineIcon} from "mdi-react";
 import {REQUEST_SUPER_ADMIN_LOGOUT} from "../../stores/auth/actions";
 
 let Icon = (_Icon)=>{return (props)=>(<_Icon {...props} size={20} />)};
 
 const pages = [
-    {icon:AppsIcon, label: "Overview",  		url: "/super-admin/dashboard"},
-    {icon:AppsIcon, label: "Vet Centers", 		url: "/super-admin/dashboard/vet-centers"},
-    {icon:AppsIcon, label: "Vaccines", 			url: "/super-admin/dashboard/vaccines"},
-    {icon:AppsIcon, label: "Settings",			url: "/super-admin/dashboard/orders"}
+    {icon:({className})=>{return <span className={`icon-home ${className}`}></span>}, label: "Overview",  		url: "/super-admin/dashboard"},
+    {icon:({className})=>{return <span className={`icon-box ${className}`}></span>}, label: "Vet Centers", 		url: "/super-admin/dashboard/vet-centers"},
+    {icon:({className})=>{return <span className={`icon-syringe-active ${className}`}></span>}, label: "Vaccines", 			url: "/super-admin/dashboard/vaccines"}
 ];
 
 let Index = withStyles((theme) => {
@@ -75,6 +74,13 @@ let Index = withStyles((theme) => {
 										}
 									</Tabs>
 									<div>
+										<IconButton>
+											<SettingsOutlineIcon/>
+										</IconButton>
+										<IconButton>
+											<span className="icon-bell-active"></span>
+										</IconButton>
+
 										<IconButton>
 											<EmailOutlineIcon  />
 										</IconButton>
