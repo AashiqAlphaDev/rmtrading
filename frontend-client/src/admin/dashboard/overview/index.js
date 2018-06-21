@@ -3,30 +3,12 @@ import Layout from "../../../components/layout";
 import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
 import {connect} from "react-redux"
-import {
-	Avatar,
-	Divider,
-	Paper,
-	Table,
-	TableBody, TableCell, TableHead,
-	TableRow,
-	Typography
-} from "@material-ui/core/es/index";
-import {HospitalIcon,AccountBoxIcon} from "mdi-react"
+import {HospitalIcon} from "mdi-react"
+import {MetricDataCard, OverViewMetric} from "../../../components/dashboard-components";
 
-const OverViewMetric = ({title,metric, classes})=>(
-	<Paper className={classes.card}>
-		<Layout>
-			<Avatar className={classes.cardIcon}>
-				<HospitalIcon className={classes.cardIconSvg} />
-			</Avatar>
-			<Layout direction={"column"} className={classes.cardInfo}>
-				<Typography color={"textSecondary"}>{title}</Typography>
-				<Typography variant={"title"}>{metric}</Typography>
-			</Layout>
-		</Layout>
-	</Paper>
-);
+
+
+
 
 let Index = withStyles((theme)=>{
     return {
@@ -77,8 +59,56 @@ let Index = withStyles((theme)=>{
 			{title:"Vaccines", metric:"30,000"},
 			{title:"Diseases", metric:"30,000"},
 			{title:"Vet Centers", metric:"30,000"},
-		]
-	}
+		],
+		vetCenters:{
+            columnTitles:["Name", {label:"Count", isNumeric:true}],
+			data:[
+				["Sample 1", 100],
+				["Sample 1", 100],
+				["Sample 1", 100],
+				["Sample 1", 100],
+				["Sample 1", 100],
+				["Sample 1", 100],
+			]
+		},
+        vaccines:{
+            columnTitles:["Name", {label:"Count", isNumeric:true}],
+            data:[
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+            ]
+        },
+        states:{
+            columnTitles:["Name", {label:"Count", isNumeric:true}],
+            data:[
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+            ]
+        },
+        vaccinations:{
+            columnTitles:["Vaccine", "Pet Id", "Date", "Vaccination Center", "State", "Country"],
+            data:[
+                ["Vaccine", "Pet Id", "Date", "Vaccination Center", "State", "Country"],
+                ["Vaccine", "Pet Id", "Date", "Vaccination Center", "State", "Country"],
+                ["Vaccine", "Pet Id", "Date", "Vaccination Center", "State", "Country"],
+                ["Vaccine", "Pet Id", "Date", "Vaccination Center", "State", "Country"],
+                ["Vaccine", "Pet Id", "Date", "Vaccination Center", "State", "Country"],
+                ["Vaccine", "Pet Id", "Date", "Vaccination Center", "State", "Country"],
+                ["Vaccine", "Pet Id", "Date", "Vaccination Center", "State", "Country"],
+                ["Vaccine", "Pet Id", "Date", "Vaccination Center", "State", "Country"],
+                ["Vaccine", "Pet Id", "Date", "Vaccination Center", "State", "Country"],
+                ["Vaccine", "Pet Id", "Date", "Vaccination Center", "State", "Country"],
+            ]
+        }
+    }
 
     componentWillMount(){
         if(this.props.onPageChange){
@@ -99,113 +129,13 @@ let Index = withStyles((theme)=>{
 
 			    </Layout>
 			    <Layout>
-				    <Paper className={classes.listCard}>
-					    <Layout direction={"column"}>
-						    <Typography className={classes.listTitle} gutterBottom variant={"title"}>
-							    <Layout alignItems={"center"}>
-								    <HospitalIcon className={classes.titleIconSvg}/>
-								    Top States
-							    </Layout>
-						    </Typography>
-						    <Divider/>
-						    <Table>
-							    <TableHead>
-								    <TableRow>
-									    <TableCell>Name</TableCell>
-									    <TableCell numeric>Count</TableCell>
-								    </TableRow>
-							    </TableHead>
-							    <TableBody>
-								    {
-									    [1, 2, 3, 4, 5, 6].map((i) => {
-										    return <TableRow key={i}>
-											    <TableCell>Sample {i}</TableCell>
-											    <TableCell numeric>100</TableCell>
-										    </TableRow>
-									    })
-								    }
-							    </TableBody>
-						    </Table>
-					    </Layout>
-				    </Paper>
-				    <Paper className={classes.listCard}>
-					    <Layout direction={"column"}>
-						    <Typography className={classes.listTitle} gutterBottom variant={"title"}>Top Vet
-							    Centers</Typography>
-						    <Divider/>
-						    <Table>
-							    <TableHead>
-								    <TableRow>
-									    <TableCell>Name</TableCell>
-									    <TableCell numeric>Count</TableCell>
-								    </TableRow>
-							    </TableHead>
-							    <TableBody>
-								    {
-									    [1, 2, 3, 4, 5, 6].map((i) => {
-										    return <TableRow key={i}>
-											    <TableCell>Sample {i}</TableCell>
-											    <TableCell numeric>100</TableCell>
-										    </TableRow>
-									    })
-								    }
-							    </TableBody>
-						    </Table>
-					    </Layout>
-				    </Paper>
-				    <Paper className={classes.listCard}>
-					    <Layout direction={"column"}>
-						    <Typography className={classes.listTitle} gutterBottom variant={"title"}>Top
-							    Vaccines</Typography>
-						    <Divider/>
-						    <Table>
-							    <TableHead>
-								    <TableRow>
-									    <TableCell>Name</TableCell>
-									    <TableCell numeric>Count</TableCell>
-								    </TableRow>
-							    </TableHead>
-							    <TableBody>
-								    {
-									    [1, 2, 3, 4, 5, 6].map((i) => {
-										    return <TableRow key={i}>
-											    <TableCell>Sample {i}</TableCell>
-											    <TableCell numeric>100</TableCell>
-										    </TableRow>
-									    })
-								    }
-							    </TableBody>
-						    </Table>
-					    </Layout>
-				    </Paper>
-			    </Layout>
+					<MetricDataCard title="Top Vet Centers" classes={classes} icon={HospitalIcon} data={this.state.vetCenters}/>
+					<MetricDataCard title="Top Vaccines" classes={classes} icon={HospitalIcon} data={this.state.vaccines}/>
+					<MetricDataCard title="Top States" classes={classes} icon={HospitalIcon} data={this.state.states}/>
+				</Layout>
 			    <Layout>
-				    <Paper className={classes.listCard}>
-					    <Layout direction={"column"}>
-						    <Typography className={classes.listTitle} gutterBottom variant={"title"}>Recent
-							    Vaccinations</Typography>
-						    <Divider/>
-						    <Table>
-							    <TableHead>
-								    <TableRow>
-									    <TableCell>Name</TableCell>
-									    <TableCell numeric>Count</TableCell>
-								    </TableRow>
-							    </TableHead>
-							    <TableBody>
-								    {
-									    [1, 2, 3, 4, 5, 6].map((i) => {
-										    return <TableRow key={i}>
-											    <TableCell>Sample {i}</TableCell>
-											    <TableCell numeric>100</TableCell>
-										    </TableRow>
-									    })
-								    }
-							    </TableBody>
-						    </Table>
-					    </Layout>
-				    </Paper>
-			    </Layout>
+					<MetricDataCard title="Recent Vaccinations" classes={classes} icon={HospitalIcon} data={this.state.vaccinations}/>
+				</Layout>
 		    </div>
 	    </div>;
     }
