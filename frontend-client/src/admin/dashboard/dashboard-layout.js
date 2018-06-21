@@ -9,7 +9,7 @@ import {connect} from "react-redux"
 
 const pages = [
 	{label: "Pets", url: "/admin/dashboard/pets"},
-	{label: "Vaccination", url: "/admin/dashboard/vaccination-centers"},
+	{label: "Vaccination", url: "/admin/dashboard/vaccinations"},
 	{label: "Manage Appointments", url: "/admin/dashboard/inventory"},
 	{label: "Settings", url: "/admin/dashboard/staff"},
 ];

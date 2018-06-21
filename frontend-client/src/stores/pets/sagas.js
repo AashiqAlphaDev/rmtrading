@@ -5,7 +5,9 @@ import {
 	GUARDIAN_FETCH_FAILED,
 	REQUEST_GUARDIAN_FETCH,
 	REQUEST_CREATE_PET,
-	CREATE_PET_SUCCEDED, CREATE_PET_FAILED
+	CREATE_PET_SUCCEDED,
+	CREATE_PET_FAILED, REQUEST_PET_FETCH, PET_FETCH_FAILED, PET_FETCH_SUCCEDED,
+
 } from "./actions";
 
 
@@ -46,9 +48,31 @@ let createPet = function* (action) {
 	}
 }
 
+let fetchPet = function*(action){
+	try {
+		var url = null;
+		if(action.payload.pet_id){
+			url =  `${base_url}/pets/${action.payload.pet_id}`;
+		}
+		const response = yield call(fetch, url, {
+			method: 'GET',
+			credentials: 'include'
+		});
+		if (response.ok) {
+			yield put({type: PET_FETCH_SUCCEDED, payload: yield response.json()});
+		}
+		else {
+			yield put({type: PET_FETCH_FAILED, payload: yield response.json()});
+		}
+	} catch (error) {
+		yield put({type: PET_FETCH_FAILED, payload: error});
+	}
+}
+
 function* petsSaga() {
 	yield takeEvery(REQUEST_GUARDIAN_FETCH, fetchGuardian);
 	yield takeEvery(REQUEST_CREATE_PET, createPet);
+	yield takeEvery(REQUEST_PET_FETCH, fetchPet);
 }
 
 export default petsSaga;

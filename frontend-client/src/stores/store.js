@@ -11,7 +11,7 @@ import {vaccineReducer, vaccineDetailReducer} from './vaccines/reducers'
 import vaccinesSaga from './vaccines/sagas'
 
 
-import {petsReducer, guardianDetailReducer} from './pets/reducers'
+import {petsReducer, guardianDetailReducer, petDetailReducer} from './pets/reducers'
 import petsSaga from './pets/sagas'
 
 import diseaseReducer from './diseases/reducers'
@@ -41,7 +41,8 @@ const store = createStore(combineReducers({
 	vaccineDetail: vaccineDetailReducer,
 	pets: petsReducer,
 	guardianDetail: guardianDetailReducer,
-	users: userReducer
+	users: userReducer,
+	petDetail: petDetailReducer
 }), enhancer)
 
 sagaMiddleware.run(authSaga);

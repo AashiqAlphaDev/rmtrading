@@ -3,6 +3,7 @@ import DashboardLayout from "./dashboard-layout"
 import {Redirect, Route} from "react-router-dom";
 import Pets from "./pets"
 import OverView from "./overview"
+import Vaccination from "./vaccination"
 import {connect} from "react-redux";
 
 let Index = (class extends React.Component {
@@ -25,13 +26,15 @@ let Index = (class extends React.Component {
 				this.props.auth.redirect &&
 				<Redirect to={this.props.auth.redirect}/>
 			}
-			<Route exact path={"/admin/dashboard"} render={() => {
-				return <OverView location={this.props} onPageChange={this.onPageChange.bind(this)}/>
+			<Route exact path={"/admin/dashboard"} render={(props) => {
+				return <OverView {...props} onPageChange={this.onPageChange.bind(this)}/>
 			}}/>
-			<Route path={"/admin/dashboard/pets"} render={() => {
-				return <Pets location={this.props} onPageChange={this.onPageChange.bind(this)}/>
+			<Route path={"/admin/dashboard/pets"} render={(props) => {
+				return <Pets {...props} onPageChange={this.onPageChange.bind(this)}/>
 			}}/>
-
+			<Route exact path={"/admin/dashboard/vaccinations"} render={(props) => {
+				return <Vaccination {...props} onPageChange={this.onPageChange.bind(this)}/>
+			}}/>
 		</DashboardLayout>
 	}
 
