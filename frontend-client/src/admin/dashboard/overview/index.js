@@ -125,11 +125,19 @@ let Index = withStyles((theme) => {
 					}
 				</Layout>
 				<Layout>
-					<MetricDataCard title="Top Vet Centers" classes={classes} icon={HospitalIcon}
-					                data={this.state.vetCenters}/>
-					<MetricDataCard title="Top Vaccines" classes={classes} icon={HospitalIcon}
+					<MetricDataCard title="Top Vet Centers"
+					                classes={classes}
+					                icon={HospitalIcon}
+					                data={this.state.vetCenters}
+					/>
+					<MetricDataCard title="Top Vaccines"
+					                classes={classes}
+					                icon={HospitalIcon}
 					                data={this.state.vaccines}/>
-					<MetricDataCard title="Top States" classes={classes} icon={HospitalIcon} data={this.state.states}/>
+					<MetricDataCard title="Top States"
+					                classes={classes}
+					                icon={HospitalIcon}
+					                data={this.state.states}/>
 				</Layout>
 				<Layout>
 					<MetricDataCard title="Recent Vaccinations" classes={classes} icon={HospitalIcon}

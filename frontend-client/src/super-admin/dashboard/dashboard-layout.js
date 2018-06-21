@@ -32,7 +32,7 @@ let Index = withStyles(() => (
 		var currentTab = 0;
 		if (this.props.currentPage !== "") {
 			currentTab = _.findIndex(pages, (item) => {
-				return item.url === this.props.currentPage
+				return item.url === this.props.currentPage;
 			});
 		}
 		return <div className={classes.fullScreen}>

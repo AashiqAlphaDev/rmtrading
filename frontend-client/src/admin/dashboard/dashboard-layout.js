@@ -18,8 +18,9 @@ const pages = [
 	{icon: AppsIcon, label: "Overview", url: "/admin/dashboard"},
 	{icon: AppsIcon, label: "Pets", url: "/admin/dashboard/pets"},
 	{icon: AppsIcon, label: "Vaccination", url: "/admin/dashboard/vaccinations"},
-	{icon: AppsIcon, label: "Manage Appointments", url: "/admin/dashboard/inventory"},
-	{icon: AppsIcon, label: "Make Requests", url: "/admin/dashboard/requests"},
+	{icon: AppsIcon, label: "Appointments", url: "/admin/dashboard/appointments"},
+	{icon: AppsIcon, label: "Store", url: "/admin/dashboard/store"},
+	{icon: AppsIcon, label: "Settings", url: "/admin/dashboard/settings"},
 ];
 
 let Index = withStyles((theme) => {
@@ -89,7 +90,7 @@ let Index = withStyles((theme) => {
 								</div>
 							</Layout>
 							<Layout direction="column">
-								<Tabs centered fullWidth value={currentTab}>
+								<Tabs centered value={currentTab}>
 									{
 										pages.map((page, index) => {
 											let PageIcon = Icon(page.icon);
