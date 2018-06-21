@@ -48,11 +48,11 @@ let createPet = function* (action) {
 	}
 }
 
-let fetchPet = function*(action){
+let fetchPet = function* (action) {
 	try {
 		var url = null;
-		if(action.payload.pet_id){
-			url =  `${base_url}/pets/${action.payload.pet_id}`;
+		if (action.payload.pet_id) {
+			url = `${base_url}/pets/${action.payload.pet_id}`;
 		}
 		const response = yield call(fetch, url, {
 			method: 'GET',

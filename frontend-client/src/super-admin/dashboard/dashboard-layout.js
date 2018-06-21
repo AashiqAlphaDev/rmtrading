@@ -29,34 +29,36 @@ let Index = withStyles(() => (
 ))(class extends React.Component {
 	render() {
 		const {classes} = this.props;
-        var currentTab = 0;
-		if(this.props.currentPage !== ""){
-            currentTab = _.findIndex(pages, (item)=>{return item.url===this.props.currentPage});
+		var currentTab = 0;
+		if (this.props.currentPage !== "") {
+			currentTab = _.findIndex(pages, (item) => {
+				return item.url === this.props.currentPage
+			});
 		}
 		return <div className={classes.fullScreen}>
 			<Layout direction={"column"} className={`flex`}>
 				<AppBar position="static" color="default">
 					<Toolbar className={`container`}>
 						<Layout direction={"column"} className={`flex`}>
-						<div className={`flex ${classes.logo}`}>
-							<Link to={"/super-admin/dashboard/"}>
-								<img src={"/logo.png"} style={{height: 40}} alt={"logo"}/>
-							</Link>
-						</div>
-						<Layout direction="column">
-							<Tabs centered fullWidth value={currentTab}>
-							{
-								pages.map((page, index) => {
-									return <Tab label={page.label} component={Link} to={page.url} key={index}>
-									</Tab>;
-								})
-							}
-							<Tab label="Logout" className={classes.navButton} onClick={() => {
-								this.props.dispatch({type: REQUEST_SUPER_ADMIN_LOGOUT})
-							}}>
-							</Tab>
-							</Tabs>
-						</Layout>
+							<div className={`flex ${classes.logo}`}>
+								<Link to={"/super-admin/dashboard/"}>
+									<img src={"/logo.png"} style={{height: 40}} alt={"logo"}/>
+								</Link>
+							</div>
+							<Layout direction="column">
+								<Tabs centered fullWidth value={currentTab}>
+									{
+										pages.map((page, index) => {
+											return <Tab label={page.label} component={Link} to={page.url} key={index}>
+											</Tab>;
+										})
+									}
+									<Tab label="Logout" className={classes.navButton} onClick={() => {
+										this.props.dispatch({type: REQUEST_SUPER_ADMIN_LOGOUT})
+									}}>
+									</Tab>
+								</Tabs>
+							</Layout>
 						</Layout>
 					</Toolbar>
 				</AppBar>

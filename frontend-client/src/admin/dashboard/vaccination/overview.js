@@ -29,16 +29,16 @@ let Index = withStyles((theme) => {
 		}
 	}
 })(class extends React.Component {
-	state={
-		pet_id:""
+	state = {
+		pet_id: ""
 	}
 
 	componentWillMount() {
 		this.props.dispatch({type: QUERY_VET_CENTERS});
 	}
 
-	componentWillReceiveProps(nextProps){
-		if(nextProps.petDetail._id){
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.petDetail._id) {
 
 		}
 	}
@@ -48,15 +48,15 @@ let Index = withStyles((theme) => {
 		return <div className={classes.body}>
 			{
 				this.props.petDetail._id &&
-				<Redirect to={`/admin/dashboard/vaccinations/${this.props.petDetail._id}`} />
+				<Redirect to={`/admin/dashboard/vaccinations/${this.props.petDetail._id}`}/>
 			}
-			<form onSubmit={(e)=>{
+			<form onSubmit={(e) => {
 				e.preventDefault();
-				this.props.dispatch({type:REQUEST_PET_FETCH, payload:{pet_id:this.state.pet_id}});
+				this.props.dispatch({type: REQUEST_PET_FETCH, payload: {pet_id: this.state.pet_id}});
 			}}>
 				<InputContainer label={"Scan / Enter pet ID / Chip Number"}>
-					<TextField onChange={(event)=>{
-						this.setState({pet_id:event.target.value})
+					<TextField onChange={(event) => {
+						this.setState({pet_id: event.target.value})
 					}}/>
 				</InputContainer>
 			</form>

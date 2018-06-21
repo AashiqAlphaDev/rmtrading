@@ -11,13 +11,15 @@ import Tab from "@material-ui/core/es/Tab/Tab";
 import _ from "underscore";
 import {AccountIcon, AppsIcon, BellOutlineIcon} from "mdi-react";
 
-let Icon = (_Icon)=>{return (props)=>(<_Icon {...props} size={20} />)};
+let Icon = (_Icon) => {
+	return (props) => (<_Icon {...props} size={20}/>)
+};
 const pages = [
-	{icon:AppsIcon, label: "Overview", url: "/admin/dashboard"},
-	{icon:AppsIcon, label: "Pets", url: "/admin/dashboard/pets"},
-	{icon:AppsIcon, label: "Vaccination", url: "/admin/dashboard/vaccinations"},
-	{icon:AppsIcon, label: "Manage Appointments", url: "/admin/dashboard/inventory"},
-	{icon:AppsIcon, label: "Make Requests", url: "/admin/dashboard/requests"},
+	{icon: AppsIcon, label: "Overview", url: "/admin/dashboard"},
+	{icon: AppsIcon, label: "Pets", url: "/admin/dashboard/pets"},
+	{icon: AppsIcon, label: "Vaccination", url: "/admin/dashboard/vaccinations"},
+	{icon: AppsIcon, label: "Manage Appointments", url: "/admin/dashboard/inventory"},
+	{icon: AppsIcon, label: "Make Requests", url: "/admin/dashboard/requests"},
 ];
 
 let Index = withStyles((theme) => {
@@ -30,18 +32,19 @@ let Index = withStyles((theme) => {
 				display: "flex",
 				flexDirection: "column"
 			},
-			selected:{
-				fill:theme.palette.secondary.main
+			selected: {
+				fill: theme.palette.secondary.main
 			},
-			navIcon:{
-				margin:theme.spacing.unit*1
+			navIcon: {
+				margin: theme.spacing.unit * 1
 			}
 		}
 	)
 })(class extends React.Component {
-	state={
-		anchorEl:null
+	state = {
+		anchorEl: null
 	}
+
 	componentWillMount() {
 		this.props.dispatch({type: CHECK_ADMIN})
 	}
@@ -67,15 +70,19 @@ let Index = withStyles((theme) => {
 								</div>
 								<div>
 									<IconButton>
-										<BellOutlineIcon  />
+										<BellOutlineIcon/>
 									</IconButton>
-									<IconButton onClick={(event)=>{this.setState({anchorEl:event.currentTarget})}}>
-										<AccountIcon />
+									<IconButton onClick={(event) => {
+										this.setState({anchorEl: event.currentTarget})
+									}}>
+										<AccountIcon/>
 									</IconButton>
 									<Menu
 										anchorEl={this.state.anchorEl}
 										open={Boolean(this.state.anchorEl)}
-										onClose={()=>{this.setState({anchorEl:null})}}
+										onClose={() => {
+											this.setState({anchorEl: null})
+										}}
 									>
 										<MenuItem onClick={this.handleClose}>Logout</MenuItem>
 									</Menu>
@@ -86,8 +93,11 @@ let Index = withStyles((theme) => {
 									{
 										pages.map((page, index) => {
 											let PageIcon = Icon(page.icon);
-											let iconClass = (index == currentTab)? classes.selected:'';
-											return <Tab classes={{label: classes.tabIcon}} label={<Layout alignItems={"center"}><PageIcon className={`${iconClass} ${this.props.classes.navIcon}`}/>{page.label}</Layout>}
+											let iconClass = (index == currentTab) ? classes.selected : '';
+											return <Tab classes={{label: classes.tabIcon}}
+											            label={<Layout alignItems={"center"}><PageIcon
+												            className={`${iconClass} ${this.props.classes.navIcon}`}/>{page.label}
+											            </Layout>}
 											            component={Link} to={page.url} key={index}>
 											</Tab>;
 										})

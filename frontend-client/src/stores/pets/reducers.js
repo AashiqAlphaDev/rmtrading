@@ -67,5 +67,4 @@ function petDetailReducer(state = petDetail, action) {
 }
 
 
-
 export {petsReducer, guardianDetailReducer, petDetailReducer};
