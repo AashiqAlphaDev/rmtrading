@@ -3,221 +3,139 @@ import Layout from "../../../components/layout";
 import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
 import {connect} from "react-redux"
-import {
-	Divider,
-	Paper,
-	Table,
-	TableBody, TableCell, TableHead,
-	TableRow,
-	Typography
-} from "@material-ui/core/es/index";
-import {HospitalIcon, AccountBoxIcon} from "mdi-react"
+import {HospitalIcon} from "mdi-react"
+import {MetricDataCard, OverViewMetric} from "../../../components/dashboard-components";
 
-let Index = withStyles((theme) => {
-	return {
-		...style(theme),
-		body: {
-			overflow: "scroll"
-		},
-		content: {
-			marginTop: theme.spacing.unit * 2,
-		},
-		listCard: {
-			flex: 1,
-			minWidth: 200,
-			margin: theme.spacing.unit * 1
-		},
-		listTitle: {
-			padding: theme.spacing.unit * 2
-		},
-		card: {
-			flex: 1,
-			minWidth: 200,
-			margin: theme.spacing.unit * 1,
-			padding: theme.spacing.unit * 2
-		},
-		cardInfo: {
-			marginLeft: theme.spacing.unit * 2,
-		}
-	}
+
+let Index = withStyles((theme)=>{
+    return {
+        ...style(theme),
+        body:{
+            overflow:"scroll"
+        },
+        content:{
+            marginTop:theme.spacing.unit*2,
+        },
+        listCard:{
+            flex:1,
+            minWidth:200,
+            margin:theme.spacing.unit*1,
+            boxShadow: '0px 0px 16px rgba(0,0,0,0.05)',
+        },
+        listTitle:{
+            padding:theme.spacing.unit*2
+        },
+        card:{
+            flex:1,
+            margin:theme.spacing.unit*1,
+            padding:theme.spacing.unit*2,
+            boxShadow: '0px 0px 16px rgba(0,0,0,0.05)',
+        },
+        cardInfo:{
+            marginLeft:theme.spacing.unit*2,
+        },
+        cardIcon:{
+            border:`2px solid ${theme.palette.grey['200']}`,
+            background:"none",
+        },
+        cardIconSvg:{
+            fill:theme.palette.secondary.main
+        },
+        titleIconSvg:{
+            paddingRight:1*theme.spacing.unit,
+            fill:theme.palette.secondary.main
+        }
+    }
 })(class extends React.Component {
 
-	componentWillMount() {
+    state = {
+        metrics:[
+            {title:"Vaccinations", metric:"30,000"},
+            {title:"Visits", metric:"30,000"},
+            {title:"Pets", metric:"30,000"},
+            {title:"Vaccines", metric:"30,000"},
+            {title:"Diseases", metric:"30,000"},
+            {title:"Vet Centers", metric:"30,000"},
+        ],
+        vetCenters:{
+            columnTitles:["Name", {label:"Count", isNumeric:true}],
+            data:[
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+            ]
+        },
+        vaccines:{
+            columnTitles:["Name", {label:"Count", isNumeric:true}],
+            data:[
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+            ]
+        },
+        states:{
+            columnTitles:["Name", {label:"Count", isNumeric:true}],
+            data:[
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+                ["Sample 1", 100],
+            ]
+        },
+        vaccinations:{
+            columnTitles:["Vaccine", "Pet Id", "Date", "Vaccination Center", "State", "Country"],
+            data:[
+                ["Vaccine", "Pet Id", "Date", "Vaccination Center", "State", "Country"],
+                ["Vaccine", "Pet Id", "Date", "Vaccination Center", "State", "Country"],
+                ["Vaccine", "Pet Id", "Date", "Vaccination Center", "State", "Country"],
+                ["Vaccine", "Pet Id", "Date", "Vaccination Center", "State", "Country"],
+                ["Vaccine", "Pet Id", "Date", "Vaccination Center", "State", "Country"],
+                ["Vaccine", "Pet Id", "Date", "Vaccination Center", "State", "Country"],
+                ["Vaccine", "Pet Id", "Date", "Vaccination Center", "State", "Country"],
+                ["Vaccine", "Pet Id", "Date", "Vaccination Center", "State", "Country"],
+                ["Vaccine", "Pet Id", "Date", "Vaccination Center", "State", "Country"],
+                ["Vaccine", "Pet Id", "Date", "Vaccination Center", "State", "Country"],
+            ]
+        }
+    }
 
-		if (this.props.onPageChange) {
-			this.props.onPageChange("/super-admin/dashboard/");
-		}
-	}
+    componentWillMount(){
+        if(this.props.onPageChange){
+            this.props.onPageChange("/admin/dashboard");
+        }
+    }
 
-	render() {
-		const {classes} = this.props;
-		return <div direction={"column"} flex={1} className={`${classes.body}`}>
+    render(){
+        const {classes} = this.props;
+        return <div direction={"column"} flex={1} className={`${classes.body}`}>
 			<div className={`container ${classes.content}`}>
 				<Layout>
-					<Paper className={classes.card} elevation={0}>
-						<Layout>
-							<HospitalIcon size={50}/>
-							<Layout direction={"column"} className={classes.cardInfo}>
-								<Typography variant={"title"}>Vaccinations</Typography>
-								<Typography>30,000</Typography>
-							</Layout>
-						</Layout>
-					</Paper>
-					<Paper className={classes.card} elevation={0}>
-						<Layout>
-							<AccountBoxIcon size={50}/>
-							<Layout direction={"column"} className={classes.cardInfo}>
-								<Typography variant={"title"}>Visits</Typography>
-								<Typography>30,000</Typography>
-							</Layout>
-						</Layout>
-					</Paper>
-					<Paper className={classes.card} elevation={0}>
-						<Layout>
-							<HospitalIcon size={50}/>
-							<Layout direction={"column"} className={classes.cardInfo}>
-								<Typography variant={"title"}>Pets</Typography>
-								<Typography>30,000</Typography>
-							</Layout>
-						</Layout>
-					</Paper>
+                    {
+                        this.state.metrics.map((item, index)=>{
+                            return <OverViewMetric key={index} title={item.title} metric={item.metric} classes={classes}/>
+                        })
+                    }
+
 				</Layout>
 				<Layout>
-					<Paper className={classes.card} elevation={0}>
-						<Layout>
-							<HospitalIcon size={50}/>
-							<Layout direction={"column"} className={classes.cardInfo}>
-								<Typography variant={"title"}>Vaccines</Typography>
-								<Typography>30,000</Typography>
-							</Layout>
-						</Layout>
-					</Paper>
-					<Paper className={classes.card} elevation={0}>
-						<Layout>
-							<HospitalIcon size={50}/>
-							<Layout direction={"column"} className={classes.cardInfo}>
-								<Typography variant={"title"}>Diseases</Typography>
-								<Typography>30,000</Typography>
-							</Layout>
-						</Layout>
-					</Paper>
-					<Paper className={classes.card} elevation={0}>
-						<Layout>
-							<HospitalIcon size={50}/>
-							<Layout direction={"column"} className={classes.cardInfo}>
-								<Typography variant={"title"}>Vet Centers</Typography>
-								<Typography>30,000</Typography>
-							</Layout>
-						</Layout>
-					</Paper>
+					<MetricDataCard title="Top Vet Centers" classes={classes} icon={HospitalIcon} data={this.state.vetCenters}/>
+					<MetricDataCard title="Top Vaccines" classes={classes} icon={HospitalIcon} data={this.state.vaccines}/>
+					<MetricDataCard title="Top States" classes={classes} icon={HospitalIcon} data={this.state.states}/>
 				</Layout>
 				<Layout>
-					<Paper className={classes.listCard} elevation={0}>
-						<Layout direction={"column"}>
-							<Typography className={classes.listTitle} gutterBottom variant={"title"}>Top
-								States</Typography>
-							<Divider/>
-							<Table>
-								<TableHead>
-									<TableRow>
-										<TableCell>Name</TableCell>
-										<TableCell numeric>Count</TableCell>
-									</TableRow>
-								</TableHead>
-								<TableBody>
-									{
-										[1, 2, 3, 4, 5, 6].map((i) => {
-											return <TableRow key={i}>
-												<TableCell>Sample {i}</TableCell>
-												<TableCell numeric>100</TableCell>
-											</TableRow>
-										})
-									}
-								</TableBody>
-							</Table>
-						</Layout>
-					</Paper>
-					<Paper className={classes.listCard} elevation={0}>
-						<Layout direction={"column"}>
-							<Typography className={classes.listTitle} gutterBottom variant={"title"}>Top Vet
-								Centers</Typography>
-							<Divider/>
-							<Table>
-								<TableHead>
-									<TableRow>
-										<TableCell>Name</TableCell>
-										<TableCell numeric>Count</TableCell>
-									</TableRow>
-								</TableHead>
-								<TableBody>
-									{
-										[1, 2, 3, 4, 5, 6].map((i) => {
-											return <TableRow key={i}>
-												<TableCell>Sample {i}</TableCell>
-												<TableCell numeric>100</TableCell>
-											</TableRow>
-										})
-									}
-								</TableBody>
-							</Table>
-						</Layout>
-					</Paper>
-					<Paper className={classes.listCard} elevation={0}>
-						<Layout direction={"column"}>
-							<Typography className={classes.listTitle} gutterBottom variant={"title"}>Top
-								Vaccines</Typography>
-							<Divider/>
-							<Table>
-								<TableHead>
-									<TableRow>
-										<TableCell>Name</TableCell>
-										<TableCell numeric>Count</TableCell>
-									</TableRow>
-								</TableHead>
-								<TableBody>
-									{
-										[1, 2, 3, 4, 5, 6].map((i) => {
-											return <TableRow key={i}>
-												<TableCell>Sample {i}</TableCell>
-												<TableCell numeric>100</TableCell>
-											</TableRow>
-										})
-									}
-								</TableBody>
-							</Table>
-						</Layout>
-					</Paper>
-				</Layout>
-				<Layout>
-					<Paper className={classes.listCard} elevation={0}>
-						<Layout direction={"column"}>
-							<Typography className={classes.listTitle} gutterBottom variant={"title"}>Recent
-								Vaccinations</Typography>
-							<Divider/>
-							<Table>
-								<TableHead>
-									<TableRow>
-										<TableCell>Name</TableCell>
-										<TableCell numeric>Count</TableCell>
-									</TableRow>
-								</TableHead>
-								<TableBody>
-									{
-										[1, 2, 3, 4, 5, 6].map((i) => {
-											return <TableRow key={i}>
-												<TableCell>Sample {i}</TableCell>
-												<TableCell numeric>100</TableCell>
-											</TableRow>
-										})
-									}
-								</TableBody>
-							</Table>
-						</Layout>
-					</Paper>
+					<MetricDataCard title="Recent Vaccinations" classes={classes} icon={HospitalIcon} data={this.state.vaccinations}/>
 				</Layout>
 			</div>
 		</div>;
-	}
+    }
 });
 
-export default connect(store => store)(Index);
+export default connect(store=>store)(Index);
