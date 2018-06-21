@@ -44,11 +44,12 @@ const theme = createMuiTheme({
 		},
 		MuiTab: {
 			root: {
-				// textTransform:"none"
+				textTransform:"none",
+                //color: primaryColor
 			},
 			selected: {
 				color: primaryColor
-			}
+			},
 		},
 		MuiButton: {
 			root: {

@@ -5,6 +5,8 @@ import {AppBar, Toolbar, Button} from "@material-ui/core/index";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {REQUEST_SUPER_ADMIN_LOGOUT} from "../../stores/auth/actions";
+import {Tab, Tabs} from "@material-ui/core/es/index";
+import _ from "underscore"
 
 const pages = [
 	{label: "Overview", url: "/super-admin/dashboard/"},
@@ -27,30 +29,35 @@ let Index = withStyles(() => (
 ))(class extends React.Component {
 	render() {
 		const {classes} = this.props;
+        var currentTab = 0;
+        console.log(this.props)
+		if(this.props.currentPage !== ""){
+            currentTab = _.findIndex(pages, (item)=>{return item.url===this.props.currentPage});
+		}
 		return <div className={classes.fullScreen}>
 			<Layout direction={"column"} className={`flex`}>
 				<AppBar position="static" color="default">
 					<Toolbar className={`container`}>
+						<Layout direction={"column"} className={`flex`}>
 						<div className={`flex`}>
 							<Link to={"/super-admin/dashboard/"}>
 								<img src={"/logo.png"} style={{height: 40}} alt={"logo"}/>
 							</Link>
 						</div>
-						<Layout>
+						<Layout direction="column">
+							<Tabs centered fullWidth value={currentTab}>
 							{
 								pages.map((page, index) => {
-									return <Link to={page.url} key={index}><Button key={index}
-									                                               className={classes.navButton}
-									                                               color={(this.props.currentPage === page.url) ? 'primary' : 'default'}>
-										{page.label}
-									</Button></Link>
+									return <Tab label={page.label} component={Link} to={page.url} key={index}>
+									</Tab>;
 								})
 							}
-							<Button className={classes.navButton} onClick={() => {
+							<Tab label="Logout" className={classes.navButton} onClick={() => {
 								this.props.dispatch({type: REQUEST_SUPER_ADMIN_LOGOUT})
 							}}>
-								Logout
-							</Button>
+							</Tab>
+							</Tabs>
+						</Layout>
 						</Layout>
 					</Toolbar>
 				</AppBar>
