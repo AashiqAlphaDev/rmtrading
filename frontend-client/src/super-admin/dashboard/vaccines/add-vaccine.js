@@ -12,7 +12,7 @@ import {
 	QUERY_COUNTRIES,
 	REQUEST_ADD_COUNTRY
 } from "../../../stores/countries/actions";
-import {REQUEST_ADD_VACCINE} from "../../../stores/vaccines/actions";
+import {CLEAR_VACCINES, REQUEST_ADD_VACCINE} from "../../../stores/vaccines/actions";
 import {
 	BREED_CLEAR_MATCHES,
 	PET_TYPE_CLEAR_MATCHES,
@@ -22,6 +22,7 @@ import {
 } from "../../../stores/pet-types/actions";
 import {DISEASE_CLEAR_MATCHES, QUERY_DISEASES, REQUEST_ADD_DISEASE} from "../../../stores/diseases/actions";
 import {Checkbox, FormControlLabel} from "@material-ui/core/es/index";
+import {Redirect} from "react-router-dom";
 
 let Index = withStyles((theme) => {
 	return {
@@ -29,7 +30,11 @@ let Index = withStyles((theme) => {
 		actions: {
 			marginTop: theme.spacing.unit * 4,
 			marginBottom: theme.spacing.unit * 4
+		},
+		body:{
+			marginTop: theme.spacing.unit * 2
 		}
+
 	}
 })(class extends React.PureComponent {
 
@@ -46,6 +51,10 @@ let Index = withStyles((theme) => {
 		forFemale: true,
 		forMale: true
 	};
+
+	componentWillMount(){
+		this.props.dispatch({type:CLEAR_VACCINES});
+	}
 
 	handleCountrySuggestionsFetchRequested(event) {
 		this.props.dispatch({type: QUERY_COUNTRIES, payload: {query: event.value}});
@@ -85,7 +94,11 @@ let Index = withStyles((theme) => {
 		const {classes} = this.props;
 		return <AnnotatedSection title={"Add Vaccine"}
 		                         desc={"Please provide the information to add Vaccine."}
-		                         backButton={{url: "/super-admin/dashboard/vaccines"}}>
+		                         backButton={{url: "/super-admin/dashboard/vaccines"}} className={classes.body}>
+			{
+				this.props.vaccines.vaccineAdded &&
+				<Redirect to={"/super-admin/dashboard/vaccines"} />
+			}
 			<Paper className={classes.paperPage}>
 				<form onSubmit={(e) => {
 					e.preventDefault();
