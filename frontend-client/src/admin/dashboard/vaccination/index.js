@@ -1,13 +1,12 @@
-import React from "react"
+import React from "react";
 import Layout from "../../../components/layout";
 import {Typography, TextField, List, ListItem} from "@material-ui/core/index";
 import {Link, Switch, Route} from "react-router-dom";
-import {withStyles} from "@material-ui/core/styles"
+import {withStyles} from "@material-ui/core/styles";
 import style from "../style";
-import Overview from "./overview"
-import PetVaccination from "./pet-vaccination"
-
-import {connect} from "react-redux"
+import Overview from "./overview";
+import PetVaccination from "./pet-vaccination";
+import {connect} from "react-redux";
 
 const sideNavPages = [
 	{label: "Register New Pet", url: "/admin/dashboard/pets/choose-guardian"},
@@ -21,7 +20,7 @@ let Index = withStyles((theme) => {
 
 	componentWillMount() {
 		if (this.props.onPageChange) {
-			this.props.onPageChange("/admin/dashboard/pets");
+			this.props.onPageChange("/admin/dashboard/vaccinations");
 		}
 	}
 

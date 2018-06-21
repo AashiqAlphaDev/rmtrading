@@ -21,51 +21,58 @@ const OverViewMetric = ({title, metric, classes}) => (
 );
 
 
-const MetricDataCard = ({classes, title, body, metricCardIcon, data}) => (
-	<Paper className={classes.listCard}>
-		<Layout direction={"column"}>
-			<Typography className={classes.listTitle} gutterBottom variant={"title"}>
-				<Layout alignItems={"center"}>
-					<metricCardIcon className={classes.titleIconSvg}/>
-					{title}
-				</Layout>
-			</Typography>
-			<Divider/>
-			{body && body}
-			{
-				data &&
-				<Table>
-					<TableHead>
-						<TableRow>
+const MetricDataCard = class extends React.Component{
+	render(){
+		const {classes, title, body, MetricCardIcon, data} = this.props;
+		return <Paper className={classes.listCard}>
+			<Layout direction={"column"}>
+				<Typography className={classes.listTitle} gutterBottom variant={"title"}>
+					<Layout alignItems={"center"}>
+						{
+							MetricCardIcon &&
+							<MetricCardIcon className={classes.titleIconSvg} />
+						}
+						{title}
+					</Layout>
+				</Typography>
+				<Divider/>
+				{body && body}
+				{
+					data &&
+					<Table>
+						<TableHead>
+							<TableRow>
+								{
+									data.columnTitles.map((item, i) => {
+										if (typeof item === 'string') {
+											return <TableCell key={i}>{item}</TableCell>
+										}
+										else {
+											return <TableCell numeric={item.isNumeric} key={i}>{item.label}</TableCell>
+										}
+									})
+								}
+
+							</TableRow>
+						</TableHead>
+						<TableBody>
 							{
-								data.columnTitles.map((item, i) => {
-									if (typeof item === 'string') {
-										return <TableCell key={i}>{item}</TableCell>
-									}
-									else {
-										return <TableCell numeric={item.isNumeric} key={i}>{item.label}</TableCell>
-									}
+								data.data.map((item, i) => {
+									return <TableRow key={i}>
+										{item.map((_item, i) => {
+											return <TableCell key={i}
+											                  numeric={typeof _item !== 'string'}>{_item}</TableCell>
+										})}
+									</TableRow>
 								})
 							}
+						</TableBody>
+					</Table>
+				}
+			</Layout>
+		</Paper>
 
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{
-							data.data.map((item, i) => {
-								return <TableRow key={i}>
-									{item.map((_item, i) => {
-										return <TableCell key={i}
-										                  numeric={typeof _item !== 'string'}>{_item}</TableCell>
-									})}
-								</TableRow>
-							})
-						}
-					</TableBody>
-				</Table>
-			}
-		</Layout>
-	</Paper>
-)
 
+	}
+}
 export {OverViewMetric, MetricDataCard}

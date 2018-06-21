@@ -3,6 +3,7 @@ var router = Router();
 const co = require("co");
 const VaccinationCenterManagementService = require("../services/vaccination-centers");
 const isAdmin = require("./super-admin/check-admin");
+const isCenterAdmin = require("./check-center-admin");
 
 router.get("/", httpCoWrap(function* (req, res, next) {
 	var query = req.query.query ? req.query.query : {};
@@ -14,7 +15,12 @@ router.get("/", httpCoWrap(function* (req, res, next) {
 }));
 
 router.get("/:vaccination_center_id", httpCoWrap(function* (req, res, next) {
+	if(req.params.vaccination_center_id == "self"){
+		req.params.vaccination_center_id = req.session.center_id;
+	}
+	console.log(req.params);
 	let vaccinationCenter = yield VaccinationCenterManagementService.vaccinationCenterWithId(req.params.vaccination_center_id);
+	console.log(vaccinationCenter);
 	res.send(vaccinationCenter);
 }));
 
@@ -23,13 +29,12 @@ router.post("/", isAdmin, httpCoWrap(function* (req, res, next) {
 	res.send(vaccinationCenter);
 }));
 
-router.put("/:vaccination_center_id", isAdmin, httpCoWrap(function* (req, res, next) {
-	let vaccinationCenter = yield VaccinationCenterManagementService.updateVaccinationCenter(req.params.vaccination_center_id, req.body);
+router.put("/:vaccination_center_id", isCenterAdmin, httpCoWrap(function* (req, res, next) {
+	let vaccinationCenter = yield VaccinationCenterManagementService.updateVaccinationCenter(req.session.center_id, req.body);
 	res.send(vaccinationCenter);
 }));
 
 //updateVaccinationCenterQueue
-
 router.put("/:vaccination_center_id/queues/:queue_id", isAdmin, httpCoWrap(function* (req, res, next) {
 	let update = yield VaccinationCenterManagementService.updateVaccinationCenterQueue(req.params.vaccination_center_id, req.params.queue_id, req.body);
 	res.send(update);
