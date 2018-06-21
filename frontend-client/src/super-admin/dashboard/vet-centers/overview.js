@@ -43,13 +43,15 @@ let Index = withStyles((theme) => {
 					</Typography>
 				</Layout>
 				<Layout alignItems={"center"}>
-					<TextField className={classes.searchField} placeholder={"Search"}/>
+					<TextField className={classes.searchField} placeholder={"Search"} onChange={(e)=>{
+						this.props.dispatch({type:QUERY_VET_CENTERS, payload:{query:e.target.value}});
+					}}/>
 					<Button component={Link} to={"/super-admin/dashboard/vet-centers/add-center"} variant={"raised"} color={"primary"} type={"submit"}> + Add </Button>
 				</Layout>
 			</Layout>
 			<Paper className={classes.list} elevation={0}>
 				{
-					this.props.vetCenters.centers.docs &&
+					this.props.vetCenters.centers &&
 					<Table>
 						<TableHead>
 							<TableRow>
@@ -62,7 +64,7 @@ let Index = withStyles((theme) => {
 						</TableHead>
 						<TableBody>
 							{
-								this.props.vetCenters.centers.docs.map((item, index) => {
+								this.props.vetCenters.centers.map((item, index) => {
 									return <TableRow key={index}>
 
 										<TableCell>

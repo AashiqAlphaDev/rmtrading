@@ -1,4 +1,4 @@
-import {call, put, takeEvery} from 'redux-saga/effects';
+import {call, put, takeEvery, takeLatest} from 'redux-saga/effects';
 import {
 	ADD_VET_CENTER_FAILED,
 	ADD_VET_CENTER_SUCCEDED,
@@ -37,11 +37,12 @@ import base_url from "../base_url";
 
 let queryVetCenters = function* (action) {
 	try {
-		var url = (action.payload && action.payload.query) ? `${base_url}/vaccination-centers?query=${action.payload.query}` : `${base_url}/vaccination-centers`;
+		var url = (action.payload && action.payload.query) ? `${base_url}/vaccination-centers?q=${action.payload.query}` : `${base_url}/vaccination-centers`;
 		const response = yield call(fetch, url, {
 			credentials: 'include'
 		});
 		if (response.ok) {
+			console.log(response)
 			yield put({type: QUERY_VET_CENTERS_SUCCEDED, payload: yield response.json()});
 		}
 		else {
@@ -286,7 +287,7 @@ let updateSlotInterval = function* (action) {
 
 
 function* vetCentersSaga() {
-	yield takeEvery(QUERY_VET_CENTERS, queryVetCenters);
+	yield takeLatest(QUERY_VET_CENTERS, queryVetCenters);
 	yield takeEvery(REQUEST_ADD_VET_CENTER, addVetCenter);
 	yield takeEvery(REQUEST_DELETE_VET_CENTER, deleteVetCenter);
 	yield takeEvery(DELETE_VET_CENTER_SUCCEDED, queryVetCenters);

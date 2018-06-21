@@ -5,21 +5,35 @@ import {
 	REQUEST_VET_CENTER_FETCH,
 	VET_CENTER_FETCH_SUCCEDED,
 	VET_CENTER_FETCH_FAILED,
-	ADMINS_FETCH_SUCCEDED, ADD_ADMIN_SUCCEDED, QUEUES_FETCH_SUCCEDED, ADD_QUEUE_SUCCEDED,
+	ADMINS_FETCH_SUCCEDED,
+	ADD_ADMIN_SUCCEDED,
+	QUEUES_FETCH_SUCCEDED,
+	ADD_QUEUE_SUCCEDED,
+	ADD_VET_CENTER_SUCCEDED,
+	CLEAR_VET_CENTER,
 } from "./actions";
 
 const initVetCenterData = {
-	centers: []
+	centers: [],
+	vaccinationCenterAdded:false
 };
 
 function vetCenterReducer(state = initVetCenterData, action) {
 	switch (action.type) {
+		case CLEAR_VET_CENTER:{
+			state = {...state, vaccinationCenterAdded:false};
+			break;
+		}
 		case QUERY_VET_CENTERS_SUCCEDED: {
-			state = {...state, centers: action.payload, fetchError: null, isQueryInProgress: false};
+			state = {...state, centers: action.payload.docs, fetchError: null, isQueryInProgress: false};
 			break;
 		}
 		case QUERY_VET_CENTERS_FAILED: {
 			state = {...state, fetchError: action.payload, isQueryInProgress: false};
+			break;
+		}
+		case ADD_VET_CENTER_SUCCEDED:{
+			state = {...state, vaccinationCenterAdded:true}
 			break;
 		}
 		case QUERY_VET_CENTERS: {
