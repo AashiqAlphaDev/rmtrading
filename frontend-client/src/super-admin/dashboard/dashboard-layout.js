@@ -15,7 +15,10 @@ let Icon = (_Icon)=>{return (props)=>(<_Icon {...props} size={20} />)};
 const pages = [
     {icon:({className})=>{return <span className={`icon-home ${className}`}></span>}, label: "Overview",  		url: "/super-admin/dashboard"},
     {icon:({className})=>{return <span className={`icon-box ${className}`}></span>}, label: "Vet Centers", 		url: "/super-admin/dashboard/vet-centers"},
-    {icon:({className})=>{return <span className={`icon-syringe-active ${className}`}></span>}, label: "Vaccines", 			url: "/super-admin/dashboard/vaccines"}
+    {icon:({className})=>{return <span className={`icon-syringe-active ${className}`}></span>}, label: "Vaccines", 			url: "/super-admin/dashboard/vaccines"},
+
+
+
 ];
 
 let Index = withStyles((theme) => {
@@ -80,7 +83,6 @@ let Index = withStyles((theme) => {
 										<IconButton>
 											<span className="icon-bell-active"></span>
 										</IconButton>
-
 										<IconButton>
 											<EmailOutlineIcon  />
 										</IconButton>

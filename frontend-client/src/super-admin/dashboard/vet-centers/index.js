@@ -15,7 +15,7 @@ let Index = withStyles((theme) => {
 })(class extends React.Component {
 	componentWillMount() {
 		if (this.props.onPageChange) {
-			this.props.onPageChange("/super-admin/dashboard/pets");
+			this.props.onPageChange("/super-admin/dashboard/vet-centers");
 		}
 	}
 
