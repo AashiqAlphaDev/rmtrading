@@ -3,6 +3,7 @@ import DashboardLayout from "./dashboard-layout"
 import {Redirect, Route} from "react-router-dom";
 import Pets from "./pets"
 import OverView from "./overview"
+import Requests from "./requests"
 import {connect} from "react-redux";
 
 let Index = (class extends React.Component {
@@ -30,6 +31,9 @@ let Index = (class extends React.Component {
 			}}/>
 			<Route path={"/admin/dashboard/pets"} render={() => {
 				return <Pets location={this.props} onPageChange={this.onPageChange.bind(this)}/>
+			}}/>
+			<Route path={"/admin/dashboard/requests"} render={() => {
+				return <Requests location={this.props} onPageChange={this.onPageChange.bind(this)}/>
 			}}/>
 
 		</DashboardLayout>

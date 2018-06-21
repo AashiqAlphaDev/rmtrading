@@ -26,6 +26,10 @@ import petTypesSaga from './pet-types/sagas'
 import userReducer from './users/reducers'
 import userSaga from './users/sagas'
 
+
+import requestReducer from './requests/reducers'
+import requestSaga from './requests/sagas'
+
 const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;
 
 const sagaMiddleware = createSagaMiddleware()
@@ -41,7 +45,8 @@ const store = createStore(combineReducers({
 	vaccineDetail: vaccineDetailReducer,
 	pets: petsReducer,
 	guardianDetail: guardianDetailReducer,
-	users: userReducer
+	users: userReducer,
+    requests:requestReducer
 }), enhancer)
 
 sagaMiddleware.run(authSaga);
@@ -52,6 +57,7 @@ sagaMiddleware.run(vaccinesSaga);
 sagaMiddleware.run(diseasesSaga);
 sagaMiddleware.run(petsSaga);
 sagaMiddleware.run(userSaga);
+sagaMiddleware.run(requestSaga);
 
 
 export default store;

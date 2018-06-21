@@ -5,14 +5,15 @@ import {Link, Switch, Route} from "react-router-dom";
 import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
 import Overview from "./overview"
-import AddPet from "./add-pet"
-import ChooseGuardian from "./choose-guardian"
-import AddGuardian from "./add-guardian"
+import Request from "./make-requests"
+
+
+
 
 import {connect} from "react-redux"
 
 const sideNavPages = [
-	{label: "Register New Pet", url: "/admin/dashboard/pets/choose-guardian"},
+	{label: "Register New Pet", url: "/admin/dashboard/requests/add-request"},
 ];
 
 let Index = withStyles((theme) => {
@@ -22,6 +23,8 @@ let Index = withStyles((theme) => {
 })(class extends React.Component {
 
 	componentWillMount() {
+
+
 		if (this.props.onPageChange) {
 			this.props.onPageChange("/admin/dashboard/pets");
 		}
@@ -50,18 +53,13 @@ let Index = withStyles((theme) => {
 				</Layout>
 				<Layout direction={"column"} className={classes.rightSection}>
 					<Switch>
-						<Route exact path={"/admin/dashboard/pets"} render={(props) => {
+						<Route exact path={"/admin/dashboard/requests"} render={(props) => {
 							return <Overview {...props} />;
 						}}/>
-						<Route exact path={"/admin/dashboard/pets/choose-guardian"} render={(props) => {
-							return <ChooseGuardian {...props} />;
+						<Route exact path={"/admin/dashboard/requests/add-request"} render={(props) => {
+							return <Request {...props} />;
 						}}/>
-						<Route exact path={"/admin/dashboard/pets/add-guardian"} render={(props) => {
-							return <AddGuardian {...props} />;
-						}}/>
-						<Route exact path={"/admin/dashboard/pets/:guardian_id/add-pet"} render={(props) => {
-							return <AddPet {...props} />;
-						}}/>
+
 					</Switch>
 				</Layout>
 			</Layout>

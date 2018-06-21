@@ -26,14 +26,16 @@ let Index = withStyles((theme) => {
 	}
 })(class extends React.Component {
 	componentWillMount() {
+
 		this.props.dispatch({type: QUERY_VET_CENTERS});
 	}
 
 	render() {
 		const {classes} = this.props;
 		return <div className={classes.body}>
-			sample
+
 		</div>;
+
 	}
 });
 
