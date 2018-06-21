@@ -11,9 +11,8 @@ import Tab from "@material-ui/core/es/Tab/Tab";
 import _ from "underscore";
 import {AccountIcon, AppsIcon, BellOutlineIcon} from "mdi-react";
 
-let Icon = (_Icon) => {
-	return (props) => (<_Icon {...props} size={20}/>)
-};
+let Icon = (_Icon)=>{return (props)=>(<_Icon {...props} size={20} />)};
+
 const pages = [
 	{icon: AppsIcon, label: "Overview", url: "/admin/dashboard"},
 	{icon: AppsIcon, label: "Pets", url: "/admin/dashboard/pets"},
