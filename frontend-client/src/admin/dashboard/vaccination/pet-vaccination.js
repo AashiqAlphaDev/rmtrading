@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {REQUEST_PET_FETCH} from "../../../stores/pets/actions";
 import {QUERY_VACCINATIONS} from "../../../stores/vaccinations/actions";
 import List from "@material-ui/core/es/List/List";
-import {ListItem} from "@material-ui/core/es/index";
+import {ListItem, Table, TableBody, TableCell, TableHead, TableRow} from "@material-ui/core/es/index";
 
 let Index = withStyles((theme) => {
 	return {
@@ -49,13 +49,23 @@ let Index = withStyles((theme) => {
 				e.preventDefault();
 				this.props.dispatch({type:REQUEST_PET_FETCH, payload:{pet_id:this.state.pet_id}});
 			}}>
-				<List>
+				<Table>
+					<TableHead>
+						<TableRow>
+							<TableCell>Name</TableCell>
+						</TableRow>
+					</TableHead>
+					<TableBody>
 					{
-						this.props.vaccinations.list.map((item)=>{
-							return <ListItem key={item._id}>{JSON.stringify(item)}</ListItem>
+						this.props.vaccinations.list.map((item, i)=>{
+							return <TableRow key={item._id}>
+								<TableCell>Dose {i}</TableCell>
+								<TableCell>{item.status}</TableCell>
+							</TableRow>
 						})
 					}
-				</List>
+					</TableBody>
+				</Table>
 			</form>
 		</div>;
 	}
