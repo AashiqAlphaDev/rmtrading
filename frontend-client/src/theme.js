@@ -123,7 +123,9 @@ const theme = createMuiTheme({
 		},
 		MuiList: {
 			padding: {
-				padding: 0
+				padding: 0,
+				paddingTop:0,
+				paddingBottom:0
 			}
 		},
 		MuiSwitch: {
