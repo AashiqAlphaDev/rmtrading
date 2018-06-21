@@ -21,8 +21,8 @@ let Index = withStyles((theme) => {
 })(class extends React.Component {
 
 	state = {
-        title: "",
-        desc: "",
+		title: "",
+		desc: "",
 	};
 
 	render() {
@@ -33,7 +33,10 @@ let Index = withStyles((theme) => {
 			<Paper className={classes.paperPage}>
 				<form onSubmit={(e) => {
 					e.preventDefault();
-					this.props.dispatch({type: REQUEST_ADD_REQUEST, payload: {title: this.state.title,desc:this.state.desc,status:"Pending"}});
+					this.props.dispatch({
+						type: REQUEST_ADD_REQUEST,
+						payload: {title: this.state.title, desc: this.state.desc, status: "Pending"}
+					});
 
 				}}>
 					<InputContainer label="Request Title">
@@ -43,8 +46,8 @@ let Index = withStyles((theme) => {
 					</InputContainer>
 					<InputContainer label="Description">
 						<TextField onChange={(e) => {
-                            this.setState({desc: e.target.value})
-                        }}/>
+							this.setState({desc: e.target.value})
+						}}/>
 					</InputContainer>
 					<Layout justifyContent={"flex-end"} className={classes.actions}>
 						<Button> Clear </Button>

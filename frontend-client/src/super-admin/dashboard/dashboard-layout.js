@@ -44,9 +44,11 @@ let Index = withStyles((theme) => {
     }
 	render() {
 		const {classes} = this.props;
-        var currentTab = 0;
-		if(this.props.currentPage !== ""){
-            currentTab = _.findIndex(pages, (item)=>{return item.url===this.props.currentPage});
+		var currentTab = 0;
+		if (this.props.currentPage !== "") {
+			currentTab = _.findIndex(pages, (item) => {
+				return item.url === this.props.currentPage
+			});
 		}
 		 return <div className={classes.fullScreen}>
 				<Layout direction={"column"} className={`flex`}>

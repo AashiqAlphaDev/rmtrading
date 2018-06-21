@@ -7,7 +7,7 @@ const vaccinationsInitData = {
 function vaccinationReducer(state = vaccinationsInitData, action) {
 	switch (action.type) {
 		case QUERY_VACCINATIONS_SUCCEDED: {
-			state = {...state, list:action.payload.docs};
+			state = {...state, list: action.payload.docs};
 			break;
 		}
 		default: {

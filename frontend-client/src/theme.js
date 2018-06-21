@@ -8,7 +8,7 @@ const theme = createMuiTheme({
 		primary: {
 			main: primaryColor
 		},
-		secondary:{
+		secondary: {
 			main: accentColor
 		}
 	},
@@ -48,8 +48,8 @@ const theme = createMuiTheme({
 		},
 		MuiTab: {
 			root: {
-				textTransform:"none",
-				minHeight:"60px"
+				textTransform: "none",
+				minHeight: "60px"
 			},
 			selected: {
 				color: accentColor
@@ -83,7 +83,7 @@ const theme = createMuiTheme({
 			}
 		},
 		MuiAppBar: {
-			colorDefault:{
+			colorDefault: {
 				backgroundColor: "#FFF"
 			},
 			root: {
@@ -123,7 +123,9 @@ const theme = createMuiTheme({
 		},
 		MuiList: {
 			padding: {
-				padding: 0
+				padding: 0,
+				paddingTop: 0,
+				paddingBottom: 0
 			}
 		},
 		MuiSwitch: {

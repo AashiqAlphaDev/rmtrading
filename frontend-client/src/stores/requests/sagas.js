@@ -1,8 +1,8 @@
 import {call, put, takeEvery} from 'redux-saga/effects';
 import {
-    REQUEST_ADD_REQUEST,
-    ADD_REQUEST_SUCCEDED,
-    ADD_REQUEST_FAILED
+	REQUEST_ADD_REQUEST,
+	ADD_REQUEST_SUCCEDED,
+	ADD_REQUEST_FAILED
 } from "./actions";
 import base_url from "../base_url";
 
@@ -27,8 +27,6 @@ let addRequests = function* (action) {
 		yield put({type: ADD_REQUEST_FAILED, payload: error});
 	}
 };
-
-
 
 
 function* requestSaga() {

@@ -49,8 +49,8 @@ const store = createStore(combineReducers({
 	guardianDetail: guardianDetailReducer,
 	users: userReducer,
 	petDetail: petDetailReducer,
-	vaccinations:vaccinationsReducer,
-    requests:requestReducer
+	vaccinations: vaccinationsReducer,
+	requests: requestReducer
 }), enhancer)
 
 sagaMiddleware.run(authSaga);

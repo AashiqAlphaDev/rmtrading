@@ -27,16 +27,16 @@ let Index = withStyles((theme) => {
 		}
 	}
 })(class extends React.Component {
-	state={
-		pet_id:""
+	state = {
+		pet_id: ""
 	}
 
 	componentWillMount() {
-		this.props.dispatch({type: QUERY_VACCINATIONS, payload:{pet_id:this.props.match.params.pet_id}});
+		this.props.dispatch({type: QUERY_VACCINATIONS, payload: {pet_id: this.props.match.params.pet_id}});
 	}
 
-	componentWillReceiveProps(nextProps){
-		if(nextProps.petDetail._id){
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.petDetail._id) {
 
 		}
 	}
@@ -44,9 +44,9 @@ let Index = withStyles((theme) => {
 	render() {
 		const {classes} = this.props;
 		return <div className={classes.body}>
-			<form onSubmit={(e)=>{
+			<form onSubmit={(e) => {
 				e.preventDefault();
-				this.props.dispatch({type:REQUEST_PET_FETCH, payload:{pet_id:this.state.pet_id}});
+				this.props.dispatch({type: REQUEST_PET_FETCH, payload: {pet_id: this.state.pet_id}});
 			}}>
 				<Table>
 					<TableHead>
@@ -55,14 +55,14 @@ let Index = withStyles((theme) => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-					{
-						this.props.vaccinations.list.map((item, i)=>{
-							return <TableRow key={item._id}>
-								<TableCell>Dose {i}</TableCell>
-								<TableCell>{item.status}</TableCell>
-							</TableRow>
-						})
-					}
+						{
+							this.props.vaccinations.list.map((item, i) => {
+								return <TableRow key={item._id}>
+									<TableCell>Dose {i}</TableCell>
+									<TableCell>{item.status}</TableCell>
+								</TableRow>
+							})
+						}
 					</TableBody>
 				</Table>
 			</form>

@@ -47,7 +47,7 @@ router.get("/:request_id", isCenterAdmin, httpCoWrap(function* (req, res, next) 
 }));
 
 router.post("/", isCenterAdmin, httpCoWrap(function* (req, res, next) {
-    req.body.center = req.session.center_id;
+	req.body.center = req.session.center_id;
 	let request = yield RequestsManagementService.createRequest(req.body);
 	res.send(request);
 }));

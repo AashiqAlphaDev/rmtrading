@@ -8,8 +8,6 @@ import Overview from "./overview"
 import Request from "./make-requests"
 
 
-
-
 import {connect} from "react-redux"
 
 const sideNavPages = [
