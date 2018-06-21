@@ -6,10 +6,6 @@ import {connect} from "react-redux"
 import {HospitalIcon} from "mdi-react"
 import {MetricDataCard, OverViewMetric} from "../../../components/dashboard-components";
 
-
-
-
-
 let Index = withStyles((theme)=>{
     return {
         ...style(theme),
@@ -126,7 +122,6 @@ let Index = withStyles((theme)=>{
 						    return <OverViewMetric key={index} title={item.title} metric={item.metric} classes={classes}/>
 					    })
 				    }
-
 			    </Layout>
 			    <Layout>
 					<MetricDataCard title="Top Vet Centers" classes={classes} icon={HospitalIcon} data={this.state.vetCenters}/>
