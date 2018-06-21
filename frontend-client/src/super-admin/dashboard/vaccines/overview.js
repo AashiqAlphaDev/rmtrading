@@ -9,25 +9,23 @@ import {connect} from "react-redux"
 import {QUERY_VACCINES, REQUEST_DELETE_VACCINE} from "../../../stores/vaccines/actions";
 
 let Index = withStyles((theme) => {
-	return {
-		...style(theme),
-		body: {
-			marginLeft: theme.spacing.unit * 2,
-			display: "flex",
-			flexDirection: "column"
-		},
-		title: {
-			background: "#e6ecf0",
-			width: "100%",
-			paddingTop: theme.spacing.unit * 3,
-			paddingBottom: theme.spacing.unit * 2,
-		},
+    return {
+        ...style(theme),
+        body: {
+            marginLeft: theme.spacing.unit * 2,
+            display: "flex",
+            flexDirection: "column"
+        },
+        title: {
+            background: "#e6ecf0",
+            width: "100%"
+        },
 
-		segment: {
-			marginBottom: theme.spacing.unit * 3,
-			padding: theme.spacing.unit * 1
-		}
-	}
+        segment: {
+            marginBottom: theme.spacing.unit * 3,
+            padding: theme.spacing.unit * 1
+        }
+    }
 })(class extends React.Component {
 	componentWillMount() {
 		this.props.dispatch({type: QUERY_VACCINES});
