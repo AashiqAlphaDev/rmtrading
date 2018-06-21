@@ -43,7 +43,9 @@ let Index = withStyles((theme) => {
 					</Typography>
 				</Layout>
 				<Layout alignItems={"center"}>
-					<TextField className={classes.searchField} placeholder={"Search"}/>
+					<TextField className={classes.searchField} placeholder={"Search"} onChange={(e)=>{
+						this.props.dispatch({type:QUERY_VET_CENTERS, payload:{query:e.target.value}});
+					}}/>
 					<Button component={Link} to={"/super-admin/dashboard/vet-centers/add-center"} variant={"raised"} color={"primary"} type={"submit"}> + Add </Button>
 				</Layout>
 			</Layout>

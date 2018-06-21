@@ -1,4 +1,4 @@
-import {call, put, takeEvery} from 'redux-saga/effects';
+import {call, put, takeEvery, takeLatest} from 'redux-saga/effects';
 import {
 	ADD_VET_CENTER_FAILED,
 	ADD_VET_CENTER_SUCCEDED,
@@ -286,7 +286,7 @@ let updateSlotInterval = function* (action) {
 
 
 function* vetCentersSaga() {
-	yield takeEvery(QUERY_VET_CENTERS, queryVetCenters);
+	yield takeLatest(QUERY_VET_CENTERS, queryVetCenters);
 	yield takeEvery(REQUEST_ADD_VET_CENTER, addVetCenter);
 	yield takeEvery(REQUEST_DELETE_VET_CENTER, deleteVetCenter);
 	yield takeEvery(DELETE_VET_CENTER_SUCCEDED, queryVetCenters);
