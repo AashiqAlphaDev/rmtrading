@@ -1,5 +1,12 @@
 export default (theme) => {
 	return ({
+		logo: {
+			display: "block",
+			margin: theme.spacing.unit * 1
+		},
+		tabIcon: {
+			fontSize: "1rem"
+		},
 		card: {
 			minWidth: 500
 		},

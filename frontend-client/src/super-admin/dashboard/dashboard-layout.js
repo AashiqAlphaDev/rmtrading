@@ -58,7 +58,7 @@ let Index = withStyles((theme) => {
 								<Layout alignItems={"center"}>
 									<div className={`flex`}>
 										<Link to={"/super-admin/dashboard/"} className={classes.logo}>
-											<img src={"/logo.png"} style={{height: 40}} alt={"logo"}/>
+											<img src={"/logo.png"} style={{height: 35}} alt={"logo"}/>
 										</Link>
 									</div>
 									<Tabs centered fullWidth value={currentTab}>
@@ -66,7 +66,10 @@ let Index = withStyles((theme) => {
 											pages.map((page, index) => {
 												let PageIcon = Icon(page.icon);
 												let iconClass = (index == currentTab)? classes.selected:'';
-												return <Tab classes={{label: classes.tabIcon}} label={<Layout alignItems={"center"}><PageIcon className={`${iconClass} ${this.props.classes.navIcon}`}/>{page.label}</Layout>}
+												return <Tab classes={{label: classes.tabIcon}}
+												            label={<Layout alignItems={"center"}><PageIcon
+													            className={`${iconClass} ${this.props.classes.navIcon}`}/>{page.label}
+												            </Layout>}
 												            component={Link} to={page.url} key={index}>
 												</Tab>;
 											})
