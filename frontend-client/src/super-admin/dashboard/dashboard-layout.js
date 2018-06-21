@@ -2,7 +2,7 @@ import React from "react";
 import {withStyles} from "@material-ui/core/styles";
 import Layout from "../../components/layout";
 import {AppBar, Toolbar} from "@material-ui/core/index";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import _ from "underscore";
 import style from "./style";
@@ -38,8 +38,14 @@ let Index = withStyles((theme) => {
     )
 })(class extends React.Component {
     state={
-        anchorEl:null
+        anchorEl:null,
+		anchorSettings:null
     }
+    HandleRedirect(url) {
+		<Redirect to={url}/>
+
+    }
+
 	render() {
 		const {classes} = this.props;
 		var currentTab = 0;
@@ -74,27 +80,24 @@ let Index = withStyles((theme) => {
 										}
 									</Tabs>
 									<div>
-										<IconButton component={Link} to={"/super-admin/dashboard/application-data"}>
-											<SettingsOutlineIcon/>
-										</IconButton>
-										<IconButton>
-											<span className="icon-bell-active"></span>
-										</IconButton>
-										<IconButton>
-											<EmailOutlineIcon  />
-										</IconButton>
 										<IconButton onClick={(event)=>{this.setState({anchorEl:event.currentTarget})}}>
-											<AccountIcon />
+											<SettingsOutlineIcon/>
 										</IconButton>
 										<Menu
 											anchorEl={this.state.anchorEl}
 											open={Boolean(this.state.anchorEl)}
 											onClose={()=>{this.setState({anchorEl:null})}}
 										>
+											<MenuItem component={Link} to={"/super-admin/dashboard/application-data/pet-types"}>Pet-Type</MenuItem>
 											<MenuItem onClick={()=>{
-												this.props.dispatch({type:REQUEST_SUPER_ADMIN_LOGOUT});
-											}}>Logout</MenuItem>
+                                                this.props.dispatch({type:REQUEST_SUPER_ADMIN_LOGOUT});
+                                            }}>Logout</MenuItem>
 										</Menu>
+
+										<IconButton>
+											<EmailOutlineIcon  />
+										</IconButton>
+
 									</div>
 								</Layout>
 							</Layout>

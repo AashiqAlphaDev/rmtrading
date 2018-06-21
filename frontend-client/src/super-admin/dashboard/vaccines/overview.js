@@ -11,6 +11,7 @@ import Layout from "../../../components/layout";
 import {QUERY_VACCINES, REQUEST_DELETE_VACCINE} from "../../../stores/vaccines/actions";
 
 let Index = withStyles((theme) => {
+
 	return {
 		...style(theme),
 		body: {
@@ -22,12 +23,11 @@ let Index = withStyles((theme) => {
 			background: "#e6ecf0",
 			width: "100%"
 		},
-
-		segment: {
-			marginBottom: theme.spacing.unit * 3,
-			padding: theme.spacing.unit * 1
-		}
-	}
+        segment: {
+            marginBottom: theme.spacing.unit * 3,
+            padding: theme.spacing.unit * 1
+        }
+    }
 })(class extends React.Component {
 	componentWillMount() {
 		this.props.dispatch({type: QUERY_VACCINES});
