@@ -1,5 +1,5 @@
 import {
-	AUTH_CLEAR,
+	AUTH_CLEAR, CHECK_ADMIN,
 	CHECK_ADMIN_FAILED,
 	CHECK_ADMIN_PASSED,
 	CHECK_SUPER_ADMIN,
@@ -56,16 +56,20 @@ function authReducer(state = initAuthData, action) {
 			state = {...state, isSuperAdmin: true, superAdminCheckInProgress: false};
 			break;
 		}
+		case CHECK_ADMIN: {
+			state = {...state, adminCheckInProgress: true};
+			break;
+		}
 		case CHECK_ADMIN_PASSED: {
 			state = {...state, isAdmin: true, adminCheckInProgress: false};
 			break;
 		}
-		case CHECK_SUPER_ADMIN_FAILED: {
-			state = {...state, isSuperAdmin: false, superAdminCheckInProgress: false};
-			break;
-		}
 		case CHECK_ADMIN_FAILED: {
 			state = {...state, isAdmin: false, adminCheckInProgress: false};
+			break;
+		}
+		case CHECK_SUPER_ADMIN_FAILED: {
+			state = {...state, isSuperAdmin: false, superAdminCheckInProgress: false};
 			break;
 		}
 		case CHECK_SUPER_ADMIN: {

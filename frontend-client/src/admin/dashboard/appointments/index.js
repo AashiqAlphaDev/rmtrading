@@ -13,12 +13,20 @@ import {
 } from "../../../stores/vet-centers/actions";
 import {
 	Button,
-	Dialog, DialogActions,
+	Dialog,
+	DialogActions,
 	DialogContent,
 	DialogContentText,
-	DialogTitle, Divider, IconButton,
+	DialogTitle,
+	Divider,
+	IconButton,
 	List,
-	ListItem, ListItemSecondaryAction, ListItemText, MenuItem, Select, TextField,
+	ListItem,
+	ListItemSecondaryAction,
+	ListItemText,
+	MenuItem,
+	Select,
+	TextField,
 	Typography
 } from "@material-ui/core/es/index";
 import Add from '@material-ui/icons/Add';
@@ -84,10 +92,9 @@ let Index = withStyles((theme) => {
 		if (this.props.vetCenterDetail._id) {
 			return <Layout direction={"column"} flex={1} className={classes.body}>
 				<Layout className={`container ${classes.flex}`} direction={"column"}>
-					<AnnotatedSection title={this.props.vetCenterDetail.name}
-					                  desc={"Please provide the information to register Vaccination Center."}
-					                  backButton={{url: "/super-admin/dashboard/vet-centers"}}
-					                  className={classes.body}
+					<AnnotatedSection
+						title={"Manage Appointments"}
+						className={classes.body}
 					>
 						<div>
 							<Paper className={`${classes.paperPage}`}>
@@ -318,7 +325,6 @@ let Index = withStyles((theme) => {
 							</Dialog>
 						}
 					</AnnotatedSection>
-
 				</Layout>
 			</Layout>;
 		} else {
