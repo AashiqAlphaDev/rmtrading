@@ -1,7 +1,7 @@
 import React from "react";
 import {withStyles} from "@material-ui/core/styles";
 import Layout from "../../components/layout";
-import {AppBar, Toolbar, Button} from "@material-ui/core/index";
+import {AppBar, Toolbar} from "@material-ui/core/index";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
 import {REQUEST_SUPER_ADMIN_LOGOUT} from "../../stores/auth/actions";
@@ -30,7 +30,6 @@ let Index = withStyles(() => (
 	render() {
 		const {classes} = this.props;
         var currentTab = 0;
-        console.log(this.props)
 		if(this.props.currentPage !== ""){
             currentTab = _.findIndex(pages, (item)=>{return item.url===this.props.currentPage});
 		}
@@ -39,7 +38,7 @@ let Index = withStyles(() => (
 				<AppBar position="static" color="default">
 					<Toolbar className={`container`}>
 						<Layout direction={"column"} className={`flex`}>
-						<div className={`flex`}>
+						<div className={`flex ${classes.logo}`}>
 							<Link to={"/super-admin/dashboard/"}>
 								<img src={"/logo.png"} style={{height: 40}} alt={"logo"}/>
 							</Link>

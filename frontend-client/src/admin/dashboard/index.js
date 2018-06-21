@@ -17,8 +17,8 @@ let Index = (class extends React.Component {
 	}
 
 	onPageChange(url) {
+		console.log(url)
 		this.setState({url})
-
 	}
 
 	render() {
@@ -36,8 +36,8 @@ let Index = (class extends React.Component {
 			<Route path={"/admin/dashboard/vaccinations"} render={(props) => {
 				return <Vaccination {...props} onPageChange={this.onPageChange.bind(this)}/>
 			}}/>
-			<Route path={"/admin/dashboard/requests"} render={() => {
-				return <Requests location={this.props} onPageChange={this.onPageChange.bind(this)}/>
+			<Route path={"/admin/dashboard/requests"} render={(props) => {
+				return <Requests {...props} onPageChange={this.onPageChange.bind(this)}/>
 			}}/>
 		</DashboardLayout>
 	}

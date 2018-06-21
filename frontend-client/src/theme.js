@@ -1,11 +1,15 @@
 import {createMuiTheme} from '@material-ui/core/styles';
 
 const primaryColor = "#3a87ca";
+const accentColor = "#f25826";
 
 const theme = createMuiTheme({
 	palette: {
 		primary: {
 			main: primaryColor
+		},
+		secondary:{
+			main: accentColor
 		}
 	},
 	typography: {
@@ -45,10 +49,10 @@ const theme = createMuiTheme({
 		MuiTab: {
 			root: {
 				textTransform:"none",
-                //color: primaryColor
+				minHeight:"60px"
 			},
 			selected: {
-				color: primaryColor
+				color: accentColor
 			},
 		},
 		MuiButton: {
@@ -79,8 +83,11 @@ const theme = createMuiTheme({
 			}
 		},
 		MuiAppBar: {
+			colorDefault:{
+				backgroundColor: "#FFF"
+			},
 			root: {
-				boxShadow: '0px 0px 24px rgba(0,0,0,0.2)',
+				boxShadow: '0px 0px 16px rgba(0,0,0,0.05)',
 				//borderBottom: "1px solid #e8e8e8"
 			}
 		},
