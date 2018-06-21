@@ -39,7 +39,7 @@ let Index = withStyles((theme) => {
 			background: "none",
 		},
 		cardIconSvg: {
-			fill: theme.palette.secondary.main
+			color: theme.palette.secondary.main
 		},
 		titleIconSvg: {
 			paddingRight: 1 * theme.spacing.unit,
@@ -50,12 +50,11 @@ let Index = withStyles((theme) => {
 
 	state = {
 		metrics: [
-			{title: "Vaccinations", metric: "30,000"},
-			{title: "Visits", metric: "30,000"},
-			{title: "Pets", metric: "30,000"},
-			{title: "Vaccines", metric: "30,000"},
-			{title: "Diseases", metric: "30,000"},
-			{title: "Vet Centers", metric: "30,000"},
+			{icon:({className})=>{return <span className={`icon-box ${className}`}></span>}, title: "Vaccinations", metric: "30,000"},
+			{icon:({className})=>{return <span className={`icon-box ${className}`}></span>}, title: "Pets", metric: "30,000"},
+			{icon:({className})=>{return <span className={`icon-box ${className}`}></span>}, title: "Vaccines", metric: "30,000"},
+			{icon:({className})=>{return <span className={`icon-box ${className}`}></span>}, title: "Diseases", metric: "30,000"},
+			{icon:({className})=>{return <span className={`icon-box ${className}`}></span>}, title: "Vet Centers", metric: "30,000"},
 		],
 		vetCenters: {
 			columnTitles: ["Name", {label: "Count", isNumeric: true}],
@@ -120,7 +119,7 @@ let Index = withStyles((theme) => {
 				<Layout>
 					{
 						this.state.metrics.map((item, index) => {
-							return <OverViewMetric key={index} title={item.title} metric={item.metric}
+							return <OverViewMetric key={index} title={item.title} metric={item.metric} Icon={item.icon}
 							                       classes={classes}/>
 						})
 					}

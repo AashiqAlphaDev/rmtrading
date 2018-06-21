@@ -19,7 +19,7 @@ import {
 	DialogContentText,
 	DialogTitle, Divider, IconButton,
 	List,
-	ListItem, ListItemSecondaryAction, ListItemText, MenuItem, Select, TextField,
+	ListItem, ListItemSecondaryAction, ListItemText, MenuItem, Select, Slide, TextField,
 	Typography
 } from "@material-ui/core/es/index";
 import Add from '@material-ui/icons/Add';

@@ -1,0 +1,107 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?aj0fl4');
+  src:  url('fonts/icomoon.eot?aj0fl4#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?aj0fl4') format('truetype'),
+    url('fonts/icomoon.woff?aj0fl4') format('woff'),
+    url('fonts/icomoon.svg?aj0fl4#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-bell-active:before {
+  content: "\e900";
+}
+.icon-bell:before {
+  content: "\e901";
+}
+.icon-box-active:before {
+  content: "\e902";
+}
+.icon-box:before {
+  content: "\e903";
+}
+.icon-chart-bar:before {
+  content: "\e904";
+}
+.icon-chart-bar-active:before {
+  content: "\e905";
+}
+.icon-dog:before {
+  content: "\e906";
+}
+.icon-home:before {
+  content: "\e907";
+}
+.icon-home-active:before {
+  content: "\e908";
+}
+.icon-close:before {
+  content: "\e909";
+}
+.icon-people-active:before {
+  content: "\e90a";
+}
+.icon-people:before {
+  content: "\e90b";
+}
+.icon-group-active:before {
+  content: "\e90c";
+}
+.icon-group:before {
+  content: "\e90d";
+}
+.icon-notepad-active:before {
+  content: "\e90e";
+}
+.icon-notepad:before {
+  content: "\e90f";
+}
+.icon-paw-active:before {
+  content: "\e910";
+}
+.icon-paw:before {
+  content: "\e911";
+}
+.icon-pen-active:before {
+  content: "\e912";
+}
+.icon-pen:before {
+  content: "\e913";
+}
+.icon-settings-gear-active:before {
+  content: "\e914";
+}
+.icon-settings-gear:before {
+  content: "\e915";
+}
+.icon-syringe-active:before {
+  content: "\e916";
+}
+.icon-syringe:before {
+  content: "\e917";
+}
+.icon-time:before {
+  content: "\e918";
+}
+.icon-virus-active:before {
+  content: "\e919";
+}
+.icon-virus:before {
+  content: "\e91a";
+}

@@ -4,7 +4,7 @@ import style from "./style";
 import Layout from "../../components/layout";
 import {AppBar, Toolbar} from "@material-ui/core/index";
 import {Link} from "react-router-dom";
-import {CHECK_ADMIN, REQUEST_LOGOUT, REQUEST_SUPER_ADMIN_LOGOUT} from "../../stores/auth/actions";
+import {CHECK_ADMIN, REQUEST_LOGOUT} from "../../stores/auth/actions";
 import {connect} from "react-redux"
 import {IconButton, Menu, MenuItem, Tabs} from "@material-ui/core/es/index";
 import Tab from "@material-ui/core/es/Tab/Tab";
@@ -16,10 +16,10 @@ let Icon = (_Icon) => {
 };
 
 const pages = [
-	{icon: AppsIcon, label: "Overview", url: "/admin/dashboard"},
-	{icon: AppsIcon, label: "Vaccination", url: "/admin/dashboard/vaccinations"},
-	{icon: AppsIcon, label: "Appointments", url: "/admin/dashboard/appointments"},
-	{icon: AppsIcon, label: "Store", url: "/admin/dashboard/store"},
+	{icon: ({className})=>{return <span className={`icon-home ${className}`}></span>}, label: "Overview", url: "/admin/dashboard"},
+	{icon: ({className})=>{return <span className={`icon-syringe-active ${className}`}></span>}, label: "Vaccination", url: "/admin/dashboard/vaccinations"},
+	{icon: ({className})=>{return <span className={`icon-time ${className}`}></span>}, label: "Appointments", url: "/admin/dashboard/appointments"},
+	{icon: ({className})=>{return <span className={`icon-box ${className}`}></span>}, label: "Store", url: "/admin/dashboard/store"},
 ];
 
 let Index = withStyles((theme) => {
@@ -65,20 +65,24 @@ let Index = withStyles((theme) => {
 							<Layout alignItems={"center"}>
 								<div className={`flex`}>
 									<Link to={"/super-admin/dashboard/"} className={classes.logo}>
-										<img src={"/logo.png"} style={{height: 35}} alt={"logo"}/>
+										<img src={"/logo.png"} style={{height: 30}} alt={"logo"}/>
 									</Link>
 								</div>
 								<Tabs centered value={currentTab}>
 									{
 										pages.map((page, index) => {
 											let PageIcon = Icon(page.icon);
-											let iconClass = (index == currentTab) ? classes.selected : '';
+											let iconClass = (index === currentTab) ? classes.selected : '';
 											return <Tab classes={{label: classes.tabIcon}}
-											            label={<Layout alignItems={"center"}><PageIcon
-												            className={`${iconClass} ${this.props.classes.navIcon}`}/>{page.label}
-											            </Layout>}
-											            component={Link} to={page.url} key={index}>
-											</Tab>;
+											            label={
+											            	<Layout alignItems={"center"}>
+													            <PageIcon className={`${iconClass} ${this.props.classes.navIcon}`}/>
+												                {page.label}
+											                </Layout>
+											            }
+											            component={Link}
+											            to={page.url}
+											            key={index} />;
 										})
 									}
 								</Tabs>
@@ -87,7 +91,7 @@ let Index = withStyles((theme) => {
 										<SettingsOutlineIcon/>
 									</IconButton>
 									<IconButton>
-										<BellOutlineIcon/>
+										<span className="icon-bell-active"></span>
 									</IconButton>
 									<IconButton onClick={(event) => {
 										this.setState({anchorEl: event.currentTarget})
