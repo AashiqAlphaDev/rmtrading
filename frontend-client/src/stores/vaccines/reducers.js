@@ -6,7 +6,7 @@ import {
 	VACCINE_FETCH_SUCCEDED,
 	VACCINE_FETCH_FAILED,
 	ADD_DOSAGE_SUCCEDED,
-	CLEAR_VACCINES,
+	CLEAR_VACCINES, ADD_VACCINE_SUCCEDED,
 } from "./actions";
 
 const initVaccineData = {
@@ -21,8 +21,12 @@ function vaccineReducer(state = initVaccineData, action) {
 			break;
 		}
 		case QUERY_VACCINES_SUCCEDED: {
-			state = {...state, list: action.payload.docs, fetchError: null, isQueryInProgress: false, vaccineAdded:true};
+			state = {...state, list: action.payload.docs, fetchError: null, isQueryInProgress: false};
 			break;
+		}
+		case ADD_VACCINE_SUCCEDED:{
+			state = {...state, vaccineAdded:true}
+			break
 		}
 		case QUERY_VACCINES_FAILED: {
 			state = {...state, fetchError: action.payload, isQueryInProgress: false};

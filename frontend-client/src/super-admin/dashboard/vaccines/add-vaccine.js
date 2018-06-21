@@ -284,9 +284,8 @@ let Index = withStyles((theme) => {
 											<Checkbox
 												checked={this.state.forMale}
 												onChange={(e) => {
-													this.setState({forMale: e.target.value})
+													this.setState({forMale: e.target.checked})
 												}}
-												value={this.state.forMale}
 												color="primary"
 											/>
 										}
@@ -297,9 +296,8 @@ let Index = withStyles((theme) => {
 											<Checkbox
 												checked={this.state.forFemale}
 												onChange={(e) => {
-													this.setState({forFemale: e.target.value})
+													this.setState({forFemale: e.target.checked});
 												}}
-												value={this.state.forFemale}
 												color="primary"
 											/>
 										}

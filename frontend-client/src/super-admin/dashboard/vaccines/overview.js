@@ -39,7 +39,7 @@ let Index = withStyles((theme) => {
 			<Layout alignItems={"center"}>
 				<Layout flex={1}>
 					<Typography variant="title" className={classes.title}>
-						Manage Vet Centers
+						Manage Vaccines
 					</Typography>
 				</Layout>
 				<Layout alignItems={"center"}>

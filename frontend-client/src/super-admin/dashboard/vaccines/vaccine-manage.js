@@ -40,6 +40,9 @@ let Index = withStyles((theme) => {
 		},
 		dialog: {
 			minWidth: 500
+		},
+		body:{
+			marginTop: theme.spacing.unit * 2
 		}
 	}
 })(class extends React.Component {
@@ -56,7 +59,7 @@ let Index = withStyles((theme) => {
 	};
 
 	componentWillMount() {
-		this.props.dispatch({type: REQUEST_VACCINE_FETCH, payload: {vaccine_id: this.props.vaccineId}})
+		this.props.dispatch({type: REQUEST_VACCINE_FETCH, payload: {vaccine_id: this.props.match.params.vaccine_id}})
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -70,7 +73,7 @@ let Index = withStyles((theme) => {
 		if (this.props.vaccineDetail._id) {
 			return <AnnotatedSection title={this.props.vaccineDetail.name}
 			                         desc={"Please provide the information to register Vaccination Center."}
-			                         backButton={{url: "/super-admin/dashboard/vaccines"}}>
+			                         backButton={{url: "/super-admin/dashboard/vaccines"}} className={classes.body}>
 				<div>
 					<Paper className={`${classes.paperPage} ${classes.paper}`}>
 						<div className={`${classes.section}`}>
