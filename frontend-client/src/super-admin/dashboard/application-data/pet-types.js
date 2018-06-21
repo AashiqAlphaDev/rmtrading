@@ -4,8 +4,10 @@ import {withStyles} from "@material-ui/core/styles/index";
 import style from "../style";
 import {QUERY_PET_TYPES, REQUEST_DELETE_PET_TYPE} from "../../../stores/pet-types/actions";
 import {IconButton} from "@material-ui/core/es/index";
-import {DeleteIcon} from "mdi-react";
+import {DeleteIcon, EditIcon} from "mdi-react";
 import {connect} from "react-redux";
+import {Link} from "react-router-dom";
+import AnnotatedSection from "../../../components/annotated-section";
 
 let Index = withStyles((theme) => {
 	return {
@@ -13,7 +15,10 @@ let Index = withStyles((theme) => {
 		actions: {
 			marginTop: theme.spacing.unit * 4,
 			marginBottom: theme.spacing.unit * 4
-		}
+		},
+        body:{
+            marginTop: theme.spacing.unit * 2
+        }
 	}
 })(class extends React.PureComponent {
 	componentWillMount() {
@@ -22,12 +27,11 @@ let Index = withStyles((theme) => {
 
 	render() {
 		const {classes} = this.props;
-		return <div>
-			<div>
-				<Typography variant="title" className={`${classes.title} flex`}>
-					Pet Type list
-				</Typography>
-			</div>
+		return <AnnotatedSection
+				title={"Pet Type list"}
+				desc={"These are the list of existing Inventories"}
+				backButton={{url: "/super-admin/dashboard"}}
+				className={classes.body}>
 			<Paper>
 				<Table>
 					<TableHead>
@@ -52,14 +56,22 @@ let Index = withStyles((theme) => {
 												});
 											}}/>
 										</IconButton>
+										<Link to={`/super-admin/dashboard/application-data/pet-types/${item._id}/manage`}>
+											<IconButton>
+												<EditIcon color="primary"/>
+											</IconButton>
+										</Link>
 									</TableCell>
 								</TableRow>
 							})
+
+
 						}
 					</TableBody>
 				</Table>
 			</Paper>
-		</div>
+		</AnnotatedSection>
+
 
 	}
 });

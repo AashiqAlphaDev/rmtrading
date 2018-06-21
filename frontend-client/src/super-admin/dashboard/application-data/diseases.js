@@ -6,6 +6,7 @@ import {connect} from "react-redux"
 import {QUERY_DISEASES, REQUEST_DELETE_DISEASE} from "../../../stores/diseases/actions";
 import {IconButton} from "@material-ui/core/es/index";
 import {DeleteIcon} from "mdi-react";
+import AnnotatedSection from "../../../components/annotated-section";
 
 let Index = withStyles((theme) => {
 	return {
@@ -13,7 +14,10 @@ let Index = withStyles((theme) => {
 		actions: {
 			marginTop: theme.spacing.unit * 4,
 			marginBottom: theme.spacing.unit * 4
-		}
+		},
+        body:{
+            marginTop: theme.spacing.unit * 2
+        }
 	}
 })(class extends React.Component {
 	componentWillMount() {
@@ -22,12 +26,11 @@ let Index = withStyles((theme) => {
 
 	render() {
 		const {classes} = this.props;
-		return <div>
-			<div>
-				<Typography variant="title" className={`${classes.title} flex`}>
-					Disease list
-				</Typography>
-			</div>
+		return <AnnotatedSection
+				title={"Disease list"}
+				desc={"These are the list of existing Diseases"}
+				backButton={{url: "/super-admin/dashboard"}}
+				className={classes.body}>
 			<Paper>
 				<Table>
 					<TableHead>
@@ -59,7 +62,7 @@ let Index = withStyles((theme) => {
 					</TableBody>
 				</Table>
 			</Paper>
-		</div>
+		</AnnotatedSection>
 
 	}
 });
