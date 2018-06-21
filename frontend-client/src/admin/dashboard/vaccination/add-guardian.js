@@ -7,6 +7,16 @@ import {withStyles} from "@material-ui/core/styles/index";
 import {connect} from "react-redux";
 import style from "../style";
 import {REQUEST_CREATE_USER} from "../../../stores/users/actions";
+import {
+	BREED_CLEAR_MATCHES,
+	PET_TYPE_CLEAR_MATCHES,
+	REQUEST_ADD_BREED,
+	REQUEST_ADD_PET_TYPE
+} from "../../../stores/pet-types/actions";
+import {REQUEST_ADD_VACCINE} from "../../../stores/vaccines/actions";
+import {DISEASE_CLEAR_MATCHES, REQUEST_ADD_DISEASE} from "../../../stores/diseases/actions";
+import {COUNTRY_CLEAR_MATCHES, REQUEST_ADD_COUNTRY} from "../../../stores/countries/actions";
+import {Redirect} from "react-router-dom";
 
 let Index = withStyles((theme) => {
 	return {
@@ -14,6 +24,10 @@ let Index = withStyles((theme) => {
 		actions: {
 			marginTop: theme.spacing.unit * 4,
 			marginBottom: theme.spacing.unit * 4
+		},
+		body: {
+
+			marginTop: theme.spacing.unit * 2
 		}
 	}
 })(class extends React.PureComponent {
@@ -32,12 +46,16 @@ let Index = withStyles((theme) => {
 
 	render() {
 		const {classes} = this.props;
-		return <AnnotatedSection title={"Add Vaccination Center"}
-		                         backButton={{url: "/super-admin/dashboard/pets"}}>
+		return <AnnotatedSection title={"Add Guardian"}
+		                         desc={"Please provide the information to add Vaccine."}
+		                         backButton={{url: "/admin/dashboard/vaccinations"}} className={classes.body}>
+			{
+				this.props.vaccines.guardianAdded &&
+				<Redirect to={"/super-admin/dashboard/vaccinations"}/>
+			}
 			<Paper className={classes.paperPage}>
 				<form onSubmit={(e) => {
 					e.preventDefault();
-
 					let guardianData = {
 						name: this.state.name,
 						mobile_number: this.state.mobile_number,
@@ -55,9 +73,6 @@ let Index = withStyles((theme) => {
 				}}>
 
 					<Layout direction={"column"}>
-						<Typography variant="subheading" className={classes.title}>
-							Guardian Details
-						</Typography>
 						<InputContainer label={"Name"}>
 							<TextField onChange={(e) => {
 								this.setState({name: e.target.value})
@@ -68,8 +83,6 @@ let Index = withStyles((theme) => {
 								this.setState({mobile_number: e.target.value})
 							}}/>
 						</InputContainer>
-
-
 						<InputContainer label={"Email"}>
 							<TextField onChange={(e) => {
 								this.setState({email: e.target.value})
@@ -99,7 +112,9 @@ let Index = withStyles((theme) => {
 					</Layout>
 				</form>
 			</Paper>
-		</AnnotatedSection>;
+		</AnnotatedSection>
+
+
 	}
 });
 

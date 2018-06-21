@@ -53,9 +53,6 @@ let Index = withStyles((theme) => {
 						<Route exact path={"/admin/dashboard/pets"} render={(props) => {
 							return <Overview {...props} />;
 						}}/>
-						<Route exact path={"/admin/dashboard/pets/choose-guardian"} render={(props) => {
-							return <ChooseGuardian {...props} />;
-						}}/>
 						<Route exact path={"/admin/dashboard/pets/add-guardian"} render={(props) => {
 							return <AddGuardian {...props} />;
 						}}/>

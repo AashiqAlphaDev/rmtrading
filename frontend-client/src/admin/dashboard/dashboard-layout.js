@@ -4,20 +4,29 @@ import style from "./style";
 import Layout from "../../components/layout";
 import {AppBar, Toolbar} from "@material-ui/core/index";
 import {Link} from "react-router-dom";
-import {CHECK_ADMIN, REQUEST_LOGOUT} from "../../stores/auth/actions";
+import {REQUEST_LOGOUT} from "../../stores/auth/actions";
 import {connect} from "react-redux"
-import {IconButton, Menu, MenuItem, Tabs} from "@material-ui/core/es/index";
+import {
+	DialogContent,
+	Divider,
+	ExpansionPanel, ExpansionPanelDetails,
+	IconButton,
+	Menu,
+	MenuItem, Tabs} from "@material-ui/core/es/index";
 import Tab from "@material-ui/core/es/Tab/Tab";
 import _ from "underscore";
-import {AccountIcon, SettingsOutlineIcon} from "mdi-react";
+import {MagnifyIcon, SettingsOutlineIcon} from "mdi-react";
 
 let Icon = (_Icon) => {
 	return (props) => (<_Icon {...props} size={20}/>)
 };
 
+
+
+
 const pages = [
 	{icon: ({className})=>{return <span className={`icon-home ${className}`}></span>}, label: "Overview", url: "/admin/dashboard"},
-	{icon: ({className})=>{return <span className={`icon-syringe-active ${className}`}></span>}, label: "Vaccination", url: "/admin/dashboard/vaccinations"},
+	{icon: ({className})=>{return <span className={`icon-dog ${className}`}></span>}, label: "Pets", url: "/admin/dashboard/vaccinations"},
 	{icon: ({className})=>{return <span className={`icon-time ${className}`}></span>}, label: "Appointments", url: "/admin/dashboard/appointments"},
 	{icon: ({className})=>{return <span className={`icon-box ${className}`}></span>}, label: "Store", url: "/admin/dashboard/store"},
 ];
@@ -42,7 +51,8 @@ let Index = withStyles((theme) => {
 	)
 })(class extends React.Component {
 	state = {
-		anchorEl: null
+		anchorEl: null,
+		showSearchDialogue:false
 	}
 
 	componentWillMount() {
@@ -60,7 +70,7 @@ let Index = withStyles((theme) => {
 		return <div className={classes.fullScreen}>
 			<Layout direction={"column"} className={`flex`}>
 				<AppBar position="static" color="default">
-					<Toolbar className={`container`}>
+					<Toolbar>
 						<Layout direction={"column"} className={`flex`}>
 							<Layout alignItems={"center"}>
 								<div className={`flex`}>
@@ -87,16 +97,15 @@ let Index = withStyles((theme) => {
 									}
 								</Tabs>
 								<div>
-									<IconButton>
-										<SettingsOutlineIcon/>
-									</IconButton>
-									<IconButton>
-										<span className="icon-bell-active"></span>
+									<IconButton onClick={()=>{
+										this.setState({showSearchDialogue:true});
+									}}>
+										<MagnifyIcon />
 									</IconButton>
 									<IconButton onClick={(event) => {
 										this.setState({anchorEl: event.currentTarget})
 									}}>
-										<AccountIcon/>
+										<SettingsOutlineIcon/>
 									</IconButton>
 									<Menu
 										anchorEl={this.state.anchorEl}

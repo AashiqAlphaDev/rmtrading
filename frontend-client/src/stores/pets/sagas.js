@@ -1,4 +1,4 @@
-import {call, put, takeEvery} from 'redux-saga/effects';
+import {call, put, takeEvery,takeLatest} from 'redux-saga/effects';
 import base_url from "../base_url";
 import {
 	GUARDIAN_FETCH_SUCCEDED,
@@ -70,7 +70,7 @@ let fetchPet = function* (action) {
 }
 
 function* petsSaga() {
-	yield takeEvery(REQUEST_GUARDIAN_FETCH, fetchGuardian);
+	yield takeLatest(REQUEST_GUARDIAN_FETCH, fetchGuardian);
 	yield takeEvery(REQUEST_CREATE_PET, createPet);
 	yield takeEvery(REQUEST_PET_FETCH, fetchPet);
 }

@@ -28,7 +28,6 @@ let Index = withStyles((theme) => {
 
 	componentWillMount() {
 		this.props.dispatch({type: QUERY_PET_TYPES});
-		console.log(this.props)
 	}
 
 

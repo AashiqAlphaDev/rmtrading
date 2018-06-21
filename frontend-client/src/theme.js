@@ -107,7 +107,7 @@ const theme = createMuiTheme({
 		MuiExpansionPanel: {
 			root: {
 				boxShadow: 'none',
-				border: "1px solid #e8e8e8"
+				//border: "1px solid #e8e8e8"
 			}
 		},
 		MuiInput: {

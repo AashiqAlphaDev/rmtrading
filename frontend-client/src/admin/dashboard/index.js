@@ -16,7 +16,7 @@ let Index = (class extends React.Component {
 	};
 
 	componentWillMount(){
-		this.props.dispatch({type: CHECK_ADMIN})
+		this.props.dispatch({type: CHECK_ADMIN});
 	}
 
 	onPageChange(url) {

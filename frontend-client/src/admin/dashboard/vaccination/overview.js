@@ -4,14 +4,15 @@ import style from "../style";
 import {connect} from "react-redux";
 import {QUERY_VET_CENTERS} from "../../../stores/vet-centers/actions";
 import {
-	Dialog,
-	DialogContent,
-	Divider, ExpansionPanel, ExpansionPanelDetails, Paper,
-	Slide,
+	Avatar, Button, Dialog, DialogContent, Divider, ExpansionPanel, ExpansionPanelDetails,
+	Paper, Slide,
 	TextField,
 	Typography
 } from "@material-ui/core/es/index";
 import Layout from "../../../components/layout";
+import {ArrowRightIcon} from "mdi-react";
+import {REQUEST_GUARDIAN_FETCH} from "../../../stores/pets/actions";
+import Link from "react-router-dom/es/Link";
 
 function Transition(props) {
 	return <Slide direction="up" {...props} />;
@@ -36,22 +37,17 @@ let Index = withStyles((theme) => {
 		listTitle: {
 			padding: theme.spacing.unit * 2
 		},
-		cardBig: {
-			minHeight:300,
-		},
 		card: {
-			minHeight:200,
 			display:"flex",
 			flexDirection:"column",
-			justifyContent:"center",
 			flex: 1,
 			margin: theme.spacing.unit * 1,
 			padding: theme.spacing.unit * 2,
 			boxShadow: '0px 0px 16px rgba(0,0,0,0.05)',
 		},
 		cardInfo: {
+			marginLeft: theme.spacing.unit * 1,
 			flex:1,
-			alignItems:"center"
 		},
 		cardIcon: {
 			border: `2px solid ${theme.palette.grey['200']}`,
@@ -63,12 +59,16 @@ let Index = withStyles((theme) => {
 		titleIconSvg: {
 			paddingRight: 1 * theme.spacing.unit,
 			fill: theme.palette.secondary.main
+		},
+		icon:{
+			color: theme.palette.secondary.main
 		}
 	}
 })(class extends React.Component {
 	state = {
 		pet_id: "",
-		showResults:false
+		showResults:false,
+		showSearchDialogue:false
 	}
 
 	componentWillMount() {
@@ -84,38 +84,40 @@ let Index = withStyles((theme) => {
 	render() {
 		const {classes} = this.props;
 		return <Layout direction={"column"} className={classes.body} justifyContent={"center"}>
-			<Layout  alignItems={"center"}>
-				<Paper className={classes.card}>
-					<Layout>
+			<Layout alignItems={"center"}>
+				<Paper className={classes.card} onClick={()=>{
+					this.setState({showSearchDialogue:true});
+				}}>
+					<Layout alignItems={"center"}>
+						<Avatar className={classes.cardIcon}>
+							<span className={`icon-dog ${classes.icon}`}></span>
+						</Avatar>
 						<Layout direction={"column"} className={classes.cardInfo}>
-							<Typography color={"textSecondary"}>Sample</Typography>
+							<Typography color={"textSecondary"}>Register to generate health record</Typography>
 							<Typography variant={"title"}>New Pet Registration</Typography>
 						</Layout>
+						<ArrowRightIcon />
 					</Layout>
 				</Paper>
-				<Paper className={classes.card}>
-					<Layout alignItems={"center"}>
-						<Layout direction={"column"} className={classes.cardInfo} flex={1}>
-							<Typography color={"textSecondary"}>Sample</Typography>
-							<Typography variant={"title"}>Search</Typography>
-						</Layout>
-						<TextField />
-					</Layout>
-				</Paper>
+
 				<Paper className={classes.card} onClick={()=>{this.setState({showGuardianDialogue:true})}}>
-					<Layout>
+					<Layout alignItems={"center"}>
+						<Avatar className={classes.cardIcon}>
+							<span className={`icon-notepad ${classes.icon}`}></span>
+						</Avatar>
 						<Layout direction={"column"} className={classes.cardInfo}>
-							<Typography color={"textSecondary"}>Sample</Typography>
-							<Typography variant={"title"}>Open Reports</Typography>
+							<Typography color={"textSecondary"}>Vaccination & Health records</Typography>
+							<Typography variant={"title"}>Open Record</Typography>
 						</Layout>
+						<ArrowRightIcon />
 					</Layout>
 				</Paper>
 			</Layout>
 			<Dialog
 				TransitionComponent={Transition}
-				open={this.state.showGuardianDialogue}
+				open={this.state.showSearchDialogue}
 				onClose={() => {
-					this.setState({showGuardianDialogue: false})
+					this.setState({showSearchDialogue: false})
 				}}
 			>
 				<DialogContent>
@@ -126,17 +128,34 @@ let Index = withStyles((theme) => {
 						<Typography variant={"body1"} gutterBottom color={"textSecondary"} >
 							Provide necessary information to identify existing guardian.
 						</Typography>
-							<TextField autoFocus placeholder={"Enter Guardian Mobile No / Gov Identity No"} onChange={()=>{
-								this.setState({showResults:!this.state.showResults})
+						<form style={{display:"flex"}} onSubmit={(e)=>{
+							e.preventDefault();
+							this.props.dispatch({type:REQUEST_GUARDIAN_FETCH, payload:{query:this.state.guardianQuery}});
+						}}>
+							<TextField className={`flex`} autoFocus placeholder={"Enter Guardian Mobile No / Gov Identity No"} onChange={(event)=>{
+								this.setState({guardianQuery:event.target.value})
 							}}/>
-						<Divider />
-						<ExpansionPanel expanded={this.state.showResults}>
-							<ExpansionPanelDetails>
-								<Typography>
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-									sit amet blandit leo lobortis eget.
-								</Typography>
-							</ExpansionPanelDetails>
+							<button style={{display:"none"}} type={"submit"}></button>
+						</form>
+						<ExpansionPanel expanded={Boolean(this.props.guardianDetail._id)||Boolean(this.props.guardianDetail.noMatch)}>
+							{
+								this.props.guardianDetail.noMatch &&
+
+									<Layout alignItems={"center"}>
+										<Typography variant={"body2"} className={`flex`}>
+											No Record found.
+										</Typography>
+										<Button component={Link} to={"/admin/dashboard/vaccinations/add-guardian"} color={"primary"}>Register</Button>
+									</Layout>
+							}
+							{
+								this.props.guardianDetail._id &&
+								<ExpansionPanelDetails>
+									<Typography>
+										{JSON.stringify(this.props.guardianDetail)}
+									</Typography>
+								</ExpansionPanelDetails>
+							}
 						</ExpansionPanel>
 					</Layout>
 				</DialogContent>

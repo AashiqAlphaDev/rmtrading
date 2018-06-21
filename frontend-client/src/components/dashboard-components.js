@@ -14,7 +14,6 @@ const OverViewMetric = ({title, metric, classes, Icon}) => {
 						Icon &&
 						<Icon className={`${classes.cardIconSvg}`}/>
 					}
-
 				</Avatar>
 				<Layout direction={"column"} className={classes.cardInfo}>
 					<Typography color={"textSecondary"}>{title}</Typography>
