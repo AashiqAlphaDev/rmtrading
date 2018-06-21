@@ -63,6 +63,9 @@ let Index = withStyles((theme) => {
 	};
 
 	componentWillMount() {
+		if (this.props.onPageChange) {
+			this.props.onPageChange("/admin/dashboard/appointments");
+		}
 		this.props.dispatch({type: REQUEST_VET_CENTER_FETCH, payload: {center_id: "self"}});
 	}
 
@@ -84,6 +87,7 @@ let Index = withStyles((theme) => {
 
 	render() {
 		const {classes} = this.props;
+		console.log(this.props.vetCenterDetail);
 		if (this.props.vetCenterDetail._id) {
 			return <AnnotatedSection title={this.props.vetCenterDetail.name}
 			                         desc={"Please provide the information to register Vaccination Center."}
