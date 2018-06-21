@@ -7,7 +7,8 @@ import {connect} from "react-redux";
 import _ from "underscore";
 import style from "./style";
 import {IconButton, Menu, MenuItem, Tabs,Tab} from "@material-ui/core/es/index";
-import {AccountIcon, AppsIcon, BellOutlineIcon, EmailOutlineIcon} from "mdi-react";
+import {AccountIcon, AppsIcon, EmailOutlineIcon} from "mdi-react";
+import {REQUEST_SUPER_ADMIN_LOGOUT} from "../../stores/auth/actions";
 
 let Icon = (_Icon)=>{return (props)=>(<_Icon {...props} size={20} />)};
 
@@ -83,7 +84,9 @@ let Index = withStyles((theme) => {
 											open={Boolean(this.state.anchorEl)}
 											onClose={()=>{this.setState({anchorEl:null})}}
 										>
-											<MenuItem onClick={this.handleClose}>Logout</MenuItem>
+											<MenuItem onClick={()=>{
+												this.props.dispatch({type:REQUEST_SUPER_ADMIN_LOGOUT});
+											}}>Logout</MenuItem>
 										</Menu>
 									</div>
 								</Layout>

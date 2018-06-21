@@ -4,7 +4,7 @@ import style from "./style";
 import Layout from "../../components/layout";
 import {AppBar, Toolbar} from "@material-ui/core/index";
 import {Link} from "react-router-dom";
-import {CHECK_ADMIN} from "../../stores/auth/actions";
+import {CHECK_ADMIN, REQUEST_LOGOUT, REQUEST_SUPER_ADMIN_LOGOUT} from "../../stores/auth/actions";
 import {connect} from "react-redux"
 import {IconButton, Menu, MenuItem, Tabs} from "@material-ui/core/es/index";
 import Tab from "@material-ui/core/es/Tab/Tab";
@@ -100,7 +100,9 @@ let Index = withStyles((theme) => {
 											this.setState({anchorEl: null})
 										}}
 									>
-										<MenuItem onClick={this.handleClose}>Logout</MenuItem>
+										<MenuItem onClick={()=>{
+											this.props.dispatch({type:REQUEST_LOGOUT});
+										}}>Logout</MenuItem>
 									</Menu>
 								</div>
 							</Layout>

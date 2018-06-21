@@ -98,7 +98,9 @@ let deleteVetCenter = function* (action) {
 
 let fetchVetCenter = function* (action) {
 	try {
-		const response = yield call(fetch, `${base_url}/vaccination-centers/${action.payload.center_id}`);
+		const response = yield call(fetch, `${base_url}/vaccination-centers/${action.payload.center_id}`, {
+			credentials: 'include'
+		});
 		if (response.ok) {
 			yield put({type: VET_CENTER_FETCH_SUCCEDED, payload: yield response.json()});
 		}
