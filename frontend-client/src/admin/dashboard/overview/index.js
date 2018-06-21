@@ -4,53 +4,53 @@ import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
 import {connect} from "react-redux"
 import {
-	Divider,
-	Paper,
-	Table,
-	TableBody, TableCell, TableHead,
-	TableRow,
-	Typography
+    Divider,
+    Paper,
+    Table,
+    TableBody, TableCell, TableHead,
+    TableRow,
+    Typography
 } from "@material-ui/core/es/index";
-import {HospitalIcon, AccountBoxIcon} from "mdi-react"
+import {HospitalIcon,AccountBoxIcon} from "mdi-react"
 
-let Index = withStyles((theme) => {
-	return {
-		...style(theme),
-		body: {
-			overflow: "scroll"
-		},
-		content: {
-			marginTop: theme.spacing.unit * 2,
-		},
-		listCard: {
-			flex: 1,
-			minWidth: 200,
-			margin: theme.spacing.unit * 1
-		},
-		listTitle: {
-			padding: theme.spacing.unit * 2
-		},
-		card: {
-			flex: 1,
-			minWidth: 200,
-			margin: theme.spacing.unit * 1,
-			padding: theme.spacing.unit * 2
-		},
-		cardInfo: {
-			marginLeft: theme.spacing.unit * 2,
-		}
-	}
+let Index = withStyles((theme)=>{
+    return {
+        ...style(theme),
+        body:{
+            overflow:"scroll"
+        },
+        content:{
+            marginTop:theme.spacing.unit*2,
+        },
+        listCard:{
+            flex:1,
+            minWidth:200,
+            margin:theme.spacing.unit*1
+        },
+        listTitle:{
+            padding:theme.spacing.unit*2
+        },
+        card:{
+            flex:1,
+            minWidth:200,
+            margin:theme.spacing.unit*1,
+            padding:theme.spacing.unit*2
+        },
+        cardInfo:{
+            marginLeft:theme.spacing.unit*2,
+        }
+    }
 })(class extends React.Component {
 
-	componentWillMount() {
-		if (this.props.onPageChange) {
-			this.props.onPageChange("/super-admin/dashboard/");
-		}
-	}
+    componentWillMount(){
+        if(this.props.onPageChange){
+            this.props.onPageChange("/super-admin/dashboard/");
+        }
+    }
 
-	render() {
-		const {classes} = this.props;
-		return <div direction={"column"} flex={1} className={`${classes.body}`}>
+    render(){
+        const {classes} = this.props;
+        return <div direction={"column"} flex={1} className={`${classes.body}`}>
 			<div className={`container ${classes.content}`}>
 				<Layout>
 					<Paper className={classes.card} elevation={0}>
@@ -113,9 +113,8 @@ let Index = withStyles((theme) => {
 				<Layout>
 					<Paper className={classes.listCard} elevation={0}>
 						<Layout direction={"column"}>
-							<Typography className={classes.listTitle} gutterBottom variant={"title"}>Top
-								States</Typography>
-							<Divider/>
+							<Typography className={classes.listTitle} gutterBottom variant={"title"}>Top States</Typography>
+							<Divider />
 							<Table>
 								<TableHead>
 									<TableRow>
@@ -124,23 +123,22 @@ let Index = withStyles((theme) => {
 									</TableRow>
 								</TableHead>
 								<TableBody>
-									{
-										[1, 2, 3, 4, 5, 6].map((i) => {
-											return <TableRow key={i}>
+                                    {
+                                        [1,2,3,4,5,6].map((i)=>{
+                                            return <TableRow key={i}>
 												<TableCell>Sample {i}</TableCell>
 												<TableCell numeric>100</TableCell>
 											</TableRow>
-										})
-									}
+                                        })
+                                    }
 								</TableBody>
 							</Table>
 						</Layout>
 					</Paper>
 					<Paper className={classes.listCard} elevation={0}>
 						<Layout direction={"column"}>
-							<Typography className={classes.listTitle} gutterBottom variant={"title"}>Top Vet
-								Centers</Typography>
-							<Divider/>
+							<Typography className={classes.listTitle} gutterBottom variant={"title"}>Top Vet Centers</Typography>
+							<Divider />
 							<Table>
 								<TableHead>
 									<TableRow>
@@ -149,23 +147,22 @@ let Index = withStyles((theme) => {
 									</TableRow>
 								</TableHead>
 								<TableBody>
-									{
-										[1, 2, 3, 4, 5, 6].map((i) => {
-											return <TableRow key={i}>
+                                    {
+                                        [1,2,3,4,5,6].map((i)=>{
+                                            return <TableRow key={i}>
 												<TableCell>Sample {i}</TableCell>
 												<TableCell numeric>100</TableCell>
 											</TableRow>
-										})
-									}
+                                        })
+                                    }
 								</TableBody>
 							</Table>
 						</Layout>
 					</Paper>
 					<Paper className={classes.listCard} elevation={0}>
 						<Layout direction={"column"}>
-							<Typography className={classes.listTitle} gutterBottom variant={"title"}>Top
-								Vaccines</Typography>
-							<Divider/>
+							<Typography className={classes.listTitle} gutterBottom variant={"title"}>Top Vaccines</Typography>
+							<Divider />
 							<Table>
 								<TableHead>
 									<TableRow>
@@ -174,14 +171,14 @@ let Index = withStyles((theme) => {
 									</TableRow>
 								</TableHead>
 								<TableBody>
-									{
-										[1, 2, 3, 4, 5, 6].map((i) => {
-											return <TableRow key={i}>
+                                    {
+                                        [1,2,3,4,5,6].map((i)=>{
+                                            return <TableRow key={i}>
 												<TableCell>Sample {i}</TableCell>
 												<TableCell numeric>100</TableCell>
 											</TableRow>
-										})
-									}
+                                        })
+                                    }
 								</TableBody>
 							</Table>
 						</Layout>
@@ -190,9 +187,8 @@ let Index = withStyles((theme) => {
 				<Layout>
 					<Paper className={classes.listCard} elevation={0}>
 						<Layout direction={"column"}>
-							<Typography className={classes.listTitle} gutterBottom variant={"title"}>Recent
-								Vaccinations</Typography>
-							<Divider/>
+							<Typography className={classes.listTitle} gutterBottom variant={"title"}>Recent Vaccinations</Typography>
+							<Divider />
 							<Table>
 								<TableHead>
 									<TableRow>
@@ -201,14 +197,14 @@ let Index = withStyles((theme) => {
 									</TableRow>
 								</TableHead>
 								<TableBody>
-									{
-										[1, 2, 3, 4, 5, 6].map((i) => {
-											return <TableRow key={i}>
+                                    {
+                                        [1,2,3,4,5,6].map((i)=>{
+                                            return <TableRow key={i}>
 												<TableCell>Sample {i}</TableCell>
 												<TableCell numeric>100</TableCell>
 											</TableRow>
-										})
-									}
+                                        })
+                                    }
 								</TableBody>
 							</Table>
 						</Layout>
@@ -216,7 +212,7 @@ let Index = withStyles((theme) => {
 				</Layout>
 			</div>
 		</div>;
-	}
+    }
 });
 
-export default connect(store => store)(Index);
+export default connect(store=>store)(Index);

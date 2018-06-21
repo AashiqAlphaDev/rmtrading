@@ -8,6 +8,7 @@ import {CHECK_ADMIN, REQUEST_LOGOUT} from "../../stores/auth/actions";
 import {connect} from "react-redux"
 
 const pages = [
+	{label:"Overview",url:"/admin/dashboard"},
 	{label: "Pets", url: "/admin/dashboard/pets"},
 	{label: "Vaccination", url: "/admin/dashboard/vaccinations"},
 	{label: "Manage Appointments", url: "/admin/dashboard/inventory"},
