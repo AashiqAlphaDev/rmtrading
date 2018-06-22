@@ -9,6 +9,7 @@ import {Button, MenuItem, Select, TextField} from "@material-ui/core/es/index";
 import {QUERY_BREEDS, QUERY_PET_TYPES} from "../../../stores/pet-types/actions";
 import {REQUEST_CREATE_PET} from "../../../stores/pets/actions";
 import Layout from "../../../components/layout";
+import {DatePicker} from "material-ui-pickers";
 
 let Index = withStyles((theme) => {
 	return {
@@ -99,9 +100,14 @@ let Index = withStyles((theme) => {
 						}}></TextField>
 					</InputContainer>
 					<InputContainer label={"Date Of Birth"}>
-						<TextField value={this.state.date_of_birth} onChange={(event) => {
-							this.setState({date_of_birth: event.target.value});
-						}}></TextField>
+						<DatePicker
+							label="Basic example"
+							value={this.state.date_of_birth}
+							onChange={(event) => {
+								this.setState({date_of_birth: event.target.value});
+							}}
+							animateYearScrolling={false}
+						/>
 					</InputContainer>
 					<Layout justifyContent={"flex-end"} className={classes.actions}>
 						<Button> Clear </Button>

@@ -11,21 +11,21 @@ import {
 
 const initVaccineData = {
 	list: [],
-	vaccineAdded:false,
+	vaccineAdded: false,
 };
 
 function vaccineReducer(state = initVaccineData, action) {
 	switch (action.type) {
-		case CLEAR_VACCINES:{
-			state = {...state, vaccineAdded:false};
+		case CLEAR_VACCINES: {
+			state = {...state, vaccineAdded: false};
 			break;
 		}
 		case QUERY_VACCINES_SUCCEDED: {
 			state = {...state, list: action.payload.docs, fetchError: null, isQueryInProgress: false};
 			break;
 		}
-		case ADD_VACCINE_SUCCEDED:{
-			state = {...state, vaccineAdded:true}
+		case ADD_VACCINE_SUCCEDED: {
+			state = {...state, vaccineAdded: true}
 			break
 		}
 		case QUERY_VACCINES_FAILED: {

@@ -15,7 +15,7 @@ router.get("/", httpCoWrap(function* (req, res, next) {
 }));
 
 router.get("/:vaccination_center_id", httpCoWrap(function* (req, res, next) {
-	if(req.params.vaccination_center_id == "self"){
+	if (req.params.vaccination_center_id == "self") {
 		req.params.vaccination_center_id = req.session.center_id;
 	}
 	let vaccinationCenter = yield VaccinationCenterManagementService.vaccinationCenterWithId(req.params.vaccination_center_id);

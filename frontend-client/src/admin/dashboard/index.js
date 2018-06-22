@@ -15,7 +15,7 @@ let Index = (class extends React.Component {
 		url: ""
 	};
 
-	componentWillMount(){
+	componentWillMount() {
 		this.props.dispatch({type: CHECK_ADMIN});
 	}
 
@@ -51,11 +51,11 @@ let Index = (class extends React.Component {
 					}}/>
 				</DashboardLayout>
 			}
-			else{
+			else {
 				return <Redirect to={"/admin/auth/login"}/>
 			}
 		}
-		else{
+		else {
 			return <div></div>
 		}
 	}

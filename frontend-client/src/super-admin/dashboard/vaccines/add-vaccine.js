@@ -31,7 +31,7 @@ let Index = withStyles((theme) => {
 			marginTop: theme.spacing.unit * 4,
 			marginBottom: theme.spacing.unit * 4
 		},
-		body:{
+		body: {
 			marginTop: theme.spacing.unit * 2
 		}
 
@@ -52,8 +52,8 @@ let Index = withStyles((theme) => {
 		forMale: true
 	};
 
-	componentWillMount(){
-		this.props.dispatch({type:CLEAR_VACCINES});
+	componentWillMount() {
+		this.props.dispatch({type: CLEAR_VACCINES});
 	}
 
 	handleCountrySuggestionsFetchRequested(event) {
@@ -97,7 +97,7 @@ let Index = withStyles((theme) => {
 		                         backButton={{url: "/super-admin/dashboard/vaccines"}} className={classes.body}>
 			{
 				this.props.vaccines.vaccineAdded &&
-				<Redirect to={"/super-admin/dashboard/vaccines"} />
+				<Redirect to={"/super-admin/dashboard/vaccines"}/>
 			}
 			<Paper className={classes.paperPage}>
 				<form onSubmit={(e) => {

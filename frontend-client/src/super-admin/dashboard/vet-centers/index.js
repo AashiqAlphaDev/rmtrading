@@ -27,18 +27,18 @@ let Index = withStyles((theme) => {
 		return <Layout direction={"column"} flex={1} className={classes.body}>
 			<Layout className={`container ${classes.flex}`} direction={"column"}>
 				<Switch>
-					<Route exact path={"/super-admin/dashboard/vet-centers"} render={(props)=>{
+					<Route exact path={"/super-admin/dashboard/vet-centers"} render={(props) => {
 						return <OverView {...props} />
 					}}/>
-					<Route exact path={"/super-admin/dashboard/vet-centers/add-center"} render={(props)=>{
+					<Route exact path={"/super-admin/dashboard/vet-centers/add-center"} render={(props) => {
 						return <AddCenter {...props} />
-					}} />
-					<Route exact path={"/super-admin/dashboard/vet-centers/:center_id"} render={(props)=>{
+					}}/>
+					<Route exact path={"/super-admin/dashboard/vet-centers/:center_id"} render={(props) => {
 						return <EditCenter {...props} />
-					}} />
-					<Route exact path={"/super-admin/dashboard/vet-centers/:center_id/manage"} render={(props)=>{
+					}}/>
+					<Route exact path={"/super-admin/dashboard/vet-centers/:center_id/manage"} render={(props) => {
 						return <ManageCenter {...props} />
-					}} />
+					}}/>
 				</Switch>
 			</Layout>
 		</Layout>;

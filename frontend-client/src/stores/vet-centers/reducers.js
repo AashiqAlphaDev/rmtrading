@@ -15,13 +15,13 @@ import {
 
 const initVetCenterData = {
 	centers: [],
-	vaccinationCenterAdded:false
+	vaccinationCenterAdded: false
 };
 
 function vetCenterReducer(state = initVetCenterData, action) {
 	switch (action.type) {
-		case CLEAR_VET_CENTER:{
-			state = {...state, vaccinationCenterAdded:false};
+		case CLEAR_VET_CENTER: {
+			state = {...state, vaccinationCenterAdded: false};
 			break;
 		}
 		case QUERY_VET_CENTERS_SUCCEDED: {
@@ -32,8 +32,8 @@ function vetCenterReducer(state = initVetCenterData, action) {
 			state = {...state, fetchError: action.payload, isQueryInProgress: false};
 			break;
 		}
-		case ADD_VET_CENTER_SUCCEDED:{
-			state = {...state, vaccinationCenterAdded:true}
+		case ADD_VET_CENTER_SUCCEDED: {
+			state = {...state, vaccinationCenterAdded: true}
 			break;
 		}
 		case QUERY_VET_CENTERS: {

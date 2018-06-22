@@ -31,8 +31,8 @@ let Index = withStyles((theme) => {
 	}
 })(class extends React.PureComponent {
 
-	componentWillMount(){
-		this.props.dispatch({type:CLEAR_USER});
+	componentWillMount() {
+		this.props.dispatch({type: CLEAR_USER});
 	}
 
 	state = {
@@ -53,7 +53,7 @@ let Index = withStyles((theme) => {
 		                         desc={"Please provide the information to add Vaccine."}
 		                         backButton={{url: "/admin/dashboard/vaccinations"}} className={classes.body}>
 			{
-				this.props.users.userCreated&&
+				this.props.users.userCreated &&
 				<Redirect to={"/admin/dashboard/vaccinations"}/>
 			}
 			<Paper className={classes.paperPage}>

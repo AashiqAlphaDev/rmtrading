@@ -23,11 +23,11 @@ let Index = withStyles((theme) => {
 			background: "#e6ecf0",
 			width: "100%"
 		},
-        segment: {
-            marginBottom: theme.spacing.unit * 3,
-            padding: theme.spacing.unit * 1
-        }
-    }
+		segment: {
+			marginBottom: theme.spacing.unit * 3,
+			padding: theme.spacing.unit * 1
+		}
+	}
 })(class extends React.Component {
 	componentWillMount() {
 		this.props.dispatch({type: QUERY_VACCINES});
@@ -43,10 +43,11 @@ let Index = withStyles((theme) => {
 					</Typography>
 				</Layout>
 				<Layout alignItems={"center"}>
-					<TextField className={classes.searchField} placeholder={"Search"} onChange={(e)=>{
-						this.props.dispatch({type:QUERY_VACCINES, payload:{query:e.target.value}});
+					<TextField className={classes.searchField} placeholder={"Search"} onChange={(e) => {
+						this.props.dispatch({type: QUERY_VACCINES, payload: {query: e.target.value}});
 					}}/>
-					<Button component={Link} to={"/super-admin/dashboard/vaccines/add-vaccine"} variant={"raised"} color={"primary"} type={"submit"}> + Add </Button>
+					<Button component={Link} to={"/super-admin/dashboard/vaccines/add-vaccine"} variant={"raised"}
+					        color={"primary"} type={"submit"}> + Add </Button>
 				</Layout>
 			</Layout>
 			<Paper className={classes.list} elevation={0}>

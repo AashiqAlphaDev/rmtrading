@@ -24,15 +24,15 @@ let Index = withStyles((theme) => {
 		const {classes} = this.props;
 		return <Layout direction={"column"} flex={1} className={classes.body}>
 			<Layout className={`container ${classes.flex}`} direction={"column"}>
-				<Route exact path={"/super-admin/dashboard/vaccines"} render={(props)=>{
+				<Route exact path={"/super-admin/dashboard/vaccines"} render={(props) => {
 					return <OverView {...props} />
 				}}/>
-				<Route exact path={"/super-admin/dashboard/vaccines/add-vaccine"} render={(props)=>{
+				<Route exact path={"/super-admin/dashboard/vaccines/add-vaccine"} render={(props) => {
 					return <AddVaccine {...props} />
-				}} />
-				<Route exact path={"/super-admin/dashboard/vaccines/:vaccine_id/manage"} render={(props)=>{
+				}}/>
+				<Route exact path={"/super-admin/dashboard/vaccines/:vaccine_id/manage"} render={(props) => {
 					return <ManageVaccine {...props} />
-				}} />
+				}}/>
 			</Layout>
 		</Layout>;
 	}

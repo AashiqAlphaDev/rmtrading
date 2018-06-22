@@ -47,7 +47,7 @@ let Index = withStyles((theme) => {
 		dialog: {
 			minWidth: 500
 		},
-		body:{
+		body: {
 			marginTop: theme.spacing.unit * 2
 		}
 	}

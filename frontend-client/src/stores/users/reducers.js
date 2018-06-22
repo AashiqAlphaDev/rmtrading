@@ -9,7 +9,7 @@ const initIUserData = {};
 
 function userReducer(state = initIUserData, action) {
 	switch (action.type) {
-		case CLEAR_USER:{
+		case CLEAR_USER: {
 			state = initIUserData;
 			break;
 		}
@@ -18,7 +18,7 @@ function userReducer(state = initIUserData, action) {
 			break;
 		}
 		case CREATE_USER_SUCCEDED: {
-			state = {...state, userCreated:true};
+			state = {...state, userCreated: true};
 			break;
 		}
 		case CREATE_USER_FAILED: {

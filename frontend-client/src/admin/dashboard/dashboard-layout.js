@@ -12,7 +12,8 @@ import {
 	ExpansionPanel, ExpansionPanelDetails,
 	IconButton,
 	Menu,
-	MenuItem, Tabs} from "@material-ui/core/es/index";
+	MenuItem, Tabs
+} from "@material-ui/core/es/index";
 import Tab from "@material-ui/core/es/Tab/Tab";
 import _ from "underscore";
 import {MagnifyIcon, SettingsOutlineIcon} from "mdi-react";
@@ -22,13 +23,27 @@ let Icon = (_Icon) => {
 };
 
 
-
-
 const pages = [
-	{icon: ({className})=>{return <span className={`icon-home ${className}`}></span>}, label: "Overview", url: "/admin/dashboard"},
-	{icon: ({className})=>{return <span className={`icon-dog ${className}`}></span>}, label: "Pets", url: "/admin/dashboard/vaccinations"},
-	{icon: ({className})=>{return <span className={`icon-time ${className}`}></span>}, label: "Appointments", url: "/admin/dashboard/appointments"},
-	{icon: ({className})=>{return <span className={`icon-box ${className}`}></span>}, label: "Store", url: "/admin/dashboard/store"},
+	{
+		icon: ({className}) => {
+			return <span className={`icon-home ${className}`}></span>
+		}, label: "Overview", url: "/admin/dashboard"
+	},
+	{
+		icon: ({className}) => {
+			return <span className={`icon-dog ${className}`}></span>
+		}, label: "Pets", url: "/admin/dashboard/vaccinations"
+	},
+	{
+		icon: ({className}) => {
+			return <span className={`icon-time ${className}`}></span>
+		}, label: "Appointments", url: "/admin/dashboard/appointments"
+	},
+	{
+		icon: ({className}) => {
+			return <span className={`icon-box ${className}`}></span>
+		}, label: "Store", url: "/admin/dashboard/store"
+	},
 ];
 
 let Index = withStyles((theme) => {
@@ -52,7 +67,7 @@ let Index = withStyles((theme) => {
 })(class extends React.Component {
 	state = {
 		anchorEl: null,
-		showSearchDialogue:false
+		showSearchDialogue: false
 	}
 
 	componentWillMount() {
@@ -85,22 +100,23 @@ let Index = withStyles((theme) => {
 											let iconClass = (index === currentTab) ? classes.selected : '';
 											return <Tab classes={{label: classes.tabIcon}}
 											            label={
-											            	<Layout alignItems={"center"}>
-													            <PageIcon className={`${iconClass} ${this.props.classes.navIcon}`}/>
-												                {page.label}
-											                </Layout>
+												            <Layout alignItems={"center"}>
+													            <PageIcon
+														            className={`${iconClass} ${this.props.classes.navIcon}`}/>
+													            {page.label}
+												            </Layout>
 											            }
 											            component={Link}
 											            to={page.url}
-											            key={index} />;
+											            key={index}/>;
 										})
 									}
 								</Tabs>
 								<div>
-									<IconButton onClick={()=>{
-										this.setState({showSearchDialogue:true});
+									<IconButton onClick={() => {
+										this.setState({showSearchDialogue: true});
 									}}>
-										<MagnifyIcon />
+										<MagnifyIcon/>
 									</IconButton>
 									<IconButton onClick={(event) => {
 										this.setState({anchorEl: event.currentTarget})

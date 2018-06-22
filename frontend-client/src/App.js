@@ -5,30 +5,37 @@ import {Auth as AdminAuth, Dashboard as AdminDashboard} from "./admin"
 import {Auth as SuperAdminAuth, Dashboard as SuperAdminDashboard} from "./super-admin"
 import store from "./stores/store"
 import {Provider} from "react-redux";
+//import MomentUtils from 'material-ui-pickers/utils/moment-utils';
+import DateFnsUtils from 'material-ui-pickers/utils/date-fns-utils';
+//import LuxonUtils from 'material-ui-picker/luxon-utils';
+import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
+
 
 class App extends Component {
 	render() {
 		return (
-			<Provider store={store}>
-				<BrowserRouter>
-					<Route path={"/admin"}>
-						<Switch>
-							<Route path={"/admin/auth"} render={(props) => {
-								return <AdminAuth {...props}/>;
-							}}/>
-							<Route path={"/admin/dashboard"} render={(props) => {
-								return <AdminDashboard {...props}/>;
-							}}/>
-							<Route path={"/super-admin/auth"} render={(props) => {
-								return <SuperAdminAuth {...props}/>;
-							}}/>
-							<Route path={"/super-admin/dashboard"} render={(props) => {
-								return <SuperAdminDashboard {...props}/>;
-							}}/>
-						</Switch>
-					</Route>
-				</BrowserRouter>
-			</Provider>
+			<MuiPickersUtilsProvider utils={DateFnsUtils}>
+				<Provider store={store}>
+					<BrowserRouter>
+						<Route path={"/admin"}>
+							<Switch>
+								<Route path={"/admin/auth"} render={(props) => {
+									return <AdminAuth {...props}/>;
+								}}/>
+								<Route path={"/admin/dashboard"} render={(props) => {
+									return <AdminDashboard {...props}/>;
+								}}/>
+								<Route path={"/super-admin/auth"} render={(props) => {
+									return <SuperAdminAuth {...props}/>;
+								}}/>
+								<Route path={"/super-admin/dashboard"} render={(props) => {
+									return <SuperAdminDashboard {...props}/>;
+								}}/>
+							</Switch>
+						</Route>
+					</BrowserRouter>
+				</Provider>
+			</MuiPickersUtilsProvider>
 		);
 	}
 }

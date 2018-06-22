@@ -11,7 +11,6 @@ import Inventory from "./inventory"
 import ManagePetTypes from "./manage-pet-types"
 
 
-
 let Index = withStyles((theme) => {
 	return {
 		...style(theme),
@@ -32,10 +31,11 @@ let Index = withStyles((theme) => {
 					<Switch>
 
 						<Switch>
-							<Route exact path={"/super-admin/dashboard/application-data/pet-types/:pet_type_id/manage"} render={(props)=>{
-								console.log(props);
-                                return <ManagePetTypes {... props} />
-                            }} />
+							<Route exact path={"/super-admin/dashboard/application-data/pet-types/:pet_type_id/manage"}
+							       render={(props) => {
+								       console.log(props);
+								       return <ManagePetTypes {...props} />
+							       }}/>
 
 							<Route exact path={"/super-admin/dashboard/application-data/countries"} render={(props) => {
 								return <Countries location={props.location}/>;

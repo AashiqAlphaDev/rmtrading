@@ -25,8 +25,8 @@ const OverViewMetric = ({title, metric, classes, Icon}) => {
 };
 
 
-const MetricDataCard = class extends React.Component{
-	render(){
+const MetricDataCard = class extends React.Component {
+	render() {
 		const {classes, title, body, MetricCardIcon, data} = this.props;
 		return <Paper className={classes.listCard}>
 			<Layout direction={"column"}>
@@ -34,7 +34,7 @@ const MetricDataCard = class extends React.Component{
 					<Layout alignItems={"center"}>
 						{
 							MetricCardIcon &&
-							<MetricCardIcon className={classes.titleIconSvg} />
+							<MetricCardIcon className={classes.titleIconSvg}/>
 						}
 						{title}
 					</Layout>

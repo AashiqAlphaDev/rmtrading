@@ -1,4 +1,4 @@
-import {call, put, takeEvery,takeLatest} from 'redux-saga/effects';
+import {call, put, takeEvery, takeLatest} from 'redux-saga/effects';
 import base_url from "../base_url";
 import {
 	GUARDIAN_FETCH_SUCCEDED,

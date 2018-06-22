@@ -92,7 +92,7 @@ const vaccinationCenterSchema = new Schema({
 	name: String,
 	status: String,
 	type: String,
-	code:String,
+	code: String,
 	address: {
 		city: String,
 		country: String,
@@ -119,7 +119,7 @@ const vaccinationCenterSchema = new Schema({
 			]
 		}
 	],
-	data:{}
+	data: {}
 });
 vaccinationCenterSchema.plugin(mongoosePaginate);
 vaccinationCenterSchema.pre("save", async function (next) {
@@ -168,10 +168,10 @@ var petTypeSchema = new Schema({
 	description: String,
 	scientific_name: String,
 	life_span: Number,
-    vaccination_fields:[{
-        field_type:String,
-        name:String
-    }]
+	vaccination_fields: [{
+		field_type: String,
+		name: String
+	}]
 });
 petTypeSchema.plugin(mongoosePaginate);
 mongoose.model('PetType', petTypeSchema);

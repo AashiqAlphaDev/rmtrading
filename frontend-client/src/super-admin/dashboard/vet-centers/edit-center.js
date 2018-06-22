@@ -30,10 +30,10 @@ let Index = withStyles((theme) => {
 			marginTop: theme.spacing.unit * 3,
 			margin: theme.spacing.unit * 1
 		},
-		body:{
+		body: {
 			marginTop: theme.spacing.unit * 2
 		},
-		actionButton:{
+		actionButton: {
 			marginLeft: theme.spacing.unit * 1,
 		}
 	}
@@ -47,9 +47,9 @@ let Index = withStyles((theme) => {
 		matched_states: []
 	};
 
-	componentWillMount(){
+	componentWillMount() {
 		this.props.dispatch({type: CLEAR_VET_CENTER});
-		this.props.dispatch({type: REQUEST_VET_CENTER_FETCH, payload:{center_id:this.props.match.params.center_id}});
+		this.props.dispatch({type: REQUEST_VET_CENTER_FETCH, payload: {center_id: this.props.match.params.center_id}});
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -65,13 +65,13 @@ let Index = withStyles((theme) => {
 
 	render() {
 		const {classes} = this.props;
-		if(this.props.vetCenterDetail._id){
-			if(!this.props.vetCenterDetail.data){
+		if (this.props.vetCenterDetail._id) {
+			if (!this.props.vetCenterDetail.data) {
 				this.props.vetCenterDetail.data = {};
 			}
 			return <AnnotatedSection
 				title={`${this.props.vetCenterDetail.name}`}
-				desc={`${this.props.vetCenterDetail.data.country?this.props.vetCenterDetail.data.country:""} ${this.props.vetCenterDetail.address.city}`}
+				desc={`${this.props.vetCenterDetail.data.country ? this.props.vetCenterDetail.data.country : ""} ${this.props.vetCenterDetail.address.city}`}
 				backButton={{url: "/super-admin/dashboard/vet-centers"}}
 				className={classes.body}>
 				<Paper className={classes.paperPage}>
@@ -122,14 +122,15 @@ let Index = withStyles((theme) => {
 							</InputContainer>
 							<Layout justifyContent={"flex-end"} className={classes.actions}>
 								<Button className={classes.actionButton}> Clear </Button>
-								<Button className={classes.actionButton} variant={"raised"} color={"primary"} type={"submit"}> Save </Button>
+								<Button className={classes.actionButton} variant={"raised"} color={"primary"}
+								        type={"submit"}> Save </Button>
 							</Layout>
 						</Layout>
 					</form>
 				</Paper>
 			</AnnotatedSection>
 		}
-		else{
+		else {
 			return <div></div>;
 		}
 	}

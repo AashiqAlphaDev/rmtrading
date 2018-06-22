@@ -9,6 +9,7 @@ import {Button, MenuItem, Select, TextField} from "@material-ui/core/es/index";
 import {QUERY_BREEDS, QUERY_PET_TYPES} from "../../../stores/pet-types/actions";
 import {REQUEST_CREATE_PET} from "../../../stores/pets/actions";
 import Layout from "../../../components/layout";
+import {DatePicker} from "material-ui-pickers";
 
 let Index = withStyles((theme) => {
 	return {
@@ -36,7 +37,8 @@ let Index = withStyles((theme) => {
 
 	render() {
 		const {classes} = this.props;
-		return <AnnotatedSection title={"Register Pet"} desc={"Please provide necessary information to register pet."} backButton={{url: "/admin/dashboard/vaccinations"}} className={classes.body}>
+		return <AnnotatedSection title={"Register Pet"} desc={"Please provide necessary information to register pet."}
+		                         backButton={{url: "/admin/dashboard/vaccinations"}} className={classes.body}>
 			<form onSubmit={(e) => {
 				e.preventDefault();
 				this.props.dispatch({
@@ -96,14 +98,18 @@ let Index = withStyles((theme) => {
 						}
 					</InputContainer>
 					<InputContainer label={"Chip Id"}>
-						<TextField value={this.state.chip_id} onChange={(event) => {
-							this.setState({chip_id: event.target.value});
+						<TextField value={this.state.chip_id} onChange={(date) => {
+							this.setState({chip_id: date});
 						}}></TextField>
 					</InputContainer>
-					<InputContainer label={"Date Of Birth"}>
-						<TextField value={this.state.date_of_birth} onChange={(event) => {
-							this.setState({date_of_birth: event.target.value});
-						}}></TextField>
+					<InputContainer label="Date Of Birth">
+						<DatePicker
+							value={this.state.date_of_birth}
+							onChange={(date) => {
+								this.setState({date_of_birth: date});
+							}}
+							animateYearScrolling={false}
+						/>
 					</InputContainer>
 					<Layout justifyContent={"flex-end"} className={classes.actions}>
 						<Button> Clear </Button>

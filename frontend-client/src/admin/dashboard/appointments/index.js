@@ -71,7 +71,7 @@ let Index = withStyles((theme) => {
 	};
 
 	componentWillMount() {
-		this.props.dispatch({type: REQUEST_VET_CENTER_FETCH, payload: {center_id:"self"}})
+		this.props.dispatch({type: REQUEST_VET_CENTER_FETCH, payload: {center_id: "self"}})
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -103,15 +103,16 @@ let Index = withStyles((theme) => {
 										Number of appointments per hour
 									</Typography>
 									<Layout>
-										<Select value={this.props.vetCenterDetail.appointments_per_hour} onChange={(e) => {
-											this.props.dispatch({
-												type: REQUEST_UPDATE_SLOT_INTERVAL,
-												payload: {
-													slot_interval: e.target.value,
-													center_id: this.props.vetCenterDetail._id
-												}
-											});
-										}}>
+										<Select value={this.props.vetCenterDetail.appointments_per_hour}
+										        onChange={(e) => {
+											        this.props.dispatch({
+												        type: REQUEST_UPDATE_SLOT_INTERVAL,
+												        payload: {
+													        slot_interval: e.target.value,
+													        center_id: this.props.vetCenterDetail._id
+												        }
+											        });
+										        }}>
 											{
 												[1, 2, 3, 4].map((item) => {
 													return <MenuItem key={item} value={item}>
@@ -194,7 +195,8 @@ let Index = withStyles((theme) => {
 
 									<DialogContentText>
 										<Typography gutterBottom>
-											To subscribe to this website, please enter your email address here. We will send
+											To subscribe to this website, please enter your email address here. We will
+											send
 											updates occasionally.
 										</Typography>
 									</DialogContentText>

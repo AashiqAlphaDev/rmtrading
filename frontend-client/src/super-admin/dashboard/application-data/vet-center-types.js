@@ -11,22 +11,22 @@ export default withStyles((theme) => {
 			marginTop: theme.spacing.unit * 4,
 			marginBottom: theme.spacing.unit * 4
 		},
-        body:{
-            marginTop: theme.spacing.unit * 2
-        }
+		body: {
+			marginTop: theme.spacing.unit * 2
+		}
 	}
 })(class extends React.PureComponent {
 	render() {
 		const {classes} = this.props;
-		return<AnnotatedSection
-				title={"Vet Center Types"}
-				desc={"These are the list of existing Vet Center Types"}
-				backButton={{url: "/super-admin/dashboard"}}
-				className={classes.body}>
+		return <AnnotatedSection
+			title={"Vet Center Types"}
+			desc={"These are the list of existing Vet Center Types"}
+			backButton={{url: "/super-admin/dashboard"}}
+			className={classes.body}>
 
-				<Typography variant="title" className={`${classes.title} flex`}>
-					Vet center types
-				</Typography>
+			<Typography variant="title" className={`${classes.title} flex`}>
+				Vet center types
+			</Typography>
 			<Paper>
 				<Table>
 					<TableHead>

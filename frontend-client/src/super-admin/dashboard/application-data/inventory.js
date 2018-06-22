@@ -11,21 +11,21 @@ export default withStyles((theme) => {
 			marginTop: theme.spacing.unit * 4,
 			marginBottom: theme.spacing.unit * 4
 		},
-        body:{
-            marginTop: theme.spacing.unit * 2
-        }
+		body: {
+			marginTop: theme.spacing.unit * 2
+		}
 	}
 })(class extends React.PureComponent {
 	render() {
 		const {classes} = this.props;
 		return <AnnotatedSection
-				title={"Inventory list"}
-				desc={"These are the list of existing Inventories"}
-				backButton={{url: "/super-admin/dashboard"}}
-				className={classes.body}>
-				<Typography variant="title" className={`${classes.title} flex`}>
-					Inventory list
-				</Typography>
+			title={"Inventory list"}
+			desc={"These are the list of existing Inventories"}
+			backButton={{url: "/super-admin/dashboard"}}
+			className={classes.body}>
+			<Typography variant="title" className={`${classes.title} flex`}>
+				Inventory list
+			</Typography>
 
 			<Paper>
 				<Table>

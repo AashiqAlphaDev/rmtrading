@@ -49,11 +49,31 @@ let Index = withStyles((theme) => {
 
 	state = {
 		metrics: [
-			{icon:({className})=>{return <span className={`icon-box ${className}`}></span>}, title: "Vaccinations", metric: "30,000"},
-			{icon:({className})=>{return <span className={`icon-box ${className}`}></span>}, title: "Pets", metric: "30,000"},
-			{icon:({className})=>{return <span className={`icon-box ${className}`}></span>}, title: "Vaccines", metric: "30,000"},
-			{icon:({className})=>{return <span className={`icon-box ${className}`}></span>}, title: "Diseases", metric: "30,000"},
-			{icon:({className})=>{return <span className={`icon-box ${className}`}></span>}, title: "Vet Centers", metric: "30,000"},
+			{
+				icon: ({className}) => {
+					return <span className={`icon-box ${className}`}></span>
+				}, title: "Vaccinations", metric: "30,000"
+			},
+			{
+				icon: ({className}) => {
+					return <span className={`icon-box ${className}`}></span>
+				}, title: "Pets", metric: "30,000"
+			},
+			{
+				icon: ({className}) => {
+					return <span className={`icon-box ${className}`}></span>
+				}, title: "Vaccines", metric: "30,000"
+			},
+			{
+				icon: ({className}) => {
+					return <span className={`icon-box ${className}`}></span>
+				}, title: "Diseases", metric: "30,000"
+			},
+			{
+				icon: ({className}) => {
+					return <span className={`icon-box ${className}`}></span>
+				}, title: "Vet Centers", metric: "30,000"
+			},
 		],
 		vetCenters: {
 			columnTitles: ["Name", {label: "Count", isNumeric: true}],

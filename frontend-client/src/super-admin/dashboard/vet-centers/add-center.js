@@ -25,10 +25,10 @@ let Index = withStyles((theme) => {
 			marginTop: theme.spacing.unit * 3,
 			margin: theme.spacing.unit * 1
 		},
-		body:{
+		body: {
 			marginTop: theme.spacing.unit * 2
 		},
-		actionButton:{
+		actionButton: {
 			marginLeft: theme.spacing.unit * 1,
 		}
 	}
@@ -42,7 +42,7 @@ let Index = withStyles((theme) => {
 		matched_states: []
 	};
 
-	componentWillMount(){
+	componentWillMount() {
 		this.props.dispatch({type: CLEAR_VET_CENTER});
 	}
 
@@ -71,13 +71,13 @@ let Index = withStyles((theme) => {
 	render() {
 		const {classes} = this.props;
 		return <AnnotatedSection
-					title={"Add Vaccination Center"}
-					desc={"Please provide the information to register Vaccination Center."}
-		            backButton={{url: "/super-admin/dashboard/vet-centers"}}
-					className={classes.body}>
+			title={"Add Vaccination Center"}
+			desc={"Please provide the information to register Vaccination Center."}
+			backButton={{url: "/super-admin/dashboard/vet-centers"}}
+			className={classes.body}>
 			{
 				this.props.vetCenters.vaccinationCenterAdded &&
-					<Redirect to={"/super-admin/dashboard/vet-centers"}/>
+				<Redirect to={"/super-admin/dashboard/vet-centers"}/>
 			}
 			<Paper className={classes.paperPage}>
 				<form onSubmit={(e) => {
@@ -219,7 +219,7 @@ let Index = withStyles((theme) => {
 						</Layout>
 						<Layout>
 							<InputContainer label={"Contact Person"}>
-								<TextField  placeholder={"Contact Person"} onChange={(event) => {
+								<TextField placeholder={"Contact Person"} onChange={(event) => {
 									this.setState({contact_name: event.target.value})
 								}}></TextField>
 							</InputContainer>
@@ -243,7 +243,8 @@ let Index = withStyles((theme) => {
 						</Layout>
 						<Layout justifyContent={"flex-end"} className={classes.actions}>
 							<Button className={classes.actionButton}> Clear </Button>
-							<Button className={classes.actionButton} variant={"raised"} color={"primary"} type={"submit"}> Add </Button>
+							<Button className={classes.actionButton} variant={"raised"} color={"primary"}
+							        type={"submit"}> Add </Button>
 						</Layout>
 					</Layout>
 				</form>

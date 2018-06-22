@@ -41,7 +41,7 @@ let Index = withStyles((theme) => {
 		dialog: {
 			minWidth: 500
 		},
-		body:{
+		body: {
 			marginTop: theme.spacing.unit * 2
 		}
 	}
@@ -95,8 +95,7 @@ let Index = withStyles((theme) => {
 										return <ListItem key={item._id}>
 											<ListItemText>
 												{`Dose ${i + 1}: `}
-												{`Notify between week ${item.catch_up_period.notify_period} and week ${item.catch_up_period.due_period}`}
-												{JSON.stringify(item)}
+												{`Notify between week ${item.catch_up_period.notify_period} and week ${item.catch_up_period.notify_period + item.catch_up_period.due_period}`}
 											</ListItemText>
 											<ListItemSecondaryAction>
 												<IconButton onClick={() => {
@@ -141,7 +140,10 @@ let Index = withStyles((theme) => {
 									this.props.vaccineDetail.adult_vaccine_schedules.map((item, i) => {
 										return <ListItem key={item._id}>
 											<ListItemText>
-												{`Dose ${i + 1}`}
+
+												{`Dose ${i + 1}: `}
+												{`Notify between week ${item.catch_up_period.notify_period} and week ${item.catch_up_period.notify_period + item.catch_up_period.due_period}`}
+
 											</ListItemText>
 											<ListItemSecondaryAction>
 												<IconButton onClick={() => {
@@ -186,7 +188,8 @@ let Index = withStyles((theme) => {
 									this.props.vaccineDetail.booster_vaccine_schedules.map((item, i) => {
 										return <ListItem key={item._id}>
 											<ListItemText>
-												{`Dose ${i + 1}`}
+												{`Dose ${i + 1}: `}
+												{`Notify between week ${item.catch_up_period.notify_period} and week ${item.catch_up_period.notify_period + item.catch_up_period.due_period}`}
 											</ListItemText>
 											<ListItemSecondaryAction>
 												<IconButton onClick={() => {

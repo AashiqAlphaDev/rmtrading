@@ -70,7 +70,7 @@ let Index = withStyles((theme) => {
 		pet_id: "",
 		showResults: false,
 		showSearchDialogue: false,
-		showScanner:false
+		showScanner: false
 	}
 
 	componentWillMount() {
@@ -192,9 +192,11 @@ let Index = withStyles((theme) => {
 				<DialogContent>
 					<QrReader
 						delay={this.state.delay}
-						onError={(err)=>{console.log(err);}}
+						onError={(err) => {
+							console.log(err);
+						}}
 						onScan={console.log}
-						style={{ width:400, height:400 }}
+						style={{width: 400, height: 400}}
 					/>
 					<InputContainer label={"Pet Id"}>
 						<form style={{display: "flex"}} onSubmit={(e) => {
@@ -204,9 +206,10 @@ let Index = withStyles((theme) => {
 								payload: {query: this.state.guardianQuery}
 							});
 						}}>
-							<TextField className={`flex`} autoFocus placeholder={"Enter pet id / Chip No"} onChange={(event) => {
-								this.setState({guardianQuery: event.target.value});
-							}}/>
+							<TextField className={`flex`} autoFocus placeholder={"Enter pet id / Chip No"}
+							           onChange={(event) => {
+								           this.setState({guardianQuery: event.target.value});
+							           }}/>
 							<button style={{display: "none"}} type={"submit"}></button>
 						</form>
 					</InputContainer>
