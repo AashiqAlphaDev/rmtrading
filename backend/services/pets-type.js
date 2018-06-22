@@ -14,8 +14,9 @@ module.exports.createPetType = function* (petTypeData) {
 
 module.exports.updatePetType = function* (id, petTypeData) {
 	queryValidate(id, "You missed pet-type-id.");
-
-	return yield PetType.update({_id: id}, petTypeData);
+    let newVar = yield PetType.update({_id: id}, petTypeData);
+    console.log({_id: id}, petTypeData)
+    return newVar;
 };
 
 module.exports.deletePetType = function* (petTypeId) {

@@ -32,8 +32,9 @@ let Index = withStyles((theme) => {
 					<Switch>
 
 						<Switch>
-							<Route exact path={"/super-admin/dashboard/application-data/pet-types/:pet_id/manage"} render={(props)=>{
-                                return <ManagePetTypes location={props.location} />
+							<Route exact path={"/super-admin/dashboard/application-data/pet-types/:pet_type_id/manage"} render={(props)=>{
+								console.log(props);
+                                return <ManagePetTypes {... props} />
                             }} />
 
 							<Route exact path={"/super-admin/dashboard/application-data/countries"} render={(props) => {
