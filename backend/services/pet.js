@@ -35,8 +35,8 @@ module.exports.createPet = function* (petData) {
 					var dobClone = new Date(pet.date_of_birth);
 					var numberOfDaysToAdd = schedule.period.start * 7;
 					dobClone = dobClone.addDays(numberOfDaysToAdd);
-					var start = new Date();
-					var dueDate = new Date();
+					var start = dobClone;
+					var dueDate = dobClone;
 					start = start.addDays(-schedule.catch_up_period.notify_period * 7)
 					dueDate = dueDate.addDays(schedule.catch_up_period.due_period * 7);
 					lastVaccination = {
@@ -55,8 +55,8 @@ module.exports.createPet = function* (petData) {
 						var dobClone = new Date(pet.date_of_birth);
 						var numberOfDaysToAdd = i * 7;
 						dobClone = dobClone.addDays(numberOfDaysToAdd);
-						var start = new Date();
-						var dueDate = new Date();
+						var start = dobClone;
+						var dueDate = dobClone;
 						start = start.addDays(-schedule.catch_up_period.notify_period * 7);
 						dueDate = dueDate.addDays(schedule.catch_up_period.due_period * 7);
 						lastVaccination = {
@@ -177,6 +177,7 @@ module.exports.createPet = function* (petData) {
 			}
 		}
 	}
+	console.log(vaccinations)
 	yield Vaccination.create(vaccinations);
 	return pet;
 };
