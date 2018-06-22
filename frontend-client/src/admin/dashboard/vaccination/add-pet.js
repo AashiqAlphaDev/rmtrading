@@ -36,7 +36,7 @@ let Index = withStyles((theme) => {
 
 	render() {
 		const {classes} = this.props;
-		return <AnnotatedSection title={"Register Pet"} desc={"Please provide necessary information to register pet."} backButton={{url: "/admin/dashboard/pets"}} className={classes.body}>
+		return <AnnotatedSection title={"Register Pet"} desc={"Please provide necessary information to register pet."} backButton={{url: "/admin/dashboard/vaccinations"}} className={classes.body}>
 			<form onSubmit={(e) => {
 				e.preventDefault();
 				this.props.dispatch({

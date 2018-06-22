@@ -94,7 +94,9 @@ let Index = withStyles((theme) => {
 									this.props.vaccineDetail.child_vaccine_schedules.map((item, i) => {
 										return <ListItem key={item._id}>
 											<ListItemText>
-												{`Dose ${i + 1}`}
+												{`Dose ${i + 1}: `}
+												{`Notify between week ${item.catch_up_period.notify_period} and week ${item.catch_up_period.due_period}`}
+												{JSON.stringify(item)}
 											</ListItemText>
 											<ListItemSecondaryAction>
 												<IconButton onClick={() => {

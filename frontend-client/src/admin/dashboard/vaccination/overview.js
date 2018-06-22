@@ -4,8 +4,7 @@ import style from "../style";
 import {connect} from "react-redux";
 import {QUERY_VET_CENTERS} from "../../../stores/vet-centers/actions";
 import {
-	Avatar, Button, Dialog, DialogContent, Divider, ExpansionPanel, ExpansionPanelDetails,
-	Paper, Slide,
+	Avatar, Button, Dialog, DialogContent, ExpansionPanel, Paper, Slide,
 	TextField,
 	Typography
 } from "@material-ui/core/es/index";
@@ -13,6 +12,8 @@ import Layout from "../../../components/layout";
 import {ArrowRightIcon} from "mdi-react";
 import {REQUEST_GUARDIAN_FETCH} from "../../../stores/pets/actions";
 import Link from "react-router-dom/es/Link";
+import QrReader from 'react-qr-reader';
+import InputContainer from "../../../components/input"
 
 function Transition(props) {
 	return <Slide direction="up" {...props} />;
@@ -68,7 +69,8 @@ let Index = withStyles((theme) => {
 	state = {
 		pet_id: "",
 		showResults: false,
-		showSearchDialogue: false
+		showSearchDialogue: false,
+		showScanner:false
 	}
 
 	componentWillMount() {
@@ -101,7 +103,7 @@ let Index = withStyles((theme) => {
 				</Paper>
 
 				<Paper className={classes.card} onClick={() => {
-					this.setState({showGuardianDialogue: true})
+					this.setState({showScanner: true})
 				}}>
 					<Layout alignItems={"center"}>
 						<Avatar className={classes.cardIcon}>
@@ -159,31 +161,59 @@ let Index = withStyles((theme) => {
 							{
 								this.props.guardianDetail._id &&
 
-									<Layout direction={"row"} alignItems={"flex-end"} flex={1}>
-										<Layout direction={"column"} flex={1}>
-											<Typography variant={"title"}>
-												{this.props.guardianDetail.profile.first_name}
-											</Typography>
-											<Typography>
-												{this.props.guardianDetail.profile.mobile_number}
-											</Typography>
-											<Typography>
-												{this.props.guardianDetail.profile.address}
-											</Typography>
-										</Layout>
-										<Button component={Link} to={`/admin/dashboard/vaccinations/${this.props.guardianDetail._id}/add-pet`}
-										        color={"primary"}>Choose</Button>
+								<Layout direction={"row"} alignItems={"flex-end"} flex={1}>
+									<Layout direction={"column"} flex={1}>
+										<Typography variant={"title"}>
+											{this.props.guardianDetail.profile.first_name}
+										</Typography>
+										<Typography>
+											{this.props.guardianDetail.profile.mobile_number}
+										</Typography>
+										<Typography>
+											{this.props.guardianDetail.profile.address}
+										</Typography>
 									</Layout>
-
+									<Button component={Link}
+									        to={`/admin/dashboard/vaccinations/${this.props.guardianDetail._id}/add-pet`}
+									        color={"primary"}>Choose</Button>
+								</Layout>
 							}
 						</ExpansionPanel>
 					</Layout>
 				</DialogContent>
 			</Dialog>
+			<Dialog
+				TransitionComponent={Transition}
+				open={this.state.showScanner}
+				onClose={() => {
+					this.setState({showScanner: false})
+				}}
+			>
+				<DialogContent>
+					<QrReader
+						delay={this.state.delay}
+						onError={(err)=>{console.log(err);}}
+						onScan={console.log}
+						style={{ width:400, height:400 }}
+					/>
+					<InputContainer label={"Pet Id"}>
+						<form style={{display: "flex"}} onSubmit={(e) => {
+							e.preventDefault();
+							this.props.dispatch({
+								type: REQUEST_GUARDIAN_FETCH,
+								payload: {query: this.state.guardianQuery}
+							});
+						}}>
+							<TextField className={`flex`} autoFocus placeholder={"Enter pet id / Chip No"} onChange={(event) => {
+								this.setState({guardianQuery: event.target.value});
+							}}/>
+							<button style={{display: "none"}} type={"submit"}></button>
+						</form>
+					</InputContainer>
+				</DialogContent>
+			</Dialog>
 		</Layout>;
 	}
-
-
 });
 
 export default connect(store => store)(Index)

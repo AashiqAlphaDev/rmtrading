@@ -37,7 +37,7 @@ module.exports.createPet = function* (petData) {
 					dobClone = dobClone.addDays(numberOfDaysToAdd);
 					var start = new Date();
 					var dueDate = new Date();
-					start = start.addDays(-schedule.catch_up_period.notify_period * 7)
+					start = start.addDays(-schedule.catch_up_period.notify_period * 7);
 					dueDate = dueDate.addDays(schedule.catch_up_period.due_period * 7);
 					lastVaccination = {
 						pet: pet._id, vaccine: vaccine._id, catch_up_period: {

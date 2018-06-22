@@ -74,7 +74,7 @@ let Index = withStyles((theme) => {
 						<Layout direction={"column"} className={`flex`}>
 							<Layout alignItems={"center"}>
 								<div className={`flex`}>
-									<Link to={"/super-admin/dashboard/"} className={classes.logo}>
+									<Link to={"/admin/dashboard/"} className={classes.logo}>
 										<img src={"/logo.png"} style={{height: 30}} alt={"logo"}/>
 									</Link>
 								</div>

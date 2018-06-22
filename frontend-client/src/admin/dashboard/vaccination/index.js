@@ -25,7 +25,7 @@ let Index = withStyles((theme) => {
 	render() {
 		const {classes} = this.props;
 		return <Layout direction={"column"} flex={1} className={classes.body}>
-			<Layout direction={"column"} className={`container`}>
+			<Layout direction={"column"} className={`container flex`}>
 				<Switch>
 					<Route exact path={"/admin/dashboard/vaccinations"} render={(props) => {
 						return <Overview {...props} />;

@@ -1,12 +1,12 @@
 import React from "react";
-import DashboardLayout from "./dashboard-layout"
+import DashboardLayout from "./dashboard-layout";
 import {Redirect, Route} from "react-router-dom";
-import Pets from "./pets"
-import OverView from "./overview"
-import Vaccination from "./vaccination"
-import Requests from "./requests"
-import Appointments from "./appointments"
-import Store from "./store"
+import Pets from "./pets";
+import OverView from "./overview";
+import Vaccination from "./vaccination";
+import Requests from "./requests";
+import Appointments from "./appointments";
+import Store from "./store";
 import {connect} from "react-redux";
 import {CHECK_ADMIN} from "../../stores/auth/actions";
 

@@ -8,6 +8,7 @@ import AddCenter from "./add-center"
 import ManageCenter from "./vaccination-center-manage"
 import EditCenter from "./edit-center"
 import OverView from "./overview"
+import Switch from "react-router-dom/es/Switch";
 
 let Index = withStyles((theme) => {
 	return {
@@ -25,18 +26,20 @@ let Index = withStyles((theme) => {
 		const {classes} = this.props;
 		return <Layout direction={"column"} flex={1} className={classes.body}>
 			<Layout className={`container ${classes.flex}`} direction={"column"}>
-				<Route exact path={"/super-admin/dashboard/vet-centers"} render={(props)=>{
-					return <OverView {...props} />
-				}}/>
-				<Route exact path={"/super-admin/dashboard/vet-centers/add-center"} render={(props)=>{
-					return <AddCenter {...props} />
-				}} />
-				<Route exact path={"/super-admin/dashboard/vet-centers/:center_id"} render={(props)=>{
-					return <EditCenter {...props} />
-				}} />
-				<Route exact path={"/super-admin/dashboard/vet-centers/:center_id/manage"} render={(props)=>{
-					return <ManageCenter {...props} />
-				}} />
+				<Switch>
+					<Route exact path={"/super-admin/dashboard/vet-centers"} render={(props)=>{
+						return <OverView {...props} />
+					}}/>
+					<Route exact path={"/super-admin/dashboard/vet-centers/add-center"} render={(props)=>{
+						return <AddCenter {...props} />
+					}} />
+					<Route exact path={"/super-admin/dashboard/vet-centers/:center_id"} render={(props)=>{
+						return <EditCenter {...props} />
+					}} />
+					<Route exact path={"/super-admin/dashboard/vet-centers/:center_id/manage"} render={(props)=>{
+						return <ManageCenter {...props} />
+					}} />
+				</Switch>
 			</Layout>
 		</Layout>;
 	}
