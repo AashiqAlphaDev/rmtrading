@@ -92,6 +92,7 @@ const vaccinationCenterSchema = new Schema({
 	name: String,
 	status: String,
 	type: String,
+	code:String,
 	address: {
 		city: String,
 		country: String,
@@ -117,9 +118,17 @@ const vaccinationCenterSchema = new Schema({
 				}
 			]
 		}
-	]
+	],
+	data:{}
 });
 vaccinationCenterSchema.plugin(mongoosePaginate);
+vaccinationCenterSchema.pre("save", async function (next) {
+	let Country = mongoose.model("Country");
+	let country = await Country.findOne({_id: this.country});
+	this.data = {};
+	this.data.country = country.name;
+	next();
+});
 mongoose.model('VaccinationCenter', vaccinationCenterSchema);
 
 const vaccinationCenterAdminSchema = new Schema({
