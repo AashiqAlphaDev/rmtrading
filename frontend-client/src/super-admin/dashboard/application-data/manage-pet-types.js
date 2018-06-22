@@ -34,7 +34,9 @@ export default withStyles((theme) => {
 		return <AnnotatedSection
 			title={"Add Biometrics For Pet Type "}
 			desc={"Please provide the information to update Biometric Field for pets."}
-			backButton={{url: "/super-admin/dashboard/vet-centers"}}
+			backButton={{url: "super-admin/dashboard/application-data/pet-types"}}
+
+
 			className={classes.body}>
 			<Paper className={classes.paperPage}>
 				<Layout alignItems={"flex-end"}>
