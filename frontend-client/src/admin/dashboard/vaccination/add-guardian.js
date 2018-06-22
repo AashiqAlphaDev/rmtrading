@@ -26,7 +26,6 @@ let Index = withStyles((theme) => {
 			marginBottom: theme.spacing.unit * 4
 		},
 		body: {
-
 			marginTop: theme.spacing.unit * 2
 		}
 	}

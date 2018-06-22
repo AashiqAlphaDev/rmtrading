@@ -22,11 +22,14 @@ let Index = withStyles((theme) => {
 	return {
 		...style(theme),
 		actions: {
-			marginTop: theme.spacing.unit * 4,
-			marginBottom: theme.spacing.unit * 4
+			marginTop: theme.spacing.unit * 3,
+			margin: theme.spacing.unit * 1
 		},
 		body:{
 			marginTop: theme.spacing.unit * 2
+		},
+		actionButton:{
+			marginLeft: theme.spacing.unit * 1,
 		}
 	}
 })(class extends React.PureComponent {
@@ -103,47 +106,48 @@ let Index = withStyles((theme) => {
 				}}>
 					<Layout direction={"column"}>
 						<InputContainer label={"Vaccination Center Name"}>
-							<TextField onChange={(e) => {
+							<TextField placeholder={"Vaccination Center Name"} onChange={(e) => {
 								this.setState({name: e.target.value})
 							}}/>
 						</InputContainer>
-						<AutoSuggest
-							suggestions={this.props.countries.list.length === 0 && !this.state.selectedCountry ? [{
-								name: `+ Add ${this.state.country_query}`,
-								action: "create_new",
-								value: {name: this.state.country_query}
-							}] : this.props.countries.list}
-							onSuggestionsFetchRequested={this.handleCountrySuggestionsFetchRequested.bind(this)}
-							onSuggestionsClearRequested={() => {
-								this.props.dispatch({type: COUNTRY_CLEAR_MATCHES});
-							}}
-							disabled={this.props.countries.addingCountryInProgress}
-							placeholder={"Country"}
-							value={this.state.country_query}
-							onBlur={() => {
-								if (!this.state.selectedCountry) {
-									this.setState({country_query: ""})
-								}
-							}}
-							onChange={(event, payload) => {
-								event.preventDefault();
-								const {newValue} = payload;
-								if (typeof newValue === 'string') {
-									this.setState({selectedCountry: null});
-									this.setState({country_query: newValue});
-								}
-								else {
-									if (newValue.action) {
-										this.props.dispatch({type: REQUEST_ADD_COUNTRY, payload: newValue.value});
+
+						<Layout>
+							<AutoSuggest
+								suggestions={this.props.countries.list.length === 0 && !this.state.selectedCountry ? [{
+									name: `+ Add ${this.state.country_query}`,
+									action: "create_new",
+									value: {name: this.state.country_query}
+								}] : this.props.countries.list}
+								onSuggestionsFetchRequested={this.handleCountrySuggestionsFetchRequested.bind(this)}
+								onSuggestionsClearRequested={() => {
+									this.props.dispatch({type: COUNTRY_CLEAR_MATCHES});
+								}}
+								disabled={this.props.countries.addingCountryInProgress}
+								placeholder={"Country"}
+								value={this.state.country_query}
+								onBlur={() => {
+									if (!this.state.selectedCountry) {
+										this.setState({country_query: ""})
+									}
+								}}
+								onChange={(event, payload) => {
+									event.preventDefault();
+									const {newValue} = payload;
+									if (typeof newValue === 'string') {
+										this.setState({selectedCountry: null});
+										this.setState({country_query: newValue});
 									}
 									else {
-										this.setState({selectedCountry: newValue});
-										this.setState({country_query: newValue.name});
+										if (newValue.action) {
+											this.props.dispatch({type: REQUEST_ADD_COUNTRY, payload: newValue.value});
+										}
+										else {
+											this.setState({selectedCountry: newValue});
+											this.setState({country_query: newValue.name});
+										}
 									}
-								}
-							}}
-						/>
-						<Layout>
+								}}
+							/>
 							<AutoSuggest
 								suggestions={this.props.countries.state_list.length === 0 && !this.state.selectedState ? [{
 									name: `+ Add ${this.state.state_query}`,
@@ -186,56 +190,60 @@ let Index = withStyles((theme) => {
 									}
 								}}
 							/>
+
+						</Layout>
+						<Layout>
 							<InputContainer label={"City"}>
 								<TextField onChange={(event) => {
 									this.setState({city: event.target.value})
 								}}></TextField>
 							</InputContainer>
-						</Layout>
-						<Layout>
 							<InputContainer label={"Address"}>
-								<TextField onChange={(event) => {
+								<TextField placeholder={"Address"} onChange={(event) => {
 									this.setState({address: event.target.value})
 								}}></TextField>
 							</InputContainer>
+
+						</Layout>
+						<Layout>
 							<InputContainer label={"Address Line 2"}>
-								<TextField onChange={(event) => {
+								<TextField placeholder={"Address Line 2"} onChange={(event) => {
 									this.setState({address2: event.target.value})
 								}}></TextField>
 							</InputContainer>
+							<InputContainer label={"Zip Code"}>
+								<TextField placeholder={"Zip Code"} onChange={(event) => {
+									this.setState({zip_code: event.target.value})
+								}}></TextField>
+							</InputContainer>
 						</Layout>
-						<InputContainer label={"Zip Code"}>
-							<TextField onChange={(event) => {
-								this.setState({zip_code: event.target.value})
-							}}></TextField>
-						</InputContainer>
 						<Layout>
 							<InputContainer label={"Contact Person"}>
-								<TextField onChange={(event) => {
+								<TextField  placeholder={"Contact Person"} onChange={(event) => {
 									this.setState({contact_name: event.target.value})
 								}}></TextField>
 							</InputContainer>
 							<InputContainer label={"Contact Number"}>
-								<TextField onChange={(event) => {
+								<TextField placeholder={"Contact Number"} onChange={(event) => {
 									this.setState({contact_number: event.target.value})
 								}}></TextField>
 							</InputContainer>
 						</Layout>
 						<Layout>
 							<InputContainer label={"Center Email"}>
-								<TextField onChange={(event) => {
+								<TextField placeholder={"Center Email"} onChange={(event) => {
 									this.setState({contact_email: event.target.value})
 								}}></TextField>
 							</InputContainer>
 							<InputContainer label={"Center Fax"}>
-								<TextField onChange={(event) => {
+								<TextField placeholder={"Center Fax"} onChange={(event) => {
 									this.setState({contact_fax: event.target.value})
 								}}></TextField>
 							</InputContainer>
 						</Layout>
 						<Layout justifyContent={"flex-end"} className={classes.actions}>
-							<Button> Clear </Button>
-							<Button variant={"raised"} color={"primary"} type={"submit"}> Add </Button>
+							<Button className={classes.actionButton}> Clear </Button>
+							<Button className={classes.actionButton} variant={"raised"} color={"primary"} type={"submit"}> Add </Button>
 						</Layout>
 					</Layout>
 				</form>

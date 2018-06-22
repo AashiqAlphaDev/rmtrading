@@ -39,14 +39,7 @@ export default withStyles((theme) => {
 							variant="body1"
 							gutterBottom
 							className={classes.annotationDesc}>
-							{
-								this.props.desc &&
-								desc
-							}
-							{
-								this.props.descTag &&
-								this.props.descTag()
-							}
+							{this.props.desc}
 						</Typography>
 					</Layout>
 				</Layout>

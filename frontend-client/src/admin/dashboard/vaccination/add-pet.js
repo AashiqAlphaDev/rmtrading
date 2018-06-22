@@ -16,6 +16,9 @@ let Index = withStyles((theme) => {
 		actions: {
 			marginTop: theme.spacing.unit * 4,
 			marginBottom: theme.spacing.unit * 4
+		},
+		body: {
+			marginTop: theme.spacing.unit * 2
 		}
 	}
 })(class extends React.Component {
@@ -33,7 +36,7 @@ let Index = withStyles((theme) => {
 
 	render() {
 		const {classes} = this.props;
-		return <AnnotatedSection title={"Add Pet"} backButton={{url: "/admin/dashboard/pets"}}>
+		return <AnnotatedSection title={"Register Pet"} desc={"Please provide necessary information to register pet."} backButton={{url: "/admin/dashboard/pets"}} className={classes.body}>
 			<form onSubmit={(e) => {
 				e.preventDefault();
 				this.props.dispatch({

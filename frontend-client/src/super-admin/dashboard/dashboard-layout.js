@@ -6,7 +6,7 @@ import {Link, Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import _ from "underscore";
 import style from "./style";
-import {IconButton, Menu, MenuItem, Tabs,Tab} from "@material-ui/core/es/index";
+import {IconButton, Menu, MenuItem, Tabs, Tab, MenuList, Divider, ListSubheader} from "@material-ui/core/es/index";
 import {AccountIcon, AppsIcon, EmailOutlineIcon, SettingsOutlineIcon} from "mdi-react";
 import {REQUEST_SUPER_ADMIN_LOGOUT} from "../../stores/auth/actions";
 
@@ -54,7 +54,7 @@ let Index = withStyles((theme) => {
 		 return <div className={classes.fullScreen}>
 				<Layout direction={"column"} className={`flex`}>
 					<AppBar position="static" color="default">
-						<Toolbar className={`container`}>
+						<Toolbar>
 							<Layout direction={"column"} className={`flex`}>
 								<Layout alignItems={"center"}>
 									<div className={`flex`}>
@@ -77,6 +77,9 @@ let Index = withStyles((theme) => {
 										}
 									</Tabs>
 									<div>
+										<IconButton>
+											<EmailOutlineIcon  />
+										</IconButton>
 										<IconButton onClick={(event)=>{this.setState({anchorEl:event.currentTarget})}}>
 											<SettingsOutlineIcon/>
 										</IconButton>
@@ -85,19 +88,21 @@ let Index = withStyles((theme) => {
 											open={Boolean(this.state.anchorEl)}
 											onClose={()=>{this.setState({anchorEl:null})}}
 										>
-											<MenuItem component={Link} to={"/super-admin/dashboard/application-data/pet-types"}>Pet-Type</MenuItem>
-											<MenuItem component={Link} to={"/super-admin/dashboard/application-data/countries"}>Countries</MenuItem>
-											<MenuItem component={Link} to={"/super-admin/dashboard/application-data/inventory"}>Inventory</MenuItem>
-											<MenuItem component={Link} to={"/super-admin/dashboard/application-data/diseases"}>Diseases</MenuItem>
-
-											<MenuItem onClick={()=>{
-                                                this.props.dispatch({type:REQUEST_SUPER_ADMIN_LOGOUT});
-                                            }}>Logout</MenuItem>
+											<MenuList>
+												<ListSubheader component="div">Manage Application Data</ListSubheader>
+												<MenuItem component={Link} to={"/super-admin/dashboard/application-data/pet-types"}>Pet-Type</MenuItem>
+												<MenuItem component={Link} to={"/super-admin/dashboard/application-data/countries"}>Countries</MenuItem>
+												<MenuItem component={Link} to={"/super-admin/dashboard/application-data/inventory"}>Inventory</MenuItem>
+												<MenuItem component={Link} to={"/super-admin/dashboard/application-data/diseases"}>Diseases</MenuItem>
+												<Divider />
+												<ListSubheader component="div">
+													Account Actions
+												</ListSubheader>
+												<MenuItem onClick={()=>{
+	                                                this.props.dispatch({type:REQUEST_SUPER_ADMIN_LOGOUT});
+	                                            }}>Logout</MenuItem>
+											</MenuList>
 										</Menu>
-
-										<IconButton>
-											<EmailOutlineIcon  />
-										</IconButton>
 									</div>
 								</Layout>
 							</Layout>
