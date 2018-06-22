@@ -167,7 +167,11 @@ var petTypeSchema = new Schema({
 	name: String,
 	description: String,
 	scientific_name: String,
-	life_span: Number
+	life_span: Number,
+    vaccination_fields:[{
+        field_type:String,
+        name:String
+    }]
 });
 petTypeSchema.plugin(mongoosePaginate);
 mongoose.model('PetType', petTypeSchema);
