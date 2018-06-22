@@ -1,6 +1,5 @@
 import React from "react"
 import Layout from "../../../components/layout";
-import {Typography, List, ListItem} from "@material-ui/core/index";
 import {Link, Switch, Route} from "react-router-dom";
 import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
@@ -9,14 +8,9 @@ import Countries from "./countries"
 import PetTypes from "./pet-types"
 import Diseases from "./diseases"
 import Inventory from "./inventory"
-import VetCenterTypes from "./vet-center-types"
+import ManagePetTypes from "./manage-pet-types"
 
-const sideNavPages = [
-	{label: "Countries", url: "/super-admin/dashboard/application-data/countries"},
-	{label: "Inventory", url: "/super-admin/dashboard/application-data/inventory"},
-	{label: "Pet Types", url: "/super-admin/dashboard/application-data/pet-types"},
-	{label: "Diseases", url: "/super-admin/dashboard/application-data/diseases"}
-];
+
 
 let Index = withStyles((theme) => {
 	return {
@@ -33,33 +27,19 @@ let Index = withStyles((theme) => {
 		const {classes} = this.props;
 		return <Layout direction={"column"} flex={1} className={classes.body}>
 			<Layout className={`container ${classes.flex}`}>
-				<Layout className={classes.leftSection}>
-					<Layout direction={"column"} className={classes.staticSection}>
-						<Typography variant="title" className={classes.title}>
-							Application Data
-						</Typography>
-						<List>
-							{
-								sideNavPages.map((item, index) => {
-									return <Link key={index} to={item.url}>
-										<ListItem button> {item.label} </ListItem>
-									</Link>
-								})
-							}
-						</List>
-					</Layout>
-				</Layout>
-				<Layout direction={"column"} className={classes.rightSection}>
+
+				<Layout direction={"column"} flex={1}>
 					<Switch>
 
 						<Switch>
+							<Route exact path={"/super-admin/dashboard/application-data/pet-types/:pet_id/manage"} render={(props)=>{
+                                return <ManagePetTypes location={props.location} />
+                            }} />
+
 							<Route exact path={"/super-admin/dashboard/application-data/countries"} render={(props) => {
 								return <Countries location={props.location}/>;
 							}}/>
-							<Route path={"/super-admin/dashboard/application-data/vet-center-types"}
-							       render={(props) => {
-								       return <VetCenterTypes location={props.location}/>;
-							       }}/>
+
 							<Route path={"/super-admin/dashboard/application-data/inventory"} render={(props) => {
 								return <Inventory location={props.location}/>;
 							}}/>
@@ -69,7 +49,6 @@ let Index = withStyles((theme) => {
 							<Route path={"/super-admin/dashboard/application-data/diseases"} render={(props) => {
 								return <Diseases location={props.location}/>;
 							}}/>
-
 
 						</Switch>
 

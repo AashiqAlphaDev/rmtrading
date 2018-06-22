@@ -41,10 +41,7 @@ let Index = withStyles((theme) => {
         anchorEl:null,
 		anchorSettings:null
     }
-    HandleRedirect(url) {
-		<Redirect to={url}/>
 
-    }
 
 	render() {
 		const {classes} = this.props;
@@ -89,6 +86,10 @@ let Index = withStyles((theme) => {
 											onClose={()=>{this.setState({anchorEl:null})}}
 										>
 											<MenuItem component={Link} to={"/super-admin/dashboard/application-data/pet-types"}>Pet-Type</MenuItem>
+											<MenuItem component={Link} to={"/super-admin/dashboard/application-data/countries"}>Countries</MenuItem>
+											<MenuItem component={Link} to={"/super-admin/dashboard/application-data/inventory"}>Inventory</MenuItem>
+											<MenuItem component={Link} to={"/super-admin/dashboard/application-data/diseases"}>Diseases</MenuItem>
+
 											<MenuItem onClick={()=>{
                                                 this.props.dispatch({type:REQUEST_SUPER_ADMIN_LOGOUT});
                                             }}>Logout</MenuItem>
@@ -97,7 +98,6 @@ let Index = withStyles((theme) => {
 										<IconButton>
 											<EmailOutlineIcon  />
 										</IconButton>
-
 									</div>
 								</Layout>
 							</Layout>

@@ -2,6 +2,7 @@ import React from "react"
 import {Paper, Typography, TableHead, TableRow, Table, TableCell, TableBody} from "@material-ui/core/index";
 import {withStyles} from "@material-ui/core/styles/index";
 import style from "../style";
+import AnnotatedSection from "../../../components/annotated-section";
 
 export default withStyles((theme) => {
 	return {
@@ -9,17 +10,23 @@ export default withStyles((theme) => {
 		actions: {
 			marginTop: theme.spacing.unit * 4,
 			marginBottom: theme.spacing.unit * 4
-		}
+		},
+        body:{
+            marginTop: theme.spacing.unit * 2
+        }
 	}
 })(class extends React.PureComponent {
 	render() {
 		const {classes} = this.props;
-		return <div>
-			<div>
+		return<AnnotatedSection
+				title={"Vet Center Types"}
+				desc={"These are the list of existing Vet Center Types"}
+				backButton={{url: "/super-admin/dashboard"}}
+				className={classes.body}>
+
 				<Typography variant="title" className={`${classes.title} flex`}>
 					Vet center types
 				</Typography>
-			</div>
 			<Paper>
 				<Table>
 					<TableHead>
@@ -50,7 +57,8 @@ export default withStyles((theme) => {
 					</TableBody>
 				</Table>
 			</Paper>
-		</div>
-
+		</AnnotatedSection>
 	}
 })
+
+
