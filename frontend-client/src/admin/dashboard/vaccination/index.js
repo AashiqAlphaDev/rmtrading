@@ -6,6 +6,7 @@ import style from "../style";
 import Overview from "./overview";
 import PetVaccination from "./pet-vaccination";
 import AddGuardian from "./add-guardian"
+import AddPet from "./add-pet"
 import {connect} from "react-redux";
 
 
@@ -31,6 +32,9 @@ let Index = withStyles((theme) => {
 					}}/>
 					<Route exact path={"/admin/dashboard/vaccinations/add-guardian"} render={(props) => {
 						return <AddGuardian {...props} />;
+					}}/>
+					<Route exact path={"/admin/dashboard/vaccinations/:guardian_id/add-pet"} render={(props) => {
+						return <AddPet {...props} />;
 					}}/>
 					<Route exact path={"/admin/dashboard/vaccinations/:pet_id"} render={(props) => {
 						return <PetVaccination {...props} />;
