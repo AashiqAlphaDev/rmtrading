@@ -33,26 +33,26 @@ let Index = withStyles((theme) => {
 	render() {
 		const {classes} = this.props;
 		return <AnnotatedSection title={"Add Vaccination Center"}
-		                         backButton={{url: "/super-admin/dashboard/pets"}}>
-			<Paper className={classes.paperPage}>
-				<form onSubmit={(e) => {
-					e.preventDefault();
+		                         backButton={{url: "/super-admin/dashboard/pets"}} className={classes.body}>
+			<form onSubmit={(e) => {
+				e.preventDefault();
 
-					let guardianData = {
-						name: this.state.name,
+				let guardianData = {
+					name: this.state.name,
+					mobile_number: this.state.mobile_number,
+					email: this.state.email,
+					profile: {
+						first_name: this.state.name,
+						address: this.state.address,
 						mobile_number: this.state.mobile_number,
-						email: this.state.email,
-						profile: {
-							first_name: this.state.name,
-							address: this.state.address,
-							mobile_number: this.state.mobile_number,
-							government_issued_id_type: this.state.government_issued_id_type,
-							government_issued_id: this.state.government_issued_id
-						}
+						government_issued_id_type: this.state.government_issued_id_type,
+						government_issued_id: this.state.government_issued_id
+					}
 
-					};
-					this.props.dispatch({type: REQUEST_CREATE_USER, payload: guardianData});
-				}}>
+				};
+				this.props.dispatch({type: REQUEST_CREATE_USER, payload: guardianData});
+			}}>
+				<Paper className={classes.paperPage}>
 
 					<Layout direction={"column"}>
 						<Typography variant="subheading" className={classes.title}>
@@ -97,8 +97,8 @@ let Index = withStyles((theme) => {
 						<Button> Clear </Button>
 						<Button variant={"raised"} color={"primary"} type={"submit"}> Add </Button>
 					</Layout>
-				</form>
-			</Paper>
+				</Paper>
+			</form>
 		</AnnotatedSection>;
 	}
 });
