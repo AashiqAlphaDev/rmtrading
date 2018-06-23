@@ -108,7 +108,7 @@ let Index = withStyles((theme) => {
 			<Paper className={classes.paperPage}>
 				<form onSubmit={(e) => {
 					e.preventDefault();
-					if (this.state.selectedDiseases.length>0 && this.state.selectedCountry && this.state.selectedPetType) {
+					if (this.state.selectedCountry && this.state.selectedPetType) {
 						let vaccineData = {
 							name: this.state.name,
 							diseases: _.map(this.state.selectedDiseases,(item)=>{return item._id}),
