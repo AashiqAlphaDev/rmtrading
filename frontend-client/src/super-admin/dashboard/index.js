@@ -6,9 +6,10 @@ import Vaccines from "./vaccines"
 import Requests from "./requests"
 import Orders from "./oders"
 import Overview from "./overview"
+import Tokens from "./tokens"
 import {connect} from "react-redux"
 import {CHECK_SUPER_ADMIN} from "../../stores/auth/actions";
-import {Redirect, Route} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 
 
 let Index = (class extends React.Component {
@@ -32,24 +33,27 @@ let Index = (class extends React.Component {
 						this.props.auth.redirect &&
 						<Redirect to={this.props.auth.redirect}/>
 					}
-					<Route exact path={"/super-admin/dashboard/"} render={() => {
-						return <Overview location={this.props} onPageChange={this.onPageChange.bind(this)}/>
-					}}/>
-					<Route path={"/super-admin/dashboard/vet-centers"} render={() => {
-						return <VetCenters {...this.props} onPageChange={this.onPageChange.bind(this)}/>
-					}}/>
-					<Route path={"/super-admin/dashboard/application-data"} render={() => {
-						return <ApplicationData {...this.props} onPageChange={this.onPageChange.bind(this)}/>
-					}}/>
-					<Route path={"/super-admin/dashboard/vaccines"} render={() => {
-						return <Vaccines {...this.props} onPageChange={this.onPageChange.bind(this)}/>
-					}}/>
-					<Route path={"/super-admin/dashboard/orders"} render={() => {
-						return <Orders {...this.props} onPageChange={this.onPageChange.bind(this)}/>
-					}}/>
-					<Route path={"/super-admin/dashboard/requests"} render={() => {
-						return <Requests {...this.props} onPageChange={this.onPageChange.bind(this)}/>
-					}}/>
+					<Switch>
+						<Route exact path={"/super-admin/dashboard/"} render={() => {
+							return <Overview location={this.props} onPageChange={this.onPageChange.bind(this)}/>
+						}}/>
+						<Route path={"/super-admin/dashboard/vet-centers"} render={() => {
+							return <VetCenters {...this.props} onPageChange={this.onPageChange.bind(this)}/>
+						}}/>
+						<Route path={"/super-admin/dashboard/vaccines"} render={() => {
+							return <Vaccines {...this.props} onPageChange={this.onPageChange.bind(this)}/>
+						}}/>
+						<Route path={"/super-admin/dashboard/orders"} render={() => {
+							return <Orders {...this.props} onPageChange={this.onPageChange.bind(this)}/>
+						}}/>
+						<Route path={"/super-admin/dashboard/requests"} render={() => {
+							return <Requests {...this.props} onPageChange={this.onPageChange.bind(this)}/>
+						}}/>
+						<Route path={"/super-admin/dashboard/application-data/tokens"} render={() => {
+							console.log('here')
+							return <Tokens {...this.props} onPageChange={this.onPageChange.bind(this)}/>
+						}}/>
+					</Switch>
 				</DashboardLayout>
 			}
 			else {

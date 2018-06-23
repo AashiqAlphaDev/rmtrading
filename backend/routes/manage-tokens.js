@@ -19,6 +19,11 @@ router.get("/:token_id", httpCoWrap(function* (req, res, next) {
 	res.send(token);
 }));
 
+router.post("/generate", isAdmin, httpCoWrap(function* (req, res, next) {
+	let tokens = yield TokenManagementService.generateTokens(req.body.count);
+	res.send(tokens);
+}));
+
 router.post("/", isAdmin, httpCoWrap(function* (req, res, next) {
 	let token = yield TokenManagementService.createToken(req.body);
 	res.send(token);

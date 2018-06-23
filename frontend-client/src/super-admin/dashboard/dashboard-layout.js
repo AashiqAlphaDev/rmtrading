@@ -117,6 +117,9 @@ let Index = withStyles((theme) => {
 											<MenuItem component={Link}
 											          to={"/super-admin/dashboard/application-data/diseases"}>Diseases</MenuItem>
 											<Divider/>
+											<MenuItem component={Link}
+											          to={"/super-admin/dashboard/application-data/tokens"}>Generate Tokens</MenuItem>
+											<Divider/>
 											<ListSubheader component="div">
 												Account Actions
 											</ListSubheader>

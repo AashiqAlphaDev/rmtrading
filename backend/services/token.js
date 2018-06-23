@@ -1,5 +1,12 @@
 const mongoose = require("mongoose")
 const Token = mongoose.model('Token');
+const _  = require("underscore");
+
+module.exports.generateTokens = function* (count) {
+	return yield Token.create(_.map(_.range(1,count), ()=>{
+		return {status:"not-assigned"};
+	}));
+}
 
 module.exports.createToken = function* (tokenData) {
 	validate(tokenData, ["pet"], "You missed <%=param%>.");

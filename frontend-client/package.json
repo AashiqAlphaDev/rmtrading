@@ -9,6 +9,7 @@
     "date-fns": "^2.0.0-alpha.7",
     "material-ui-pickers": "^1.0.0-rc.10",
     "mdi-react": "^3.4.0",
+    "qrcode.react": "^0.8.0",
     "react": "^16.4.1",
     "react-autosuggest": "^9.3.4",
     "react-dom": "^16.4.1",

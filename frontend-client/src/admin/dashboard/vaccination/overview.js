@@ -195,7 +195,9 @@ let Index = withStyles((theme) => {
 						onError={(err) => {
 							console.log(err);
 						}}
-						onScan={console.log}
+						onScan={()=>{
+							//this.props.dispatch({type:})
+						}}
 						style={{width: 400, height: 400}}
 					/>
 					<InputContainer label={"Pet Id"}>
