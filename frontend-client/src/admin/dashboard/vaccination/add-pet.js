@@ -10,6 +10,8 @@ import {QUERY_BREEDS, QUERY_PET_TYPES} from "../../../stores/pet-types/actions";
 import {REQUEST_CREATE_PET} from "../../../stores/pets/actions";
 import Layout from "../../../components/layout";
 import {DatePicker} from "material-ui-pickers";
+import {Redirect} from "react-router-dom";
+import moment from "moment"
 
 let Index = withStyles((theme) => {
 	return {
@@ -28,6 +30,8 @@ let Index = withStyles((theme) => {
 		name: "",
 		pet_type: null,
 		breed: null,
+		date_of_birth:new Date(),
+		chip_id:"",
 	};
 
 	componentWillMount() {
@@ -39,6 +43,10 @@ let Index = withStyles((theme) => {
 		const {classes} = this.props;
 		return <AnnotatedSection title={"Register Pet"} desc={"Please provide necessary information to register pet."}
 		                         backButton={{url: "/admin/dashboard/vaccinations"}} className={classes.body}>
+			{
+				this.props.petDetail.petCreated &&
+				<Redirect to={`/admin/dashboard/pets/${this.props.petDetail._id}`} />
+			}
 			<form onSubmit={(e) => {
 				e.preventDefault();
 				this.props.dispatch({
@@ -98,15 +106,19 @@ let Index = withStyles((theme) => {
 						}
 					</InputContainer>
 					<InputContainer label={"Chip Id"}>
-						<TextField value={this.state.chip_id} onChange={(date) => {
-							this.setState({chip_id: date});
+						<TextField value={this.state.chip_id} onChange={(event) => {
+							this.setState({chip_id: event.target.value});
 						}}></TextField>
 					</InputContainer>
 					<InputContainer label="Date Of Birth">
 						<DatePicker
 							value={this.state.date_of_birth}
 							onChange={(date) => {
-								this.setState({date_of_birth: date});
+								console.log(date);
+								this.setState({date_of_birth:date});
+							}}
+							labelFunc={(date)=>{
+								return moment(date).format('MMMM Do YYYY');
 							}}
 							animateYearScrolling={false}
 						/>

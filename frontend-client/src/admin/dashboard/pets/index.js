@@ -5,9 +5,6 @@ import {Link, Switch, Route} from "react-router-dom";
 import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
 import Overview from "./overview"
-import AddPet from "./add-pet"
-import ChooseGuardian from "./choose-guardian"
-import AddGuardian from "./add-guardian"
 
 import {connect} from "react-redux"
 
@@ -31,36 +28,11 @@ let Index = withStyles((theme) => {
 		const {classes} = this.props;
 		return <Layout direction={"column"} flex={1} className={classes.body}>
 			<Layout className={`container ${classes.flex}`}>
-				<Layout className={classes.leftSection}>
-					<Layout direction={"column"} className={classes.staticSection}>
-						<Typography variant="title" className={classes.title}>
-							Manage Pet
-						</Typography>
-						<TextField className={classes.searchField} placeholder={"Search"}/>
-						<List>
-							{
-								sideNavPages.map((item, index) => {
-									return <Link key={index} to={item.url}>
-										<ListItem button> {item.label} </ListItem>
-									</Link>
-								})
-							}
-						</List>
-					</Layout>
-				</Layout>
-				<Layout direction={"column"} className={classes.rightSection}>
-					<Switch>
-						<Route exact path={"/admin/dashboard/pets"} render={(props) => {
-							return <Overview {...props} />;
-						}}/>
-						<Route exact path={"/admin/dashboard/pets/add-guardian"} render={(props) => {
-							return <AddGuardian {...props} />;
-						}}/>
-						<Route exact path={"/admin/dashboard/pets/:guardian_id/add-pet"} render={(props) => {
-							return <AddPet {...props} />;
-						}}/>
-					</Switch>
-				</Layout>
+				<Switch>
+					<Route exact path={"/admin/dashboard/pets/:pet_id"} render={(props) => {
+						return <Overview {...props} />;
+					}}/>
+				</Switch>
 			</Layout>
 		</Layout>;
 	}

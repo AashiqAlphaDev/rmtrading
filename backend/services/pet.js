@@ -10,7 +10,7 @@ Date.prototype.addDays = function (days) {
 	var dat = new Date(this.valueOf());
 	dat.setDate(dat.getDate() + days);
 	return dat;
-}
+};
 
 module.exports.createPet = function* (petData) {
 	validate(petData, ["name", "pet_type", "owner", "date_of_birth"], "You missed <%=param%>.");
@@ -197,7 +197,6 @@ module.exports.pets = function* (query = {}, page) {
 	return yield Pet.paginate(query, page);
 };
 
-
 module.exports.petByToken = function* (petByToken) {
 	const token = yield Token.findOne({_id:petByToken});
 	if(token.pet){
@@ -225,8 +224,3 @@ module.exports.petWithName = function* (name) {
 module.exports.deleteAll = function* () {
 	return yield Pet.remove({});
 };
-
-
-
-
-

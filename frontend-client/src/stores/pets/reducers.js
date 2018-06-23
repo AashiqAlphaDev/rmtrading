@@ -1,4 +1,11 @@
-import {CLEAR_PET, GUARDIAN_FETCH_SUCCEDED, PET_FETCH_FAILED, PET_FETCH_SUCCEDED} from "./actions";
+import {
+	CLEAR_PET,
+	CREATE_PET_SUCCEDED,
+	GUARDIAN_FETCH_SUCCEDED,
+	PET_FETCH_FAILED,
+	PET_FETCH_SUCCEDED,
+	REQUEST_CREATE_PET
+} from "./actions";
 import {CLEAR_GUARDIAN} from "./actions";
 import {GUARDIAN_FETCH_FAILED} from "./actions";
 
@@ -41,7 +48,7 @@ function guardianDetailReducer(state = initGuardianDetail, action) {
 }
 
 
-const petDetail = {}
+const petDetail = {petCreated:false}
 
 function petDetailReducer(state = petDetail, action) {
 	switch (action.type) {
@@ -51,6 +58,10 @@ function petDetailReducer(state = petDetail, action) {
 		}
 		case PET_FETCH_SUCCEDED: {
 			state = {...state, ...action.payload};
+			break;
+		}
+		case CREATE_PET_SUCCEDED:{
+			state = {...state, ...action.payload, petCreated:true};
 			break;
 		}
 		case PET_FETCH_FAILED: {
