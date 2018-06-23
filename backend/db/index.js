@@ -3,6 +3,7 @@ mongoose.connect('mongodb://db/ADDB');
 const mongoosePaginate = require('mongoose-paginate');
 const Schema = mongoose.Schema;
 const ObjectID = ObjectId = Schema.ObjectId;
+const _ = require("underscore");
 
 //User
 const userSchema = new Schema({
@@ -26,7 +27,7 @@ mongoose.model('User', userSchema);
 const vaccinesSchema = new Schema({
 	name: String,
 	available: Boolean,
-	disease: ObjectID,
+	diseases: [ObjectID],
 	pet_type: ObjectID,
 	breed: ObjectID,
 	gender: {
@@ -74,13 +75,13 @@ const vaccinesSchema = new Schema({
 vaccinesSchema.plugin(mongoosePaginate);
 vaccinesSchema.pre("save", async function (next) {
 	let Disease = mongoose.model("Disease");
-	let disease = await Disease.findOne({_id: this.disease});
+	let diseases = await Disease.find({_id:{$in:this.diseases}});
 	let PetType = mongoose.model("PetType");
 	let pet_type = await PetType.findOne({_id: this.pet_type});
 	let Country = mongoose.model("Country");
 	let country = await Country.findOne({_id: this.country});
 	this.data = {};
-	this.data.disease = disease.name;
+	this.data.diseases = _.map(diseases, (item)=>{return item.name});
 	this.data.pet_type = pet_type.name;
 	this.data.country = country.name;
 	next();
@@ -121,6 +122,7 @@ const vaccinationCenterSchema = new Schema({
 	],
 	data: {}
 });
+
 vaccinationCenterSchema.plugin(mongoosePaginate);
 vaccinationCenterSchema.pre("save", async function (next) {
 	let Country = mongoose.model("Country");

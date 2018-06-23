@@ -7,6 +7,7 @@ import {withStyles} from "@material-ui/core/styles/index";
 import AutoSuggest from "../../../components/auto-suggest";
 import {connect} from "react-redux";
 import style from "../style";
+import _ from "underscore"
 import {
 	COUNTRY_CLEAR_MATCHES,
 	QUERY_COUNTRIES,
@@ -46,7 +47,7 @@ let Index = withStyles((theme) => {
 		breed_query: "",
 		pet_type_query: "",
 		disease_query: "",
-		selectedDisease: null,
+		selectedDiseases: [],
 		remarks: "",
 		forFemale: true,
 		forMale: true
@@ -88,6 +89,11 @@ let Index = withStyles((theme) => {
 			this.setState({selectedBreed: nextProps.petTypes.addedBreed});
 			this.props.dispatch({type: BREED_CLEAR_MATCHES});
 		}
+		if (nextProps.diseases.addedDisease) {
+			this.state.selectedDiseases.push(nextProps.diseases.addedDisease)
+			this.setState({});
+			this.props.dispatch({type: DISEASE_CLEAR_MATCHES});
+		}
 	}
 
 	render() {
@@ -102,10 +108,10 @@ let Index = withStyles((theme) => {
 			<Paper className={classes.paperPage}>
 				<form onSubmit={(e) => {
 					e.preventDefault();
-					if (this.state.selectedDisease && this.state.selectedCountry && this.state.selectedPetType) {
+					if (this.state.selectedDiseases.length>0 && this.state.selectedCountry && this.state.selectedPetType) {
 						let vaccineData = {
 							name: this.state.name,
-							disease: this.state.selectedDisease._id,
+							diseases: _.map(this.state.selectedDiseases,(item)=>{return item._id}),
 							country: this.state.selectedCountry._id,
 							pet_type: this.state.selectedPetType._id,
 							breed: this.state.selectedBreed ? this.state.selectedBreed._id : null,
@@ -125,6 +131,8 @@ let Index = withStyles((theme) => {
 							}}/>
 						</InputContainer>
 						<AutoSuggest
+							multiple={true}
+							onDelete={(deletedItem)=>{this.setState({selectedDiseases:_.filter(this.state.selectedDiseases, (item)=>{return item._id != deletedItem._id})})}}
 							suggestions={this.props.diseases.list.length === 0 && !this.state.selectedDisease ? [{
 								name: `+ Add ${this.state.disease_query}`,
 								action: "create_new",
@@ -136,6 +144,7 @@ let Index = withStyles((theme) => {
 							}}
 							disabled={this.props.diseases.addingDiseaseInProgress}
 							placeholder={"Disease"}
+							values={this.state.selectedDiseases}
 							value={this.state.disease_query}
 							onBlur={() => {
 								if (!this.state.selectedDisease) {
@@ -145,6 +154,9 @@ let Index = withStyles((theme) => {
 							onChange={(event, payload) => {
 								event.preventDefault();
 								const {newValue} = payload;
+								if(event.keyCode==40 ||event.keyCode==38){
+									return;
+								}
 								if (typeof newValue === 'string') {
 									this.setState({selectedDisease: null});
 									this.setState({disease_query: newValue});
@@ -154,8 +166,10 @@ let Index = withStyles((theme) => {
 										this.props.dispatch({type: REQUEST_ADD_DISEASE, payload: newValue.value});
 									}
 									else {
-										this.setState({selectedDisease: newValue});
-										this.setState({disease_query: newValue.name});
+										if(Boolean(!_.find(this.state.selectedDiseases, (item)=>{return item._id===newValue._id}))){
+											this.state.selectedDiseases.push(newValue);
+											this.setState({disease_query: ""});
+										}
 									}
 								}
 							}}

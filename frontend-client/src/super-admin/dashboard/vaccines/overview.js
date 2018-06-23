@@ -57,7 +57,7 @@ let Index = withStyles((theme) => {
 						<TableHead>
 							<TableRow>
 								<TableCell>Name</TableCell>
-								<TableCell>Disease</TableCell>
+								<TableCell>Diseases</TableCell>
 								<TableCell>Pet</TableCell>
 								<TableCell>Country</TableCell>
 								<TableCell></TableCell>
@@ -73,7 +73,12 @@ let Index = withStyles((theme) => {
 												{item.name}
 											</Typography>
 										</TableCell>
-										<TableCell>{item.data.disease}</TableCell>
+										<TableCell>
+											{
+												item.data.diseases &&
+												item.data.diseases.join(", ")
+											}
+										</TableCell>
 										<TableCell>{item.data.pet_type}</TableCell>
 										<TableCell>{item.data.country}</TableCell>
 										<TableCell>
