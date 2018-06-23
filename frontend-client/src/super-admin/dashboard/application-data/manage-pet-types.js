@@ -3,7 +3,19 @@ import {withStyles} from "@material-ui/core/styles/index";
 import style from "../style";
 import Layout from "../../../components/layout";
 import {
-	Button, IconButton, List, MenuItem, Paper, Select, Table, TableBody, TableCell, TableHead, TableRow, TextField,
+	Button,
+	IconButton,
+	List,
+	ListItem, ListItemText,
+	MenuItem,
+	Paper,
+	Select,
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableRow,
+	TextField,
 	Typography
 } from "@material-ui/core/es/index";
 import InputContainer from "../../../components/input"
@@ -31,7 +43,8 @@ let Index = withStyles((theme) => {
 
 	state = {
 		name: "",
-		field_type: ""
+		field_type: "",
+		life_span:0
 	};
 
 	componentWillMount() {
@@ -52,11 +65,18 @@ let Index = withStyles((theme) => {
 			className={classes.body}>
 			<Paper className={classes.paperPage}>
 				<Layout alignItems={"flex-end"}>
+
 					<List>
 						{
-
+							this.props.petTypes.petTypeDetail.vaccination_fields &&
+							this.props.petTypes.petTypeDetail.vaccination_fields.map((item)=>{
+								return <ListItem>
+									<ListItemText>{item.name}</ListItemText>
+								</ListItem>
+							})
 						}
 					</List>
+
 					<form onSubmit={(e) => {
 						e.preventDefault();
 						const {name, field_type} = this.state;
@@ -68,6 +88,21 @@ let Index = withStyles((theme) => {
 							}
 						})
 					}}>
+						<InputContainer label={"Life Span"}>
+							<TextField onChange={(event) => {
+								this.setState({life_span: event.target.value});
+							}}></TextField>
+						</InputContainer>
+							<Button onClick={()=>{
+								this.props.dispatch({
+									type: REQUEST_UPDATE_PET_TYPE,
+									payload: {
+										pet_type_id: this.props.match.params.pet_type_id,
+										data:{life_span:this.state.life_span}
+									}
+								})
+							}
+							}>Update Lifespan</Button>
 						<InputContainer label={"Field Name"}>
 							<TextField onChange={(event) => {
 								this.setState({name: event.target.value});
@@ -84,7 +119,7 @@ let Index = withStyles((theme) => {
 						</InputContainer>
 						<Layout justifyContent={"flex-end"}>
 							<Button variant={"raised"} color={"primary"}
-							        style={{"padding-top": 11, "padding-bottom": 11}} type={"submit"}> Add </Button>
+							        style={{paddingTop: 11, paddingBottom: 11}} type={"submit"}> Add </Button>
 						</Layout>
 					</form>
 				</Layout>

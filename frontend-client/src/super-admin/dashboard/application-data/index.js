@@ -1,6 +1,7 @@
 import React from "react"
 import Layout from "../../../components/layout";
-import {Link, Switch, Route} from "react-router-dom";
+import {Switch, Route} from "react-router-dom";
+import Tokens from "../tokens";
 import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
 import {connect} from "react-redux"
@@ -38,17 +39,20 @@ let Index = withStyles((theme) => {
 							       }}/>
 
 							<Route exact path={"/super-admin/dashboard/application-data/countries"} render={(props) => {
-								return <Countries location={props.location}/>;
+								return <Countries {...props}/>;
 							}}/>
 
 							<Route path={"/super-admin/dashboard/application-data/inventory"} render={(props) => {
-								return <Inventory location={props.location}/>;
+								return <Inventory {...props}/>;
 							}}/>
 							<Route path={"/super-admin/dashboard/application-data/pet-types"} render={(props) => {
-								return <PetTypes location={props.location}/>;
+								return <PetTypes {...props}/>;
 							}}/>
 							<Route path={"/super-admin/dashboard/application-data/diseases"} render={(props) => {
-								return <Diseases location={props.location}/>;
+								return <Diseases {...props}/>;
+							}}/>
+							<Route path={"/super-admin/dashboard/application-data/tokens"} render={(props) => {
+								return <Tokens {...props} />
 							}}/>
 
 						</Switch>

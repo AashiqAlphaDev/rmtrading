@@ -9,6 +9,7 @@ import InputContainer from "./input"
 import parse from "autosuggest-highlight/parse/index";
 import match from "autosuggest-highlight/match/index";
 import withStyles from "@material-ui/core/styles/withStyles";
+import {Chip, Input, InputAdornment} from "@material-ui/core/es/index";
 
 function renderSuggestion(suggestion, {query, isHighlighted}) {
 	const matches = match(suggestion.name, query);
@@ -86,19 +87,28 @@ export default withStyles((theme) => {
 					renderSuggestionsContainer={renderSuggestionsContainer}
 					renderInputComponent={(inputProps) => {
 						const {InputProps, ref, classes, ...other} = inputProps;
+						const _inputProps = {
+							classes: {
+								input: classes.input,
+							},
+							inputRef: ref,
+							...InputProps,
+						};
+						if(this.props.multiple){
+							_inputProps.startAdornment = <InputAdornment position="start">
+								{
+									this.props.values.map((item)=>{
+										return <Chip key={item._id} label={item.name} onDelete={()=>{this.props.onDelete(item)}}></Chip>
+									})
+								}
+							</InputAdornment>
+						}
 						return <div>
 							<TextField
 								autoComplete={false}
 								fullWidth
-								InputProps={{
-									classes: {
-										input: classes.input,
-									},
-									inputRef: ref,
-									...InputProps,
-								}}
+								InputProps={_inputProps}
 								disabled={this.props.disabled}
-
 								{...other}
 							/>
 						</div>

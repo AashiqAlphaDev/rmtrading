@@ -3,6 +3,7 @@ mongoose.connect('mongodb://db/ADDB');
 const mongoosePaginate = require('mongoose-paginate');
 const Schema = mongoose.Schema;
 const ObjectID = ObjectId = Schema.ObjectId;
+const _ = require("underscore");
 
 //User
 const userSchema = new Schema({
@@ -26,7 +27,7 @@ mongoose.model('User', userSchema);
 const vaccinesSchema = new Schema({
 	name: String,
 	available: Boolean,
-	disease: ObjectID,
+	diseases: [ObjectID],
 	pet_type: ObjectID,
 	breed: ObjectID,
 	gender: {
@@ -74,13 +75,13 @@ const vaccinesSchema = new Schema({
 vaccinesSchema.plugin(mongoosePaginate);
 vaccinesSchema.pre("save", async function (next) {
 	let Disease = mongoose.model("Disease");
-	let disease = await Disease.findOne({_id: this.disease});
+	let diseases = await Disease.find({_id:{$in:this.diseases}});
 	let PetType = mongoose.model("PetType");
 	let pet_type = await PetType.findOne({_id: this.pet_type});
 	let Country = mongoose.model("Country");
 	let country = await Country.findOne({_id: this.country});
 	this.data = {};
-	this.data.disease = disease.name;
+	this.data.diseases = _.map(diseases, (item)=>{return item.name});
 	this.data.pet_type = pet_type.name;
 	this.data.country = country.name;
 	next();
@@ -121,10 +122,11 @@ const vaccinationCenterSchema = new Schema({
 	],
 	data: {}
 });
+
 vaccinationCenterSchema.plugin(mongoosePaginate);
 vaccinationCenterSchema.pre("save", async function (next) {
 	let Country = mongoose.model("Country");
-	let country = await Country.findOne({_id: this.country});
+	let country = await Country.findOne({_id: this.address.country});
 	this.data = {};
 	this.data.country = country.name;
 	next();
@@ -202,21 +204,36 @@ statesSchema.plugin(mongoosePaginate);
 mongoose.model('State', statesSchema);
 
 // Vaccination
+
 const vaccinationSchema = new Schema({
 	dosage: {
 		date: Date
 	},
+	dose:Number,
 	catch_up_period: {
 		start: Date,
 		due_date: Date
 	},
 	pet: ObjectID,
 	vaccine: ObjectID,
+	disease:ObjectID,
 	status: String,
+	visit:ObjectID,
 	data: {}
 });
 vaccinationSchema.plugin(mongoosePaginate);
+vaccinationSchema.pre("save", async function (next) {
+	let Vaccine = mongoose.model("Vaccine");
+	let vaccine = await Vaccine.findOne({_id: this.vaccine});
+	let Disease = mongoose.model("Disease");
+	let disease = await Disease.findOne({_id: vaccine.disease});
+	this.data = {};
+	this.data.vaccine = vaccine.name;
+	this.data.disease=disease.name;
+	next();
+});
 mongoose.model('Vaccination', vaccinationSchema);
+
 
 const DiseaseSchema = new Schema({
 	name: String
@@ -263,5 +280,14 @@ const EmailVerificationSchema = new Schema({
 	verified: Boolean
 });
 mongoose.model('EmailVerification', EmailVerificationSchema);
+
+
+
+const VisitSchema = new Schema({
+	user: ObjectID,
+	pet:ObjectID,
+	biometrics_data:{}
+});
+mongoose.model('Visit', VisitSchema);
 
 

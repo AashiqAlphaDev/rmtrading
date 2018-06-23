@@ -1,10 +1,10 @@
 import React from "react"
 import Layout from "../../../components/layout";
-import {Typography, TextField, List, ListItem} from "@material-ui/core/index";
 import {Link, Switch, Route} from "react-router-dom";
 import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
 import Overview from "./overview"
+import Visit from "./visit"
 
 import {connect} from "react-redux"
 
@@ -31,6 +31,9 @@ let Index = withStyles((theme) => {
 				<Switch>
 					<Route exact path={"/admin/dashboard/pets/:pet_id"} render={(props) => {
 						return <Overview {...props} />;
+					}}/>
+					<Route exact path={"/admin/dashboard/pets/:pet_id/visits/:visit_id"} render={(props) => {
+						return <Visit {...props} />;
 					}}/>
 				</Switch>
 			</Layout>

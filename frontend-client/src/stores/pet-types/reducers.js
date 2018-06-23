@@ -7,7 +7,10 @@ import {
 	QUERY_PET_TYPES, REQUEST_ADD_PET_TYPE, BREED_CLEAR_MATCHES,
 	REQUEST_UPDATE_PET_TYPE,
 	UPDATE_PET_TYPE_SUCCEEDED,
-	UPDATE_PET_TYPE_FAILED, PET_TYPE_FETCH_SUCCEDED
+	UPDATE_PET_TYPE_FAILED, PET_TYPE_FETCH_SUCCEDED,
+	REQUEST_ADD_VISIT,
+	ADD_VISIT_SUCCEDED,
+	ADD_VISIT_FAILED
 } from "./actions";
 
 const initPetTypes = {
@@ -20,6 +23,18 @@ function petTypesReducer(state = initPetTypes, action) {
 	switch (action.type) {
 		case PET_TYPE_CLEAR_MATCHES: {
 			state = {...state, list: [], addedPetType: null, petTypeDetail: {}};
+			break;
+		}
+		case REQUEST_ADD_VISIT :{
+			state = {...state,addingVisitInProgress:true}
+			break;
+		}
+		case ADD_VISIT_SUCCEDED :{
+			state = {...state,addingVisitInProgress:false}
+			break;
+		}
+		case ADD_VISIT_FAILED :{
+			state = {...state,addingVisitInProgress:false}
 			break;
 		}
 
