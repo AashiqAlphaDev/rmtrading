@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core/es/index";
 import Layout from "../../../components/layout";
 import {ArrowRightIcon} from "mdi-react";
-import {REQUEST_GUARDIAN_FETCH} from "../../../stores/pets/actions";
+import {REQUEST_GUARDIAN_FETCH, REQUEST_PET_FETCH} from "../../../stores/pets/actions";
 import Link from "react-router-dom/es/Link";
 import QrReader from 'react-qr-reader';
 import InputContainer from "../../../components/input"
@@ -195,8 +195,10 @@ let Index = withStyles((theme) => {
 						onError={(err) => {
 							console.log(err);
 						}}
-						onScan={()=>{
-							//this.props.dispatch({type:})
+						onScan={(result)=>{
+							if(result){
+								this.props.dispatch({type:REQUEST_PET_FETCH, payload:{token:result}})
+							}
 						}}
 						style={{width: 400, height: 400}}
 					/>

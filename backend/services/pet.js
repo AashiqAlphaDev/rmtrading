@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 const Pet = mongoose.model('Pet');
+const Token = mongoose.model('Token');
 const PetType = mongoose.model('PetType');
 const Vaccine = mongoose.model('Vaccine');
 const Vaccination = mongoose.model('Vaccination');
@@ -194,6 +195,16 @@ module.exports.deletePet = function* (petId) {
 
 module.exports.pets = function* (query = {}, page) {
 	return yield Pet.paginate(query, page);
+};
+
+
+module.exports.petByToken = function* (petByToken) {
+	const token = yield Token.findOne({_id:petByToken});
+	if(token.pet){
+		const pet = yield Pet.findOne({pet:token.pet});
+		return pet;
+	}
+	return null;
 };
 
 module.exports.petWithId = function* (petId) {

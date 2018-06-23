@@ -54,6 +54,9 @@ let fetchPet = function* (action) {
 		if (action.payload.pet_id) {
 			url = `${base_url}/pets/${action.payload.pet_id}`;
 		}
+		if (action.payload.token) {
+			url = `${base_url}/pets/token/${action.payload.token}`;
+		}
 		const response = yield call(fetch, url, {
 			method: 'GET',
 			credentials: 'include'
