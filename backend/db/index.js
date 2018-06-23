@@ -124,7 +124,7 @@ const vaccinationCenterSchema = new Schema({
 vaccinationCenterSchema.plugin(mongoosePaginate);
 vaccinationCenterSchema.pre("save", async function (next) {
 	let Country = mongoose.model("Country");
-	let country = await Country.findOne({_id: this.country});
+	let country = await Country.findOne({_id: this.address.country});
 	this.data = {};
 	this.data.country = country.name;
 	next();
