@@ -54,7 +54,8 @@ module.exports.createPet = function* (petData) {
 			}
 			else {
 				if (schedule.period) {
-					for (var i = schedule.period.start; i <= schedule.period.end; i = i + schedule.interval) {
+					for (var i = schedule.period.start; i < schedule.period.end; i = i + schedule.interval) {
+						console.log(i);
 						var dobClone = new Date(pet.date_of_birth);
 						var numberOfDaysToAdd = i * 7;
 						dobClone = dobClone.addDays(numberOfDaysToAdd);
@@ -70,6 +71,7 @@ module.exports.createPet = function* (petData) {
 							dose:doseCount++
 						};
 						lastVaccinationWeek = i + schedule.catch_up_period.due_period;
+
 						vaccinations.push(lastVaccination);
 					}
 				}
@@ -100,7 +102,8 @@ module.exports.createPet = function* (petData) {
 			}
 			else {
 				if (schedule.period) {
-					for (var i = schedule.period.start; i <= schedule.period.end; i = i + schedule.interval) {
+					for (var i = schedule.period.start; i < schedule.period.end; i = i + schedule.interval) {
+                        console.log(i);
 						var dobClone = new Date(pet.date_of_birth);
 						var numberOfDaysToAdd = i * 7;
 						dobClone = dobClone.addDays(numberOfDaysToAdd);
@@ -147,7 +150,7 @@ module.exports.createPet = function* (petData) {
 			}
 			else {
 				if (schedule.period) {
-					for (var i = schedule.period.start; i <= schedule.period.end; i = i + schedule.interval) {
+					for (var i = schedule.period.start; i < schedule.period.end; i = i + schedule.interval) {
 						var dobClone = new Date(pet.date_of_birth);
 						var numberOfDaysToAdd = i * 7;
 						dobClone = dobClone.addDays(numberOfDaysToAdd);
@@ -164,7 +167,9 @@ module.exports.createPet = function* (petData) {
 							dose:doseCount++
 						};
 						lastVaccinationWeek = i + schedule.catch_up_period.due_period;
+
 						vaccinations.push(lastVaccination);
+
 					}
 				}
 				else {

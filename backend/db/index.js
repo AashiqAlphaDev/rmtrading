@@ -226,10 +226,10 @@ vaccinationSchema.pre("save", async function (next) {
 	let Vaccine = mongoose.model("Vaccine");
 	let vaccine = await Vaccine.findOne({_id: this.vaccine});
 	let Disease = mongoose.model("Disease");
-	let disease = await Disease.findOne({_id: vaccine.disease});
+	let diseases = await Disease.find({_id:{$in:vaccine.diseases}});
 	this.data = {};
 	this.data.vaccine = vaccine.name;
-	this.data.disease=disease.name;
+	this.data.disease=_.map(diseases, (disease)=>(disease.name))
 	next();
 });
 mongoose.model('Vaccination', vaccinationSchema);
