@@ -11,8 +11,10 @@ import {
 	REQUEST_ADD_PET_TYPE,
 	REQUEST_ADD_BREED, REQUEST_UPDATE_PET_TYPE,
 	UPDATE_PET_TYPE_SUCCEEDED,
-	UPDATE_PET_TYPE_FAILED, REQUEST_PET_TYPE_FETCH, PET_TYPE_FETCH_FAILED, PET_TYPE_FETCH_SUCCEDED
-
+	UPDATE_PET_TYPE_FAILED, REQUEST_PET_TYPE_FETCH, PET_TYPE_FETCH_FAILED, PET_TYPE_FETCH_SUCCEDED,
+	REQUEST_ADD_VISIT,
+	ADD_VISIT_SUCCEDED,
+	ADD_VISIT_FAILED
 } from "./actions";
 import base_url from "../base_url";
 import {QUERY_PET_TYPES_FAILED, QUERY_PET_TYPES_SUCCEDED, REQUEST_DELETE_PET_TYPE} from "./actions";
@@ -132,6 +134,7 @@ let updatePetType = function* (action) {
 
 		if (response.ok) {
 			yield put({type: UPDATE_PET_TYPE_SUCCEEDED, payload: yield response.json()});
+			yield put({type: REQUEST_PET_TYPE_FETCH, payload:action.payload});
 		}
 		else {
 			yield put({type: UPDATE_PET_TYPE_FAILED, payload: yield response.json()});
@@ -158,6 +161,31 @@ let fetchPetType = function* (action) {
 	}
 }
 
+let addVisit = function* (action) {
+	try {
+		let body=action.payload
+		const response = yield call(fetch, `${base_url}/pets/${action.payload.pet_id}/visits`, {
+			method: "POST",
+			credentials: 'include',
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(body)
+		});
+
+		if (response.ok) {
+			yield put({type: ADD_VISIT_SUCCEDED, payload: yield response.json()});
+		}
+		else {
+			yield put({type: ADD_VISIT_FAILED, payload: yield response.json()});
+		}
+	} catch (error) {
+		yield put({type: ADD_VISIT_FAILED, payload: error});
+	}
+}
+
+
+
 
 function* petTypesSaga() {
 	yield takeLatest(QUERY_PET_TYPES, queryPetTypes);
@@ -168,6 +196,7 @@ function* petTypesSaga() {
 	yield takeEvery(REQUEST_DELETE_PET_TYPE, deletePetType);
 	yield takeEvery(DELETE_PET_TYPE_SUCCEDED, queryPetTypes);
 	yield takeEvery(REQUEST_UPDATE_PET_TYPE, updatePetType);
+	yield takeEvery(REQUEST_ADD_VISIT,addVisit);
 
 }
 

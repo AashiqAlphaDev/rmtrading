@@ -283,9 +283,9 @@ mongoose.model('EmailVerification', EmailVerificationSchema);
 
 const VisitSchema = new Schema({
 	user: ObjectID,
-	pet_id:ObjectID,
-	data:{}
+	pet:ObjectID,
+	biometrics_data:{}
 });
-mongoose.model('VisitSchema', EmailVerificationSchema);
+mongoose.model('Visit', VisitSchema);
 
 

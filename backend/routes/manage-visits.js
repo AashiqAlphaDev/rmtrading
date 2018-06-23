@@ -1,7 +1,6 @@
 var Router = require("express").Router
-var router = Router();
-const co = require("co");
-const VisitManagementService = require("../services/visit")
+var router = Router({mergeParams: true});
+const VisitManagementService = require("../services/visits")
 
 
 router.get("/", httpCoWrap(function* (req, res, next) {
@@ -9,7 +8,7 @@ router.get("/", httpCoWrap(function* (req, res, next) {
 	if (req.query.q) {
 		query.name = {$regex: `.*${req.query.q}.*`, '$options': 'i'}
 	}
-	let visits = yield VisitManagementService.visits(query);
+	let visits = yield VisitManagementService.visits(req.params.pet_id,query);
 	res.send(visits);
 }));
 

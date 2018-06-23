@@ -3,7 +3,19 @@ import {withStyles} from "@material-ui/core/styles/index";
 import style from "../style";
 import Layout from "../../../components/layout";
 import {
-	Button, IconButton, List, MenuItem, Paper, Select, Table, TableBody, TableCell, TableHead, TableRow, TextField,
+	Button,
+	IconButton,
+	List,
+	ListItem, ListItemText,
+	MenuItem,
+	Paper,
+	Select,
+	Table,
+	TableBody,
+	TableCell,
+	TableHead,
+	TableRow,
+	TextField,
 	Typography
 } from "@material-ui/core/es/index";
 import InputContainer from "../../../components/input"
@@ -54,7 +66,12 @@ let Index = withStyles((theme) => {
 				<Layout alignItems={"flex-end"}>
 					<List>
 						{
-
+							this.props.petTypes.petTypeDetail.vaccination_fields &&
+							this.props.petTypes.petTypeDetail.vaccination_fields.map((item)=>{
+								return <ListItem>
+									<ListItemText>{item.name}</ListItemText>
+								</ListItem>
+							})
 						}
 					</List>
 					<form onSubmit={(e) => {
@@ -84,7 +101,7 @@ let Index = withStyles((theme) => {
 						</InputContainer>
 						<Layout justifyContent={"flex-end"}>
 							<Button variant={"raised"} color={"primary"}
-							        style={{"padding-top": 11, "padding-bottom": 11}} type={"submit"}> Add </Button>
+							        style={{paddingTop: 11, paddingBottom: 11}} type={"submit"}> Add </Button>
 						</Layout>
 					</form>
 				</Layout>
