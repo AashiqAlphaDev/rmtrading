@@ -43,7 +43,8 @@ let Index = withStyles((theme) => {
 
 	state = {
 		name: "",
-		field_type: ""
+		field_type: "",
+		life_span:0
 	};
 
 	componentWillMount() {
@@ -64,6 +65,7 @@ let Index = withStyles((theme) => {
 			className={classes.body}>
 			<Paper className={classes.paperPage}>
 				<Layout alignItems={"flex-end"}>
+
 					<List>
 						{
 							this.props.petTypes.petTypeDetail.vaccination_fields &&
@@ -85,6 +87,10 @@ let Index = withStyles((theme) => {
 							}
 						})
 					}}>
+						<InputContainer label={"Life Span"}>
+							<TextField onChange={(event) => {
+								this.setState({life_span: event.target.value});
+							}}></TextField>
 						<InputContainer label={"Field Name"}>
 							<TextField onChange={(event) => {
 								this.setState({name: event.target.value});
