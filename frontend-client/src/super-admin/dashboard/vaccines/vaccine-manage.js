@@ -233,6 +233,10 @@ let Index = withStyles((theme) => {
 						};
 						if (this.state.newDosageRecurringType) {
 							scheduleData.interval = this.state.newDosageInterval;
+							scheduleData.period = {
+								start: this.state.newDosageIntervalStart,
+								end: this.state.newDosageIntervalEnd
+							};
 						} else {
 							scheduleData.period = {
 								start: this.state.newDosageIntervalStart,
@@ -274,11 +278,24 @@ let Index = withStyles((theme) => {
 								</InputContainer>
 								{
 									this.state.newDosageRecurringType &&
-									<InputContainer label={"Interval (in weeks)"}>
-										<TextField placeholder={"Interval"} type={"number"} onChange={(event) => {
-											this.setState({newDosageInterval: event.target.value})
-										}}/>
-									</InputContainer>
+										<Layout direction={"column"}>
+											<InputContainer label={"Interval (in weeks)"}>
+												<TextField placeholder={"Interval"} type={"number"} onChange={(event) => {
+													this.setState({newDosageInterval: event.target.value})
+												}}/>
+											</InputContainer>
+											<InputContainer label={"Start (in weeks)"}>
+												<TextField placeholder={"Start"} type={"number"} onChange={(event) => {
+													this.setState({newDosageIntervalStart: event.target.value})
+												}}/>
+											</InputContainer>
+											<InputContainer label={"End (in weeks)"}>
+												<TextField placeholder={"End"} type={"number"} onChange={(event) => {
+													this.setState({newDosageIntervalEnd: event.target.value})
+												}}/>
+											</InputContainer>
+											</Layout>
+
 								}
 								{
 									!this.state.newDosageRecurringType &&
@@ -286,11 +303,6 @@ let Index = withStyles((theme) => {
 										<InputContainer label={"Start (in weeks)"}>
 											<TextField placeholder={"Start"} type={"number"} onChange={(event) => {
 												this.setState({newDosageIntervalStart: event.target.value})
-											}}/>
-										</InputContainer>
-										<InputContainer label={"End (in weeks)"}>
-											<TextField placeholder={"End"} type={"number"} onChange={(event) => {
-												this.setState({newDosageIntervalEnd: event.target.value})
 											}}/>
 										</InputContainer>
 									</Layout>

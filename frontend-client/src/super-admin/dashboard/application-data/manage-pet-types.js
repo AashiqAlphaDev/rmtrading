@@ -76,6 +76,7 @@ let Index = withStyles((theme) => {
 							})
 						}
 					</List>
+
 					<form onSubmit={(e) => {
 						e.preventDefault();
 						const {name, field_type} = this.state;
@@ -91,6 +92,17 @@ let Index = withStyles((theme) => {
 							<TextField onChange={(event) => {
 								this.setState({life_span: event.target.value});
 							}}></TextField>
+						</InputContainer>
+							<Button onClick={()=>{
+								this.props.dispatch({
+									type: REQUEST_UPDATE_PET_TYPE,
+									payload: {
+										pet_type_id: this.props.match.params.pet_type_id,
+										data:{life_span:this.state.life_span}
+									}
+								})
+							}
+							}>Update Lifespan</Button>
 						<InputContainer label={"Field Name"}>
 							<TextField onChange={(event) => {
 								this.setState({name: event.target.value});
