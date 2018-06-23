@@ -29,6 +29,7 @@ module.exports.createPet = function* (petData) {
 		let vaccine = vaccines[vaccine_index];
 		let lastVaccination = null;
 		let lastVaccinationWeek = null;
+		var doseCount = 1;
 		for (var index in vaccine.child_vaccine_schedules) {
 			let schedule = vaccine.child_vaccine_schedules[index];
 			if (!schedule.interval) {
@@ -41,10 +42,11 @@ module.exports.createPet = function* (petData) {
 					start = start.addDays(-schedule.catch_up_period.notify_period * 7)
 					dueDate = dueDate.addDays(schedule.catch_up_period.due_period * 7);
 					lastVaccination = {
-						pet: pet._id, vaccine: vaccine._id, catch_up_period: {
+						pet: pet._id, vaccine: vaccine._id,catch_up_period: {
 							start: start,
 							due_date: dueDate,
-						}
+						},
+						dose:doseCount++
 					};
 					lastVaccinationWeek = schedule.period.start + schedule.catch_up_period.due_period;
 					vaccinations.push(lastVaccination);
@@ -64,7 +66,8 @@ module.exports.createPet = function* (petData) {
 							pet: pet._id, vaccine: vaccine._id, catch_up_period: {
 								start: start,
 								due_date: dueDate,
-							}
+							},
+							dose:doseCount++
 						};
 						lastVaccinationWeek = i + schedule.catch_up_period.due_period;
 						vaccinations.push(lastVaccination);
@@ -83,11 +86,13 @@ module.exports.createPet = function* (petData) {
 					var dueDate = dobClone;
 					start = start.addDays(-schedule.catch_up_period.notify_period * 7);
 					dueDate = dueDate.addDays(schedule.catch_up_period.due_period * 7);
+					doseCount = doseCount+1;
 					lastVaccination = {
 						pet: pet._id, vaccine: vaccine._id, catch_up_period: {
 							start: start,
-							due_date: dueDate,
-						}
+							due_date: dueDate
+						},
+						dose:doseCount++
 					};
 					lastVaccinationWeek = schedule.period.start + schedule.catch_up_period.due_period;
 					vaccinations.push(lastVaccination);
@@ -103,11 +108,13 @@ module.exports.createPet = function* (petData) {
 						var dueDate = dobClone;
 						start = start.addDays(-schedule.catch_up_period.notify_period * 7);
 						dueDate = dueDate.addDays(schedule.catch_up_period.due_period * 7);
+						doseCount = doseCount+1;
 						lastVaccination = {
 							pet: pet._id, vaccine: vaccine._id, catch_up_period: {
 								start: start,
-								due_date: dueDate,
-							}
+								due_date: dueDate
+							},
+							dose:doseCount++
 						};
 						lastVaccinationWeek = i + schedule.catch_up_period.due_period;
 						vaccinations.push(lastVaccination);
@@ -126,11 +133,13 @@ module.exports.createPet = function* (petData) {
 					var dueDate = dobClone;
 					start = start.addDays(-schedule.catch_up_period.notify_period * 7);
 					dueDate = dueDate.addDays(schedule.catch_up_period.due_period * 7);
+					doseCount = doseCount+1;
 					lastVaccination = {
 						pet: pet._id, vaccine: vaccine._id, catch_up_period: {
 							start: start,
-							due_date: dueDate,
-						}
+							due_date: dueDate
+						},
+						dose:doseCount++
 					};
 					lastVaccinationWeek = schedule.period.start + schedule.catch_up_period.due_period;
 					vaccinations.push(lastVaccination);
@@ -146,11 +155,13 @@ module.exports.createPet = function* (petData) {
 						var dueDate = dobClone;
 						start = start.addDays(-schedule.catch_up_period.notify_period * 7);
 						dueDate = dueDate.addDays(schedule.catch_up_period.due_period * 7);
+						doseCount = doseCount+1;
 						lastVaccination = {
 							pet: pet._id, vaccine: vaccine._id, catch_up_period: {
 								start: start,
-								due_date: dueDate,
-							}
+								due_date: dueDate
+							},
+							dose:doseCount++
 						};
 						lastVaccinationWeek = i + schedule.catch_up_period.due_period;
 						vaccinations.push(lastVaccination);
@@ -165,11 +176,15 @@ module.exports.createPet = function* (petData) {
 						var dueDate = dobClone;
 						start = dobClone.addDays(-schedule.catch_up_period.notify_period * 7);
 						dueDate = dobClone.addDays(schedule.catch_up_period.due_period * 7);
+						doseCount = doseCount+1;
 						lastVaccination = {
-							pet: pet._id, vaccine: vaccine._id, catch_up_period: {
+							pet: pet._id,
+							vaccine: vaccine._id,
+							catch_up_period: {
 								start: start,
-								due_date: dueDate,
-							}
+								due_date: dueDate
+							},
+							dose:doseCount++
 						};
 						lastVaccinationWeek = i + schedule.catch_up_period.due_period;
 						vaccinations.push(lastVaccination);
@@ -178,7 +193,6 @@ module.exports.createPet = function* (petData) {
 			}
 		}
 	}
-	console.log(vaccinations)
 	yield Vaccination.create(vaccinations);
 	return pet;
 };

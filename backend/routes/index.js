@@ -18,6 +18,7 @@ router.use("/session", require("./session"));
 router.use("/pets", require("./manage-pets"));
 router.use("/users", require("./manage-users"));
 router.use("/pets/:pet_id/vaccinations", haveCenterAccess, require("./manage-vaccinations"));
+router.use("/pets/:pet_id/visit", haveCenterAccess, require("./manage-visits"));
 
 
 router.use("/vaccination-centers/:center_id/appointments", require("./manage-appointments"));
