@@ -22,21 +22,11 @@ import {
 import {REQUEST_PET_TYPE_FETCH} from "../../../stores/pet-types/actions";
 import moment from "moment"
 import Layout from "../../../components/layout";
-import {REQUEST_UPDATE_TOKEN} from "../../../stores/tokens/actions";
 import QrReader from 'react-qr-reader';
 
 
 var dates = {
 	convert: function (d) {
-		// Converts the date in d to a date-object. The input can be:
-		//   a date object: returned without modification
-		//  an array      : Interpreted as [year,month,day]. NOTE: month is 0-11.
-		//   a number     : Interpreted as number of milliseconds
-		//                  since 1 Jan 1970 (a timestamp)
-		//   a string     : Any format supported by the javascript engine, like
-		//                  "YYYY/MM/DD", "MM/DD/YYYY", "Jan 31 2009" etc.
-		//  an object     : Interpreted as an object with year, month and date
-		//                  attributes.  **NOTE** month is 0-11.
 		return (
 			d.constructor === Date ? d :
 				d.constructor === Array ? new Date(d[0], d[1], d[2]) :
@@ -47,13 +37,6 @@ var dates = {
 		);
 	},
 	compare: function (a, b) {
-		// Compare two dates (could be of any type supported by the convert
-		// function above) and returns:
-		//  -1 : if a < b
-		//   0 : if a = b
-		//   1 : if a > b
-		// NaN : if a or b is an illegal date
-		// NOTE: The code inside isFinite does an assignment (=).
 		return (
 			isFinite(a = this.convert(a).valueOf()) &&
 			isFinite(b = this.convert(b).valueOf()) ?
@@ -62,7 +45,6 @@ var dates = {
 		);
 	},
 	inRange: function (d, start, end) {
-		return true;
 		return (
 			isFinite(d = this.convert(d).valueOf()) &&
 			isFinite(start = this.convert(start).valueOf()) &&
