@@ -16,7 +16,6 @@ module.exports.updateVaccination = function* (petId, id, vaccinationData) {
 module.exports.vaccinations = function* (petId, query = {}, page={}) {
 	query.pet = petId;
 	page = {...page,sort:{"catch_up_period.start":1}};
-	console.log(query)
 	return yield Vaccination.paginate(query, page);
 };
 
