@@ -76,11 +76,12 @@ let Index = withStyles((theme) => {
 
 	render() {
 		const {classes} = this.props;
-		var currentTab = 0;
+		var currentTab = false;
 		if (this.props.currentPage !== "") {
 			currentTab = _.findIndex(pages, (item) => {
 				return item.url === this.props.currentPage
 			});
+			currentTab = currentTab == -1 ? false : currentTab;
 		}
 		return <div className={classes.fullScreen}>
 			<Layout direction={"column"} className={`flex`}>
@@ -93,25 +94,27 @@ let Index = withStyles((theme) => {
 										<img src={"/logo.png"} style={{height: 30}} alt={"logo"}/>
 									</Link>
 								</div>
-								<Tabs centered value={currentTab}>
-									{
-										pages.map((page, index) => {
-											let PageIcon = Icon(page.icon);
-											let iconClass = (index === currentTab) ? classes.selected : '';
-											return <Tab classes={{label: classes.tabIcon}}
-											            label={
-												            <Layout alignItems={"center"}>
-													            <PageIcon
-														            className={`${iconClass} ${this.props.classes.navIcon}`}/>
-													            {page.label}
-												            </Layout>
-											            }
-											            component={Link}
-											            to={page.url}
-											            key={index}/>;
-										})
-									}
-								</Tabs>
+								{
+									<Tabs centered value={currentTab}>
+										{
+											pages.map((page, index) => {
+												let PageIcon = Icon(page.icon);
+												let iconClass = (index === currentTab) ? classes.selected : '';
+												return <Tab classes={{label: classes.tabIcon}}
+												            label={
+													            <Layout alignItems={"center"}>
+														            <PageIcon
+															            className={`${iconClass} ${this.props.classes.navIcon}`}/>
+														            {page.label}
+													            </Layout>
+												            }
+												            component={Link}
+												            to={page.url}
+												            key={index}/>;
+											})
+										}
+									</Tabs>
+								}
 								<div>
 									<IconButton onClick={() => {
 										this.setState({showSearchDialogue: true});
