@@ -218,10 +218,8 @@ module.exports.pets = function* (query = {}, page) {
 
 module.exports.petByToken = function* (petByToken) {
 	const token = yield Token.findOne({_id:petByToken});
-	console.log(token);
 	if(token.pet){
-		const pet = yield Pet.findOne({pet:token.pet});
-		console.log(pet);
+		const pet = yield Pet.findOne({_id:token.pet});
 		return pet;
 	}
 	return null;

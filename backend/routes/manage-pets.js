@@ -22,6 +22,7 @@ router.get("/", httpCoWrap(function* (req, res, next) {
 }));
 
 router.get("/token/:token", httpCoWrap(function* (req, res, next) {
+	console.log(req.params.token);
 	const pet = yield PetsManagementService.petByToken(req.params.token);
 	res.send(pet);
 }));
