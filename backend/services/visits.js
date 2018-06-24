@@ -2,6 +2,7 @@ const mongoose = require("mongoose")
 const Visit = mongoose.model('Visit');
 
 module.exports.createVisit = function* (petId,visitData) {
+
 	visitData.pet = petId;
 	return yield Visit.create(visitData);
 };

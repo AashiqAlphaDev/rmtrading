@@ -18,6 +18,7 @@ router.get("/:visit_id", httpCoWrap(function* (req, res, next) {
 }));
 
 router.post("/", httpCoWrap(function* (req, res, next) {
+    req.body.vet_center = req.session.center_id;
 	let visit = yield VisitManagementService.createVisit(req.params.pet_id,req.body);
 	res.send(visit);
 }));

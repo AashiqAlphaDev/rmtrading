@@ -6,15 +6,23 @@ import {REQUEST_PET_FETCH} from "../../../stores/pets/actions";
 import {QUERY_VACCINATIONS} from "../../../stores/vaccinations/actions";
 import InputContainer from "../../../components/input"
 import {
-	Button, Dialog,
-	DialogActions,
-	DialogContent,
-	DialogContentText,
-	DialogTitle,
-	TextField,
-	Typography
+    Button, Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    TextField,
+    Typography,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow, Paper
 } from "@material-ui/core/es/index";
 import {REQUEST_PET_TYPE_FETCH} from "../../../stores/pet-types/actions";
+import moment from "moment"
+import {InformationIcon} from "mdi-react/dist/index.es";
+
 
 let Index = withStyles((theme) => {
 	return {
@@ -34,7 +42,11 @@ let Index = withStyles((theme) => {
 		segment: {
 			marginBottom: theme.spacing.unit * 3,
 			padding: theme.spacing.unit * 1
-		}
+		},
+        paper: {
+            marginTop: theme.spacing.unit * 1,
+            display: "flex"
+        },
 	}
 })(class extends React.Component {
 	state= {
@@ -65,6 +77,43 @@ let Index = withStyles((theme) => {
 				<Button onClick={()=>{
 					this.setState({openAddBiometrics:true});
 				}}> Record Reading </Button>
+
+
+
+                {
+                    this.props.vaccinations.list.length > 0 &&
+					<Paper className={`${classes.paperPage}`}>
+
+					<Table>
+						<TableHead>
+							<TableRow>
+								<TableCell>#</TableCell>
+								<TableCell>Vaccine Name</TableCell>
+								<TableCell>Dose</TableCell>
+								<TableCell>Start Date</TableCell>
+								<TableCell>Due Date</TableCell>
+							</TableRow>
+						</TableHead>
+						<TableBody>
+                            {
+                                this.props.vaccinations.list.map((item, index) => {
+                                    return <TableRow key={index}>
+										<TableCell>{index + 1}</TableCell>
+										<TableCell>{item.data.vaccine}</TableCell>
+										<TableCell>{item.dose}</TableCell>
+										<TableCell>{moment(item.catch_up_period.start).format("MMMM Do YYYY")}</TableCell>
+										<TableCell>{moment(item.catch_up_period.due_date).format("MMMM Do YYYY")}</TableCell>
+										<TableCell><InformationIcon /></TableCell>
+									</TableRow>
+                                })
+                            }
+						</TableBody>
+					</Table>
+					</Paper>
+                }
+
+
+
 				<Dialog
 					open={this.state.openAddBiometrics}
 					onClose={() => {
@@ -83,7 +132,9 @@ let Index = withStyles((theme) => {
 									Kindly enter the details of the pet To be vaccinated.
 								</Typography>
 							</DialogContentText>
-							{JSON.stringify(this.props.petTypes.petTypeDetail)}
+
+
+
 							{
 								this.props.petTypes.petTypeDetail.vaccination_fields &&
 								this.props.petTypes.petTypeDetail.vaccination_fields.map((item)=>{

@@ -27,7 +27,7 @@ let Index = withStyles((theme) => {
 	render() {
 		const {classes} = this.props;
 		return <Layout direction={"column"} flex={1} className={classes.body}>
-			<Layout className={`container ${classes.flex}`}>
+			<Layout direction={"column"} className={`container`}>
 				<Switch>
 					<Route exact path={"/admin/dashboard/pets/:pet_id"} render={(props) => {
 						return <Overview {...props} />;

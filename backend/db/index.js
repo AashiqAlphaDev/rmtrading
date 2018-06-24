@@ -185,9 +185,27 @@ var petSchema = new Schema({
 	breed: ObjectID,
 	owner: ObjectID,
 	date_of_birth: Date,
-	chip_id: String
+	chip_id: String,
+	data:{}
 });
 petSchema.plugin(mongoosePaginate);
+petSchema.pre("save", async function (next) {
+    this.data = {};
+    if(this.breed) {
+        let Breed = mongoose.model("Breed");
+        let breed = await Breed.findOne({_id: this.breed});
+        this.data.breed = breed.name;
+    }
+    let PetType = mongoose.model("PetType");
+    let petType = await PetType.findOne({_id: this.pet_type});
+    let Owner = mongoose.model("User");
+    let owner = await Owner.findOne({_id: this.owner});
+
+
+    this.data.pet_type = petType.name;
+    this.data.owner = owner.profile.first_name;
+    next();
+});
 mongoose.model('Pet', petSchema);
 
 var countriesSchema = new Schema({
@@ -285,9 +303,21 @@ mongoose.model('EmailVerification', EmailVerificationSchema);
 
 const VisitSchema = new Schema({
 	user: ObjectID,
+	vet_center:ObjectID,
 	pet:ObjectID,
-	biometrics_data:{}
+    pet_type:ObjectID,
+	biometrics_data:{},
+    data:{}
+
 });
+VisitSchema.pre("save", async function (next) {
+    let VetCenter = mongoose.model("VaccinationCenter");
+    let vetCenter = await VetCenter.findOne({_id: this.vet_center});
+    this.data = {};
+    this.data.vet_center = vetCenter.name;
+    next();
+});
+
 mongoose.model('Visit', VisitSchema);
 
 

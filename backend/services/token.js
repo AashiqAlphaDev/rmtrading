@@ -19,14 +19,7 @@ module.exports.createToken = function* (tokenData) {
 
 module.exports.updateToken = function* (id, tokenData) {
 	queryValidate(id, "You missed token-id.");
-
 	let token = yield Token.findOne({_id: id});
-	if (token.pet) {
-		let err = new Error();
-		err.message = "Token already assigned to a different pet. You cannot modify.";
-		err.statusCode = 400;
-		throw err;
-	}
 	return yield Token.update({_id: id}, tokenData);
 };
 
