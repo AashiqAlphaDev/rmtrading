@@ -152,7 +152,7 @@ let Index = withStyles((theme) => {
 										<TableCell>{item.dose}</TableCell>
 										<TableCell>{moment(item.catch_up_period.start).format("MMMM Do YYYY")}</TableCell>
 										<TableCell>{moment(item.catch_up_period.due_date).format("MMMM Do YYYY")}</TableCell>
-										<TableCell><Button onClick={()=>{
+										<TableCell><Button disabled={!inRange} onClick={()=>{
 											this.setState({currentVaccine:item});
 										}}>Vaccinate</Button></TableCell>
 									</TableRow>
