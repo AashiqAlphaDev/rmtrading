@@ -60,12 +60,7 @@ var dates = {
 		);
 	},
 	inRange:function(d,start,end) {
-		// Checks if date in d is between dates in start and end.
-		// Returns a boolean or NaN:
-		//    true  : if d is between start and end (inclusive)
-		//    false : if d is before start or after end
-		//    NaN   : if one or more of the dates is illegal.
-		// NOTE: The code inside isFinite does an assignment (=).
+		console.log(d,start,end)
 		return (
 			isFinite(d=this.convert(d).valueOf()) &&
 			isFinite(start=this.convert(start).valueOf()) &&
