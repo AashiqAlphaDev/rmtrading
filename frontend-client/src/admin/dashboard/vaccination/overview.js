@@ -10,10 +10,11 @@ import {
 } from "@material-ui/core/es/index";
 import Layout from "../../../components/layout";
 import {ArrowRightIcon} from "mdi-react";
-import {REQUEST_GUARDIAN_FETCH, REQUEST_PET_FETCH} from "../../../stores/pets/actions";
+import {CLEAR_PET, REQUEST_GUARDIAN_FETCH, REQUEST_PET_FETCH} from "../../../stores/pets/actions";
 import Link from "react-router-dom/es/Link";
 import QrReader from 'react-qr-reader';
 import InputContainer from "../../../components/input"
+import {Redirect} from "react-router-dom";
 
 function Transition(props) {
 	return <Slide direction="up" {...props} />;
@@ -75,17 +76,20 @@ let Index = withStyles((theme) => {
 
 	componentWillMount() {
 		this.props.dispatch({type: QUERY_VET_CENTERS});
+		this.props.dispatch({type:CLEAR_PET});
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.petDetail._id) {
 
-		}
 	}
 
 	render() {
 		const {classes} = this.props;
 		return <Layout direction={"column"} className={classes.body} justifyContent={"center"}>
+			{
+				this.props.petDetail._id &&
+				<Redirect to={`/admin/dashboard/pets/${this.props.petDetail._id}`} />
+			}
 			<Layout alignItems={"center"}>
 				<Paper className={classes.card} onClick={() => {
 					this.setState({showSearchDialogue: true});
@@ -195,9 +199,9 @@ let Index = withStyles((theme) => {
 						onError={(err) => {
 							console.log(err);
 						}}
-						onScan={(result)=>{
-							if(result){
-								this.props.dispatch({type:REQUEST_PET_FETCH, payload:{token:result}})
+						onScan={(result) => {
+							if (result) {
+								this.props.dispatch({type:REQUEST_PET_FETCH, payload: {token: result}});
 							}
 						}}
 						style={{width: 400, height: 400}}

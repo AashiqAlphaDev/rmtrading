@@ -1,16 +1,12 @@
 import React from "react"
 import Layout from "../../../components/layout";
-import {Link, Switch, Route} from "react-router-dom";
+import {Switch, Route} from "react-router-dom";
 import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
 import Overview from "./overview"
 import Visit from "./visit"
 
 import {connect} from "react-redux"
-
-const sideNavPages = [
-	{label: "Register New Pet", url: "/admin/dashboard/pets/choose-guardian"},
-];
 
 let Index = withStyles((theme) => {
 	return {

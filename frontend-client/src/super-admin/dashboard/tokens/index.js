@@ -4,7 +4,6 @@ import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
 import {connect} from "react-redux"
 import {Button, MenuItem, Paper, Select, Typography} from "@material-ui/core/es/index";
-import _ from "underscore"
 import {CLEAR_TOKENS, REQUEST_GENERATE_TOKENS} from "../../../stores/tokens/actions";
 
 let Index = withStyles((theme) => {
