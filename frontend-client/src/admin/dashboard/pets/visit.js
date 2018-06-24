@@ -152,7 +152,9 @@ let Index = withStyles((theme) => {
 										<TableCell>{item.dose}</TableCell>
 										<TableCell>{moment(item.catch_up_period.start).format("MMMM Do YYYY")}</TableCell>
 										<TableCell>{moment(item.catch_up_period.due_date).format("MMMM Do YYYY")}</TableCell>
-										<TableCell><InformationIcon /></TableCell>
+										<TableCell><Button onClick={()=>{
+											this.setState({currentVaccine:item});
+										}}>Vaccinate</Button></TableCell>
 									</TableRow>
                                 })
                             }
@@ -161,7 +163,20 @@ let Index = withStyles((theme) => {
 					</Paper>
                 }
 
+				<Dialog
+					open={Boolean(this.state.currentVaccine)}
+					onClose={() => {
+						this.setState({currentVaccine:null});
+					}}
+					aria-labelledby="form-dialog-title"
+				>
+					<form onSubmit={(event) => {
+						event.preventDefault();
+					}}>
+						<DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
 
+					</form>
+				</Dialog>
 
 				<Dialog
 					open={this.state.openAddBiometrics}
