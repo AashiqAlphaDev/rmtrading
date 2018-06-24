@@ -145,7 +145,7 @@ let Index = withStyles((theme) => {
 						<TableBody>
                             {
                                 this.props.vaccinations.list.map((item, index) => {
-                                	var inRange = dates.inRange(new Date(), new Date(item.catch_up_period.start), new Date(item.catch_up_period.end))
+                                	var inRange = dates.inRange(new Date(), new Date(item.catch_up_period.start), new Date(item.catch_up_period.due_date))
                                     return <TableRow key={index} style={inRange?{}:{opacity:0.5}}>
 										<TableCell>{index + 1}</TableCell>
 										<TableCell>{item.data.vaccine}</TableCell>
