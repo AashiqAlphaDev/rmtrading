@@ -4,7 +4,8 @@ import {Switch, Route} from "react-router-dom";
 import {withStyles} from "@material-ui/core/styles";
 import style from "../style";
 import Overview from "./overview";
-import PetVaccination from "./pet-vaccination";
+import Visit from "./visit";
+import Pet from "./pet";
 import AddGuardian from "./add-guardian"
 import AddPet from "./add-pet"
 import {connect} from "react-redux";
@@ -36,8 +37,11 @@ let Index = withStyles((theme) => {
 					<Route exact path={"/admin/dashboard/vaccinations/:guardian_id/add-pet"} render={(props) => {
 						return <AddPet {...props} />;
 					}}/>
-					<Route exact path={"/admin/dashboard/vaccinations/:pet_id"} render={(props) => {
-						return <PetVaccination {...props} />;
+					<Route exact path={"/admin/dashboard/pets/:pet_id"} render={(props) => {
+						return <Pet {...props} />;
+					}}/>
+					<Route exact path={"/admin/dashboard/pets/:pet_id/visits/:visit_id"} render={(props) => {
+						return <Visit {...props} />;
 					}}/>
 				</Switch>
 			</Layout>

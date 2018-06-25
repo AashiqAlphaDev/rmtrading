@@ -1,12 +1,10 @@
 import React from "react";
 import DashboardLayout from "./dashboard-layout";
 import {Redirect, Route} from "react-router-dom";
-import Pets from "./pets";
+
 import OverView from "./overview";
-import Vaccination from "./vaccination";
-import Requests from "./requests";
+import Pets from "./registration";
 import Appointments from "./appointments";
-import Store from "./store";
 import {connect} from "react-redux";
 import {CHECK_ADMIN} from "../../stores/auth/actions";
 
@@ -38,16 +36,10 @@ let Index = (class extends React.Component {
 						return <Pets {...props} onPageChange={this.onPageChange.bind(this)}/>
 					}}/>
 					<Route path={"/admin/dashboard/vaccinations"} render={(props) => {
-						return <Vaccination {...props} onPageChange={this.onPageChange.bind(this)}/>
-					}}/>
-					<Route path={"/admin/dashboard/requests"} render={(props) => {
-						return <Requests {...props} onPageChange={this.onPageChange.bind(this)}/>
+						return <Pets {...props} onPageChange={this.onPageChange.bind(this)}/>
 					}}/>
 					<Route path={"/admin/dashboard/appointments"} render={(props) => {
 						return <Appointments {...props} onPageChange={this.onPageChange.bind(this)}/>
-					}}/>
-					<Route path={"/admin/dashboard/store"} render={(props) => {
-						return <Store {...props} onPageChange={this.onPageChange.bind(this)}/>
 					}}/>
 				</DashboardLayout>
 			}

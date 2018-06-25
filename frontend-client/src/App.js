@@ -5,11 +5,8 @@ import {Auth as AdminAuth, Dashboard as AdminDashboard} from "./admin"
 import {Auth as SuperAdminAuth, Dashboard as SuperAdminDashboard} from "./super-admin"
 import store from "./stores/store"
 import {Provider} from "react-redux";
-//import MomentUtils from 'material-ui-pickers/utils/moment-utils';
 import DateFnsUtils from 'material-ui-pickers/utils/date-fns-utils';
-//import LuxonUtils from 'material-ui-picker/luxon-utils';
 import MuiPickersUtilsProvider from 'material-ui-pickers/utils/MuiPickersUtilsProvider';
-
 
 class App extends Component {
 	render() {

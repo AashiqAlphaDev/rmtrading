@@ -65,7 +65,7 @@ let Index = withStyles((theme) => {
 			flexDirection: "column"
 		},
 		title: {
-			background: "#e6ecf0",
+
 			width: "100%",
 			paddingTop: theme.spacing.unit * 3,
 			paddingBottom: theme.spacing.unit * 2,
@@ -76,19 +76,30 @@ let Index = withStyles((theme) => {
 			padding: theme.spacing.unit * 1
 		},
 		paper: {
+
 			marginTop: theme.spacing.unit * 1,
 			display: "flex"
 		},
 	}
 })(class extends React.Component {
 	state = {
+		remarks:"",
 		openAddBiometrics: false,
 		data: {
 			height: 0,
 			weight: 0
 		},
 		sample: false,
-		isBarCode: false
+		isBarCode: false,
+		tempRecordExists:false,
+		datafields:[{
+			name:"hello",
+			count:2
+		},
+			{
+				name:"hi",
+				count:3
+			}]
 	}
 
 	componentWillMount() {
@@ -106,10 +117,75 @@ let Index = withStyles((theme) => {
 		const {classes} = this.props;
 		if (this.props.petTypes.petTypeDetail) {
 			return <div className={classes.body}>
+
 				<Paper className={`${classes.paperPage} ${classes.paper}`}>
-					<Button onClick={() => {
-						this.setState({openAddBiometrics: true});
-					}}> Record Reading </Button>
+
+						{
+
+							this.state.tempRecordExists &&
+
+							<Layout  flex={"1"} direction={"column"}>
+							<Layout alignItems={"center"}  flex={"1"} justifyContent={"flex-end"}>
+								<Button onClick={() => {
+								this.setState({tempRecordExists: false});
+							}}> Edit A Reading</Button>
+							</Layout>
+								<Layout>
+									<Table>
+									<TableHead>
+										<TableRow>
+
+											{
+
+												this.state.datafields.map((item, index) => {
+													return <TableCell>{item.name}</TableCell>
+												})
+
+											}
+											<TableCell/>
+										</TableRow>
+									</TableHead>
+										<TableBody>
+											<TableRow>
+
+								{
+
+									this.state.datafields.map((item, index) => {
+										return <TableCell>{item.name}</TableCell>
+									})
+
+
+								}
+											</TableRow>
+										</TableBody>
+									</Table>
+
+
+								</Layout>
+
+
+
+							</Layout>
+						}
+						{/*<Button onClick={() => {*/}
+							{/*this.setState({openAddBiometrics: true});*/}
+						{/*}}> Record Reading </Button>*/}
+						{
+							!this.state.tempRecordExists &&
+							<Layout alignItems={"center"} flex={"1"} justifyContent={"center"}>
+								<Typography variant={"title"} className={classes.title}>
+									No Records Found
+								</Typography>
+
+							<Button onClick={() => {
+								this.setState({tempRecordExists: true});
+							}}> Record Reading </Button>
+							</Layout>
+
+						}
+
+
+
 				</Paper>
 
 				{
@@ -146,6 +222,13 @@ let Index = withStyles((theme) => {
 						</Table>
 					</Paper>
 				}
+				<Paper className={`${classes.paperPage} ${classes.paper}`}>
+					<InputContainer label={"Remarks"}>
+						<TextField onChange={(event) => {
+							this.setState({remarks: event.target.value})
+						}}></TextField>
+					</InputContainer>
+				</Paper>
 
 				<Dialog
 					open={Boolean(this.state.currentVaccine)}

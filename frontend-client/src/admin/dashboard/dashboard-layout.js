@@ -7,43 +7,40 @@ import {Link} from "react-router-dom";
 import {REQUEST_LOGOUT} from "../../stores/auth/actions";
 import {connect} from "react-redux"
 import {
-	DialogContent,
-	Divider,
-	ExpansionPanel, ExpansionPanelDetails,
 	IconButton,
 	Menu,
 	MenuItem, Tabs
 } from "@material-ui/core/es/index";
 import Tab from "@material-ui/core/es/Tab/Tab";
 import _ from "underscore";
-import {MagnifyIcon, SettingsOutlineIcon} from "mdi-react";
+import {
+	ClockOutlineIcon,
+	MagnifyIcon,
+	PawIcon,
+	SettingsOutlineIcon,
+	ViewDashboardIcon
+} from "mdi-react";
 
 let Icon = (_Icon) => {
 	return (props) => (<_Icon {...props} size={20}/>)
 };
 
-
 const pages = [
 	{
 		icon: ({className}) => {
-			return <span className={`icon-home ${className}`}></span>
+			return <ViewDashboardIcon className={className}/>
 		}, label: "Overview", url: "/admin/dashboard"
 	},
 	{
 		icon: ({className}) => {
-			return <span className={`icon-dog ${className}`}></span>
+			return <PawIcon className={className}/>
 		}, label: "Pets", url: "/admin/dashboard/vaccinations"
 	},
 	{
 		icon: ({className}) => {
-			return <span className={`icon-time ${className}`}></span>
+			return <ClockOutlineIcon className={className}/>
 		}, label: "Appointments", url: "/admin/dashboard/appointments"
-	},
-	{
-		icon: ({className}) => {
-			return <span className={`icon-box ${className}`}></span>
-		}, label: "Store", url: "/admin/dashboard/store"
-	},
+	}
 ];
 
 let Index = withStyles((theme) => {

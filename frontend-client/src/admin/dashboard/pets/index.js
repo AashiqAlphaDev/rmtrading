@@ -4,7 +4,7 @@ import {Switch, Route} from "react-router-dom";
 import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
 import Overview from "./overview"
-import Visit from "./visit"
+import Visit from "../registration/visit"
 
 import {connect} from "react-redux"
 

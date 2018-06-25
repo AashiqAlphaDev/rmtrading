@@ -3,7 +3,7 @@ import Layout from "../../../components/layout";
 import {withStyles} from "@material-ui/core/styles"
 import style from "../style";
 import {connect} from "react-redux"
-import {HospitalIcon} from "mdi-react"
+import {HospitalIcon, PillIcon} from "mdi-react"
 import {MetricDataCard, OverViewMetric} from "../../../components/dashboard-components";
 
 
@@ -52,7 +52,7 @@ let Index = withStyles((theme) => {
 		metrics: [
 			{
 				icon: ({className}) => {
-					return <span className={`icon-box ${className}`}></span>
+					return <PillIcon className={className} />
 				}, title: "Vaccinations", metric: "30,000"
 			},
 			{

@@ -3,7 +3,7 @@ import Layout from "../../../components/layout";
 import {withStyles} from "@material-ui/core/styles";
 import style from "../style";
 import {connect} from "react-redux";
-import {HospitalIcon} from "mdi-react";
+import {BugIcon, HospitalBuildingIcon, HospitalIcon, MapIcon, MedicalBagIcon, PawIcon, PillIcon} from "mdi-react";
 import {MetricDataCard, OverViewMetric} from "../../../components/dashboard-components";
 
 let Index = withStyles((theme) => {
@@ -38,7 +38,7 @@ let Index = withStyles((theme) => {
 			background: "none",
 		},
 		cardIconSvg: {
-			color: theme.palette.secondary.main
+			fill: theme.palette.secondary.main
 		},
 		titleIconSvg: {
 			paddingRight: 1 * theme.spacing.unit,
@@ -51,27 +51,27 @@ let Index = withStyles((theme) => {
 		metrics: [
 			{
 				icon: ({className}) => {
-					return <span className={`icon-box ${className}`}></span>
+					return <MedicalBagIcon className={className} />
 				}, title: "Vaccinations", metric: "30,000"
 			},
 			{
 				icon: ({className}) => {
-					return <span className={`icon-box ${className}`}></span>
+					return <PawIcon className={className} />
 				}, title: "Pets", metric: "30,000"
 			},
 			{
 				icon: ({className}) => {
-					return <span className={`icon-box ${className}`}></span>
+					return<PillIcon className={className} />
 				}, title: "Vaccines", metric: "30,000"
 			},
 			{
 				icon: ({className}) => {
-					return <span className={`icon-box ${className}`}></span>
+					return <BugIcon className={className} />
 				}, title: "Diseases", metric: "30,000"
 			},
 			{
 				icon: ({className}) => {
-					return <span className={`icon-box ${className}`}></span>
+					return <HospitalBuildingIcon className={className} />
 				}, title: "Vet Centers", metric: "30,000"
 			},
 		],
@@ -146,20 +146,20 @@ let Index = withStyles((theme) => {
 				<Layout>
 					<MetricDataCard title="Top Vet Centers"
 					                classes={classes}
-					                icon={HospitalIcon}
+					                MetricCardIcon={HospitalBuildingIcon}
 					                data={this.state.vetCenters}
 					/>
 					<MetricDataCard title="Top Vaccines"
 					                classes={classes}
-					                icon={HospitalIcon}
+					                MetricCardIcon={PillIcon}
 					                data={this.state.vaccines}/>
 					<MetricDataCard title="Top States"
 					                classes={classes}
-					                icon={HospitalIcon}
+					                MetricCardIcon={MapIcon}
 					                data={this.state.states}/>
 				</Layout>
 				<Layout>
-					<MetricDataCard title="Recent Vaccinations" classes={classes} icon={HospitalIcon}
+					<MetricDataCard title="Recent Vaccinations" classes={classes} MetricCardIcon={MedicalBagIcon}
 					                data={this.state.vaccinations}/>
 				</Layout>
 			</div>

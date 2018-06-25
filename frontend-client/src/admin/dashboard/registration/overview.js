@@ -9,7 +9,7 @@ import {
 	Typography
 } from "@material-ui/core/es/index";
 import Layout from "../../../components/layout";
-import {ArrowRightIcon} from "mdi-react";
+import {ArrowRightIcon, FileDocumentIcon, PawIcon} from "mdi-react";
 import {CLEAR_PET, REQUEST_GUARDIAN_FETCH, REQUEST_PET_FETCH} from "../../../stores/pets/actions";
 import Link from "react-router-dom/es/Link";
 import QrReader from 'react-qr-reader';
@@ -46,6 +46,8 @@ let Index = withStyles((theme) => {
 			margin: theme.spacing.unit * 1,
 			padding: theme.spacing.unit * 2,
 			boxShadow: '0px 0px 16px rgba(0,0,0,0.05)',
+			width:250,
+			height:350
 		},
 		cardInfo: {
 			marginLeft: theme.spacing.unit * 1,
@@ -53,18 +55,34 @@ let Index = withStyles((theme) => {
 		},
 		cardIcon: {
 			border: `2px solid ${theme.palette.grey['200']}`,
-			background: "none",
+			background: "none"
 		},
 		cardIconSvg: {
+
 			fill: theme.palette.secondary.main
 		},
 		titleIconSvg: {
 			paddingRight: 1 * theme.spacing.unit,
 			fill: theme.palette.secondary.main
 		},
-		icon: {
-			color: theme.palette.secondary.main
+		icon:{
+			fill: theme.palette.secondary.main,
+		},
+		iconContainer: {
+			paddingBottom:5,
+			border:`2px solid ${theme.palette.grey['200']}`,
+			width:200,
+			height:200,
+			borderRadius:100,
+			display:"flex",
+			alignItems:"center",
+			justifyContent:"center",
+			margin:20
+		},
+		title:{
+			paddingBottom:10
 		}
+
 	}
 })(class extends React.Component {
 	state = {
@@ -94,30 +112,31 @@ let Index = withStyles((theme) => {
 				<Paper className={classes.card} onClick={() => {
 					this.setState({showSearchDialogue: true});
 				}}>
-					<Layout alignItems={"center"}>
-						<Avatar className={classes.cardIcon}>
-							<span className={`icon-dog ${classes.icon}`}></span>
-						</Avatar>
-						<Layout direction={"column"} className={classes.cardInfo}>
-							<Typography color={"textSecondary"}>Register to generate health record</Typography>
-							<Typography variant={"title"}>New Pet Registration</Typography>
+					<Layout alignItems={"center"} flex={1}>
+						<Layout direction={"column"} className={classes.cardInfo} alignItems={"center"}>
+							<div className={classes.iconContainer}>
+								<PawIcon size={150} className={classes.icon}/>
+							</div>
+							<Typography variant={"title"} className={classes.title}>New Pet Registration</Typography>
+							<Typography color={"textSecondary"} className={classes.title} >Register to generate health record</Typography>
 						</Layout>
-						<ArrowRightIcon/>
+
 					</Layout>
 				</Paper>
 
 				<Paper className={classes.card} onClick={() => {
 					this.setState({showScanner: true})
 				}}>
-					<Layout alignItems={"center"}>
-						<Avatar className={classes.cardIcon}>
-							<span className={`icon-notepad ${classes.icon}`}></span>
-						</Avatar>
-						<Layout direction={"column"} className={classes.cardInfo}>
-							<Typography color={"textSecondary"}>Vaccination & Health records</Typography>
-							<Typography variant={"title"}>Open Record</Typography>
+					<Layout alignItems={"center"} flex={1}>
+
+						<Layout direction={"column"} className={classes.cardInfo} alignItems={"center"}>
+							<div className={classes.iconContainer}>
+								<FileDocumentIcon size={150} className={classes.icon} />
+							</div>
+							<Typography variant={"title"} className={classes.title}>Open Record</Typography>
+							<Typography color={"textSecondary"} className={classes.title}>Vaccination & Health records</Typography>
 						</Layout>
-						<ArrowRightIcon/>
+
 					</Layout>
 				</Paper>
 			</Layout>
@@ -146,8 +165,8 @@ let Index = withStyles((theme) => {
 							<TextField className={`flex`} autoFocus
 							           placeholder={"Enter Guardian Mobile No / Gov Identity No"} onChange={(event) => {
 								this.setState({guardianQuery: event.target.value})
-							}}/>
-							<button style={{display: "none"}} type={"submit"}></button>
+							}} />
+							<button style={{display: "none"}} type={"submit"} />
 						</form>
 						<ExpansionPanel
 							expanded={Boolean(this.props.guardianDetail._id) || Boolean(this.props.guardianDetail.noMatch)}>
