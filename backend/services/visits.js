@@ -8,8 +8,10 @@ module.exports.createVisit = function* (petId,visitData) {
 };
 
 module.exports.updateVisit = function* (id, visitData) {
+
 	queryValidate(id, "You missed visit-id.");
-	return yield Visit.update({_id: id}, visitData);
+	console.log(id, visitData);
+	return yield Visit.update({_id: visitData.visit_id},visitData.data);
 };
 
 module.exports.visits = function* (petId,query = {}) {

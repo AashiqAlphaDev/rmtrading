@@ -23,6 +23,8 @@ import {REQUEST_PET_TYPE_FETCH} from "../../../stores/pet-types/actions";
 import moment from "moment"
 import Layout from "../../../components/layout";
 import QrReader from 'react-qr-reader';
+import {QUERY_VISITS, REQUEST_ADD_BIOMETRIC} from "../../../stores/visits/actions";
+
 
 
 var dates = {
@@ -92,7 +94,7 @@ let Index = withStyles((theme) => {
 		sample: false,
 		isBarCode: false,
 		tempRecordExists:false,
-		datafields:[{
+		dataFields:[{
 			name:"hello",
 			count:2
 		},
@@ -105,6 +107,8 @@ let Index = withStyles((theme) => {
 	componentWillMount() {
 		this.props.dispatch({type: REQUEST_PET_FETCH, payload: {pet_id: this.props.match.params.pet_id}});
 		this.props.dispatch({type: QUERY_VACCINATIONS, payload: {pet_id: this.props.match.params.pet_id}});
+		this.props.dispatch({type:QUERY_VISITS,payload:{pet_id:this.props.match.params.pet_id}});
+
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -117,13 +121,9 @@ let Index = withStyles((theme) => {
 		const {classes} = this.props;
 		if (this.props.petTypes.petTypeDetail) {
 			return <div className={classes.body}>
-
 				<Paper className={`${classes.paperPage} ${classes.paper}`}>
-
 						{
-
-							this.state.tempRecordExists &&
-
+							this.props.visits.list.length > 0 &&
 							<Layout  flex={"1"} direction={"column"}>
 							<Layout alignItems={"center"}  flex={"1"} justifyContent={"flex-end"}>
 								<Button onClick={() => {
@@ -134,15 +134,8 @@ let Index = withStyles((theme) => {
 									<Table>
 									<TableHead>
 										<TableRow>
-
-											{
-
-												this.state.datafields.map((item, index) => {
-													return <TableCell>{item.name}</TableCell>
-												})
-
-											}
-											<TableCell/>
+											<TableCell>Biometric Name</TableCell>
+											<TableCell>Value</TableCell>
 										</TableRow>
 									</TableHead>
 										<TableBody>
@@ -150,35 +143,30 @@ let Index = withStyles((theme) => {
 
 								{
 
-									this.state.datafields.map((item, index) => {
-										return <TableCell>{item.name}</TableCell>
+									Object.keys(this.props.visits.list[0].biometrics_data).map((item, index) => {
+										return  <div>
+											<TableCell>{item}</TableCell>
+										</div>
 									})
-
-
 								}
 											</TableRow>
 										</TableBody>
 									</Table>
-
-
 								</Layout>
-
-
-
 							</Layout>
 						}
 						{/*<Button onClick={() => {*/}
 							{/*this.setState({openAddBiometrics: true});*/}
 						{/*}}> Record Reading </Button>*/}
 						{
-							!this.state.tempRecordExists &&
+							this.props.visits.list.length == 0  &&
 							<Layout alignItems={"center"} flex={"1"} justifyContent={"center"}>
 								<Typography variant={"title"} className={classes.title}>
 									No Records Found
 								</Typography>
 
 							<Button onClick={() => {
-								this.setState({tempRecordExists: true});
+								this.setState({openAddBiometrics: true});
 							}}> Record Reading </Button>
 							</Layout>
 
@@ -296,7 +284,9 @@ let Index = withStyles((theme) => {
 					aria-labelledby="form-dialog-title"
 				>
 					<form onSubmit={(event) => {
+
 						event.preventDefault();
+						this.props.dispatch({type:REQUEST_ADD_BIOMETRIC,payload:{pet_id:this.props.match.params.pet_id,visit_id:this.props.match.params.visit_id,data:{biometrics_data:this.state.data}}});
 					}}>
 						<DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
 						<DialogContent>

@@ -1,4 +1,6 @@
-import {CLEAR_VISIT, QUERY_VISITS_SUCCEDED} from "./actions";
+import {CLEAR_VISIT, QUERY_VISITS_SUCCEDED,	REQUEST_ADD_BIOMETRIC,
+	ADD_BIOMETRIC_SUCCEDED,
+	ADD_BIOMETRIC_FAILED} from "./actions";
 import {ADD_VISIT_SUCCEDED} from "../pet-types/actions";
 
 const visitsInitData = {
@@ -9,6 +11,18 @@ function visitReducer(state = visitsInitData, action) {
 	switch (action.type) {
 		case QUERY_VISITS_SUCCEDED: {
 			state = {...state, list: action.payload};
+			break;
+		}
+		case REQUEST_ADD_BIOMETRIC :{
+			state={...state ,addingBiometricInProgreess:true};
+			break;
+		}
+		case ADD_BIOMETRIC_SUCCEDED :{
+			state={...state ,addingBiometricInProgreess:false};
+			break;
+		}
+		case ADD_BIOMETRIC_FAILED :{
+			state={...state ,addingBiometricInProgreess:false};
 			break;
 		}
 		default: {
