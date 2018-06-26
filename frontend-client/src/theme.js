@@ -1,8 +1,8 @@
 import {createMuiTheme} from '@material-ui/core/styles';
 
-const primaryColor = "#3a87ca";
+const primaryColor = "#f25826";
 const accentColor = "#3a87ca";
-//#f25826
+//#
 
 const theme = createMuiTheme({
 	palette: {
