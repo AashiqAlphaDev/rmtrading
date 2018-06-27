@@ -33,6 +33,11 @@ const pages = [
 	},
 	{
 		icon: ({className}) => {
+			return <ClockOutlineIcon className={className}/>
+		}, label: "Registration", url: "/admin/dashboard/registration"
+	},
+	{
+		icon: ({className}) => {
 			return <PawIcon className={className}/>
 		}, label: "Pets", url: "/admin/dashboard/vaccinations"
 	},
@@ -40,7 +45,7 @@ const pages = [
 		icon: ({className}) => {
 			return <ClockOutlineIcon className={className}/>
 		}, label: "Appointments", url: "/admin/dashboard/appointments"
-	}
+	},
 ];
 
 let Index = withStyles((theme) => {

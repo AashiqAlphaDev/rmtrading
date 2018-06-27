@@ -4,7 +4,7 @@ const dashboardUiActions = {
 };
 
 const initDashboardData = {
-	check_in_progress:false
+	check_in_progress:true
 };
 
 let dashboardUiReducer = function (state=initDashboardData, {type}) {
@@ -24,4 +24,22 @@ let dashboardUiReducer = function (state=initDashboardData, {type}) {
 	return state;
 };
 
-export {dashboardUiReducer, dashboardUiActions};
+
+const petsUiActions = {
+
+};
+
+const initPetsData ={
+
+};
+
+let petsUiReducer = function(state = initPetsData, {type}){
+	switch (type) {
+		default:{
+			break;
+		}
+	}
+	return state;
+}
+
+export {dashboardUiReducer, dashboardUiActions, petsUiActions, petsUiReducer};

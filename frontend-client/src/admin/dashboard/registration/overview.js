@@ -2,15 +2,18 @@ import React from "react"
 import {withStyles} from "@material-ui/core/styles/index";
 import style from "../style";
 import {connect} from "react-redux";
-import {QUERY_VET_CENTERS} from "../../../stores/vet-centers/actions";
 import {
-	Avatar, Button, Dialog, DialogContent, ExpansionPanel, Paper, Slide,
+	Button,
+	Dialog,
+	DialogContent,
+	ExpansionPanel,
+	Paper,
+	Slide,
 	TextField,
 	Typography
 } from "@material-ui/core/es/index";
 import Layout from "../../../components/layout";
-import {ArrowRightIcon, FileDocumentIcon, PawIcon} from "mdi-react";
-import {CLEAR_PET, REQUEST_GUARDIAN_FETCH, REQUEST_PET_FETCH} from "../../../stores/pets/actions";
+import {FileDocumentIcon, PawIcon} from "mdi-react";
 import Link from "react-router-dom/es/Link";
 import QrReader from 'react-qr-reader';
 import InputContainer from "../../../components/input"
@@ -46,8 +49,8 @@ let Index = withStyles((theme) => {
 			margin: theme.spacing.unit * 1,
 			padding: theme.spacing.unit * 2,
 			boxShadow: '0px 0px 16px rgba(0,0,0,0.05)',
-			width:250,
-			height:350
+			width: 250,
+			height: 350
 		},
 		cardInfo: {
 			marginLeft: theme.spacing.unit * 1,
@@ -65,22 +68,22 @@ let Index = withStyles((theme) => {
 			paddingRight: 1 * theme.spacing.unit,
 			fill: theme.palette.secondary.main
 		},
-		icon:{
+		icon: {
 			fill: theme.palette.secondary.main,
 		},
 		iconContainer: {
-			paddingBottom:5,
-			border:`2px solid ${theme.palette.grey['200']}`,
-			width:200,
-			height:200,
-			borderRadius:100,
-			display:"flex",
-			alignItems:"center",
-			justifyContent:"center",
-			margin:20
+			paddingBottom: 5,
+			border: `2px solid ${theme.palette.grey['200']}`,
+			width: 200,
+			height: 200,
+			borderRadius: 100,
+			display: "flex",
+			alignItems: "center",
+			justifyContent: "center",
+			margin: 20
 		},
-		title:{
-			paddingBottom:10
+		title: {
+			paddingBottom: 10
 		}
 
 	}
@@ -92,11 +95,6 @@ let Index = withStyles((theme) => {
 		showScanner: false
 	}
 
-	componentWillMount() {
-		this.props.dispatch({type: QUERY_VET_CENTERS});
-		this.props.dispatch({type:CLEAR_PET});
-	}
-
 	componentWillReceiveProps(nextProps) {
 
 	}
@@ -106,7 +104,7 @@ let Index = withStyles((theme) => {
 		return <Layout direction={"column"} className={classes.body} justifyContent={"center"}>
 			{
 				this.props.petDetail._id &&
-				<Redirect to={`/admin/dashboard/pets/${this.props.petDetail._id}`} />
+				<Redirect to={`/admin/dashboard/pets/${this.props.petDetail._id}`}/>
 			}
 			<Layout alignItems={"center"}>
 				<Paper className={classes.card} onClick={() => {
@@ -118,7 +116,8 @@ let Index = withStyles((theme) => {
 								<PawIcon size={150} className={classes.icon}/>
 							</div>
 							<Typography variant={"title"} className={classes.title}>New Pet Registration</Typography>
-							<Typography color={"textSecondary"} className={classes.title} >Register to generate health record</Typography>
+							<Typography color={"textSecondary"} className={classes.title}>Register to generate health
+								record</Typography>
 						</Layout>
 
 					</Layout>
@@ -131,10 +130,11 @@ let Index = withStyles((theme) => {
 
 						<Layout direction={"column"} className={classes.cardInfo} alignItems={"center"}>
 							<div className={classes.iconContainer}>
-								<FileDocumentIcon size={150} className={classes.icon} />
+								<FileDocumentIcon size={150} className={classes.icon}/>
 							</div>
 							<Typography variant={"title"} className={classes.title}>Open Record</Typography>
-							<Typography color={"textSecondary"} className={classes.title}>Vaccination & Health records</Typography>
+							<Typography color={"textSecondary"} className={classes.title}>Vaccination & Health
+								records</Typography>
 						</Layout>
 
 					</Layout>
@@ -165,8 +165,8 @@ let Index = withStyles((theme) => {
 							<TextField className={`flex`} autoFocus
 							           placeholder={"Enter Guardian Mobile No / Gov Identity No"} onChange={(event) => {
 								this.setState({guardianQuery: event.target.value})
-							}} />
-							<button style={{display: "none"}} type={"submit"} />
+							}}/>
+							<button style={{display: "none"}} type={"submit"}/>
 						</form>
 						<ExpansionPanel
 							expanded={Boolean(this.props.guardianDetail._id) || Boolean(this.props.guardianDetail.noMatch)}>
@@ -220,7 +220,7 @@ let Index = withStyles((theme) => {
 						}}
 						onScan={(result) => {
 							if (result) {
-								this.props.dispatch({type:REQUEST_PET_FETCH, payload: {token: result}});
+								this.props.dispatch({type: REQUEST_PET_FETCH, payload: {token: result}});
 							}
 						}}
 						style={{width: 400, height: 400}}
