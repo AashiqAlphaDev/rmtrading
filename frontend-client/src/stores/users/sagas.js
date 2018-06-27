@@ -28,4 +28,4 @@ function* userSaga() {
 	});
 }
 
-export default userSaga;
+export default {userCommands, userSaga};
