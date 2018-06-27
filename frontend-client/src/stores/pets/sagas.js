@@ -1,12 +1,12 @@
 import {call, put, takeEvery, takeLatest} from 'redux-saga/effects';
 import base_url from "../base_url";
 import {
-	GUARDIAN_FETCH_SUCCEDED,
+	GUARDIAN_FETCH_SUCCEEDED,
 	GUARDIAN_FETCH_FAILED,
 	REQUEST_GUARDIAN_FETCH,
 	REQUEST_CREATE_PET,
-	CREATE_PET_SUCCEDED,
-	CREATE_PET_FAILED, REQUEST_PET_FETCH, PET_FETCH_FAILED, PET_FETCH_SUCCEDED,
+	CREATE_PET_SUCCEEDED,
+	CREATE_PET_FAILED, REQUEST_PET_FETCH, PET_FETCH_FAILED, PET_FETCH_SUCCEEDED,
 
 } from "./actions";
 
@@ -17,7 +17,7 @@ let fetchGuardian = function* (action) {
 			credentials: 'include'
 		});
 		if (response.ok) {
-			yield put({type: GUARDIAN_FETCH_SUCCEDED, payload: yield response.json()});
+			yield put({type: GUARDIAN_FETCH_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: GUARDIAN_FETCH_FAILED, payload: yield response.json()});
@@ -38,7 +38,7 @@ let createPet = function* (action) {
 			body: JSON.stringify(action.payload)
 		});
 		if (response.ok) {
-			yield put({type: CREATE_PET_SUCCEDED, payload: yield response.json()});
+			yield put({type: CREATE_PET_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: CREATE_PET_FAILED, payload: yield response.json()});
@@ -62,7 +62,7 @@ let fetchPet = function* (action) {
 			credentials: 'include'
 		});
 		if (response.ok) {
-			yield put({type: PET_FETCH_SUCCEDED, payload: yield response.json()});
+			yield put({type: PET_FETCH_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: PET_FETCH_FAILED, payload: yield response.json()});

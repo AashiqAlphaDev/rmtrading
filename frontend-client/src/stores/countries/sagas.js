@@ -1,18 +1,18 @@
 import {call, put, takeEvery, takeLatest} from 'redux-saga/effects';
 import {
 	ADD_COUNTRY_FAILED,
-	ADD_COUNTRY_SUCCEDED, ADD_STATE_FAILED, ADD_STATE_SUCCEDED,
+	ADD_COUNTRY_SUCCEEDED, ADD_STATE_FAILED, ADD_STATE_SUCCEEDED,
 	DELETE_COUNTRY_FAILED,
-	DELETE_COUNTRY_SUCCEDED,
+	DELETE_COUNTRY_SUCCEEDED,
 	QUERY_STATES_FAILED,
-	QUERY_STATES_SUCCEDED,
+	QUERY_STATES_SUCCEEDED,
 	QUERY_COUNTRIES,
 	QUERY_STATES,
 	REQUEST_ADD_COUNTRY,
 	REQUEST_ADD_STATE,
 } from "./actions";
 import base_url from "../base_url";
-import {QUERY_COUNTRIES_FAILED, QUERY_COUNTRIES_SUCCEDED, REQUEST_DELETE_COUNTRY} from "./actions";
+import {QUERY_COUNTRIES_FAILED, QUERY_COUNTRIES_SUCCEEDED, REQUEST_DELETE_COUNTRY} from "./actions";
 
 
 let queryCountries = function* (action) {
@@ -22,7 +22,7 @@ let queryCountries = function* (action) {
 			credentials: 'include'
 		});
 		if (response.ok) {
-			yield put({type: QUERY_COUNTRIES_SUCCEDED, payload: yield response.json()});
+			yield put({type: QUERY_COUNTRIES_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: QUERY_COUNTRIES_FAILED, payload: yield response.json()});
@@ -43,7 +43,7 @@ let addCountry = function* (action) {
 			body: JSON.stringify(action.payload)
 		});
 		if (response.ok) {
-			yield put({type: ADD_COUNTRY_SUCCEDED, payload: yield response.json()});
+			yield put({type: ADD_COUNTRY_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: ADD_COUNTRY_FAILED, payload: yield response.json()});
@@ -65,7 +65,7 @@ let addState = function* (action) {
 			body: JSON.stringify(action.payload.state_data)
 		});
 		if (response.ok) {
-			yield put({type: ADD_STATE_SUCCEDED, payload: yield response.json()});
+			yield put({type: ADD_STATE_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: ADD_STATE_FAILED, payload: yield response.json()});
@@ -87,7 +87,7 @@ let deleteCountry = function* (action) {
 			body: JSON.stringify(action.payload.state_data)
 		});
 		if (response.ok) {
-			yield put({type: DELETE_COUNTRY_SUCCEDED, payload: yield response.json()});
+			yield put({type: DELETE_COUNTRY_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: DELETE_COUNTRY_FAILED, payload: yield response.json()});
@@ -103,7 +103,7 @@ let queryStates = function* (action) {
 			credentials: 'include'
 		});
 		if (response.ok) {
-			yield put({type: QUERY_STATES_SUCCEDED, payload: yield response.json()});
+			yield put({type: QUERY_STATES_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: QUERY_STATES_FAILED, payload: yield response.json()});
@@ -120,7 +120,7 @@ function* countriesSaga() {
 	yield takeEvery(REQUEST_ADD_COUNTRY, addCountry);
 	yield takeEvery(REQUEST_ADD_STATE, addState);
 	yield takeEvery(REQUEST_DELETE_COUNTRY, deleteCountry);
-	yield takeEvery(DELETE_COUNTRY_SUCCEDED, queryCountries);
+	yield takeEvery(DELETE_COUNTRY_SUCCEEDED, queryCountries);
 }
 
 export default countriesSaga;

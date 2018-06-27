@@ -1,7 +1,7 @@
-import {CLEAR_VISIT, QUERY_VISITS_SUCCEDED,	REQUEST_ADD_BIOMETRIC,
-	ADD_BIOMETRIC_SUCCEDED,
+import {CLEAR_VISIT, QUERY_VISITS_SUCCEEDED,	REQUEST_ADD_BIOMETRIC,
+	ADD_BIOMETRIC_SUCCEEDED,
 	ADD_BIOMETRIC_FAILED} from "./actions";
-import {ADD_VISIT_SUCCEDED} from "../pet-types/actions";
+import {ADD_VISIT_SUCCEEDED} from "../pet-types/actions";
 
 const visitsInitData = {
 	list: []
@@ -9,7 +9,7 @@ const visitsInitData = {
 
 function visitReducer(state = visitsInitData, action) {
 	switch (action.type) {
-		case QUERY_VISITS_SUCCEDED: {
+		case QUERY_VISITS_SUCCEEDED: {
 			state = {...state, list: action.payload};
 			break;
 		}
@@ -17,7 +17,7 @@ function visitReducer(state = visitsInitData, action) {
 			state={...state ,addingBiometricInProgreess:true};
 			break;
 		}
-		case ADD_BIOMETRIC_SUCCEDED :{
+		case ADD_BIOMETRIC_SUCCEEDED :{
 			state={...state ,addingBiometricInProgreess:false};
 			break;
 		}
@@ -40,7 +40,7 @@ function visitDetailReducer(state = visitDetailInitData, action){
 			state = visitDetailInitData;
 			break;
 		}
-		case ADD_VISIT_SUCCEDED:{
+		case ADD_VISIT_SUCCEEDED:{
 			state = {...action.payload};
 			break;
 		}

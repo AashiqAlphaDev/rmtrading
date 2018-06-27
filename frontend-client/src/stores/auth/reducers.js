@@ -1,91 +1,39 @@
-import {
-	AUTH_CLEAR, CHECK_ADMIN,
-	CHECK_ADMIN_FAILED,
-	CHECK_ADMIN_PASSED,
-	CHECK_SUPER_ADMIN,
-	CHECK_SUPER_ADMIN_FAILED,
-	CHECK_SUPER_ADMIN_PASSED,
-	LOGIN_FAILED,
-	LOGIN_SUCCEDED,
-	LOGOUT_SUCCEDED,
-	REQUEST_LOGIN,
-	REQUEST_SIGNUP,
-	REQUEST_SUPER_ADMIN_LOGIN,
-	SIGNUP_FAILED,
-	SIGNUP_SUCCEDED,
-	SUPER_ADMIN_LOGIN_FAILED,
-	SUPER_ADMIN_LOGIN_SUCCEDED,
-	SUPER_ADMIN_LOGOUT_SUCCEDED
-} from "./actions";
+const authDocActions = {
+	AUTH_CLEAR:"auth/document/AUTH_CLEAR",
+	ADMIN_LOGIN:"auth/document/ADMIN_LOGIN",
+	SUPER_ADMIN_LOGIN:"auth/document/SUPER_ADMIN_LOGIN",
+	ADMIN_LOGOUT:"auth/document/ADMIN_LOGOUT",
+	SUPER_ADMIN_LOGOUT:"auth/document/SUPER_ADMIN_LOGOUT",
+};
 
-const initAuthData = {};
+const initAuthData = {
+	current_user:{
+		logged_in:false,
+		is_admin:false,
+		is_super_admin:false
+	}
+};
 
-function authReducer(state = initAuthData, action) {
-	switch (action.type) {
-		case AUTH_CLEAR: {
-			state = initAuthData;
+function authReducer(state = initAuthData, {type}) {
+	switch (type) {
+		case authDocActions.AUTH_CLEAR:{
+			state = {...initAuthData};
 			break;
 		}
-		case REQUEST_SUPER_ADMIN_LOGIN:
-		case REQUEST_LOGIN: {
-			state = {...state, loginInProgress: true};
+		case authDocActions.ADMIN_LOGIN:{
+			state = {...state, current_user:{...state.current_user, logged_in:true, is_admin:true}};
 			break;
 		}
-		case REQUEST_SIGNUP: {
-			state = {...state, signupInProgress: true};
+		case authDocActions.SUPER_ADMIN_LOGIN:{
+			state = {...state, current_user:{...state.current_user, logged_in:true, is_super_admin:true}};
 			break;
 		}
-		case SIGNUP_FAILED: {
-			state = {...state, signupInProgress: false, signupError: action.payload};
+		case authDocActions.ADMIN_LOGOUT:{
+			state = {...state, current_user:{...state, is_admin:false}};
 			break;
 		}
-		case SUPER_ADMIN_LOGIN_FAILED:
-		case LOGIN_FAILED: {
-			state = {...state, loginInProgress: false, loginError: action.payload};
-			break;
-		}
-		case SIGNUP_SUCCEDED: {
-			state = {...state, loginInProgress: false, redirect: "/admin/auth/login"};
-			break;
-		}
-		case SUPER_ADMIN_LOGIN_SUCCEDED: {
-			state = {...state, loginInProgress: false, redirect: "/super-admin/dashboard"};
-			break;
-		}
-		case CHECK_SUPER_ADMIN_PASSED: {
-			state = {...state, isSuperAdmin: true, superAdminCheckInProgress: false};
-			break;
-		}
-		case CHECK_ADMIN: {
-			state = {...state, adminCheckInProgress: true};
-			break;
-		}
-		case CHECK_ADMIN_PASSED: {
-			state = {...state, isAdmin: true, adminCheckInProgress: false};
-			break;
-		}
-		case CHECK_ADMIN_FAILED: {
-			state = {...state, isAdmin: false, adminCheckInProgress: false};
-			break;
-		}
-		case CHECK_SUPER_ADMIN_FAILED: {
-			state = {...state, isSuperAdmin: false, superAdminCheckInProgress: false};
-			break;
-		}
-		case CHECK_SUPER_ADMIN: {
-			state = {...state, superAdminCheckInProgress: true};
-			break;
-		}
-		case LOGIN_SUCCEDED: {
-			state = {...state, redirect: "/admin/dashboard"};
-			break;
-		}
-		case LOGOUT_SUCCEDED: {
-			state = {...state, redirect: "/admin/auth/login"};
-			break;
-		}
-		case SUPER_ADMIN_LOGOUT_SUCCEDED: {
-			state = {...state, redirect: "/super-admin/auth"};
+		case authDocActions.SUPER_ADMIN_LOGOUT:{
+			state = {...state, current_user:{...state, is_super_admin:false}};
 			break;
 		}
 		default: {
@@ -95,4 +43,4 @@ function authReducer(state = initAuthData, action) {
 	return state;
 }
 
-export default authReducer;
+export {authReducer, authDocActions};

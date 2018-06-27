@@ -1,9 +1,9 @@
 import {call, put, takeEvery} from 'redux-saga/effects';
 import {
 	GENERATE_TOKENS_FAILED,
-	GENERATE_TOKENS_SUCCEDED,
+	GENERATE_TOKENS_SUCCEEDED,
 	REQUEST_GENERATE_TOKENS,
-	REQUEST_UPDATE_TOKEN, UPDATE_TOKEN_FAILED, UPDATE_TOKEN_SUCCEDED
+	REQUEST_UPDATE_TOKEN, UPDATE_TOKEN_FAILED, UPDATE_TOKEN_SUCCEEDED
 } from "./actions";
 import base_url from "../base_url";
 
@@ -18,7 +18,7 @@ let generateTokens = function*(action) {
 			body:JSON.stringify(action.payload)
 		});
 		if (response.ok) {
-			yield put({type: GENERATE_TOKENS_SUCCEDED, payload: yield response.json()});
+			yield put({type: GENERATE_TOKENS_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: GENERATE_TOKENS_FAILED, payload: yield response.json()});
@@ -39,7 +39,7 @@ let updateToken = function*(action) {
 			body:JSON.stringify(action.payload.data)
 		});
 		if (response.ok) {
-			yield put({type: UPDATE_TOKEN_SUCCEDED, payload: yield response.json()});
+			yield put({type: UPDATE_TOKEN_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: UPDATE_TOKEN_FAILED, payload: yield response.json()});

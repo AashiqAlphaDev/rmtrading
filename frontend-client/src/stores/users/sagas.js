@@ -1,7 +1,7 @@
 import {call, put, takeEvery} from 'redux-saga/effects'
 import {
 	REQUEST_CREATE_USER,
-	CREATE_USER_SUCCEDED,
+	CREATE_USER_SUCCEEDED,
 	CREATE_USER_FAILED
 } from "./actions";
 import base_url from "../base_url";
@@ -19,7 +19,7 @@ let createUser = function* (action) {
 			body: JSON.stringify(body)
 		});
 		if (response.ok) {
-			yield put({type: CREATE_USER_SUCCEDED, payload: yield response.json()});
+			yield put({type: CREATE_USER_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: CREATE_USER_FAILED, payload: yield response.json()});

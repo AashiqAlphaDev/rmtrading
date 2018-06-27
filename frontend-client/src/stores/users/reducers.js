@@ -1,6 +1,6 @@
 import {
 	REQUEST_CREATE_USER,
-	CREATE_USER_SUCCEDED,
+	CREATE_USER_SUCCEEDED,
 	CREATE_USER_FAILED, CLEAR_USER
 
 } from "./actions";
@@ -17,7 +17,7 @@ function userReducer(state = initIUserData, action) {
 			state = {...state};
 			break;
 		}
-		case CREATE_USER_SUCCEDED: {
+		case CREATE_USER_SUCCEEDED: {
 			state = {...state, userCreated: true};
 			break;
 		}

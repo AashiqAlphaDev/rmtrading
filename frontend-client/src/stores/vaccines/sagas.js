@@ -1,19 +1,19 @@
 import {call, put, takeEvery} from 'redux-saga/effects';
 import {
 	ADD_VACCINE_FAILED,
-	ADD_VACCINE_SUCCEDED,
+	ADD_VACCINE_SUCCEEDED,
 	QUERY_VACCINES,
 	REQUEST_ADD_VACCINE,
 	DELETE_VACCINE_FAILED,
-	DELETE_VACCINE_SUCCEDED,
-	QUERY_VACCINES_SUCCEDED,
+	DELETE_VACCINE_SUCCEEDED,
+	QUERY_VACCINES_SUCCEEDED,
 	QUERY_VACCINES_FAILED,
 	REQUEST_DELETE_VACCINE,
 	REQUEST_VACCINE_FETCH,
-	VACCINE_FETCH_SUCCEDED,
+	VACCINE_FETCH_SUCCEEDED,
 	VACCINE_FETCH_FAILED,
 	REQUEST_ADD_DOSAGE,
-	ADD_DOSAGE_SUCCEDED, ADD_DOSAGE_FAILED, REQUEST_DELETE_DOSAGE, DELETE_DOSAGE_SUCCEDED, DELETE_DOSAGE_FAILED
+	ADD_DOSAGE_SUCCEEDED, ADD_DOSAGE_FAILED, REQUEST_DELETE_DOSAGE, DELETE_DOSAGE_SUCCEEDED, DELETE_DOSAGE_FAILED
 } from "./actions";
 import base_url from "../base_url";
 
@@ -24,7 +24,7 @@ let queryVaccines = function* (action) {
 			credentials: 'include'
 		});
 		if (response.ok) {
-			yield put({type: QUERY_VACCINES_SUCCEDED, payload: yield response.json()});
+			yield put({type: QUERY_VACCINES_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: QUERY_VACCINES_FAILED, payload: yield response.json()});
@@ -45,7 +45,7 @@ let addVaccine = function* (action) {
 			body: JSON.stringify(action.payload)
 		});
 		if (response.ok) {
-			yield put({type: ADD_VACCINE_SUCCEDED, payload: yield response.json()});
+			yield put({type: ADD_VACCINE_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: ADD_VACCINE_FAILED, payload: yield response.json()});
@@ -66,7 +66,7 @@ let deleteVaccine = function* (action) {
 			}
 		});
 		if (response.ok) {
-			yield put({type: DELETE_VACCINE_SUCCEDED, payload: yield response.json()});
+			yield put({type: DELETE_VACCINE_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: DELETE_VACCINE_FAILED, payload: yield response.json()});
@@ -80,7 +80,7 @@ let fetchVaccine = function* (action) {
 	try {
 		const response = yield call(fetch, `${base_url}/vaccines/${action.payload.vaccine_id}`);
 		if (response.ok) {
-			yield put({type: VACCINE_FETCH_SUCCEDED, payload: yield response.json()});
+			yield put({type: VACCINE_FETCH_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: VACCINE_FETCH_FAILED, payload: yield response.json()});
@@ -117,7 +117,7 @@ let deleteDosage = function* (action) {
 			body: JSON.stringify(body)
 		});
 		if (response.ok) {
-			yield put({type: DELETE_DOSAGE_SUCCEDED, payload: {vaccine_id: action.payload.vaccine_id}});
+			yield put({type: DELETE_DOSAGE_SUCCEEDED, payload: {vaccine_id: action.payload.vaccine_id}});
 		}
 		else {
 			yield put({type: DELETE_DOSAGE_FAILED, payload: yield response.json()});
@@ -156,7 +156,7 @@ let addDosage = function* (action) {
 			body: JSON.stringify(body)
 		});
 		if (response.ok) {
-			yield put({type: ADD_DOSAGE_SUCCEDED, payload: {vaccine_id: action.payload.vaccine_id}});
+			yield put({type: ADD_DOSAGE_SUCCEEDED, payload: {vaccine_id: action.payload.vaccine_id}});
 		}
 		else {
 			yield put({type: ADD_DOSAGE_FAILED, payload: yield response.json()});
@@ -170,12 +170,12 @@ function* vaccinesSaga() {
 	yield takeEvery(QUERY_VACCINES, queryVaccines);
 	yield takeEvery(REQUEST_ADD_VACCINE, addVaccine);
 	yield takeEvery(REQUEST_DELETE_VACCINE, deleteVaccine);
-	yield takeEvery(DELETE_VACCINE_SUCCEDED, queryVaccines);
+	yield takeEvery(DELETE_VACCINE_SUCCEEDED, queryVaccines);
 	yield takeEvery(REQUEST_VACCINE_FETCH, fetchVaccine);
 	yield takeEvery(REQUEST_ADD_DOSAGE, addDosage);
 	yield takeEvery(REQUEST_DELETE_DOSAGE, deleteDosage);
-	yield takeEvery(DELETE_DOSAGE_SUCCEDED, fetchVaccine);
-	yield takeEvery(ADD_DOSAGE_SUCCEDED, fetchVaccine);
+	yield takeEvery(DELETE_DOSAGE_SUCCEEDED, fetchVaccine);
+	yield takeEvery(ADD_DOSAGE_SUCCEEDED, fetchVaccine);
 }
 
 export default vaccinesSaga;

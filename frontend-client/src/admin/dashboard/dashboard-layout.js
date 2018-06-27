@@ -4,7 +4,6 @@ import style from "./style";
 import Layout from "../../components/layout";
 import {AppBar, Toolbar} from "@material-ui/core/index";
 import {Link} from "react-router-dom";
-import {REQUEST_LOGOUT} from "../../stores/auth/actions";
 import {connect} from "react-redux"
 import {
 	IconButton,
@@ -20,6 +19,7 @@ import {
 	SettingsOutlineIcon,
 	ViewDashboardIcon
 } from "mdi-react";
+import {authCommands} from "../../stores/auth/sagas";
 
 let Icon = (_Icon) => {
 	return (props) => (<_Icon {...props} size={20}/>)
@@ -65,10 +65,6 @@ let Index = withStyles((theme) => {
 	state = {
 		anchorEl: null,
 		showSearchDialogue: false
-	}
-
-	componentWillMount() {
-
 	}
 
 	render() {
@@ -131,7 +127,7 @@ let Index = withStyles((theme) => {
 										}}
 									>
 										<MenuItem onClick={() => {
-											this.props.dispatch({type: REQUEST_LOGOUT});
+											this.props.dispatch({type: authCommands.LOGOUT});
 										}}>Logout</MenuItem>
 									</Menu>
 								</div>

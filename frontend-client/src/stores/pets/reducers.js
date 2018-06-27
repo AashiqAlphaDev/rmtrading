@@ -1,9 +1,9 @@
 import {
 	CLEAR_PET,
-	CREATE_PET_SUCCEDED,
-	GUARDIAN_FETCH_SUCCEDED,
+	CREATE_PET_SUCCEEDED,
+	GUARDIAN_FETCH_SUCCEEDED,
 	PET_FETCH_FAILED,
-	PET_FETCH_SUCCEDED,
+	PET_FETCH_SUCCEEDED,
 	REQUEST_CREATE_PET
 } from "./actions";
 import {CLEAR_GUARDIAN} from "./actions";
@@ -30,7 +30,7 @@ function guardianDetailReducer(state = initGuardianDetail, action) {
 			state = initGuardianDetail;
 			break;
 		}
-		case GUARDIAN_FETCH_SUCCEDED: {
+		case GUARDIAN_FETCH_SUCCEEDED: {
 			state = {...state, ...action.payload};
 			break;
 		}
@@ -56,11 +56,11 @@ function petDetailReducer(state = petDetail, action) {
 			state = initGuardianDetail;
 			break;
 		}
-		case PET_FETCH_SUCCEDED: {
+		case PET_FETCH_SUCCEEDED: {
 			state = {...state, ...action.payload};
 			break;
 		}
-		case CREATE_PET_SUCCEDED:{
+		case CREATE_PET_SUCCEEDED:{
 			state = {...state, ...action.payload, petCreated:true};
 			break;
 		}

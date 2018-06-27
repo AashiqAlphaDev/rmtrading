@@ -1,162 +1,143 @@
-import {call, put, takeEvery} from 'redux-saga/effects'
-import {
-	CHECK_ADMIN, CHECK_ADMIN_FAILED, CHECK_ADMIN_PASSED,
-	CHECK_SUPER_ADMIN,
-	CHECK_SUPER_ADMIN_FAILED,
-	CHECK_SUPER_ADMIN_PASSED,
-	LOGIN_FAILED,
-	LOGIN_SUCCEDED, LOGOUT_FAILED, LOGOUT_SUCCEDED,
-	REQUEST_LOGIN, REQUEST_LOGOUT,
-	REQUEST_SIGNUP,
-	REQUEST_SUPER_ADMIN_LOGIN,
-	REQUEST_SUPER_ADMIN_LOGOUT,
-	SIGNUP_FAILED,
-	SIGNUP_SUCCEDED,
-	SUPER_ADMIN_LOGIN_FAILED,
-	SUPER_ADMIN_LOGIN_SUCCEDED,
-	SUPER_ADMIN_LOGOUT_FAILED,
-	SUPER_ADMIN_LOGOUT_SUCCEDED
-} from "./actions";
-import base_url from "../base_url"
+import {put, takeEvery} from 'redux-saga/effects'
+import {actions as appActions, httpMethods} from "../app/saga";
+import {authDocActions} from "./reducers"
+import {authUiActions} from "../ui/auth";
+import {dashboardUiActions} from "../ui/dashboard";
 
-function* loginUser(action) {
-	try {
-		const response = yield call(fetch, `${base_url}/login`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			credentials: 'include',
-			body: JSON.stringify(action.payload)
+let authCommands = {
+	CHECK_ADMIN: "auth/command/CHECK_ADMIN",
+	CHECK_ADMIN_FAILED: "auth/command/CHECK_ADMIN_FAILED",
+	CHECK_ADMIN_PASSED: "auth/command/CHECK_ADMIN_PASSED",
+	CHECK_SUPER_ADMIN: "auth/command/CHECK_SUPER_ADMIN",
+	CHECK_SUPER_ADMIN_FAILED: "auth/command/CHECK_SUPER_ADMIN_FAILED",
+	CHECK_SUPER_ADMIN_PASSED: "auth/command/CHECK_SUPER_ADMIN_PASSED",
+	LOGIN_FAILED: "auth/command/LOGIN_FAILED",
+	LOGIN_SUCCEEDED: "auth/command/LOGIN_SUCCEEDED",
+	LOGOUT_FAILED: "auth/command/LOGOUT_FAILED",
+	LOGOUT_SUCCEEDED: "auth/command/LOGOUT_SUCCEEDED",
+	LOGIN: "auth/command/REQUEST_LOGIN",
+	LOGOUT: "auth/command/REQUEST_LOGOUT",
+	SIGNUP: "auth/command/REQUEST_SIGNUP",
+	SUPER_ADMIN_LOGIN: "auth/command/REQUEST_SUPER_ADMIN_LOGIN",
+	SUPER_ADMIN_LOGOUT: "auth/command/REQUEST_SUPER_ADMIN_LOGOUT",
+	SIGNUP_FAILED: "auth/command/SIGNUP_FAILED",
+	SIGNUP_SUCCEEDED: "auth/command/SIGNUP_SUCCEEDED",
+	SUPER_ADMIN_LOGIN_FAILED: "auth/command/SUPER_ADMIN_LOGIN_FAILED",
+	SUPER_ADMIN_LOGIN_SUCCEEDED: "auth/command/SUPER_ADMIN_LOGIN_SUCCEEDED",
+	SUPER_ADMIN_LOGOUT_FAILED: "auth/command/SUPER_ADMIN_LOGOUT_FAILED",
+	SUPER_ADMIN_LOGOUT_SUCCEEDED: "auth/command/SUPER_ADMIN_LOGOUT_SUCCEEDED"
+};
+
+let authSaga = function* () {
+	//login
+	yield takeEvery(authCommands.LOGIN, function* (action) {
+		yield put({type: authUiActions.SHOW_AUTH_PROGRESS});
+		yield put({
+			type: appActions.API,
+			payload: {
+				url: '/login',
+				method: httpMethods.POST,
+				body: action.payload,
+				success: authCommands.LOGIN_SUCCEEDED,
+				failure: authCommands.LOGIN_FAILED
+			}
 		});
-		if (response.ok) {
-			yield put({type: LOGIN_SUCCEDED, payload: yield response.json()});
-		}
-		else {
-			yield put({type: LOGIN_FAILED, payload: yield response.json()});
-		}
-	} catch (error) {
-		console.log(error);
-		yield put({type: LOGIN_FAILED, payload: error});
-	}
-}
+	});
+	yield takeEvery(authCommands.LOGIN_SUCCEEDED, function* (action) {
+		yield put({...action, type: authDocActions.ADMIN_LOGIN});
+	});
 
-function* signupUser(action) {
-	try {
-		const response = yield call(fetch, `${base_url}/register`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			credentials: 'include',
-			body: JSON.stringify(action.payload)
+	//super admin login
+	yield takeEvery(authCommands.SUPER_ADMIN_LOGIN, function* (action) {
+		yield put({type: authUiActions.SHOW_AUTH_PROGRESS});
+		yield put(appActions.API, {
+			url: '/super-admin/login',
+			method: httpMethods.POST,
+			body: action.payload,
+			success: authCommands.SUPER_ADMIN_LOGIN_SUCCEEDED,
+			failure: authCommands.SUPER_ADMIN_LOGIN_FAILED
 		});
-		if (response.ok) {
-			yield put({type: SIGNUP_SUCCEDED, payload: yield response.json()});
-		}
-		else {
-			yield put({type: SIGNUP_FAILED, payload: yield response.json()});
-		}
-	} catch (error) {
-		yield put({type: SIGNUP_FAILED, payload: error});
-	}
-}
+	});
+	yield takeEvery(authCommands.SUPER_ADMIN_LOGIN_SUCCEEDED, function* (action) {
+		yield put({...action, type: authDocActions.SUPER_ADMIN_LOGIN});
+	});
 
-function* loginSuperAdmin(action) {
-	try {
-		const response = yield call(fetch, `${base_url}/super-admin/login`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			credentials: 'include',
-			body: JSON.stringify(action.payload)
+	//sign up
+	yield takeEvery(authCommands.SIGNUP, function* (action) {
+		yield put({type: authUiActions.SHOW_AUTH_PROGRESS});
+		yield put(appActions.API, {
+			url: '/register',
+			method: httpMethods.POST,
+			body: action.payload,
+			success: authCommands.SIGNUP_SUCCEEDED,
+			failure: authCommands.SIGNUP_FAILED
 		});
-		if (response.ok) {
-			yield put({type: SUPER_ADMIN_LOGIN_SUCCEDED, payload: yield response.json()});
-		}
-		else {
-			yield put({type: SUPER_ADMIN_LOGIN_FAILED, payload: yield response.json()});
-		}
-	} catch (error) {
-		yield put({type: SUPER_ADMIN_LOGIN_FAILED, payload: error});
-	}
-}
+	});
 
-function* checkSuperAdmin() {
-	try {
-		const response = yield call(fetch, `${base_url}/super-admin/`, {
-			credentials: 'include'
+	//admin check
+	yield takeEvery(authCommands.CHECK_ADMIN, function* () {
+		yield put({type:dashboardUiActions.SET_ADMIN_CHECK_IN_PROGRESS});
+		yield put({
+			type: appActions.API, payload: {
+				url: '/admin',
+				success: authCommands.CHECK_ADMIN_PASSED,
+				failure: authCommands.CHECK_ADMIN_FAILED
+			}
+		})
+	});
+	yield takeEvery(authCommands.CHECK_ADMIN_PASSED, function* () {
+		yield put({type:dashboardUiActions.SET_ADMIN_CHECK_DONE});
+		yield put({type: authDocActions.ADMIN_LOGIN});
+	});
+	yield takeEvery(authCommands.CHECK_ADMIN_FAILED, function* () {
+		yield put({type:dashboardUiActions.SET_ADMIN_CHECK_DONE});
+		yield put({type: authDocActions.CLEAR_AUTH});
+	});
+
+	//super admin check
+	yield takeEvery(authCommands.CHECK_SUPER_ADMIN, function* () {
+		yield put({
+			type: appActions.API, payload: {
+				url: '/super-admin',
+				success: authCommands.CHECK_SUPER_ADMIN_PASSED,
+				failure: authCommands.CHECK_SUPER_ADMIN_FAILED
+			}
+		})
+	});
+	yield takeEvery(authCommands.CHECK_SUPER_ADMIN_FAILED, function* () {
+		yield put({type: authUiActions.CLEAR_AUTH});
+	});
+
+
+	//admin logout
+	yield takeEvery(authCommands.LOGOUT, function* () {
+		yield put({
+			type: appActions.API, payload: {
+				method: httpMethods.DELETE,
+				url: '/logout',
+				success: authCommands.LOGOUT_SUCCEEDED,
+				failure: authCommands.LOGOUT_FAILED
+			}
+		})
+	});
+	yield takeEvery(authCommands.LOGOUT_SUCCEEDED, function* () {
+		yield put({type: authUiActions.CLEAR_AUTH});
+	});
+
+	//super admin logout
+	yield takeEvery(authCommands.SUPER_ADMIN_LOGOUT, function* () {
+		yield put({
+			type: appActions.API, payload: {
+				method: httpMethods.DELETE,
+				url: '/super-admin/logout',
+				success: authCommands.SUPER_ADMIN_LOGOUT_SUCCEEDED,
+				failure: authCommands.SUPER_ADMIN_LOGOUT_FAILED
+			}
 		});
-		if (response.ok) {
-			yield put({type: CHECK_SUPER_ADMIN_PASSED, payload: yield response.json()});
-		}
-		else {
-			yield put({type: CHECK_SUPER_ADMIN_FAILED, payload: yield response.json()});
-		}
-	} catch (error) {
-		yield put({type: CHECK_SUPER_ADMIN_FAILED, payload: error});
-	}
+	});
+	yield takeEvery(authCommands.SUPER_ADMIN_LOGOUT_SUCCEEDED, function* () {
+		yield put({type:authUiActions.CLEAR_AUTH});
+	});
 }
 
-function* checkAdmin() {
-	try {
-		const response = yield call(fetch, `${base_url}/admin/`, {
-			credentials: 'include'
-		});
-		if (response.ok) {
-			yield put({type: CHECK_ADMIN_PASSED, payload: yield response.json()});
-		}
-		else {
-			yield put({type: CHECK_ADMIN_FAILED, payload: yield response.json()});
-		}
-	} catch (error) {
-		yield put({type: CHECK_ADMIN_FAILED, payload: error});
-	}
-}
-
-
-function* superAdminLogout() {
-	try {
-		const response = yield call(fetch, `${base_url}/super-admin/logout`, {
-			credentials: 'include'
-		});
-		if (response.ok) {
-			yield put({type: SUPER_ADMIN_LOGOUT_SUCCEDED, payload: yield response.json()});
-		}
-		else {
-			yield put({type: SUPER_ADMIN_LOGOUT_FAILED, payload: yield response.json()});
-		}
-	} catch (error) {
-		yield put({type: SUPER_ADMIN_LOGOUT_FAILED, payload: error});
-	}
-}
-
-function* logout() {
-	try {
-		const response = yield call(fetch, `${base_url}/logout`, {
-			method: 'DELETE',
-			credentials: 'include'
-		});
-		if (response.ok) {
-			yield put({type: LOGOUT_SUCCEDED, payload: yield response.json()});
-		}
-		else {
-			yield put({type: LOGOUT_FAILED, payload: yield response.json()});
-		}
-	} catch (error) {
-		yield put({type: LOGOUT_FAILED, payload: error});
-	}
-}
-
-function* authSaga() {
-	yield takeEvery(REQUEST_LOGIN, loginUser);
-	yield takeEvery(REQUEST_SIGNUP, signupUser);
-	yield takeEvery(REQUEST_SUPER_ADMIN_LOGIN, loginSuperAdmin);
-	yield takeEvery(CHECK_SUPER_ADMIN, checkSuperAdmin);
-	yield takeEvery(CHECK_ADMIN, checkAdmin);
-	yield takeEvery(REQUEST_SUPER_ADMIN_LOGOUT, superAdminLogout);
-	yield takeEvery(REQUEST_LOGOUT, logout);
-}
-
-export default authSaga;
+export {authSaga, authCommands};

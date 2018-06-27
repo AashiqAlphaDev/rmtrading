@@ -6,7 +6,7 @@ import OverView from "./overview";
 import Pets from "./registration";
 import Appointments from "./appointments";
 import {connect} from "react-redux";
-import {CHECK_ADMIN} from "../../stores/auth/actions";
+import {uiEvents} from "../../stores/ui/saga";
 
 let Index = (class extends React.Component {
 	state = {
@@ -14,7 +14,7 @@ let Index = (class extends React.Component {
 	};
 
 	componentWillMount() {
-		this.props.dispatch({type: CHECK_ADMIN});
+		this.props.dispatch({type: uiEvents.ADMIN_DASHBOARD_PAGE_LOAD});
 	}
 
 	onPageChange(url) {

@@ -4,8 +4,9 @@ import {Card, Typography, CardContent, TextField, Button, Snackbar} from "@mater
 import Layout from "../../components/layout";
 import {Link, Redirect} from 'react-router-dom'
 import style from "./style"
-import {AUTH_CLEAR, REQUEST_LOGIN} from "../../stores/auth/actions";
 import {connect} from "react-redux";
+import {uiEvents} from "../../stores/ui/saga";
+import {authCommands} from "../../stores/auth/sagas";
 
 let Index = withStyles(style)(class extends React.Component {
 	state = {
@@ -15,7 +16,7 @@ let Index = withStyles(style)(class extends React.Component {
 	}
 
 	componentWillMount() {
-		this.props.dispatch({type: AUTH_CLEAR});
+		this.props.dispatch({type: uiEvents.AUTH_PAGE_LOAD});
 	}
 
 	render() {
@@ -28,7 +29,7 @@ let Index = withStyles(style)(class extends React.Component {
 			<form onSubmit={(event) => {
 				event.preventDefault();
 				const {email, password} = this.state;
-				this.props.dispatch({type: REQUEST_LOGIN, payload: {email, password}});
+				this.props.dispatch({type: authCommands.REQUEST_LOGIN, payload: {email, password}});
 				this.setState({showToast: true});
 			}}>
 				<CardContent>
@@ -37,7 +38,7 @@ let Index = withStyles(style)(class extends React.Component {
 							SignIn
 						</Typography>
 						<TextField
-							disabled={this.props.auth.loginInProgress}
+							disabled={this.props.ui.auth.auth_in_progress}
 							placeholder={"Email"}
 							className={classes.input}
 							value={this.state.email}
@@ -47,7 +48,7 @@ let Index = withStyles(style)(class extends React.Component {
 							helperText={" "}
 						></TextField>
 						<TextField
-							disabled={this.props.auth.loginInProgress}
+							disabled={this.props.ui.auth.auth_in_progress}
 							placeholder={"Password"}
 							type={"password"}
 							className={classes.input}
@@ -61,7 +62,7 @@ let Index = withStyles(style)(class extends React.Component {
 								Forgot password? <Link to={"/admin/auth/reset"}>Reset</Link>
 							</Typography>
 							<Button type={"submit"} color={"primary"} variant={"raised"}
-							        disabled={this.props.auth.loginInProgress}>Login</Button>
+							        disabled={this.props.ui.auth.auth_in_progress}>Login</Button>
 						</Layout>
 						<Layout justifyContent={"center"} className={classes.row}>
 							<Typography gutterBottom>

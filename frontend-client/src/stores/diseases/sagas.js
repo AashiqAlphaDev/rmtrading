@@ -1,12 +1,12 @@
 import {call, put, takeEvery} from 'redux-saga/effects';
 import {
 	ADD_DISEASE_FAILED,
-	ADD_DISEASE_SUCCEDED,
+	ADD_DISEASE_SUCCEEDED,
 	QUERY_DISEASES,
 	REQUEST_ADD_DISEASE,
 	DELETE_DISEASE_FAILED,
-	DELETE_DISEASE_SUCCEDED,
-	QUERY_DISEASES_SUCCEDED,
+	DELETE_DISEASE_SUCCEEDED,
+	QUERY_DISEASES_SUCCEEDED,
 	QUERY_DISEASES_FAILED,
 	REQUEST_DELETE_DISEASE
 } from "./actions";
@@ -19,7 +19,7 @@ let queryDiseases = function* (action) {
 			credentials: 'include'
 		});
 		if (response.ok) {
-			yield put({type: QUERY_DISEASES_SUCCEDED, payload: yield response.json()});
+			yield put({type: QUERY_DISEASES_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: QUERY_DISEASES_FAILED, payload: yield response.json()});
@@ -41,7 +41,7 @@ let addDisease = function* (action) {
 			body: JSON.stringify(action.payload)
 		});
 		if (response.ok) {
-			yield put({type: ADD_DISEASE_SUCCEDED, payload: yield response.json()});
+			yield put({type: ADD_DISEASE_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: ADD_DISEASE_FAILED, payload: yield response.json()});
@@ -59,7 +59,7 @@ let deleteDisease = function* (action) {
 			credentials: 'include'
 		});
 		if (response.ok) {
-			yield put({type: DELETE_DISEASE_SUCCEDED, payload: yield response.json()});
+			yield put({type: DELETE_DISEASE_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: DELETE_DISEASE_FAILED, payload: yield response.json()});
@@ -73,7 +73,7 @@ function* diseasesSaga() {
 	yield takeEvery(QUERY_DISEASES, queryDiseases);
 	yield takeEvery(REQUEST_ADD_DISEASE, addDisease);
 	yield takeEvery(REQUEST_DELETE_DISEASE, deleteDisease);
-	yield takeEvery(DELETE_DISEASE_SUCCEDED, queryDiseases);
+	yield takeEvery(DELETE_DISEASE_SUCCEEDED, queryDiseases);
 }
 
 export default diseasesSaga;

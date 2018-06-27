@@ -1,4 +1,4 @@
-import {CLEAR_TOKENS, GENERATE_TOKENS_SUCCEDED, REQUEST_GENERATE_TOKENS} from "./actions";
+import {CLEAR_TOKENS, GENERATE_TOKENS_SUCCEEDED, REQUEST_GENERATE_TOKENS} from "./actions";
 
 const initTokens = {
 	list: [],
@@ -15,7 +15,7 @@ function tokensReducer(state = initTokens, action) {
 			state = {...state, tokensGenerated:false};
 			break;
 		}
-		case GENERATE_TOKENS_SUCCEDED:{
+		case GENERATE_TOKENS_SUCCEEDED:{
 			state = {...state, list:action.payload, tokensGenerated:true}
 			break;
 		}

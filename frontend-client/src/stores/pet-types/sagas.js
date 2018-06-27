@@ -1,23 +1,23 @@
 import {call, put, takeEvery, takeLatest} from 'redux-saga/effects';
 import {
 	ADD_PET_TYPE_FAILED,
-	ADD_PET_TYPE_SUCCEDED, ADD_BREED_FAILED, ADD_BREED_SUCCEDED,
+	ADD_PET_TYPE_SUCCEEDED, ADD_BREED_FAILED, ADD_BREED_SUCCEEDED,
 	DELETE_PET_TYPE_FAILED,
-	DELETE_PET_TYPE_SUCCEDED,
+	DELETE_PET_TYPE_SUCCEEDED,
 	QUERY_BREEDS_FAILED,
-	QUERY_BREEDS_SUCCEDED,
+	QUERY_BREEDS_SUCCEEDED,
 	QUERY_PET_TYPES,
 	QUERY_BREEDS,
 	REQUEST_ADD_PET_TYPE,
 	REQUEST_ADD_BREED, REQUEST_UPDATE_PET_TYPE,
 	UPDATE_PET_TYPE_SUCCEEDED,
-	UPDATE_PET_TYPE_FAILED, REQUEST_PET_TYPE_FETCH, PET_TYPE_FETCH_FAILED, PET_TYPE_FETCH_SUCCEDED,
+	UPDATE_PET_TYPE_FAILED, REQUEST_PET_TYPE_FETCH, PET_TYPE_FETCH_FAILED, PET_TYPE_FETCH_SUCCEEDED,
 	REQUEST_ADD_VISIT,
-	ADD_VISIT_SUCCEDED,
+	ADD_VISIT_SUCCEEDED,
 	ADD_VISIT_FAILED
 } from "./actions";
 import base_url from "../base_url";
-import {QUERY_PET_TYPES_FAILED, QUERY_PET_TYPES_SUCCEDED, REQUEST_DELETE_PET_TYPE} from "./actions";
+import {QUERY_PET_TYPES_FAILED, QUERY_PET_TYPES_SUCCEEDED, REQUEST_DELETE_PET_TYPE} from "./actions";
 
 
 let queryPetTypes = function* (action) {
@@ -27,7 +27,7 @@ let queryPetTypes = function* (action) {
 			credentials: 'include'
 		});
 		if (response.ok) {
-			yield put({type: QUERY_PET_TYPES_SUCCEDED, payload: yield response.json()});
+			yield put({type: QUERY_PET_TYPES_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: QUERY_PET_TYPES_FAILED, payload: yield response.json()});
@@ -48,7 +48,7 @@ let addPetType = function* (action) {
 			body: JSON.stringify(action.payload)
 		});
 		if (response.ok) {
-			yield put({type: ADD_PET_TYPE_SUCCEDED, payload: yield response.json()});
+			yield put({type: ADD_PET_TYPE_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: ADD_PET_TYPE_FAILED, payload: yield response.json()});
@@ -70,7 +70,7 @@ let addBreed = function* (action) {
 			body: JSON.stringify(action.payload.breed_data)
 		});
 		if (response.ok) {
-			yield put({type: ADD_BREED_SUCCEDED, payload: yield response.json()});
+			yield put({type: ADD_BREED_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: ADD_BREED_FAILED, payload: yield response.json()});
@@ -92,7 +92,7 @@ let deletePetType = function* (action) {
 			body: JSON.stringify(action.payload.state_data)
 		});
 		if (response.ok) {
-			yield put({type: DELETE_PET_TYPE_SUCCEDED, payload: yield response.json()});
+			yield put({type: DELETE_PET_TYPE_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: DELETE_PET_TYPE_FAILED, payload: yield response.json()});
@@ -109,7 +109,7 @@ let queryBreeds = function* (action) {
 			credentials: 'include'
 		});
 		if (response.ok) {
-			yield put({type: QUERY_BREEDS_SUCCEDED, payload: yield response.json()});
+			yield put({type: QUERY_BREEDS_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: QUERY_BREEDS_FAILED, payload: yield response.json()});
@@ -151,7 +151,7 @@ let fetchPetType = function* (action) {
 		});
 
 		if (response.ok) {
-			yield put({type: PET_TYPE_FETCH_SUCCEDED, payload: yield response.json()});
+			yield put({type: PET_TYPE_FETCH_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: PET_TYPE_FETCH_FAILED, payload: yield response.json()});
@@ -174,7 +174,7 @@ let addVisit = function* (action) {
 		});
 
 		if (response.ok) {
-			yield put({type: ADD_VISIT_SUCCEDED, payload: yield response.json()});
+			yield put({type: ADD_VISIT_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: ADD_VISIT_FAILED, payload: yield response.json()});
@@ -194,7 +194,7 @@ function* petTypesSaga() {
 	yield takeEvery(REQUEST_PET_TYPE_FETCH, fetchPetType);
 	yield takeEvery(REQUEST_ADD_BREED, addBreed);
 	yield takeEvery(REQUEST_DELETE_PET_TYPE, deletePetType);
-	yield takeEvery(DELETE_PET_TYPE_SUCCEDED, queryPetTypes);
+	yield takeEvery(DELETE_PET_TYPE_SUCCEEDED, queryPetTypes);
 	yield takeEvery(REQUEST_UPDATE_PET_TYPE, updatePetType);
 	yield takeEvery(REQUEST_ADD_VISIT,addVisit);
 

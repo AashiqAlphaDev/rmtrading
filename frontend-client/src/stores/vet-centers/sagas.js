@@ -1,37 +1,37 @@
 import {call, put, takeEvery, takeLatest} from 'redux-saga/effects';
 import {
 	ADD_VET_CENTER_FAILED,
-	ADD_VET_CENTER_SUCCEDED,
+	ADD_VET_CENTER_SUCCEEDED,
 	QUERY_VET_CENTERS,
 	REQUEST_ADD_VET_CENTER,
 	DELETE_VET_CENTER_FAILED,
-	DELETE_VET_CENTER_SUCCEDED,
-	QUERY_VET_CENTERS_SUCCEDED,
+	DELETE_VET_CENTER_SUCCEEDED,
+	QUERY_VET_CENTERS_SUCCEEDED,
 	QUERY_VET_CENTERS_FAILED,
 	REQUEST_DELETE_VET_CENTER,
 	REQUEST_VET_CENTER_FETCH,
-	VET_CENTER_FETCH_SUCCEDED,
+	VET_CENTER_FETCH_SUCCEEDED,
 	VET_CENTER_FETCH_FAILED,
 	REQUEST_ADD_ADMIN,
-	ADD_ADMIN_SUCCEDED,
+	ADD_ADMIN_SUCCEEDED,
 	ADD_ADMIN_FAILED,
 	REQUEST_ADMINS_FETCH,
-	ADMINS_FETCH_SUCCEDED,
+	ADMINS_FETCH_SUCCEEDED,
 	ADMINS_FETCH_FAILED,
-	DELETE_ADMIN_SUCCEDED,
+	DELETE_ADMIN_SUCCEEDED,
 	DELETE_ADMIN_FAILED,
 	REQUEST_DELETE_ADMIN,
 	REQUEST_ADD_QUEUE,
-	ADD_QUEUE_SUCCEDED,
+	ADD_QUEUE_SUCCEEDED,
 	REQUEST_QUEUES_FETCH,
 	REQUEST_DELETE_QUEUE,
 	ADD_QUEUE_FAILED,
-	DELETE_QUEUE_SUCCEDED,
+	DELETE_QUEUE_SUCCEEDED,
 	DELETE_QUEUE_FAILED,
 	REQUEST_ADD_SLOT,
 	REQUEST_DELETE_SLOT,
 	REQUEST_UPDATE_SLOT_INTERVAL,
-	ADD_SLOT_SUCCEDED, ADD_SLOT_FAILED
+	ADD_SLOT_SUCCEEDED, ADD_SLOT_FAILED
 } from "./actions";
 import base_url from "../base_url";
 
@@ -43,7 +43,7 @@ let queryVetCenters = function* (action) {
 		});
 		if (response.ok) {
 			console.log(response)
-			yield put({type: QUERY_VET_CENTERS_SUCCEDED, payload: yield response.json()});
+			yield put({type: QUERY_VET_CENTERS_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: QUERY_VET_CENTERS_FAILED, payload: yield response.json()});
@@ -65,7 +65,7 @@ let addVetCenter = function* (action) {
 			body: JSON.stringify(action.payload)
 		});
 		if (response.ok) {
-			yield put({type: ADD_VET_CENTER_SUCCEDED, payload: yield response.json()});
+			yield put({type: ADD_VET_CENTER_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: ADD_VET_CENTER_FAILED, payload: yield response.json()});
@@ -87,7 +87,7 @@ let deleteVetCenter = function* (action) {
 			body: JSON.stringify(action.payload)
 		});
 		if (response.ok) {
-			yield put({type: DELETE_VET_CENTER_SUCCEDED, payload: yield response.json()});
+			yield put({type: DELETE_VET_CENTER_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: DELETE_VET_CENTER_FAILED, payload: yield response.json()});
@@ -103,7 +103,7 @@ let fetchVetCenter = function* (action) {
 			credentials: 'include'
 		});
 		if (response.ok) {
-			yield put({type: VET_CENTER_FETCH_SUCCEDED, payload: yield response.json()});
+			yield put({type: VET_CENTER_FETCH_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: VET_CENTER_FETCH_FAILED, payload: yield response.json()});
@@ -124,7 +124,7 @@ let addAdmin = function* (action) {
 			body: JSON.stringify(action.payload)
 		});
 		if (response.ok) {
-			yield put({type: ADD_ADMIN_SUCCEDED, payload: yield response.json()});
+			yield put({type: ADD_ADMIN_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: ADD_ADMIN_FAILED, payload: yield response.json()});
@@ -145,7 +145,7 @@ let addQueue = function* (action) {
 			body: JSON.stringify({$push: {queues: action.payload.queue_data}})
 		});
 		if (response.ok) {
-			yield put({type: ADD_QUEUE_SUCCEDED, payload: yield response.json()});
+			yield put({type: ADD_QUEUE_SUCCEEDED, payload: yield response.json()});
 			yield put({type: REQUEST_VET_CENTER_FETCH, payload: {center_id: action.payload.center_id}});
 
 		}
@@ -169,7 +169,7 @@ let addSlot = function* (action) {
 			body: JSON.stringify({$push: {"queues.$.time_slots": action.payload.slot_data}})
 		});
 		if (response.ok) {
-			yield put({type: ADD_SLOT_SUCCEDED, payload: yield response.json()});
+			yield put({type: ADD_SLOT_SUCCEEDED, payload: yield response.json()});
 			yield put({type: REQUEST_VET_CENTER_FETCH, payload: {center_id: action.payload.center_id}});
 		}
 		else {
@@ -192,7 +192,7 @@ let deleteSlot = function* (action) {
 		});
 
 		if (response.ok) {
-			yield put({type: ADD_QUEUE_SUCCEDED, payload: yield response.json()});
+			yield put({type: ADD_QUEUE_SUCCEEDED, payload: yield response.json()});
 			yield put({type: REQUEST_VET_CENTER_FETCH, payload: {center_id: action.payload.center_id}});
 
 		}
@@ -212,7 +212,7 @@ let deleteAdmin = function* (action) {
 			credentials: 'include',
 		});
 		if (response.ok) {
-			yield put({type: DELETE_ADMIN_SUCCEDED, payload: yield response.json()});
+			yield put({type: DELETE_ADMIN_SUCCEEDED, payload: yield response.json()});
 			yield put({type: REQUEST_ADMINS_FETCH, payload: {center_id: action.payload.center_id}});
 		}
 		else {
@@ -234,7 +234,7 @@ let deleteQueue = function* (action) {
 			body: JSON.stringify({$pull: {queues: {_id: action.payload.queue_id}}})
 		});
 		if (response.ok) {
-			yield put({type: DELETE_QUEUE_SUCCEDED, payload: yield response.json()});
+			yield put({type: DELETE_QUEUE_SUCCEEDED, payload: yield response.json()});
 			yield put({type: REQUEST_VET_CENTER_FETCH, payload: {center_id: action.payload.center_id}});
 		}
 		else {
@@ -253,7 +253,7 @@ let fetchAdmins = function* (action) {
 			credentials: 'include'
 		});
 		if (response.ok) {
-			yield put({type: ADMINS_FETCH_SUCCEDED, payload: yield response.json()});
+			yield put({type: ADMINS_FETCH_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: ADMINS_FETCH_FAILED, payload: yield response.json()});
@@ -274,7 +274,7 @@ let updateSlotInterval = function* (action) {
 			body: JSON.stringify({appointments_per_hour: action.payload.slot_interval})
 		});
 		if (response.ok) {
-			yield put({type: DELETE_QUEUE_SUCCEDED, payload: yield response.json()});
+			yield put({type: DELETE_QUEUE_SUCCEEDED, payload: yield response.json()});
 			yield put({type: REQUEST_VET_CENTER_FETCH, payload: {center_id: action.payload.center_id}});
 		}
 		else {
@@ -290,13 +290,13 @@ function* vetCentersSaga() {
 	yield takeLatest(QUERY_VET_CENTERS, queryVetCenters);
 	yield takeEvery(REQUEST_ADD_VET_CENTER, addVetCenter);
 	yield takeEvery(REQUEST_DELETE_VET_CENTER, deleteVetCenter);
-	yield takeEvery(DELETE_VET_CENTER_SUCCEDED, queryVetCenters);
+	yield takeEvery(DELETE_VET_CENTER_SUCCEEDED, queryVetCenters);
 	yield takeEvery(REQUEST_VET_CENTER_FETCH, fetchVetCenter);
 
 	yield takeEvery(REQUEST_ADD_ADMIN, addAdmin);
-	yield takeEvery(ADD_ADMIN_SUCCEDED, fetchAdmins);
+	yield takeEvery(ADD_ADMIN_SUCCEEDED, fetchAdmins);
 	yield takeEvery(REQUEST_ADMINS_FETCH, fetchAdmins);
-	yield takeEvery(VET_CENTER_FETCH_SUCCEDED, fetchAdmins);
+	yield takeEvery(VET_CENTER_FETCH_SUCCEEDED, fetchAdmins);
 	yield takeEvery(REQUEST_DELETE_ADMIN, deleteAdmin);
 
 

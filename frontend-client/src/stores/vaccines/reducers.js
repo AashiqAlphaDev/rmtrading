@@ -1,12 +1,12 @@
 import {
 	QUERY_VACCINES,
-	QUERY_VACCINES_SUCCEDED,
+	QUERY_VACCINES_SUCCEEDED,
 	QUERY_VACCINES_FAILED,
 	REQUEST_VACCINE_FETCH,
-	VACCINE_FETCH_SUCCEDED,
+	VACCINE_FETCH_SUCCEEDED,
 	VACCINE_FETCH_FAILED,
-	ADD_DOSAGE_SUCCEDED,
-	CLEAR_VACCINES, ADD_VACCINE_SUCCEDED,
+	ADD_DOSAGE_SUCCEEDED,
+	CLEAR_VACCINES, ADD_VACCINE_SUCCEEDED,
 } from "./actions";
 
 const initVaccineData = {
@@ -20,11 +20,11 @@ function vaccineReducer(state = initVaccineData, action) {
 			state = {...state, vaccineAdded: false};
 			break;
 		}
-		case QUERY_VACCINES_SUCCEDED: {
+		case QUERY_VACCINES_SUCCEEDED: {
 			state = {...state, list: action.payload.docs, fetchError: null, isQueryInProgress: false};
 			break;
 		}
-		case ADD_VACCINE_SUCCEDED: {
+		case ADD_VACCINE_SUCCEEDED: {
 			state = {...state, vaccineAdded: true}
 			break
 		}
@@ -48,7 +48,7 @@ const initVaccineDetail = {}
 
 function vaccineDetailReducer(state = initVaccineDetail, action) {
 	switch (action.type) {
-		case VACCINE_FETCH_SUCCEDED: {
+		case VACCINE_FETCH_SUCCEEDED: {
 			state = {...state, ...action.payload};
 			break;
 		}
@@ -58,7 +58,7 @@ function vaccineDetailReducer(state = initVaccineDetail, action) {
 		case VACCINE_FETCH_FAILED: {
 			break;
 		}
-		case ADD_DOSAGE_SUCCEDED: {
+		case ADD_DOSAGE_SUCCEEDED: {
 			state = {...state, addedDosage: action.payload};
 			break;
 		}

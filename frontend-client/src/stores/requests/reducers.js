@@ -1,6 +1,6 @@
 import {
 	REQUEST_ADD_REQUEST,
-	ADD_REQUEST_SUCCEDED,
+	ADD_REQUEST_SUCCEEDED,
 	ADD_REQUEST_FAILED
 } from "./actions";
 
@@ -14,7 +14,7 @@ function requestReducer(state = initDiseaseData, action) {
 			state = {...state, addingRequestInProgress: true};
 			break;
 		}
-		case ADD_REQUEST_SUCCEDED: {
+		case ADD_REQUEST_SUCCEEDED: {
 			state = {...state, addedRequest: action.payload, addingRequestInProgress: false};
 			break;
 		}

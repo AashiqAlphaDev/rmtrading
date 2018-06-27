@@ -1,7 +1,7 @@
 import {call, put, takeEvery} from 'redux-saga/effects'
 import base_url from "../base_url";
 import {QUERY_VACCINATIONS} from "./actions";
-import {QUERY_VACCINATIONS_SUCCEDED} from "./actions";
+import {QUERY_VACCINATIONS_SUCCEEDED} from "./actions";
 import {QUERY_VACCINATIONS_FAILED} from "./actions";
 
 let fetchVaccinations = function* (action) {
@@ -12,7 +12,7 @@ let fetchVaccinations = function* (action) {
 			credentials: 'include',
 		});
 		if (response.ok) {
-			yield put({type: QUERY_VACCINATIONS_SUCCEDED, payload: yield response.json()});
+			yield put({type: QUERY_VACCINATIONS_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: QUERY_VACCINATIONS_FAILED, payload: yield response.json()});

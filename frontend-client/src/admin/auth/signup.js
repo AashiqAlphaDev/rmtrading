@@ -5,7 +5,8 @@ import {Card, Typography, CardContent, TextField, Button, Snackbar} from "@mater
 import Layout from "../../components/layout";
 import {Link, Redirect} from 'react-router-dom'
 import style from "./style"
-import {AUTH_CLEAR, REQUEST_SIGNUP} from "../../stores/auth/actions";
+import {uiEvents} from "../../stores/ui/saga";
+import {authCommands} from "../../stores/auth/sagas";
 
 let Index = withStyles(style)(class extends React.Component {
 	state = {
@@ -16,7 +17,7 @@ let Index = withStyles(style)(class extends React.Component {
 	};
 
 	componentWillMount() {
-		this.props.dispatch({type: AUTH_CLEAR})
+		this.props.dispatch({type: uiEvents.AUTH_PAGE_LOAD});
 	}
 
 	render() {
@@ -29,7 +30,7 @@ let Index = withStyles(style)(class extends React.Component {
 			<form onSubmit={(event) => {
 				event.preventDefault();
 				const {name, email, password} = this.state;
-				this.props.dispatch({type: REQUEST_SIGNUP, payload: {name, email, password}});
+				this.props.dispatch({type: authCommands.REQUEST_SIGNUP, payload: {name, email, password}});
 				this.setState({showToast: true});
 			}}>
 				<CardContent>

@@ -1,7 +1,7 @@
 import {call, put, takeEvery} from 'redux-saga/effects';
 import {
 	REQUEST_ADD_REQUEST,
-	ADD_REQUEST_SUCCEDED,
+	ADD_REQUEST_SUCCEEDED,
 	ADD_REQUEST_FAILED
 } from "./actions";
 import base_url from "../base_url";
@@ -18,7 +18,7 @@ let addRequests = function* (action) {
 			body: JSON.stringify(action.payload)
 		});
 		if (response.ok) {
-			yield put({type: ADD_REQUEST_SUCCEDED, payload: yield response.json()});
+			yield put({type: ADD_REQUEST_SUCCEEDED, payload: yield response.json()});
 		}
 		else {
 			yield put({type: ADD_REQUEST_FAILED, payload: yield response.json()});
