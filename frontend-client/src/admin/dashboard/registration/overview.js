@@ -158,7 +158,7 @@ let Index = withStyles((theme) => {
 						<form style={{display: "flex"}} onSubmit={(e) => {
 							e.preventDefault();
 							this.props.dispatch({
-								type: REQUEST_GUARDIAN_FETCH,
+								type: userCommands.GET_GUARDIAN_WITH_ID,
 								payload: {query: this.state.guardianQuery}
 							});
 						}}>
