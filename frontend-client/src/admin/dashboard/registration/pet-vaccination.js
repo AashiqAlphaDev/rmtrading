@@ -2,8 +2,8 @@ import React from "react"
 import {withStyles} from "@material-ui/core/styles/index";
 import style from "../style";
 import {connect} from "react-redux";
-import {REQUEST_PET_FETCH} from "../../../stores/pets/actions";
-import {QUERY_VACCINATIONS} from "../../../stores/vaccinations/actions";
+import {REQUEST_PET_FETCH} from "../../../stores/entities/pets/actions";
+import {QUERY_VACCINATIONS} from "../../../stores/entities/vaccinations/actions";
 import {Table, TableBody, TableCell, TableHead, TableRow} from "@material-ui/core/es/index";
 
 let Index = withStyles((theme) => {

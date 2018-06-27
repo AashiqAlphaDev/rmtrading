@@ -3,7 +3,7 @@ import {withStyles} from "@material-ui/core/styles/index";
 import style from "../style";
 import {Typography, Paper, IconButton} from "@material-ui/core/index";
 import {connect} from "react-redux";
-import {QUERY_VET_CENTERS, REQUEST_DELETE_VET_CENTER} from "../../../stores/vet-centers/actions";
+import {QUERY_VET_CENTERS, REQUEST_DELETE_VET_CENTER} from "../../../stores/entities/vet-centers/actions";
 import {Table, TableHead, TableRow, TableCell, TableBody} from "@material-ui/core/index";
 import {EditIcon, ArrowRightIcon, DeleteIcon} from "mdi-react";
 import {Link} from "react-router-dom";

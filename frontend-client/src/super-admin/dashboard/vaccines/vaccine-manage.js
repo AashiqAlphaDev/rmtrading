@@ -4,7 +4,7 @@ import AnnotatedSection from "../../../components/annotated-section";
 import {withStyles} from "@material-ui/core/styles/index";
 import {connect} from "react-redux";
 import style from "../style";
-import {REQUEST_ADD_DOSAGE, REQUEST_DELETE_DOSAGE, REQUEST_VACCINE_FETCH} from "../../../stores/vaccines/actions";
+import {REQUEST_ADD_DOSAGE, REQUEST_DELETE_DOSAGE, REQUEST_VACCINE_FETCH} from "../../../stores/entities/vaccines/actions";
 import {
 	Button, Dialog, DialogActions, DialogContent, DialogTitle, IconButton,
 	ListItem,

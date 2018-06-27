@@ -6,7 +6,7 @@ import Layout from "../../components/layout";
 import {Link, Redirect} from 'react-router-dom'
 import style from "./style"
 import {uiEvents} from "../../stores/ui/saga";
-import {authCommands} from "../../stores/auth/sagas";
+import {authCommands} from "../../stores/entities/auth/sagas";
 
 let Index = withStyles(style)(class extends React.Component {
 	state = {

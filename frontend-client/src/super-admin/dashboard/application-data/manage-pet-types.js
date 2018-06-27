@@ -24,7 +24,7 @@ import AnnotatedSection from "../../../components/annotated-section";
 import {
 	PET_TYPE_CLEAR_MATCHES, REQUEST_PET_TYPE_FETCH,
 	REQUEST_UPDATE_PET_TYPE
-} from "../../../stores/pet-types/actions";
+} from "../../../stores/entities/pet-types/actions";
 import {connect} from "react-redux";
 
 

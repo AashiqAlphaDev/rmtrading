@@ -8,7 +8,7 @@ import {EditIcon, ArrowRightIcon, DeleteIcon} from "mdi-react";
 import {Link} from "react-router-dom";
 import {Button, TextField} from "@material-ui/core/es/index";
 import Layout from "../../../components/layout";
-import {QUERY_VACCINES, REQUEST_DELETE_VACCINE} from "../../../stores/vaccines/actions";
+import {QUERY_VACCINES, REQUEST_DELETE_VACCINE} from "../../../stores/entities/vaccines/actions";
 
 let Index = withStyles((theme) => {
 

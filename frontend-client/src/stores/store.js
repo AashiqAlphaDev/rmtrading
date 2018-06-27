@@ -4,12 +4,12 @@ import createSagaMiddleware from 'redux-saga'
 import {appSaga} from "./app/saga"
 import {uiSaga} from "./ui/saga"
 
-import {authReducer} from './auth/reducers'
-import {authSaga} from './auth/sagas'
+import {authReducer} from './entities/auth/reducers'
+import {authSaga} from './entities/auth/sagas'
 
 import uiReducer from './ui/reducer'
-import {userReducer} from "./users/reducers";
-import {userSaga} from "./users/sagas";
+import {userReducer} from "./entities/users/reducers";
+import {userSaga} from "./entities/users/sagas";
 
 const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;
 

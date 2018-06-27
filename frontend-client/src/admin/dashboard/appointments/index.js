@@ -1,6 +1,5 @@
 import React from "react"
 import {Paper} from "@material-ui/core/index";
-import AnnotatedSection from "../../../components/annotated-section";
 import {withStyles} from "@material-ui/core/styles/index";
 import InputContainer from "../../../components/input"
 import {connect} from "react-redux";
@@ -10,7 +9,7 @@ import {
 	REQUEST_ADD_QUEUE, REQUEST_ADD_SLOT,
 	REQUEST_DELETE_QUEUE, REQUEST_DELETE_SLOT, REQUEST_UPDATE_SLOT_INTERVAL,
 	REQUEST_VET_CENTER_FETCH
-} from "../../../stores/vet-centers/actions";
+} from "../../../stores/entities/vet-centers/actions";
 import {
 	Avatar,
 	Button,

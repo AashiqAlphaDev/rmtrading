@@ -18,7 +18,7 @@ import Link from "react-router-dom/es/Link";
 import QrReader from 'react-qr-reader';
 import InputContainer from "../../../components/input"
 import {Redirect} from "react-router-dom";
-import {userCommands} from "../../../stores/users/sagas"
+import {userCommands} from "../../../stores/entities/users/sagas"
 
 function Transition(props) {
 	return <Slide direction="up" {...props} />;
@@ -103,10 +103,6 @@ let Index = withStyles((theme) => {
 	render() {
 		const {classes} = this.props;
 		return <Layout direction={"column"} className={classes.body} justifyContent={"center"}>
-			{
-				this.props.petDetail._id &&
-				<Redirect to={`/admin/dashboard/pets/${this.props.petDetail._id}`}/>
-			}
 			<Layout alignItems={"center"}>
 				<Paper className={classes.card} onClick={() => {
 					this.setState({showSearchDialogue: true});
@@ -170,7 +166,7 @@ let Index = withStyles((theme) => {
 							<button style={{display: "none"}} type={"submit"}/>
 						</form>
 						<ExpansionPanel
-							expanded={Boolean(this.props.guardianDetail._id) || Boolean(this.props.guardianDetail.noMatch)}>
+							expanded={Boolean(this.props.users.selected_guardian._id)}>
 							{
 								this.props.guardianDetail.noMatch &&
 

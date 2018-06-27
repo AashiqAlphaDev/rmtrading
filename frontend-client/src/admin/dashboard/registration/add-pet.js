@@ -6,8 +6,8 @@ import {connect} from "react-redux";
 import InputContainer from "../../../components/input"
 import style from "../style";
 import {Button, MenuItem, Select, TextField} from "@material-ui/core/es/index";
-import {QUERY_BREEDS, QUERY_PET_TYPES} from "../../../stores/pet-types/actions";
-import {REQUEST_CREATE_PET} from "../../../stores/pets/actions";
+import {QUERY_BREEDS, QUERY_PET_TYPES} from "../../../stores/entities/pet-types/actions";
+import {REQUEST_CREATE_PET} from "../../../stores/entities/pets/actions";
 import Layout from "../../../components/layout";
 import {DatePicker} from "material-ui-pickers";
 import {Redirect} from "react-router-dom";

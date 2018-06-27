@@ -2,8 +2,8 @@ import React from "react"
 import {withStyles} from "@material-ui/core/styles/index";
 import style from "../style";
 import {connect} from "react-redux";
-import {REQUEST_PET_FETCH} from "../../../stores/pets/actions";
-import {QUERY_VACCINATIONS} from "../../../stores/vaccinations/actions";
+import {REQUEST_PET_FETCH} from "../../../stores/entities/pets/actions";
+import {QUERY_VACCINATIONS} from "../../../stores/entities/vaccinations/actions";
 import InputContainer from "../../../components/input"
 import {
 	Button, Dialog,
@@ -19,11 +19,11 @@ import {
 	TableHead,
 	TableRow, Paper
 } from "@material-ui/core/es/index";
-import {REQUEST_PET_TYPE_FETCH} from "../../../stores/pet-types/actions";
+import {REQUEST_PET_TYPE_FETCH} from "../../../stores/entities/pet-types/actions";
 import moment from "moment"
 import Layout from "../../../components/layout";
 import QrReader from 'react-qr-reader';
-import {QUERY_VISITS, REQUEST_ADD_BIOMETRIC} from "../../../stores/visits/actions";
+import {QUERY_VISITS, REQUEST_ADD_BIOMETRIC} from "../../../stores/entities/visits/actions";
 
 
 

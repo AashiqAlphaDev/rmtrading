@@ -19,7 +19,7 @@ import {
 	SettingsOutlineIcon,
 	ViewDashboardIcon
 } from "mdi-react";
-import {authCommands} from "../../stores/auth/sagas";
+import {authCommands} from "../../stores/entities/auth/sagas";
 import {dashboardUiActions} from "../../stores/ui/dashboard";
 
 let Icon = (_Icon) => {

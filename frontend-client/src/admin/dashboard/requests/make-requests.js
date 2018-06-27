@@ -6,7 +6,7 @@ import {withStyles} from "@material-ui/core/styles/index";
 import {connect} from "react-redux";
 import style from "../style";
 
-import {REQUEST_ADD_REQUEST} from "../../../stores/requests/actions";
+import {REQUEST_ADD_REQUEST} from "../../../stores/entities/requests/actions";
 import {Button} from "@material-ui/core/es/index";
 import Layout from "../../../components/layout";
 

@@ -24,7 +24,10 @@ let Index = withStyles((theme) => {
 		return <Layout direction={"column"} flex={1} className={classes.body}>
 			<Layout direction={"column"} className={`container flex`}>
 				<Switch>
-					<Route exact path={"/admin/dashboard/pets"} render={(props) => {
+					{/*<Route exact path={"/admin/dashboard/pets"} render={(props) => {*/}
+						{/*return <Overview {...props} />;*/}
+					{/*}}/>*/}
+					<Route exact path={"/admin/dashboard/registration"} render={(props) => {
 						return <Overview {...props} />;
 					}}/>
 					{/*<Route exact path={"/admin/dashboard/vaccinations/add-guardian"} render={(props) => {*/}

@@ -12,16 +12,16 @@ import {
 	COUNTRY_CLEAR_MATCHES,
 	QUERY_COUNTRIES,
 	REQUEST_ADD_COUNTRY
-} from "../../../stores/countries/actions";
-import {CLEAR_VACCINES, REQUEST_ADD_VACCINE} from "../../../stores/vaccines/actions";
+} from "../../../stores/entities/countries/actions";
+import {CLEAR_VACCINES, REQUEST_ADD_VACCINE} from "../../../stores/entities/vaccines/actions";
 import {
 	BREED_CLEAR_MATCHES,
 	PET_TYPE_CLEAR_MATCHES,
 	QUERY_BREEDS,
 	QUERY_PET_TYPES, REQUEST_ADD_BREED,
 	REQUEST_ADD_PET_TYPE
-} from "../../../stores/pet-types/actions";
-import {DISEASE_CLEAR_MATCHES, QUERY_DISEASES, REQUEST_ADD_DISEASE} from "../../../stores/diseases/actions";
+} from "../../../stores/entities/pet-types/actions";
+import {DISEASE_CLEAR_MATCHES, QUERY_DISEASES, REQUEST_ADD_DISEASE} from "../../../stores/entities/diseases/actions";
 import {Checkbox, FormControlLabel} from "@material-ui/core/es/index";
 import {Redirect} from "react-router-dom";
 

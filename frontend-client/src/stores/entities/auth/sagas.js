@@ -1,7 +1,7 @@
 import {put, takeEvery} from 'redux-saga/effects'
-import {actions as appActions, httpMethods} from "../app/saga";
+import {actions as appActions, httpMethods} from "../../app/saga";
 import {authDocActions} from "./reducers"
-import {authUiActions} from "../ui/auth";
+import {authUiActions} from "../../admin/auth/store/auth";
 import {dashboardUiActions} from "../ui/dashboard";
 
 let authCommands = {

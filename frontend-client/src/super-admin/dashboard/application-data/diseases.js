@@ -3,7 +3,7 @@ import {Paper, Typography, TableHead, TableRow, Table, TableCell, TableBody} fro
 import {withStyles} from "@material-ui/core/styles/index";
 import style from "../style";
 import {connect} from "react-redux"
-import {QUERY_DISEASES, REQUEST_DELETE_DISEASE} from "../../../stores/diseases/actions";
+import {QUERY_DISEASES, REQUEST_DELETE_DISEASE} from "../../../stores/entities/diseases/actions";
 import {IconButton} from "@material-ui/core/es/index";
 import {DeleteIcon} from "mdi-react";
 import AnnotatedSection from "../../../components/annotated-section";

@@ -8,7 +8,7 @@ import _ from "underscore";
 import style from "./style";
 import {IconButton, Menu, MenuItem, Tabs, Tab, MenuList, Divider, ListSubheader} from "@material-ui/core/es/index";
 import {AccountIcon, AppsIcon, EmailOutlineIcon, SettingsOutlineIcon} from "mdi-react";
-import {REQUEST_SUPER_ADMIN_LOGOUT} from "../../stores/auth/actions";
+import {REQUEST_SUPER_ADMIN_LOGOUT} from "../../stores/entities/auth/actions";
 
 let Icon = (_Icon) => {
 	return (props) => (<_Icon {...props} size={20}/>)

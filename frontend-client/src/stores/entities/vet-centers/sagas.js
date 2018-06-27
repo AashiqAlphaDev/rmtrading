@@ -33,7 +33,7 @@ import {
 	REQUEST_UPDATE_SLOT_INTERVAL,
 	ADD_SLOT_SUCCEEDED, ADD_SLOT_FAILED
 } from "./actions";
-import base_url from "../base_url";
+import base_url from "../../base_url";
 
 let queryVetCenters = function* (action) {
 	try {

@@ -10,7 +10,7 @@ import {
 	QUERY_DISEASES_FAILED,
 	REQUEST_DELETE_DISEASE
 } from "./actions";
-import base_url from "../base_url";
+import base_url from "../../base_url";
 
 let queryDiseases = function* (action) {
 	try {

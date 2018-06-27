@@ -14,13 +14,13 @@ import {
 	REQUEST_ADD_COUNTRY,
 	REQUEST_ADD_STATE,
 	STATE_CLEAR_MATCHES
-} from "../../../stores/countries/actions";
+} from "../../../stores/entities/countries/actions";
 import {
 	CLEAR_VET_CENTER,
 	REQUEST_ADD_VET_CENTER,
 	REQUEST_VET_CENTER_FETCH,
 	VET_CENTER_FETCH_FAILED
-} from "../../../stores/vet-centers/actions";
+} from "../../../stores/entities/vet-centers/actions";
 import {Redirect} from "react-router-dom";
 
 let Index = withStyles((theme) => {

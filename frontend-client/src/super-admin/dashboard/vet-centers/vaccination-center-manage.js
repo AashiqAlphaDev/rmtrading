@@ -11,7 +11,7 @@ import {
 	REQUEST_ADD_QUEUE, REQUEST_ADD_SLOT,
 	REQUEST_DELETE_ADMIN, REQUEST_DELETE_QUEUE, REQUEST_DELETE_SLOT, REQUEST_UPDATE_SLOT_INTERVAL,
 	REQUEST_VET_CENTER_FETCH
-} from "../../../stores/vet-centers/actions";
+} from "../../../stores/entities/vet-centers/actions";
 import {
 	Button,
 	Dialog, DialogActions,

@@ -6,16 +6,16 @@ import AnnotatedSection from "../../../components/annotated-section";
 import {withStyles} from "@material-ui/core/styles/index";
 import {connect} from "react-redux";
 import style from "../style";
-import {CLEAR_USER, REQUEST_CREATE_USER} from "../../../stores/users/actions";
+import {CLEAR_USER, REQUEST_CREATE_USER} from "../../../stores/entities/users/actions";
 import {
 	BREED_CLEAR_MATCHES,
 	PET_TYPE_CLEAR_MATCHES,
 	REQUEST_ADD_BREED,
 	REQUEST_ADD_PET_TYPE
-} from "../../../stores/pet-types/actions";
-import {REQUEST_ADD_VACCINE} from "../../../stores/vaccines/actions";
-import {DISEASE_CLEAR_MATCHES, REQUEST_ADD_DISEASE} from "../../../stores/diseases/actions";
-import {COUNTRY_CLEAR_MATCHES, REQUEST_ADD_COUNTRY} from "../../../stores/countries/actions";
+} from "../../../stores/entities/pet-types/actions";
+import {REQUEST_ADD_VACCINE} from "../../../stores/entities/vaccines/actions";
+import {DISEASE_CLEAR_MATCHES, REQUEST_ADD_DISEASE} from "../../../stores/entities/diseases/actions";
+import {COUNTRY_CLEAR_MATCHES, REQUEST_ADD_COUNTRY} from "../../../stores/entities/countries/actions";
 import {Redirect} from "react-router-dom";
 
 let Index = withStyles((theme) => {

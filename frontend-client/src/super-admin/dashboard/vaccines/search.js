@@ -3,7 +3,7 @@ import {withStyles} from "@material-ui/core/styles/index";
 import style from "../style";
 import {Typography, Paper, Table, TableHead, TableRow, TableCell, TableBody} from "@material-ui/core/index";
 import {connect} from "react-redux";
-import {QUERY_VACCINES, REQUEST_DELETE_VACCINE} from "../../../stores/vaccines/actions";
+import {QUERY_VACCINES, REQUEST_DELETE_VACCINE} from "../../../stores/entities/vaccines/actions";
 import {IconButton} from "@material-ui/core/es/index";
 import {ArrowRightIcon, DeleteIcon, EditIcon} from "mdi-react";
 import {Link} from "react-router-dom";

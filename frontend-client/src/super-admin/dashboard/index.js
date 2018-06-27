@@ -7,7 +7,7 @@ import Requests from "./requests"
 import Orders from "./oders"
 import Overview from "./overview"
 import {connect} from "react-redux"
-import {CHECK_SUPER_ADMIN} from "../../stores/auth/actions";
+import {CHECK_SUPER_ADMIN} from "../../stores/entities/auth/actions";
 import {Redirect, Route, Switch} from "react-router-dom";
 
 

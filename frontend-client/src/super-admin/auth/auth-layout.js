@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../../components/layout";
 import {withStyles} from "@material-ui/core/styles"
-import {AUTH_CLEAR, CHECK_SUPER_ADMIN} from "../../stores/auth/actions";
+import {AUTH_CLEAR, CHECK_SUPER_ADMIN} from "../../stores/entities/auth/actions";
 import {Redirect} from "react-router-dom";
 import {connect} from "react-redux"
 

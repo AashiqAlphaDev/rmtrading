@@ -2,7 +2,7 @@ import React from "react"
 import {withStyles} from "@material-ui/core/styles/index";
 import style from "../style";
 import {connect} from "react-redux";
-import {REQUEST_PET_FETCH} from "../../../stores/pets/actions";
+import {REQUEST_PET_FETCH} from "../../../stores/entities/pets/actions";
 import moment from "moment"
 import {
 	Button,
@@ -20,11 +20,11 @@ import {
 } from "@material-ui/core/es/index";
 import {InformationIcon} from "mdi-react";
 import {Redirect} from "react-router-dom";
-import {REQUEST_ADD_VISIT} from "../../../stores/pet-types/actions";
-import {CLEAR_VISIT, QUERY_VISITS} from "../../../stores/visits/actions";
+import {REQUEST_ADD_VISIT} from "../../../stores/entities/pet-types/actions";
+import {CLEAR_VISIT, QUERY_VISITS} from "../../../stores/entities/visits/actions";
 import Layout from "../../../components/layout";
 import QrReader from 'react-qr-reader';
-import {REQUEST_UPDATE_TOKEN} from "../../../stores/tokens/actions";
+import {REQUEST_UPDATE_TOKEN} from "../../../stores/entities/tokens/actions";
 
 
 function Transition(props) {

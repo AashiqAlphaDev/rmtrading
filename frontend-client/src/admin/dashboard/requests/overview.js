@@ -2,7 +2,7 @@ import React from "react"
 import {withStyles} from "@material-ui/core/styles/index";
 import style from "../style";
 import {connect} from "react-redux";
-import {QUERY_VET_CENTERS} from "../../../stores/vet-centers/actions";
+import {QUERY_VET_CENTERS} from "../../../stores/entities/vet-centers/actions";
 
 let Index = withStyles((theme) => {
 	return {

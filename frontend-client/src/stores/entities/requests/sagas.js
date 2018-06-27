@@ -4,7 +4,7 @@ import {
 	ADD_REQUEST_SUCCEEDED,
 	ADD_REQUEST_FAILED
 } from "./actions";
-import base_url from "../base_url";
+import base_url from "../../base_url";
 
 
 let addRequests = function* (action) {

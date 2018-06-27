@@ -5,7 +5,7 @@ import style from "../style";
 import {connect} from "react-redux"
 import {IconButton} from "@material-ui/core/es/index";
 import {DeleteIcon} from "mdi-react";
-import {QUERY_COUNTRIES, REQUEST_DELETE_COUNTRY} from "../../../stores/countries/actions";
+import {QUERY_COUNTRIES, REQUEST_DELETE_COUNTRY} from "../../../stores/entities/countries/actions";
 import AnnotatedSection from "../../../components/annotated-section";
 
 let Index = withStyles((theme) => {

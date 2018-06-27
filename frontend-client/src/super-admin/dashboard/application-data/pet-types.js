@@ -2,7 +2,7 @@ import React from "react"
 import {Paper, Typography, TableHead, TableRow, Table, TableCell, TableBody} from "@material-ui/core/index";
 import {withStyles} from "@material-ui/core/styles/index";
 import style from "../style";
-import {QUERY_PET_TYPES, REQUEST_DELETE_PET_TYPE} from "../../../stores/pet-types/actions";
+import {QUERY_PET_TYPES, REQUEST_DELETE_PET_TYPE} from "../../../stores/entities/pet-types/actions";
 import {IconButton} from "@material-ui/core/es/index";
 import {DeleteIcon, EditIcon} from "mdi-react";
 import {connect} from "react-redux";

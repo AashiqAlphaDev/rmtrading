@@ -11,7 +11,7 @@ import {
 	REQUEST_ADD_COUNTRY,
 	REQUEST_ADD_STATE,
 } from "./actions";
-import base_url from "../base_url";
+import base_url from "../../base_url";
 import {QUERY_COUNTRIES_FAILED, QUERY_COUNTRIES_SUCCEEDED, REQUEST_DELETE_COUNTRY} from "./actions";
 
 
