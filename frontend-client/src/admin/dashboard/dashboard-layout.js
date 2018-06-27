@@ -8,7 +8,7 @@ import {connect} from "react-redux"
 import {
 	IconButton,
 	Menu,
-	MenuItem, Tabs
+	MenuItem, Snackbar, Tabs
 } from "@material-ui/core/es/index";
 import Tab from "@material-ui/core/es/Tab/Tab";
 import _ from "underscore";
@@ -20,6 +20,7 @@ import {
 	ViewDashboardIcon
 } from "mdi-react";
 import {authCommands} from "../../stores/auth/sagas";
+import {dashboardUiActions} from "../../stores/ui/dashboard";
 
 let Icon = (_Icon) => {
 	return (props) => (<_Icon {...props} size={20}/>)
@@ -142,6 +143,17 @@ let Index = withStyles((theme) => {
 				</AppBar>
 				{this.props.children}
 			</Layout>
+			<Snackbar
+				anchorOrigin={{
+					vertical: 'bottom',
+					horizontal: 'center',
+				}}
+				open={this.props.ui.dashboard.error != null}
+				onClose={() => {
+					this.props.dispatch({type:dashboardUiActions.CLEAR_ERROR})
+				}}
+				message={this.props.auth.loginError && this.props.auth.loginError.message}
+			/>
 		</div>;
 	}
 

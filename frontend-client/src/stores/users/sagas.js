@@ -1,38 +1,31 @@
 import {call, put, takeEvery} from 'redux-saga/effects'
-import {
-	REQUEST_CREATE_USER,
-	CREATE_USER_SUCCEEDED,
-	CREATE_USER_FAILED
-} from "./actions";
-import base_url from "../base_url";
+import {actions as appActions, httpMethods} from "../app/saga";
+import {authCommands} from "../auth/sagas";
+import {userDocActions} from "./reducers";
 
-let createUser = function* (action) {
-	try {
-
-		let body = action.payload;
-		const response = yield call(fetch, `${base_url}/users`, {
-			method: "POST",
-			credentials: 'include',
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify(body)
-		});
-		if (response.ok) {
-			yield put({type: CREATE_USER_SUCCEEDED, payload: yield response.json()});
-		}
-		else {
-			yield put({type: CREATE_USER_FAILED, payload: yield response.json()});
-		}
-	} catch (error) {
-		yield put({type: CREATE_USER_FAILED, payload: error});
-	}
+const userCommands = {
+	GET_GUARDIAN_WITH_ID:"user/commands/GET_GUARDIAN_WITH_ID",
+	GET_GUARDIAN_FAILED:"user/commands/GET_GUARDIAN_FAILED",
 }
 
 
-function* userSaga() {
-	yield takeEvery(REQUEST_CREATE_USER, createUser)
 
+
+function* userSaga() {
+	yield takeEvery(userCommands.GET_GUARDIAN_WITH_ID, function*(action){
+		yield put({
+			type: appActions.API,
+			payload: {
+				url: `/users/by-mobile-or-gov-id/${action.payload.query}`,
+				method: httpMethods.GET,
+				success: userDocActions.SET_GUARDIAN,
+				failure: authCommands.GET_GUARDIAN_FAILED
+			}
+		})
+	})
+	yield takeEvery(authCommands.GET_GUARDIAN_FAILED, function*(){
+
+	});
 }
 
 export default userSaga;

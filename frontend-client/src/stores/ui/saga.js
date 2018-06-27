@@ -1,6 +1,7 @@
-import {takeEvery, put} from "redux-saga/effects";
+import {takeEvery, put, race} from "redux-saga/effects";
 import {authCommands} from "../auth/sagas";
 import {authUiActions} from "./auth";
+import {dashboardUiActions} from "./dashboard";
 
 const uiEvents = {
 	AUTH_PAGE_LOAD:"ui/events/AUTH_PAGE_LOAD",
@@ -14,6 +15,11 @@ let uiSaga = function*() {
 	});
 	yield takeEvery(uiEvents.ADMIN_DASHBOARD_PAGE_LOAD, function*() {
 		yield put({type:authCommands.CHECK_ADMIN});
+	});
+	yield takeEvery(dashboardUiActions.SHOW_ERROR, function*() {
+		setTimeout(race(function*(){
+			yield put({type:dashboardUiActions.CLEAR_ERROR});
+		}), 3000);
 	});
 };
 

@@ -77,12 +77,8 @@ let Index = withStyles(style)(class extends React.Component {
 					vertical: 'bottom',
 					horizontal: 'center',
 				}}
-				open={this.state.showToast && this.props.auth.loginError != null}
-				autoHideDuration={6000}
-				onClose={() => {
-					this.setState({showToast: false})
-				}}
-				message={this.props.auth.loginError && this.props.auth.loginError.message}
+				open={this.props.ui.dashboard.error}
+				message={<span>{this.props.ui.dashboard.error && this.props.ui.dashboard.error.message}</span>}
 			/>
 		</Card>
 

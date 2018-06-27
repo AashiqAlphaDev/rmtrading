@@ -1,29 +1,21 @@
-import {
-	REQUEST_CREATE_USER,
-	CREATE_USER_SUCCEEDED,
-	CREATE_USER_FAILED, CLEAR_USER
+const initialUserData = {
+	guardians:{}
+};
 
-} from "./actions";
+const userDocActions = {
+	SET_GUARDIANS:"user/document/SET_GUARDIANS",
+	SET_GUARDIAN:"user/document/SET_GUARDIAN"
+}
 
-const initIUserData = {};
-
-function userReducer(state = initIUserData, action) {
-	switch (action.type) {
-		case CLEAR_USER: {
-			state = initIUserData;
-			break;
+function userReducer(state = initialUserData, {type, payload}) {
+	switch (type) {
+		case userDocActions.SET_GUARDIANS:{
+			var newGuardians = {};
+			payload.map((item)=>{newGuardians[item._id] = item});
+			state = {...state, guardians:{...state.guardians, ...newGuardians}};
 		}
-		case REQUEST_CREATE_USER: {
-			state = {...state};
-			break;
-		}
-		case CREATE_USER_SUCCEEDED: {
-			state = {...state, userCreated: true};
-			break;
-		}
-		case CREATE_USER_FAILED: {
-			state = {...state};
-			break;
+		case userDocActions.SET_GUARDIAN:{
+			state = {...state, guardians:{...state.guardians, [payload._id]:payload}};
 		}
 		default: {
 			break;
@@ -32,4 +24,4 @@ function userReducer(state = initIUserData, action) {
 	return state;
 }
 
-export default userReducer;
+export {userReducer, userDocActions};
