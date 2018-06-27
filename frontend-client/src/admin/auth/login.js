@@ -29,7 +29,7 @@ let Index = withStyles(style)(class extends React.Component {
 			<form onSubmit={(event) => {
 				event.preventDefault();
 				const {email, password} = this.state;
-				this.props.dispatch({type: authCommands.REQUEST_LOGIN, payload: {email, password}});
+				this.props.dispatch({type: authCommands.LOGIN, payload: {email, password}});
 				this.setState({showToast: true});
 			}}>
 				<CardContent>

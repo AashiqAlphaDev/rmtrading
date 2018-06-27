@@ -9,7 +9,7 @@ import {authSaga} from './auth/sagas'
 
 import uiReducer from './ui/reducer'
 import {userReducer} from "./users/reducers";
-
+import {userSaga} from "./users/sagas";
 
 const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;
 
@@ -24,5 +24,6 @@ const store = createStore(combineReducers({
 sagaMiddleware.run(appSaga);
 sagaMiddleware.run(uiSaga);
 sagaMiddleware.run(authSaga);
+sagaMiddleware.run(userSaga);
 
 export default store;

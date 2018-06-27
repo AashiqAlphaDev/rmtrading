@@ -26,10 +26,6 @@ let Index = (class extends React.Component {
 		if (!this.props.ui.dashboard.main.check_in_progress) {
 			if (this.props.auth.current_user.is_admin) {
 				return <DashboardLayout location={this.props.location} currentPage={this.state.url}>
-					{
-						this.props.auth.redirect &&
-						<Redirect to={this.props.auth.redirect}/>
-					}
 					<Route exact path={"/admin/dashboard"} render={(props) => {
 						return <OverView {...props} onPageChange={this.onPageChange.bind(this)}/>
 					}}/>

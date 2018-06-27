@@ -3,7 +3,7 @@ import Layout from "../../../components/layout";
 import {withStyles} from "@material-ui/core/styles";
 import style from "../style";
 import {connect} from "react-redux";
-import {BugIcon, HospitalBuildingIcon, HospitalIcon, MapIcon, MedicalBagIcon, PawIcon, PillIcon} from "mdi-react";
+import {BugIcon, HospitalBuildingIcon, MapIcon, MedicalBagIcon, PawIcon, PillIcon} from "mdi-react";
 import {MetricDataCard, OverViewMetric} from "../../../components/dashboard-components";
 
 let Index = withStyles((theme) => {

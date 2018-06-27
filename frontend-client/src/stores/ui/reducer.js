@@ -4,8 +4,8 @@ import {dashboardUiReducer, petsUiReducer} from "./dashboard";
 
 export default combineReducers({
 	auth: authUiReducer,
-	dashboard: {
-		main: dashboardUiReducer,
-		pets: petsUiReducer
-	}
+	dashboard: combineReducers({
+			main: dashboardUiReducer,
+			pets: petsUiReducer
+	})
 });

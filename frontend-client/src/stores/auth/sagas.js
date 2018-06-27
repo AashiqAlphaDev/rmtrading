@@ -86,8 +86,8 @@ let authSaga = function* () {
 		})
 	});
 	yield takeEvery(authCommands.CHECK_ADMIN_PASSED, function* () {
-		yield put({type:dashboardUiActions.SET_ADMIN_CHECK_DONE});
 		yield put({type: authDocActions.ADMIN_LOGIN});
+		yield put({type:dashboardUiActions.SET_ADMIN_CHECK_DONE});
 	});
 	yield takeEvery(authCommands.CHECK_ADMIN_FAILED, function* () {
 		yield put({type:dashboardUiActions.SET_ADMIN_CHECK_DONE});

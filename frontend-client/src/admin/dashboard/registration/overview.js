@@ -221,7 +221,7 @@ let Index = withStyles((theme) => {
 						}}
 						onScan={(result) => {
 							if (result) {
-								this.props.dispatch({type: REQUEST_PET_FETCH, payload: {token: result}});
+								//this.props.dispatch({type: REQUEST_PET_FETCH, payload: {token: result}});
 							}
 						}}
 						style={{width: 400, height: 400}}
@@ -229,10 +229,7 @@ let Index = withStyles((theme) => {
 					<InputContainer label={"Pet Id"}>
 						<form style={{display: "flex"}} onSubmit={(e) => {
 							e.preventDefault();
-							this.props.dispatch({
-								type: REQUEST_GUARDIAN_FETCH,
-								payload: {query: this.state.guardianQuery}
-							});
+							// this.props.dispatch({type: REQUEST_PET_FETCH, payload: {token: result}});
 						}}>
 							<TextField className={`flex`} autoFocus placeholder={"Enter pet id / Chip No"}
 							           onChange={(event) => {

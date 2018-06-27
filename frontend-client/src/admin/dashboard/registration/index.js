@@ -4,10 +4,6 @@ import {Switch, Route} from "react-router-dom";
 import {withStyles} from "@material-ui/core/styles";
 import style from "../style";
 import Overview from "./overview";
-import Visit from "./visit";
-import Pet from "./pet";
-import AddGuardian from "./add-guardian"
-import AddPet from "./add-pet"
 import {connect} from "react-redux";
 
 
