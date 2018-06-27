@@ -18,6 +18,7 @@ import Link from "react-router-dom/es/Link";
 import QrReader from 'react-qr-reader';
 import InputContainer from "../../../components/input"
 import {Redirect} from "react-router-dom";
+import {userCommands} from "../../../stores/users/sagas"
 
 function Transition(props) {
 	return <Slide direction="up" {...props} />;
