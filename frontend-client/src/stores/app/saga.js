@@ -1,7 +1,7 @@
 import {call, put, takeEvery} from 'redux-saga/effects'
 import base_url from "../base_url";
 
-const actions = {
+const appActions = {
 	API:"app/api"
 };
 
@@ -10,10 +10,10 @@ const httpMethods = {
 	GET:"GET",
 	PUT:"GET",
 	DELETE:"DELETE",
-}
+};
 
 let appSaga = function*() {
-	yield takeEvery(actions.API, function*(action) {
+	yield takeEvery(appActions.API, function*(action) {
 		try{
 			const options = {
 				method:action.payload.method||'GET',
@@ -24,23 +24,37 @@ let appSaga = function*() {
 				options.body = JSON.stringify(action.payload.body)||JSON.stringify({});
 			}
 			const response = yield call(fetch, `${base_url}${action.payload.url}`, options);
-			if (response.ok && action.payload.success){
-				yield  put({type:action.payload.success, payload:yield response.json()});
+			if (response.ok){
+				if(action.meta.onSuccess) {
+					yield action.meta.onSuccess(yield response.json());
+				}
+				if(action.meta.postSuccessAction){
+					yield  put({type:action.meta.postSuccessAction, payload:yield response.json()});
+				}
 			}
-			else if(!response.ok && action.payload.failure){
-				yield  put({type:action.payload.failure, payload:yield response.json()});
+			else if(!response.ok){
+				if(action.meta.onFailure) {
+					yield action.meta.onFailure(yield response.json());
+				}
+				if(action.meta.postFailureAction){
+					yield  put({type:action.meta.postFailureAction, payload:yield response.json()});
+				}
 			}
 		}catch(err){
-			console.log(err)
-			if(action.payload.failure){
-				yield  put({type:action.payload.failure, payload:{message:"Unable to access server."}});
+			if(action.payload.failure || action.meta.failure){
+				if(action.meta.onFailure) {
+					action.meta.onFailure({message:"Unable to access server."});
+				}
+				if(action.meta.postFailureAction){
+					yield  put({type:action.meta.postFailureAction, payload:{message:"Unable to access server."}});
+				}
 			}
 		}
 	});
 };
 
 export {
-	actions,
+	appActions,
 	httpMethods,
 	appSaga
 };

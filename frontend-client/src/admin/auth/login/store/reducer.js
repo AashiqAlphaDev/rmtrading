@@ -1,4 +1,4 @@
-let events = {
+const events = {
 
 }
 
@@ -16,6 +16,6 @@ let reducer = function(state=initData, {type, payload}){
 }
 
 export {
-	events as authUiDocActions,
-	reducer as authUiReducer
+	events as loginUiDocActions,
+	reducer as loginUiReducer
 }

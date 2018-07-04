@@ -5,7 +5,6 @@ import {ArrowBackIcon} from "mdi-react"
 import {Link} from "react-router-dom"
 import {withStyles} from "@material-ui/core/styles"
 
-
 export default withStyles((theme) => {
 	return {
 		annotationDesc: {

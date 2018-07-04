@@ -16,6 +16,6 @@ let reducer = function(state=initData, {type, payload}){
 }
 
 export {
-	events as authUiDocActions,
-	reducer as authUiReducer
+	events as signUpUiDocActions,
+	reducer as signUpUiReducer
 }

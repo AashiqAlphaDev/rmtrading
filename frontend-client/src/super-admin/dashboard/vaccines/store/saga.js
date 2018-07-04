@@ -1,5 +1,5 @@
 import {authCommands} from "../../../stores/auth/sagas";
-import {authDocActions} from "../../../stores/auth/reducers";
+import {authDocActions} from "../../../";
 
 const vaccinesUiEvents = {
 
