@@ -20,8 +20,13 @@ export default connect(store=>store)(
 
 		render(){
 			const {classes} = this.props;
-			if(!this.props.ui.auth.login.redirect){
-			return <Layout direction={"column"} className={classes.container} alignItems={"center"} justifyContent={"center"} flex={1}>
+
+
+			return<Layout direction={"column"} className={classes.container} alignItems={"center"} justifyContent={"center"} flex={1}>
+                {
+                    this.props.ui.auth.login.redirect &&
+					<Redirect to={this.props.ui.auth.login.redirect}/>
+                }
 				<form onSubmit={(e)=>{
 					e.preventDefault();
 					const {email, password} = this.state;
@@ -45,11 +50,6 @@ export default connect(store=>store)(
 				</form>
 				<Link to={"/admin/auth/register"}>signup</Link>
 			</Layout>
-            }
-            else{
-                return <Redirect to={this.props.ui.auth.redirect}/>
-            }
-
 
 
 
