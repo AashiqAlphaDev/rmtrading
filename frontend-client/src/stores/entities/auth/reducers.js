@@ -15,6 +15,7 @@ function authReducer(state = initAuthData, {type}) {
 		default: {
 			break;
 		}
+
 	}
 	return state;
 }

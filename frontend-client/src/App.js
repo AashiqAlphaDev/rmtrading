@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import {withStyles} from "@material-ui/core/styles"
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
-// import {Dashboard as AdminDashboard} from "./admin"
 import {Auth as AdminAuth} from "./admin"
-//import {Auth as SuperAdminAuth, Dashboard as SuperAdminDashboard} from "./super-admin"
+import {Dashboard as AdminDashboard} from "./admin"
 import store from "./stores/store"
 import {Provider} from "react-redux";
 import DateFnsUtils from 'material-ui-pickers/utils/date-fns-utils';
@@ -20,9 +19,11 @@ class App extends Component {
 								<Route path={"/admin/auth"} render={(props) => {
 									return <AdminAuth {...props}/>;
 								}}/>
-								{/*<Route path={"/admin/dashboard"} render={(props) => {*/}
-									{/*return <AdminDashboard {...props}/>;*/}
-								{/*}}/>*/}
+
+								<Route path={"/admin/auth/dashboard"} render={(props) => {
+									return <AdminDashboard {...props}/>;
+								}}/>
+
 								{/*<Route path={"/super-admin/auth"} render={(props) => {*/}
 									{/*return <SuperAdminAuth {...props}/>;*/}
 								{/*}}/>*/}

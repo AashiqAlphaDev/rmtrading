@@ -56,10 +56,7 @@ let authSaga = function* () {
 			},
 			meta: {
 				postFailureAction: authEvents.LOGIN_FAILED,
-				postSuccessAction: authEvents.LOGIN_SUCCEEDED,
-				onSuccess:function*(payload){
-					
-				}
+				postSuccessAction: authEvents.LOGIN_SUCCEEDED
 			}
 		});
 	});

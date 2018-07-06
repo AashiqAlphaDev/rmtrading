@@ -1,7 +1,7 @@
 import Auth from "./auth"
- //import Dashboard from "./dashboard"
+ import Dashboard from "./dashboard"
 
 export {
 	Auth,
-	 //Dashboard
+	Dashboard
 }
