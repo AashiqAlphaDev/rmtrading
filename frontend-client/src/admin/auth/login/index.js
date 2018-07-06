@@ -7,6 +7,7 @@ import {authCommands} from "../../../stores/entities/auth/sagas";
 import {raiseEvent, setStateKey} from "../../../components/util";
 import {loginUiEvents} from "./store/saga";
 import Link from "react-router-dom/es/Link";
+import {Redirect} from "react-router-dom";
 
 
 
@@ -19,6 +20,7 @@ export default connect(store=>store)(
 
 		render(){
 			const {classes} = this.props;
+			if(!this.props.ui.auth.login.redirect){
 			return <Layout direction={"column"} className={classes.container} alignItems={"center"} justifyContent={"center"} flex={1}>
 				<form onSubmit={(e)=>{
 					e.preventDefault();
@@ -43,6 +45,15 @@ export default connect(store=>store)(
 				</form>
 				<Link to={"/admin/auth/register"}>signup</Link>
 			</Layout>
-		}
+            }
+            else{
+                return <Redirect to={this.props.ui.auth.redirect}/>
+            }
+
+
+
+
+
+        }
 	}
 )

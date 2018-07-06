@@ -19,7 +19,7 @@ let saga = function *() {
 	});
 
 	yield takeEvery(authEvents.LOGIN_SUCCEEDED, function*() {
-		yield put({type:loginUiDocActions.SET_REDIRECT, payload:"/admin/auth/dashboard"})
+		yield put({type:loginUiDocActions.SET_REDIRECT, payload:"/admin/dashboard"})
     });
 }
 
