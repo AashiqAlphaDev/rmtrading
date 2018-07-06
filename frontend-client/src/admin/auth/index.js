@@ -20,7 +20,7 @@ class _Index extends React.Component {
 		return <Layout flex={1} className={classes.body}>
 				<Layout flex={1}>
 					<Layout direction={"column"} justifyContent={"center"} className={classes.titleContainer}>
-						{JSON.stringify(this.props)}
+
 						<Typography variant={"display3"} gutterBottom>
 						<span className={classes.title}>
 							<span>Every pet </span>
@@ -45,7 +45,11 @@ class _Index extends React.Component {
             }} />
                 </Paper>
                 </Layout>
-	}
+
+
+
+			}
+
 }
 
 const Index = connect(store => store)(withStyles((theme) => {

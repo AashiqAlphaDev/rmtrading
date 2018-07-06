@@ -4,8 +4,8 @@ import {connect} from "react-redux"
 import Layout from "../../components/layout";
 import {raiseEvent} from "../../components/util";
 import {dashboardUiEvents} from "./store/saga"
-import {Avatar, Paper} from "@material-ui/core/es/index";
-import {Typography} from "@material-ui/core/index.es";
+import {Avatar, Paper, Typography} from "@material-ui/core/es/index";
+import {AppointmentsIcon} from "../../components/icons";
 
 const pages = [
     {
@@ -32,9 +32,8 @@ class _Index extends React.Component {
         const {classes} = this.props;
 
         return <Layout flex={1}>
-			<Layout className={classes.dashboardPanel}>
-
-
+			<Layout className={classes.dashboardPanel} >
+				<AppointmentsIcon/>
 				<Typography variant={"title"} >
 					Karthik1729
 				</Typography>
@@ -74,7 +73,6 @@ const Index = connect(store => store)(withStyles((theme) => {
 		body:{
             padding:theme.spacing.unit*1,
 		},
-
         avatar: {
         	margin:10,
             width: 40,
