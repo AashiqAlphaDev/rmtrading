@@ -1,80 +1,88 @@
 import React from "react";
-import {withStyles} from "@material-ui/core/styles"
-import {connect} from "react-redux"
+import {withStyles} from "@material-ui/core/styles";
+import {connect} from "react-redux";
 import Layout from "../../components/layout";
 import {raiseEvent} from "../../components/util";
-import {dashboardUiEvents} from "./store/saga"
-import {Avatar, Paper, Typography} from "@material-ui/core/es/index";
-import {AppointmentsIcon} from "../../components/icons";
+import {dashboardUiEvents} from "./store/saga";
+import Overview from "./overview";
+import Pets from "./pets";
+import Appointments from "./appointments";
+import DashboardLayout from "./dashboard-layout";
+import Toolbar from "./toolbar";
 
-const pages = [
-    {
-    	label: "Overview", url: "/super-admin/dashboard"
-    },
-    {
-    	label: "Pets", url: "/super-admin/dashboard/vet-centers"
-    },
-    {
-		label: "Appointments", url: "/super-admin/dashboard/vaccines"
-    },
-];
-
-
-
-
+import {Route} from "react-router-dom";
 
 
 class _Index extends React.Component {
 
+    onPageChange(url){
+        this.setState({url})
+    };
+    state={
+        url:""
+    };
     componentWillMount=raiseEvent(dashboardUiEvents.DASHBOARD_WILL_LOAD,this)
 
     render() {
         const {classes} = this.props;
 
-        return <Layout flex={1}>
-			<Layout className={classes.dashboardPanel} >
-				<AppointmentsIcon/>
-				<Typography variant={"title"} >
-					Karthik1729
-				</Typography>
+        return <div className={classes.fullScreen}>
 
-			</Layout>
-			<Paper className={classes.dashboardTopPanel}>
-				<Layout direction={"column"} flex={1} alignItems={"flex-end"} justifyContent={"center"} className={classes.body}>
-				<Layout alignItems={"center"} flex={1} >
-				<Avatar
-					alt="Profile"
-					src="https://openclipart.org/download/277084/Male-Avatar-3.svg"
-					className={classes.avatar}
-				/>
-				<Typography variant={"body2"}>
-					Karthik1729
-				</Typography>
-				</Layout>
-				</Layout>
+			<Layout flex={1}>
+			    <DashboardLayout/>
+                <Layout direction={"column"} flex={1}>
+                <Toolbar/>
+                    <Route exact path={"/admin/dashboard"} render={()=>{
+                        return <Overview location={this.props} onPageChange={this.onPageChange.bind(this)} />
+                    }}/>
 
-			</Paper>
+                    <Route exact path={"/admin/dashboard/overview"} render={()=>{
+                    return <Overview location={this.props} onPageChange={this.onPageChange.bind(this)} />
+                    }}/>
 
-		</Layout>
+                    <Route exact path={"/admin/dashboard/pets"} render={()=>{
+                        return <Pets location={this.props} onPageChange={this.onPageChange.bind(this)} />
+                    }}/>
+                    <Route exact path={"/admin/dashboard/appointments"} render={()=>{
+                        return <Appointments location={this.props} onPageChange={this.onPageChange.bind(this)} />
+                    }}/>
+
+                </Layout>
+            </Layout>
+
+
+        </div>
+
+
     }
 }
 
 const Index = connect(store => store)(withStyles((theme) => {
     return {
+        fullScreen: {
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            flexDirection: "column"
+        },
         dashboardPanel:{
-        	width:300,
+            width:300,
             backgroundColor:"#001935"
-		},
+        },
         dashboardTopPanel:{
 
-        	flex:1,
-        	height:76
-		},
-		body:{
+            flex:1,
+            height:76
+        },
+        body:{
             padding:theme.spacing.unit*1,
-		},
+        },
+        menuIcon:{
+            height:300,
+            width:300
+        },
         avatar: {
-        	margin:10,
+            margin:10,
             width: 40,
             height: 40
         },

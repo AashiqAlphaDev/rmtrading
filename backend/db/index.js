@@ -178,7 +178,7 @@ var petTypeSchema = new Schema({
 petTypeSchema.plugin(mongoosePaginate);
 mongoose.model('PetType', petTypeSchema);
 
-// Pets
+// pets
 var petSchema = new Schema({
 	name: String,
 	pet_type: ObjectID,
