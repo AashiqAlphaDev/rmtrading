@@ -5,8 +5,24 @@ import Layout from "../../components/layout";
 import {raiseEvent} from "../../components/util";
 import {dashboardUiEvents} from "./store/saga"
 import {Avatar, Paper, Typography} from "@material-ui/core/es/index";
-import {AppointmentsIcon} from "../../components/icons";
+import {AppointmentsIcon, OverviewIcon, PetsIcon} from "../../components/icons";
 import {Link} from "react-router-dom";
+
+
+let MenuIcon =(iconType) =>{
+    if(iconType=="Overview")
+    {
+        return <OverviewIcon/>
+    }
+    else if(iconType=="Pets")
+    {
+        return <PetsIcon/>
+    }
+    else if(iconType=="Appointments")
+    {
+        return <AppointmentsIcon/>
+    }
+};
 
 const pages = [
     {
@@ -16,7 +32,7 @@ const pages = [
         label: "Pets", url: "/admin/dashboard/pets"
     },
     {
-        label: "appointments", url: "/admin/dashboard/appointments"
+        label: "Appointments", url: "/admin/dashboard/appointments"
     }
 ];
 
@@ -34,7 +50,7 @@ class _Index extends React.Component {
                     pages.map((page, index) => {
                         return <Link to={page.url} key={index}>
                                     <Layout>
-                                        <AppointmentsIcon/>
+                                        <MenuIcon iconType={page.label}/>
                                         <Typography variant={"title"} className={classes.menuItem}>
                                             {page.label}
                                         </Typography>

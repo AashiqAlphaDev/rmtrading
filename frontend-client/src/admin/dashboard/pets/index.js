@@ -2,6 +2,9 @@ import React from "react";
 import {withStyles} from "@material-ui/core/styles";
 import {connect} from "react-redux";
 import Layout from "../../../components/layout";
+import {raiseEvent} from "../../../components/util";
+import {petsUiEvents} from "./store/saga"
+
 
 
 
@@ -9,6 +12,7 @@ import Layout from "../../../components/layout";
 
 
 class _Index extends React.Component {
+    componentWillMount=raiseEvent(petsUiEvents.PETS_MENU_ITEM_WILL_LOAD,this)
     render(){
         const {classes} = this.props;
         return <Layout>

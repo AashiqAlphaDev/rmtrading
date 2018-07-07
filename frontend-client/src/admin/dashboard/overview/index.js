@@ -4,12 +4,15 @@ import {connect} from "react-redux";
 import {AppointmentsIcon} from "../../../components/icons";
 import Layout from "../../../components/layout";
 import {Divider, Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography} from "@material-ui/core/es/index";
+import {raiseEvent} from "../../../components/util";
+import {overviewUiEvents} from "./store/saga"
 
 
 
 
 
 class _Index extends React.Component {
+    componentWillMount=raiseEvent(overviewUiEvents.OVERVIEW_MENU_ITEM_WILL_LOAD,this)
     render(){
         const {classes} = this.props;
         return <div direction={"column"} flex={1} className={`${classes.body}`}>
@@ -17,7 +20,9 @@ class _Index extends React.Component {
                 <Layout>
                     <Paper className={classes.card} elevation={0}>
                         <Layout>
-                            <AppointmentsIcon className={classes.cardIcon}/>
+                            <span className={classes.cardIcon}>
+                            <AppointmentsIcon />
+                            </span>
                             <Layout direction={"column"} className={classes.cardInfo}>
                                 <Typography variant={"title"}>Vaccinations</Typography>
                                 <Typography>30,000</Typography>
@@ -26,7 +31,9 @@ class _Index extends React.Component {
                     </Paper>
                     <Paper className={classes.card} elevation={0}>
                         <Layout>
+                            <span className={classes.cardIcon}>
                             <AppointmentsIcon size={50}/>
+                            </span>
                             <Layout direction={"column"} className={classes.cardInfo}>
                                 <Typography variant={"title"}>Visits</Typography>
                                 <Typography>30,000</Typography>
@@ -35,7 +42,9 @@ class _Index extends React.Component {
                     </Paper>
                     <Paper className={classes.card} elevation={0}>
                         <Layout>
+                            <span className={classes.cardIcon}>
                             <AppointmentsIcon size={50}/>
+                            </span>
                             <Layout direction={"column"} className={classes.cardInfo}>
                                 <Typography variant={"title"}>Pets</Typography>
                                 <Typography>30,000</Typography>
@@ -44,7 +53,9 @@ class _Index extends React.Component {
                     </Paper>
                     <Paper className={classes.card} elevation={0}>
                         <Layout>
+                            <span className={classes.cardIcon}>
                             <AppointmentsIcon size={50}/>
+                            </span>
                             <Layout direction={"column"} className={classes.cardInfo}>
                                 <Typography variant={"title"}>Vaccines</Typography>
                                 <Typography>30,000</Typography>
