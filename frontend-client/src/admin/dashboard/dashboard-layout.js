@@ -9,32 +9,29 @@ import {AppointmentsIcon, OverviewIcon, PetsIcon} from "../../components/icons";
 import {Link} from "react-router-dom";
 
 
-let MenuIcon =(iconType) =>{
-    if(iconType=="Overview")
-    {
-        return <OverviewIcon/>
-    }
-    else if(iconType=="Pets")
-    {
-        return <PetsIcon/>
-    }
-    else if(iconType=="Appointments")
-    {
-        return <AppointmentsIcon/>
-    }
+let Icon = (_Icon) => {
+    return (props) => (<_Icon/>)
 };
+
 
 const pages = [
     {
-        label: "Overview", url: "/admin/dashboard/overview"
+        icon: () => {
+            return <OverviewIcon/>
+        }, label: "Overview", url: "/admin/dashboard/overview"
     },
     {
-        label: "Pets", url: "/admin/dashboard/pets"
+        icon: () => {
+            return <PetsIcon/>
+        }, label: "Pets", url: "/admin/dashboard/pets"
     },
     {
-        label: "Appointments", url: "/admin/dashboard/appointments"
+        icon: () => {
+            return <AppointmentsIcon/>
+        }, label: "Appointments", url: "/admin/dashboard/appointments"
     }
 ];
+
 
 
 class _Index extends React.Component {
@@ -48,9 +45,11 @@ class _Index extends React.Component {
 			<Layout className={classes.dashboardPanel}  direction={"column"}>
                 {
                     pages.map((page, index) => {
+                        let PageIcon = Icon(page.icon);
                         return <Link to={page.url} key={index}>
-                                    <Layout>
-                                        <MenuIcon iconType={page.label}/>
+                                    <Layout alignItems={"center"}>
+                                        <span className={classes.menuIcon}><PageIcon/></span>
+
                                         <Typography variant={"title"} className={classes.menuItem}>
                                             {page.label}
                                         </Typography>
@@ -78,8 +77,7 @@ const Index = connect(store => store)(withStyles((theme) => {
             padding:theme.spacing.unit*1,
         },
         menuIcon:{
-            height:300,
-            width:300
+           fontSize:50
         },
         avatar: {
             margin:10,
@@ -95,6 +93,7 @@ const Index = connect(store => store)(withStyles((theme) => {
         menuItem:{
             color:"#FFFFFF"
         }
+
 
 
 

@@ -1,20 +1,20 @@
-const authDocActions = {
-
+const vetCenterDocActions = {
+    VET_CENTER_FETCHED:"vetCenter/doc/VET_CENTER_FETCHED"
 };
 
 const initAuthData = {
-	current_user:{
-		logged_in:false,
-		is_admin:false,
-		is_super_admin:false
-	}
+    centers:[]
 };
 
-function authReducer(state = initAuthData, {type}) {
+function vetCenterReducer(state = initAuthData, {type,payload}) {
 	switch (type) {
-		case FETCH_VET_CENTER_SUCCEEDED : {
+		case vetCenterDocActions.VET_CENTER_FETCHED : {
+            state = {...state, centers:payload};
+            break
+        }
 
-		}
+
+
 		default: {
 			break;
 		}
@@ -23,4 +23,7 @@ function authReducer(state = initAuthData, {type}) {
 	return state;
 }
 
-export {authReducer, authDocActions};
+
+
+
+export {vetCenterReducer, vetCenterDocActions};

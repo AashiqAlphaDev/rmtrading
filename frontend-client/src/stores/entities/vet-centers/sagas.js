@@ -1,6 +1,6 @@
 import {put, takeEvery} from 'redux-saga/effects'
 import {appActions, httpMethods} from "../../app/saga";
-import {authDocActions} from "./reducers"
+import {authDocActions, vetCenterDocActions} from "./reducers"
 
 let vetCenterCommands = {
 	FETCH_VET_CENTER: "vetCenter/command/FETCH_VET_CENTER",
@@ -21,9 +21,8 @@ let vetCenterSaga = function* () {
 		yield put({
 			type: appActions.API,
 			payload: {
-				url: '/login',
-				method: httpMethods.POST,
-				body: action.payload
+				url: '/vaccination-centers/:vaccination_center_id',
+				method: httpMethods.GET
 			},
 			meta: {
 				postFailureAction: vetCenterEvents.FETCH_VET_CENTER_FAILED,
@@ -31,6 +30,11 @@ let vetCenterSaga = function* () {
 			}
 		});
 	});
+
+
+    yield takeEvery(vetCenterEvents.FETCH_VET_CENTER_SUCCEEDED, function*(action) {
+        yield put({type:vetCenterDocActions.VET_CENTER_FETCHED, payload:action.payload});
+    });
 
 
 }
