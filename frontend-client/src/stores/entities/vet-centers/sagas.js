@@ -16,12 +16,12 @@ let vetCenterEvents = {
 
 let vetCenterSaga = function* () {
 
-	yield takeEvery(vetCenterCommands.LOGIN, function* (action) {
+	yield takeEvery(vetCenterCommands.FETCH_VET_CENTER, function* (action) {
 		yield put({type:vetCenterEvents.FETCH_VET_CENTER_STARTED});
 		yield put({
 			type: appActions.API,
 			payload: {
-				url: '/vaccination-centers/:vaccination_center_id',
+				url: '/vaccination-centers/self',
 				method: httpMethods.GET
 			},
 			meta: {

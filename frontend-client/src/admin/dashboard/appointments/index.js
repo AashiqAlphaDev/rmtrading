@@ -16,6 +16,8 @@ class _Index extends React.Component {
         const {classes} = this.props;
         return <Layout>
 
+            {JSON.stringify(this.props)}
+
 
 
             Appointments

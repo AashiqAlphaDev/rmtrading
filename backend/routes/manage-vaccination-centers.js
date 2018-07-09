@@ -4,6 +4,7 @@ const co = require("co");
 const VaccinationCenterManagementService = require("../services/vaccination-centers");
 const isAdmin = require("./super-admin/check-admin");
 const isCenterAdmin = require("./check-center-admin");
+import * as console from "debug";
 
 router.get("/", httpCoWrap(function* (req, res, next) {
 	var query = req.query.query ? req.query.query : {};
