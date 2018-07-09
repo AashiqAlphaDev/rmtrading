@@ -15,10 +15,12 @@ const sagaMiddleware = createSagaMiddleware()
 const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware));
 const store = createStore(combineReducers({
 	ui:uiReducer,
-	entities:{
-		auth:authReducer,
-		vaccination_center:vetCenterReducer
-	}
+    entities:combineReducers({
+        auth:authReducer,
+        vaccination_center:vetCenterReducer,
+
+    })
+
 }), enhancer);
 
 attachUiMiddlewares(sagaMiddleware);

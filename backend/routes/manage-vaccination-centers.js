@@ -4,7 +4,6 @@ const co = require("co");
 const VaccinationCenterManagementService = require("../services/vaccination-centers");
 const isAdmin = require("./super-admin/check-admin");
 const isCenterAdmin = require("./check-center-admin");
-import * as console from "debug";
 
 router.get("/", httpCoWrap(function* (req, res, next) {
 	var query = req.query.query ? req.query.query : {};
@@ -20,7 +19,6 @@ router.get("/:vaccination_center_id", httpCoWrap(function* (req, res, next) {
 		req.params.vaccination_center_id = req.session.center_id;
 	}
 	let vaccinationCenter = yield VaccinationCenterManagementService.vaccinationCenterWithId(req.params.vaccination_center_id);
-	console.log(vaccinationCenter);
 	res.send(vaccinationCenter);
 }));
 

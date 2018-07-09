@@ -1,5 +1,4 @@
 let events = {
-
 }
 
 let initData = {

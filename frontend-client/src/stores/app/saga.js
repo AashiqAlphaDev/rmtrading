@@ -8,7 +8,7 @@ const appActions = {
 const httpMethods = {
 	POST:"POST",
 	GET:"GET",
-	PUT:"GET",
+	PUT:"PUT",
 	DELETE:"DELETE",
 };
 
@@ -21,6 +21,7 @@ let appSaga = function*() {
 				credentials: 'include'
 			};
 			if(options.method != 'GET'){
+				console.log("i am here",JSON.stringify(action.payload.body));
 				options.body = JSON.stringify(action.payload.body)||JSON.stringify({});
 			}
 			const response = yield call(fetch, `${base_url}${action.payload.url}`, options);

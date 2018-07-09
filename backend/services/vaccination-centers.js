@@ -11,13 +11,14 @@ module.exports.createVaccinationCenter = function* (vaccinationCenterData) {
 };
 
 module.exports.updateVaccinationCenter = function* (id, vaccinationCenterData) {
+	console.log("inside update",id,);
 	queryValidate(id, "You missed vaccination-center-id.");
 	return yield VaccinationCenters.update({_id: id}, vaccinationCenterData);
 };
 
 module.exports.updateVaccinationCenterQueue = function* (id, queue_id, slotData) {
 	queryValidate(id, "You missed vaccination-center-id.");
-	console.log({_id: id, "queues._id": queue_id}, slotData)
+	console.log("here",{_id: id, "queues._id": queue_id}, slotData)
 	return yield VaccinationCenters.update({_id: id, "queues._id": queue_id}, slotData);
 };
 

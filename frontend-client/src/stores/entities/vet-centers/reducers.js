@@ -1,5 +1,6 @@
+import {vetCenterEvents} from "./sagas";
+
 const vetCenterDocActions = {
-    VET_CENTER_FETCHED:"vetCenter/doc/VET_CENTER_FETCHED"
 };
 
 const initAuthData = {
@@ -8,13 +9,10 @@ const initAuthData = {
 
 function vetCenterReducer(state = initAuthData, {type,payload}) {
 	switch (type) {
-		case vetCenterDocActions.VET_CENTER_FETCHED : {
+		case vetCenterEvents.FETCH_VET_CENTER_SUCCEEDED : {
             state = {...state, centers:payload};
             break
         }
-
-
-
 		default: {
 			break;
 		}
