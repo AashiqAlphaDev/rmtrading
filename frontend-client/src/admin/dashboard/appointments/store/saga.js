@@ -7,30 +7,9 @@ const actions = {
 }
 
 let saga = function *() {
-
     yield takeEvery(actions.APPOINTMENTS_MENU_ITEM_WILL_LOAD, function* () {
         yield put({type:vetCenterCommands.FETCH_VET_CENTER});
     });
-
-
-    yield takeEvery(vetCenterEvents.DELETE_QUEUE_SUCCEEDED,function*(){
-        yield put ({type:vetCenterCommands.FETCH_VET_CENTER})
-    });
-
-    yield takeEvery(vetCenterEvents.ADD_QUEUE_SUCCEEDED,function*(){
-        yield put ({type:vetCenterCommands.FETCH_VET_CENTER})
-    });
-
-
-    yield takeEvery(vetCenterEvents.DELETE_SLOT_SUCCEEDED,function*(){
-        yield put ({type:vetCenterCommands.FETCH_VET_CENTER})
-    });
-
-    yield takeEvery(vetCenterEvents.ADD_SLOT_SUCCEEDED,function*(){
-        yield put ({type:vetCenterCommands.FETCH_VET_CENTER})
-    });
-
-
 }
 
 export {

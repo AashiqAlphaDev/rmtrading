@@ -44,7 +44,7 @@ let appSaga = function*() {
 		}catch(err){
 			if(action.payload.failure || action.meta.failure){
 				if(action.meta.onFailure) {
-					action.meta.onFailure({message:"Unable to access server."});
+					yield action.meta.onFailure({message:"Unable to access server."});
 				}
 				if(action.meta.postFailureAction){
 					yield  put({type:action.meta.postFailureAction, payload:{message:"Unable to access server."}});

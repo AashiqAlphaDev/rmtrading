@@ -64,7 +64,13 @@ let vetCenterSaga = function* () {
 			},
 			meta:{
 				postFailureAction:vetCenterEvents.DELETE_QUEUE_FAILED,
-                postSuccessAction:vetCenterEvents.DELETE_QUEUE_SUCCEEDED
+                postSuccessAction:vetCenterEvents.DELETE_QUEUE_SUCCEEDED,
+				onSuccess:function*() {
+					yield put ({type:vetCenterCommands.FETCH_VET_CENTER});
+				},
+				onFailure:function*() {
+					yield put ({type:vetCenterCommands.FETCH_VET_CENTER});
+				}
 			}
 		})
 	})
@@ -80,17 +86,21 @@ let vetCenterSaga = function* () {
             },
             meta:{
                 postFailureAction:vetCenterEvents.ADD_QUEUE_FAILED,
-                postSuccessAction:vetCenterEvents.ADD_QUEUE_SUCCEEDED
-            }
+                postSuccessAction:vetCenterEvents.ADD_QUEUE_SUCCEEDED,
+	            onSuccess:function*() {
+		            yield put ({type:vetCenterCommands.FETCH_VET_CENTER});
+	            },
+	            onFailure:function*() {
+		            yield put ({type:vetCenterCommands.FETCH_VET_CENTER});
+	            }
+            },
+
         })
     });
 
 
 
     yield takeEvery(vetCenterCommands.ADD_SLOT,function*(action){
-
-
-        console.log("inside add slot",action.payload);
         yield put({type:vetCenterEvents.ADD_SLOT_STARTED});
         yield put ({
             type:appActions.API,
@@ -101,7 +111,13 @@ let vetCenterSaga = function* () {
             },
             meta:{
                 postFailureAction:vetCenterEvents.ADD_SLOT_FAILED,
-                postSuccessAction:vetCenterEvents.ADD_SLOT_SUCCEEDED
+                postSuccessAction:vetCenterEvents.ADD_SLOT_SUCCEEDED,
+	            // onSuccess:function*() {
+		         //    yield put ({type:vetCenterCommands.FETCH_VET_CENTER});
+	            // },
+	            // onFailure:function*() {
+		         //    yield put ({type:vetCenterCommands.FETCH_VET_CENTER});
+	            // }
             }
         })
     });
@@ -118,22 +134,16 @@ let vetCenterSaga = function* () {
             },
             meta:{
                 postFailureAction:vetCenterEvents.DELETE_SLOT_FAILED,
-                postSuccessAction:vetCenterEvents.DELETE_SLOT_SUCCEEDED
+                postSuccessAction:vetCenterEvents.DELETE_SLOT_SUCCEEDED,
+	            onSuccess:function*() {
+		            yield put ({type:vetCenterCommands.FETCH_VET_CENTER});
+	            },
+	            onFailure:function*() {
+		            yield put ({type:vetCenterCommands.FETCH_VET_CENTER});
+	            }
             }
         })
     });
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 

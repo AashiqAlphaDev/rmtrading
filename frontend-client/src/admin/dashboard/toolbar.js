@@ -15,7 +15,6 @@ class _Index extends React.Component {
 		return <Paper className={classes.dashboardTopPanel} elevation={0}>
 			<Layout>
 				<Layout flex={1}>
-
 				</Layout>
 				<Layout alignItems={"center"}>
 					<Avatar alt="Profile" src="https://openclipart.org/download/277084/Male-Avatar-3.svg"

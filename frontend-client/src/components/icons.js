@@ -1,7 +1,8 @@
 import React from "react"
 
 let AppointmentsIcon = ({size}) => {
-	return <span style={{fontSize: size}}><span className="icon-appointments-icon"><span className="path1"></span><span
+	return <span style={{fontSize: size, lineHeight: `${size}px`}}><span className="icon-appointments-icon"><span
+		className="path1"></span><span
 		className="path2"></span><span className="path3"></span><span className="path4"></span><span
 		className="path5"></span><span className="path6"></span><span className="path7"></span><span
 		className="path8"></span><span className="path9"></span><span className="path10"></span><span
@@ -10,12 +11,14 @@ let AppointmentsIcon = ({size}) => {
 };
 
 let CardIcon = ({size}) => {
-	return <span style={{fontSize: size}}><span className="icon-cards-icon"><span className="path1"></span><span
+	return <span style={{fontSize: size, lineHeight: `${size}px`}}><span className="icon-cards-icon"><span
+		className="path1"></span><span
 		className="path2"></span><span className="path3"></span></span></span>
 };
 
 let CountriesIcon = ({size}) => {
-	return <span style={{fontSize: size}}><span className="icon-countries-icon"><span className="path1"></span><span
+	return <span style={{fontSize: size, lineHeight: `${size}px`}}><span className="icon-countries-icon"><span
+		className="path1"></span><span
 		className="path2"></span><span className="path3"></span><span className="path4"></span><span
 		className="path5"></span><span className="path6"></span><span className="path7"></span><span
 		className="path8"></span><span className="path9"></span><span className="path10"></span><span
@@ -23,14 +26,16 @@ let CountriesIcon = ({size}) => {
 };
 
 let DiseasesIcon = ({size}) => {
-	return <span style={{fontSize: size}}><span className="icon-diseases-icon"><span className="path1"></span><span
+	return <span style={{fontSize: size, lineHeight: `${size}px`}}><span className="icon-diseases-icon"><span
+		className="path1"></span><span
 		className="path2"></span><span className="path3"></span><span className="path4"></span><span
 		className="path5"></span><span className="path6"></span><span className="path7"></span><span
 		className="path8"></span><span className="path9"></span></span></span>
 };
 
 let InventoryIcon = ({size}) => {
-	return <span style={{fontSize: size}}><span className="icon-inventory-icon"><span className="path1"></span><span
+	return <span style={{fontSize: size, lineHeight: `${size}px`}}><span className="icon-inventory-icon"><span
+		className="path1"></span><span
 		className="path2"></span><span className="path3"></span><span className="path4"></span><span
 		className="path5"></span><span className="path6"></span><span className="path7"></span><span
 		className="path8"></span><span className="path9"></span><span className="path10"></span><span
@@ -41,13 +46,15 @@ let InventoryIcon = ({size}) => {
 }
 
 let OverviewIcon = ({size}) => {
-	return <span style={{fontSize: size}}><span className="icon-overview-icon"><span className="path1"></span><span
+	return <span style={{fontSize: size, lineHeight: `${size}px`}}><span className="icon-overview-icon"><span
+		className="path1"></span><span
 		className="path2"></span><span className="path3"></span><span className="path4"></span><span
 		className="path5"></span></span></span>
 }
 
 let PetsIcon = ({size}) => {
-	return <span style={{fontSize: size}}><span className="icon-pets-icon"><span className="path1"></span><span
+	return <span style={{fontSize: size, lineHeight: `${size}px`}}><span className="icon-pets-icon"><span
+		className="path1"></span><span
 		className="path2"></span><span className="path3"></span><span className="path4"></span><span
 		className="path5"></span><span className="path6"></span><span className="path7"></span><span
 		className="path8"></span><span className="path9"></span><span className="path10"></span><span
@@ -55,16 +62,38 @@ let PetsIcon = ({size}) => {
 }
 
 let SyringeIcon = ({size}) => {
-	return <span style={{fontSize: size}}><span className="icon-syringe-icon"><span className="path1"></span><span
+	return <span style={{fontSize: size, lineHeight: `${size}px`}}><span className="icon-syringe-icon"><span
+		className="path1"></span><span
 		className="path2"></span><span className="path3"></span><span className="path4"></span><span
 		className="path5"></span><span className="path6"></span><span className="path7"></span><span
 		className="path8"></span></span></span>
 }
 
 let VetCenterIcon = ({size}) => {
-	return <span style={{fontSize: size}}><span className="icon-vet-centers-icon"><span className="path1"></span><span
+	return <span style={{fontSize: size, lineHeight: `${size}px`}}><span className="icon-vet-centers-icon"><span
+		className="path1"></span><span
 		className="path2"></span></span></span>
 }
+
+let VisitsIcon = ({size}) => {
+	return <span style={{fontSize: size, lineHeight: `${size}px`}} className="icon-visits-icon"><span
+		className="path1"></span><span className="path2"></span><span
+		className="path3"></span><span className="path4"></span><span className="path5"></span><span
+		className="path6"></span><span className="path7"></span></span>
+}
+
+let DeleteIcon = ({size})=>{
+	return <span style={{fontSize: size, lineHeight: `${size}px`}} className="icon-delete-icon"><span className="path1"></span><span className="path2"></span><span
+		className="path3"></span><span className="path4"></span><span className="path5"></span><span
+		className="path6"></span><span className="path7"></span></span>
+}
+
+
+let EditIcon = ({size})=>{
+	return <span style={{fontSize: size, lineHeight: `${size}px`}} className="icon-edit-icon"><span className="path1"></span><span className="path2"></span><span
+		className="path3"></span><span className="path4"></span><span className="path5"></span></span>
+}
+
 
 export {
 	AppointmentsIcon,
@@ -75,5 +104,7 @@ export {
 	OverviewIcon,
 	PetsIcon,
 	SyringeIcon,
-	VetCenterIcon
+	VetCenterIcon, VisitsIcon,
+	DeleteIcon,
+	EditIcon
 }

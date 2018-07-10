@@ -4,7 +4,7 @@ import {connect} from "react-redux"
 import Layout from "../../components/layout";
 import {raiseEvent} from "../../components/util";
 import {dashboardUiEvents} from "./store/saga"
-import {List, Typography} from "@material-ui/core/es/index";
+import {List, ListItem, ListItemIcon, ListItemText, Typography} from "@material-ui/core/es/index";
 import {AppointmentsIcon, OverviewIcon, PetsIcon} from "../../components/icons";
 import {Link, withRouter} from "react-router-dom";
 
@@ -17,21 +17,21 @@ let Icon = (_Icon) => {
 const pages = [
 	{
 		icon: () => {
-			return <OverviewIcon size={44}/>;
+			return <OverviewIcon size={32}/>;
 		},
 		label: "Overview",
 		url: "/admin/dashboard/overview"
 	},
 	{
 		icon: () => {
-			return <PetsIcon size={44}/>;
+			return <PetsIcon size={32}/>;
 		},
 		label: "Pets",
 		url: "/admin/dashboard/pets"
 	},
 	{
 		icon: () => {
-			return <AppointmentsIcon size={44}/>;
+			return <AppointmentsIcon size={32}/>
 		},
 		label: "Appointments",
 		url: "/admin/dashboard/appointments"
@@ -53,15 +53,16 @@ class _Index extends React.Component {
 							let PageIcon = Icon(page.icon);
 							let isActive = this.props.location.pathname == page.url;
 							return <Link to={page.url} key={index}>
-								<Layout className={isActive ? classes.activeItem : classes.item} alignItems={"center"}>
-									<PageIcon/>
-									<Typography variant={"subheading"} color={"inherit"}
-									            className={`${classes.itemTitle}`}>
-									<span className={isActive ? classes.activeItemTitle : ''}>
-										{page.label}
-									</span>
-									</Typography>
-								</Layout>
+								<ListItem className={isActive ? classes.activeItem : classes.item}>
+									<ListItemIcon>
+										<PageIcon/>
+									</ListItemIcon>
+									<ListItemText className={isActive ? classes.activeItemTitle : ''}>
+										<Typography variant={"subheading"} className={isActive ? classes.activeItemTitle : classes.itemTitle}>
+											{page.label}
+										</Typography>
+									</ListItemText>
+								</ListItem>
 							</Link>
 						})
 					}
@@ -91,7 +92,6 @@ const Index = connect(store => store)(withStyles((theme) => {
 			color: "#001935"
 		},
 		itemTitle: {
-			marginLeft: theme.spacing.unit * 2,
 			color: "#FFF"
 		}
 	}
