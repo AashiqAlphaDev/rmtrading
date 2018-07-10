@@ -51,8 +51,10 @@ class _Index extends React.Component {
                         </Layout>
                         <Table>
                             <TableHead>
-                                <TableCell>Name</TableCell>
-                                <TableCell></TableCell>
+                                <TableRow>
+                                    <TableCell>Name</TableCell>
+                                    <TableCell></TableCell>
+                                </TableRow>
                             </TableHead>
                             <TableBody>
                                 {

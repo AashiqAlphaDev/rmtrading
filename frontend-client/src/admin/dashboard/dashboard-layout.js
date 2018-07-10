@@ -17,21 +17,21 @@ let Icon = (_Icon) => {
 const pages = [
 	{
 		icon: () => {
-			return <OverviewIcon size={44}/>
+			return <OverviewIcon size={44}/>;
 		},
 		label: "Overview",
 		url: "/admin/dashboard/overview"
 	},
 	{
 		icon: () => {
-			return <PetsIcon size={44}/>
+			return <PetsIcon size={44}/>;
 		},
 		label: "Pets",
 		url: "/admin/dashboard/pets"
 	},
 	{
 		icon: () => {
-			return <AppointmentsIcon size={44}/>
+			return <AppointmentsIcon size={44}/>;
 		},
 		label: "Appointments",
 		url: "/admin/dashboard/appointments"
