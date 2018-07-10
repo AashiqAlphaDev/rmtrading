@@ -2,7 +2,6 @@ import {createMuiTheme} from '@material-ui/core/styles';
 
 const primaryColor = "#3a87ca";
 const accentColor = "#f25826";
-//#
 
 const theme = createMuiTheme({
 	palette: {
@@ -14,7 +13,11 @@ const theme = createMuiTheme({
 		}
 	},
 	typography: {
-		fontFamily: 'Open Sans'
+		fontFamily: 'Open Sans',
+		title: {
+			fontWeight: 600,
+			fontSize:20
+		}
 	},
 	props: {
 		MuiButton: {
@@ -58,7 +61,6 @@ const theme = createMuiTheme({
 		},
 		MuiButton: {
 			root: {
-				textTransform: 'none',
 				borderRadius: 4,
 				fontSize: 16,
 				padding: '6px 12px'
@@ -75,7 +77,6 @@ const theme = createMuiTheme({
 					boxShadow: 'none',
 				}
 			},
-
 		},
 		MuiInputLabel: {
 			root: {
@@ -112,11 +113,15 @@ const theme = createMuiTheme({
 			}
 		},
 		MuiInput: {
+			root: {
+				height: 44
+			},
 			input: {
+				fontSize: 14,
 				padding: 10,
 				borderRadius: 4,
 				background: '#FFF',
-				border: "2px solid #e8e8e8",
+				border: "1px solid #e8e8e8",
 				'&:focus': {
 					borderRadius: 4,
 					borderColor: primaryColor

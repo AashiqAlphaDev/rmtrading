@@ -3,7 +3,7 @@ import {withStyles} from "@material-ui/core/styles"
 import {connect} from "react-redux"
 import Layout from "../../components/layout";
 import {Paper, Typography} from "@material-ui/core/es/index";
-import {Redirect, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 import Login from "./login"
 import Register from "./signup"
 import {raiseEvent} from "../../components/util";
@@ -11,16 +11,12 @@ import {authUiEvents} from "./store/saga";
 
 
 class _Index extends React.Component {
-
 	componentWillMount=raiseEvent(authUiEvents.AUTH_PAGE_WILL_LOAD,this)
-
 	render() {
 		const {classes} = this.props;
-
 		return <Layout flex={1} className={classes.body}>
 				<Layout flex={1}>
 					<Layout direction={"column"} justifyContent={"center"} className={classes.titleContainer}>
-
 						<Typography variant={"display3"} gutterBottom>
 						<span className={classes.title}>
 							<span>Every pet </span>

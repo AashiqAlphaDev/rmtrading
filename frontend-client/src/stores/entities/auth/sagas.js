@@ -108,17 +108,17 @@ let authSaga = function* () {
 
 	//admin check
 	yield takeEvery(authCommands.CHECK_ADMIN, function* () {
+		yield put({type:authEvents.CHECK_ADMIN_STARTED});
 		yield put({
 			type: appActions.API,
 			payload: {
 				url: '/admin',
-				success: authCommands.CHECK_ADMIN_PASSED,
-				failure: authCommands.CHECK_ADMIN_FAILED
 			},
 			meta: {
-				startAction:authEvents.CHECK_ADMIN_STARTED,
+				postSuccessAction: authEvents.CHECK_ADMIN_PASSED,
+				postFailureAction: authEvents.CHECK_ADMIN_FAILED,
 				onSuccess: function* () {
-					yield put({type: authDocActions.ADMIN_LOGIN});
+					yield put({type:authDocActions.ADMIN_LOGIN});
 				},
 				onFailure: function* () {
 					yield put({type: authDocActions.RESET});

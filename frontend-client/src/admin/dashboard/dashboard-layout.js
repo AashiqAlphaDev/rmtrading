@@ -4,31 +4,37 @@ import {connect} from "react-redux"
 import Layout from "../../components/layout";
 import {raiseEvent} from "../../components/util";
 import {dashboardUiEvents} from "./store/saga"
-import {Avatar, Paper, Typography} from "@material-ui/core/es/index";
+import {List, Typography} from "@material-ui/core/es/index";
 import {AppointmentsIcon, OverviewIcon, PetsIcon} from "../../components/icons";
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 
 
 let Icon = (_Icon) => {
-	return (props) => (<_Icon/>)
+	return (props) => (<_Icon {...props}/>)
 };
 
 
 const pages = [
 	{
 		icon: () => {
-			return <OverviewIcon/>
-		}, label: "Overview", url: "/admin/dashboard/overview"
+			return <OverviewIcon size={44}/>
+		},
+		label: "Overview",
+		url: "/admin/dashboard/overview"
 	},
 	{
 		icon: () => {
-			return <PetsIcon/>
-		}, label: "Pets", url: "/admin/dashboard/pets"
+			return <PetsIcon size={44}/>
+		},
+		label: "Pets",
+		url: "/admin/dashboard/pets"
 	},
 	{
 		icon: () => {
-			return <AppointmentsIcon/>
-		}, label: "Appointments", url: "/admin/dashboard/appointments"
+			return <AppointmentsIcon size={44}/>
+		},
+		label: "Appointments",
+		url: "/admin/dashboard/appointments"
 	}
 ];
 
@@ -39,23 +45,26 @@ class _Index extends React.Component {
 
 	render() {
 		const {classes} = this.props;
-
 		return <Layout>
 			<Layout className={classes.dashboardPanel} direction={"column"}>
+				<List>
 				{
 					pages.map((page, index) => {
 						let PageIcon = Icon(page.icon);
+						let isActive = this.props.location.pathname == page.url;
 						return <Link to={page.url} key={index}>
-							<Layout alignItems={"center"}>
-								<span className={classes.menuIcon}><PageIcon/></span>
-
-								<Typography variant={"title"} className={classes.menuItem}>
-									{page.label}
+							<Layout className={isActive?classes.activeItem:classes.item} alignItems={"center"}>
+								<PageIcon />
+								<Typography variant={"subheading"} color={"inherit"} className={`${classes.itemTitle}`}>
+									<span className={isActive?classes.activeItemTitle:''}>
+										{page.label}
+									</span>
 								</Typography>
 							</Layout>
 						</Link>
 					})
 				}
+				</List>
 			</Layout>
 		</Layout>
 	}
@@ -63,38 +72,28 @@ class _Index extends React.Component {
 
 const Index = connect(store => store)(withStyles((theme) => {
 	return {
-		dashboardPanel: {
-			width: 300,
-			backgroundColor: "#001935"
+		dashboardPanel:{
+			width:300,
+			background:"#001935"
 		},
-		dashboardTopPanel: {
-
-			flex: 1,
-			height: 76
+		item:{
+			paddingLeft:theme.spacing.unit * 2,
+			paddingRight:theme.spacing.unit * 2,
 		},
-		body: {
-			padding: theme.spacing.unit * 1,
+		activeItem:{
+			paddingLeft:theme.spacing.unit * 2,
+			paddingRight:theme.spacing.unit * 2,
+			background:"#FFF",
+			color:"#001935"
 		},
-		menuIcon: {
-			fontSize: 50
+		activeItemTitle:{
+			color:"#001935"
 		},
-		avatar: {
-			margin: 10,
-			width: 40,
-			height: 40
-		},
-		fullScreen: {
-			width: "100%",
-			height: "100%",
-			display: "flex",
-			flexDirection: "column"
-		},
-		menuItem: {
-			color: "#FFFFFF"
+		itemTitle:{
+			marginLeft:theme.spacing.unit * 2,
+			color:"#FFF"
 		}
-
-
 	}
-})(_Index));
+})(withRouter(_Index)));
 
 export default Index

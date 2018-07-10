@@ -27,9 +27,8 @@ class _Index extends React.Component {
         const {classes} = this.props;
 
         return <div className={classes.fullScreen}>
-
 			<Layout flex={1}>
-			    <DashboardLayout/>
+			    <DashboardLayout location={this.props.location.pathname}/>
                 <Layout direction={"column"} flex={1}>
                 <Toolbar/>
                     <Route exact path={"/admin/dashboard"} render={()=>{

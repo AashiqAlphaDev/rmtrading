@@ -1,5 +1,6 @@
 const authDocActions = {
-
+	ADMIN_LOGIN:"auth/doc/actions/ADMIN_LOGIN",
+	RESET:"auth/doc/actions/RESET"
 };
 
 const initAuthData = {
@@ -12,6 +13,14 @@ const initAuthData = {
 
 function authReducer(state = initAuthData, {type}) {
 	switch (type) {
+		case authDocActions.ADMIN_LOGIN:{
+			state = {...state, current_user:{...state.current_user, logged_in:true, is_admin:true}};
+			break;
+		}
+		case authDocActions.RESET:{
+			state = {...initAuthData};
+			break;
+		}
 		default: {
 			break;
 		}
