@@ -60,7 +60,7 @@ let vetCenterSaga = function* () {
 			payload:{
                 url: '/vaccination-centers/'+action.payload.center_id,
 				method:httpMethods.PUT,
-                body:JSON.stringify({ $pull: { queues: {_id:action.payload.queue_id} } })
+                body:{$pull:{queues:{_id:action.payload.queue_id}}}
 			},
 			meta:{
 				postFailureAction:vetCenterEvents.DELETE_QUEUE_FAILED,
@@ -76,7 +76,7 @@ let vetCenterSaga = function* () {
             payload:{
                 url: '/vaccination-centers/'+action.payload.center_id,
                 method:httpMethods.PUT,
-                body:JSON.stringify({ $push: { queues: action.payload.queue_data } })
+                body:{ $push: { queues: action.payload.queue_data } }
             },
             meta:{
                 postFailureAction:vetCenterEvents.ADD_QUEUE_FAILED,
@@ -88,13 +88,16 @@ let vetCenterSaga = function* () {
 
 
     yield takeEvery(vetCenterCommands.ADD_SLOT,function*(action){
+
+
+        console.log("inside add slot",action.payload);
         yield put({type:vetCenterEvents.ADD_SLOT_STARTED});
         yield put ({
             type:appActions.API,
             payload:{
                 url: '/vaccination-centers/'+action.payload.center_id+'/queues/'+action.payload.queue_id,
                 method:httpMethods.PUT,
-                body:JSON.stringify({ $push: { "queues.$.time_slots": action.payload.slot_data } })
+                body:{ $push: { "queues.$.time_slots": action.payload.slot_data } }
             },
             meta:{
                 postFailureAction:vetCenterEvents.ADD_SLOT_FAILED,
@@ -111,7 +114,7 @@ let vetCenterSaga = function* () {
             payload:{
                 url: '/vaccination-centers/'+action.payload.center_id+'/queues/'+action.payload.queue_id,
                 method:httpMethods.PUT,
-                body:JSON.stringify({ $pull: { "queues.$.time_slots": {_id:action.payload.slot_id} } })
+                body:{ $pull: { "queues.$.time_slots": {_id:action.payload.slot_id} } }
             },
             meta:{
                 postFailureAction:vetCenterEvents.DELETE_SLOT_FAILED,

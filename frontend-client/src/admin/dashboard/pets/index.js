@@ -13,6 +13,8 @@ import QrReader from 'react-qr-reader'
 import Link from "react-router-dom/es/Link";
 import {PetsIcon} from "../../../components/icons";
 import InputContainer from "../../../components/input"
+import {guardianCommands} from "../../../stores/entities/gaurdian/sagas";
+import {petCommands} from "../../../stores/entities/pets/sagas";
 
 
 function Transition(props) {
@@ -24,13 +26,19 @@ function Transition(props) {
 
 
 class _Index extends React.Component {
+    state = {
+        pet_id: "",
+        showResults: false,
+        showSearchDialogue: false,
+        showScanner: false
+    }
     componentWillMount=raiseEvent(petsUiEvents.PETS_MENU_ITEM_WILL_LOAD,this)
     render(){
         const {classes} = this.props;
         return <Layout direction={"column"} className={classes.body} justifyContent={"center"}>
             {
-                this.props.petDetail._id &&
-                <Redirect to={`/admin/dashboard/pets/${this.props.petDetail._id}`} />
+                this.props.entities.pets.pets._id &&
+                <Redirect to={`/admin/dashboard/pets/${this.props.entities.pets.pets._id}`} />
             }
             <Layout alignItems={"center"}>
                 <Paper className={classes.card} onClick={() => {
@@ -39,7 +47,7 @@ class _Index extends React.Component {
                     <Layout alignItems={"center"} flex={1}>
                         <Layout direction={"column"} className={classes.cardInfo} alignItems={"center"}>
                             <div className={classes.iconContainer}>
-                                <span fontSize={150}>
+                                <span className={classes.menuIcon}>
                                 <PetsIcon/>
                                 </span>
                             </div>
@@ -57,7 +65,7 @@ class _Index extends React.Component {
 
                         <Layout direction={"column"} className={classes.cardInfo} alignItems={"center"}>
                             <div className={classes.iconContainer}>
-                                <span fontSize={150}>
+                                <span className={classes.menuIcon}>
                                 <PetsIcon/>
                                 </span>
                             </div>
@@ -86,7 +94,7 @@ class _Index extends React.Component {
                         <form style={{display: "flex"}} onSubmit={(e) => {
                             e.preventDefault();
                             this.props.dispatch({
-                                type: REQUEST_GUARDIAN_FETCH,
+                                type: guardianCommands.FETCH_GUARDIAN,
                                 payload: {query: this.state.guardianQuery}
                             });
                         }}>
@@ -97,9 +105,9 @@ class _Index extends React.Component {
                             <button style={{display: "none"}} type={"submit"} />
                         </form>
                         <ExpansionPanel
-                            expanded={Boolean(this.props.guardianDetail._id) || Boolean(this.props.guardianDetail.noMatch)}>
+                            expanded={Boolean(this.props.entities.guardian.guardian._id) || Boolean(this.props.entities.guardian.guardian.noMatch)}>
                             {
-                                this.props.guardianDetail.noMatch &&
+                                this.props.entities.guardian.guardian.noMatch &&
 
                                 <Layout alignItems={"center"}>
                                     <Typography variant={"body2"} className={`flex`}>
@@ -110,22 +118,22 @@ class _Index extends React.Component {
                                 </Layout>
                             }
                             {
-                                this.props.guardianDetail._id &&
+                                this.props.entities.guardian.guardian._id &&
 
                                 <Layout direction={"row"} alignItems={"flex-end"} flex={1}>
                                     <Layout direction={"column"} flex={1}>
                                         <Typography variant={"title"}>
-                                            {this.props.guardianDetail.profile.first_name}
+                                            {this.props.entities.guardian.guardian.profile.first_name}
                                         </Typography>
                                         <Typography>
-                                            {this.props.guardianDetail.profile.mobile_number}
+                                            {this.props.entities.guardian.guardian.profile.mobile_number}
                                         </Typography>
                                         <Typography>
-                                            {this.props.guardianDetail.profile.address}
+                                            {this.props.entities.guardian.guardian.profile.address}
                                         </Typography>
                                     </Layout>
                                     <Button component={Link}
-                                            to={`/admin/dashboard/vaccinations/${this.props.guardianDetail._id}/add-pet`}
+                                            to={`/admin/dashboard/vaccinations/${this.props.entities.guardian.guardian._id}/add-pet`}
                                             color={"primary"}>Choose</Button>
                                 </Layout>
                             }
@@ -148,7 +156,7 @@ class _Index extends React.Component {
                         }}
                         onScan={(result) => {
                             if (result) {
-                                this.props.dispatch({type:REQUEST_PET_FETCH, payload: {token: result}});
+                                this.props.dispatch({type:petCommands.FETCH_PET, payload: {token: result}});
                             }
                         }}
                         style={{width: 400, height: 400}}
@@ -157,7 +165,7 @@ class _Index extends React.Component {
                         <form style={{display: "flex"}} onSubmit={(e) => {
                             e.preventDefault();
                             this.props.dispatch({
-                                type: REQUEST_GUARDIAN_FETCH,
+                                type: petCommands.FETCH_PET,
                                 payload: {query: this.state.guardianQuery}
                             });
                         }}>
@@ -234,6 +242,9 @@ const Index = connect(store => store)(withStyles((theme) => {
         },
         title:{
             paddingBottom:10
+        },
+        menuIcon:{
+            fontSize:150
         }
     }
 })(_Index));

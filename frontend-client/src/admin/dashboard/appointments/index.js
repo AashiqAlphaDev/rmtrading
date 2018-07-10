@@ -21,11 +21,6 @@ import {vetCenterCommands} from "../../../stores/entities/vet-centers/sagas";
 import InputContainer from "../../../components/input"
 import _ from "underscore"
 
-
-
-
-
-
 class _Index extends React.Component {
     componentWillMount=raiseEvent(appointmentsUiEvents.APPOINTMENTS_MENU_ITEM_WILL_LOAD,this);
     state = {
