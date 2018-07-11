@@ -1,47 +1,48 @@
 import React from "react"
 import Layout from "../layout";
 import {withStyles} from "@material-ui/core/styles";
-import {List} from "@material-ui/core/index";
-import {ListItem} from "@material-ui/core/index";
-import {ListItemText} from "@material-ui/core/index";
-import {ListItemIcon} from "@material-ui/core/index";
+import {List, ListItem,ListItemText,ListItemIcon, AppBar,Toolbar, Button} from "@material-ui/core/index";
 import {AppointmentsIcon, OverviewIcon, PetsIcon} from "../icons";
 import Link from "next/link"
 import {Typography} from "@material-ui/core/index";
 import {withRouter} from 'next/router'
+import {connect} from "react-redux"
+import {authCommands} from "../../store/domain/auth";
 
+let pageTitles = {
+	"/dashboard/overview":"Overview",
+	"/dashboard/pets":"Pets",
+	"/dashboard/appointments":"Appointments"
+};
 
 const pages = [
 	{
 		Icon: () => {
 			return <OverviewIcon size={32}/>;
 		},
-		label: "Overview",
 		url: "/dashboard/overview"
 	},
 	{
 		Icon: () => {
 			return <PetsIcon size={32}/>;
 		},
-		label: "Pets",
 		url: "/dashboard/pets"
 	},
 	{
 		Icon: () => {
 			return <AppointmentsIcon size={32}/>
 		},
-		label: "Appointments",
 		url: "/dashboard/appointments"
 	}
 ];
 
 
-let Sidebar = ({classes, router})=>{
+let Sidebar = ({classes, path})=>{
 	return <Layout className={classes.sidebar} direction={"column"} justifyContent={"center"}>
 		<List>
 			{
 				pages.map((page)=>{
-					let isActive = router.pathname == page.url;
+					let isActive = path == page.url;
 					return <Link href={page.url} key={page.url}>
 						<ListItem className={isActive?classes.sideBarActiveItem:classes.sideBarItem}>
 							<ListItemIcon>
@@ -49,7 +50,7 @@ let Sidebar = ({classes, router})=>{
 							</ListItemIcon>
 							<ListItemText >
 								<Typography variant={"subheading"} className={isActive?classes.sideBarActiveItemTitle:classes.sideBarItemTitle}>
-									{page.label}
+									{pageTitles[page.url]}
 								</Typography>
 							</ListItemText>
 						</ListItem>
@@ -60,11 +61,29 @@ let Sidebar = ({classes, router})=>{
 	</Layout>
 }
 
+let AppToolbar = ({path, classes, dispatch})=>{
+	return <AppBar position="static" color="default">
+		<Toolbar>
+			<Typography variant={"title"} className={classes.navTitle}>
+				{pageTitles[path]}
+			</Typography>
+			<Button onClick={()=>{
+				dispatch({type:authCommands.ADMIN_LOGOUT})
+			}}>
+				Logout
+			</Button>
+		</Toolbar>
+	</AppBar>
+}
+
 let _DashboardContainer = (props) => {
-	const {children, classes, router} = props;
+	const {children, classes, router, dispatch} = props;
 	return <Layout className={classes.body}>
-		<Sidebar classes={classes} router={router}/>
-		{children}
+		<Sidebar classes={classes} path={router.pathname}/>
+		<Layout flex={1} direction={"column"}>
+			<AppToolbar dispatch={dispatch} classes={classes} path={router.pathname} />
+			{children}
+		</Layout>
 	</Layout>
 }
 
@@ -78,19 +97,21 @@ let DashboardContainer = withStyles((theme)=>{
 			background:theme.palette.primary.dark
 		},
 		sideBarItemTitle:{
-			opacity:0.5,
 			color:"#FFF"
 		},
 		sideBarActiveItemTitle:{
 			color:theme.palette.primary.dark
 		},
 		sideBarItem:{
-
+			opacity:0.5,
 		},
 		sideBarActiveItem:{
 			background:"#FFF"
+		},
+		navTitle:{
+			flex:1
 		}
 	}
-})(withRouter(_DashboardContainer));
+})(withRouter(connect(store=>store)(_DashboardContainer)));
 
 export default DashboardContainer;

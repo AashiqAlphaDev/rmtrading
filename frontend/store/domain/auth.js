@@ -2,9 +2,12 @@ import {put, takeEvery} from 'redux-saga/effects'
 import {appActions, httpMethods} from "../app/saga";
 
 const authEvents = {
-	LOGIN_STARTED:"auth/commands/LOGIN_STARTED",
-	LOGIN_SUCCEEDED:"auth/commands/LOGIN_SUCCEEDED",
-	LOGIN_FAILED:"auth/commands/LOGIN_FAILED"
+	ADMIN_LOGIN_STARTED:"auth/events/LOGIN_STARTED",
+	ADMIN_LOGIN_SUCCEEDED:"auth/events/LOGIN_SUCCEEDED",
+	ADMIN_LOGIN_FAILED:"auth/events/LOGIN_FAILED",
+	ADMIN_LOGOUT_STARTED:"auth/events/ADMIN_LOGOUT_STARTED",
+	ADMIN_LOGOUT_SUCCEEDED:"auth/events/ADMIN_LOGOUT_SUCCEEDED",
+	ADMIN_LOGOUT_FAILED:"auth/events/ADMIN_LOGOUT_FAILED",
 };
 
 const authDocActions = {
@@ -12,7 +15,8 @@ const authDocActions = {
 };
 
 const authCommands = {
-	ADMIN_LOGIN:"auth/commands/ADMIN_LOGIN"
+	ADMIN_LOGIN:"auth/commands/ADMIN_LOGIN",
+	ADMIN_LOGOUT:"auth/commands/ADMIN_LOGOUT"
 };
 
 const initData = {
@@ -36,21 +40,39 @@ let authReducer = function(state=initData, {type, payload}){
 
 let authSaga = function*() {
 	yield takeEvery(authCommands.ADMIN_LOGIN, function*(action) {
-		yield put({type:authEvents.LOGIN_STARTED});
+		yield put({type:authEvents.ADMIN_LOGIN_STARTED});
 		yield put({
 			type: appActions.API,
 			payload: {
 				url: '/login',
 				method: httpMethods.POST,
-				body: action.payload,
-				authorized:true
+				body: action.payload
 			},
 			meta: {
-				postFailureAction: authEvents.LOGIN_FAILED,
-				postSuccessAction: authEvents.LOGIN_SUCCEEDED,
+				postFailureAction: authEvents.ADMIN_LOGIN_FAILED,
+				postSuccessAction: authEvents.ADMIN_LOGIN_SUCCEEDED,
 				onSuccess:function*(payload){
 					if(typeof window === 'object'){
 						document.cookie = `session_id=${payload.session_id}`
+					}
+				}
+			}
+		});
+	});
+	yield takeEvery(authCommands.ADMIN_LOGOUT, function*() {
+		yield put({type:authEvents.ADMIN_LOGOUT_STARTED});
+		yield put({
+			type: appActions.API,
+			payload: {
+				url: '/logout',
+				method: httpMethods.DELETE,
+			},
+			meta: {
+				postFailureAction: authEvents.ADMIN_LOGOUT_FAILED,
+				postSuccessAction: authEvents.ADMIN_LOGOUT_SUCCEEDED,
+				onSuccess:function*(){
+					if(typeof window === 'object'){
+						document.cookie = `session_id=`
 					}
 				}
 			}
