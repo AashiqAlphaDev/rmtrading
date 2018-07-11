@@ -15,8 +15,8 @@ router.delete("/logout", httpCoWrap(function* (req, res, next) {
 
 router.post("/login", httpCoWrap(function* (req, res, next) {
 	var result = yield authService.authenticateUser(req.body);
-	var centers = yield authService.adminOfCenters(result.email);
 	if (result) {
+		var centers = yield authService.adminOfCenters(result.email);
 		if (centers.length == 1) {
 			req.session.isCenterAdmin = true;
 			req.session.center_id = centers[0].vaccination_center;

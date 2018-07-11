@@ -35,6 +35,7 @@ _Document.getInitialProps = ctx => {
 		};
 		return WrappedComponent;
 	});
+
 	return {
 		...page,
 		pageContext,

@@ -3,9 +3,12 @@ import React from 'react'
 import {CssBaseline} from "@material-ui/core/index";
 import {MuiThemeProvider} from "@material-ui/core/styles/index";
 import JssProvider from 'react-jss/lib/JssProvider';
-import getPageContext from "@config/page-context";
+import getPageContext from "../config/page-context";
+import {Provider} from "react-redux"
+import withRedux from "../store/with-redux-store";
 
-export default class LoopApp extends App {
+
+class _App extends App {
 
 	constructor(props){
 		super(props);
@@ -15,6 +18,16 @@ export default class LoopApp extends App {
 	pageContext = null;
 
 
+	static async getInitialProps({Component, router, ctx}) {
+		let pageProps = {};
+
+
+		if (Component.getInitialProps) {
+			pageProps = await Component.getInitialProps(ctx)
+		}
+		return {...pageProps}
+	}
+
 	componentDidMount() {
 		const jssStyles = document.querySelector('#jss-server-side');
 		if (jssStyles && jssStyles.parentNode) {
@@ -23,7 +36,7 @@ export default class LoopApp extends App {
 	}
 
 	render() {
-		const {Component, pageProps} = this.props;
+		const {Component, pageProps, reduxStore} = this.props;
 		return <Container>
 			<JssProvider
 				registry={this.pageContext.sheetsRegistry}
@@ -34,9 +47,13 @@ export default class LoopApp extends App {
 					sheetsManager={this.pageContext.sheetsManager}
 				>
 					<CssBaseline/>
-					<Component pageContext={this.pageContext} {...pageProps} />
+					<Provider store={reduxStore}>
+						<Component pageContext={this.pageContext} {...pageProps} />
+					</Provider>
 				</MuiThemeProvider>
 			</JssProvider>
 		</Container>
 	}
 }
+
+export default withRedux(_App)

@@ -5,6 +5,7 @@ const session = require('express-session');
 const routes = require("./routes");
 const express = require('express');
 const app = express();
+let sessionStore = require("./session-store");
 
 app.use(session({
 	secret: '21euwd8oilk12evqwdsuiekiqewjgdascyu12kueqwjgdsui1kyqwu',
@@ -12,6 +13,19 @@ app.use(session({
 	resave: true,
 	saveUninitialized: true
 }));
+
+app.use(function (req, res, next) {
+	if (req.headers["x-session-id"]) {
+		req.sessionID = req.headers["x-session-id"];
+		req.sessionStore.get(req.sessionID, function (err, sess) {
+			req.sessionStore.createSession(req, sess);
+			next()
+		});
+	}
+	else{
+		next();
+	}
+});
 
 app.use(function (req, res, next) {
 	res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
@@ -25,7 +39,6 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cookieParser());
-
 app.use(routes);
 
 

@@ -4,7 +4,6 @@ import {authCommands} from "../../../../frontend-client/src/stores/entities/auth
 import {Typography, TextField, Button} from "@material-ui/core/index";
 import withStyles from "@material-ui/core/styles/withStyles";
 import AuthContainer from "../../../components/auth/auth-container";
-import Link from "next/link"
 
 let _Index = class extends React.Component {
 
