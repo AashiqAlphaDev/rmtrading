@@ -9,6 +9,7 @@ import {authCommands} from "../../../store/domain/auth";
 import {setStateKey} from "../../../components/util"
 import {isAdmin} from "../../../api/api";
 import Router from "next/router";
+import {checkAdmin} from "../index";
 
 let _Index = class extends React.Component {
 
@@ -34,8 +35,7 @@ let _Index = class extends React.Component {
 	render() {
 		const {classes} = this.props;
 		return <AuthContainer>
-			<Layout direction={"column"} className={classes.container}
-			               justifyContent={"center"} flex={1}>
+			<Layout direction={"column"} className={classes.container} justifyContent={"center"} flex={1}>
 				<form onSubmit={(e) => {
 					e.preventDefault();
 					const {email, password} = this.state;
@@ -48,12 +48,10 @@ let _Index = class extends React.Component {
 						<Typography variant={"body1"} color={"textSecondary"} className={classes.line}>
 							Getting started is quick and simple, Just fill out the info below !
 						</Typography>
-
 						<Layout direction={"column"} className={classes.section}>
 							<TextField className={classes.line} value={this.state.email} onChange={this.setStateKey("email")} placeholder={"Email"}></TextField>
 							<TextField className={classes.line} value={this.state.password} onChange={this.setStateKey("password")} placeholder={"Password"} type={"password"} />
 						</Layout>
-
 						<Layout direction={"column"}>
 							<Typography variant={"body1"} gutterBottom align={"center"} className={classes.line}>
 								<span>Forgot your password?, Reset you account </span>
@@ -71,11 +69,11 @@ let _Index = class extends React.Component {
 const Index = withStyles((theme)=>{
 	return {
 		line:{
-			marginBottom:2*theme.spacing.unit
+			marginBottom: 2*theme.spacing.unit
 		},
 		section:{
-			marginBottom:2*theme.spacing.unit
+			marginBottom: 2*theme.spacing.unit
 		}
 	}
-})(connect(store=>store)(_Index))
+})(connect(store=>store)(checkAdmin(_Index)))
 export default Index;
