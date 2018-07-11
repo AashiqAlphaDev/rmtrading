@@ -7,7 +7,8 @@ import {ListItemText} from "@material-ui/core/index";
 import {ListItemIcon} from "@material-ui/core/index";
 import {AppointmentsIcon, OverviewIcon, PetsIcon} from "../icons";
 import Link from "next/link"
-import Button from "@material-ui/core/Button/Button";
+import {Typography} from "@material-ui/core/index";
+import {withRouter} from 'next/router'
 
 
 const pages = [
@@ -35,17 +36,22 @@ const pages = [
 ];
 
 
-let Sidebar = ()=>{
-	return <Layout>
+let Sidebar = ({classes, router})=>{
+	return <Layout className={classes.sidebar} direction={"column"} justifyContent={"center"}>
 		<List>
 			{
 				pages.map((page)=>{
+					let isActive = router.pathname == page.url;
 					return <Link href={page.url} key={page.url}>
-						<ListItem>
+						<ListItem className={isActive?classes.sideBarActiveItem:classes.sideBarItem}>
 							<ListItemIcon>
 								<page.Icon />
 							</ListItemIcon>
-							<ListItemText primary={page.label} />
+							<ListItemText >
+								<Typography variant={"subheading"} className={isActive?classes.sideBarActiveItemTitle:classes.sideBarItemTitle}>
+									{page.label}
+								</Typography>
+							</ListItemText>
 						</ListItem>
 					</Link>
 				})
@@ -54,17 +60,37 @@ let Sidebar = ()=>{
 	</Layout>
 }
 
-let _DashboardContainer = ({children, classes}) => {
+let _DashboardContainer = (props) => {
+	const {children, classes, router} = props;
 	return <Layout className={classes.body}>
-		<Sidebar />
+		<Sidebar classes={classes} router={router}/>
 		{children}
 	</Layout>
 }
 
-let DashboardContainer = withStyles({
-	body:{
-		height:"100%"
+let DashboardContainer = withStyles((theme)=>{
+	return {
+		body:{
+			height:"100%"
+		},
+		sidebar:{
+			minWidth:300,
+			background:theme.palette.primary.dark
+		},
+		sideBarItemTitle:{
+			opacity:0.5,
+			color:"#FFF"
+		},
+		sideBarActiveItemTitle:{
+			color:theme.palette.primary.dark
+		},
+		sideBarItem:{
+
+		},
+		sideBarActiveItem:{
+			background:"#FFF"
+		}
 	}
-})(_DashboardContainer)
+})(withRouter(_DashboardContainer));
 
 export default DashboardContainer;
