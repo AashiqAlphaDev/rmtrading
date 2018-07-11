@@ -4,6 +4,6 @@ import DashboardContainer from "../../../components/admin-dashboard";
 
 export default ()=>{
 	return <DashboardContainer>
-		Overview
+		Pets
 	</DashboardContainer>
 }

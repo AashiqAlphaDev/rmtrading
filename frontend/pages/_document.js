@@ -13,6 +13,7 @@ class _Document extends Document {
 					<meta name="viewport" content={'user-scalable=0, initial-scale=1, minimum-scale=1, width=device-width, height=device-height'} />
 					<meta name="theme-color" content={pageContext.theme.palette.primary.main} />
 					<link rel="stylesheet" href="/static/index.css" />
+					<link rel="stylesheet" href="/static/style.css" />
 				</Head>
 				<body>
 					<Main />
