@@ -12,6 +12,8 @@ class _Document extends Document {
 					<meta charSet="utf-8" />
 					<meta name="viewport" content={'user-scalable=0, initial-scale=1, minimum-scale=1, width=device-width, height=device-height'} />
 					<meta name="theme-color" content={pageContext.theme.palette.primary.main} />
+					<link rel="preload" href="/static/index.css" />
+					<link rel="preload" href="/static/style.css" />
 					<link rel="stylesheet" href="/static/index.css" />
 					<link rel="stylesheet" href="/static/style.css" />
 				</Head>

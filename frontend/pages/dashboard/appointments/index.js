@@ -4,7 +4,7 @@ import {checkAdmin} from "../index";
 
 let _Index = ()=>{
 	return <DashboardContainer>
-		Appointments
+
 	</DashboardContainer>
 };
 

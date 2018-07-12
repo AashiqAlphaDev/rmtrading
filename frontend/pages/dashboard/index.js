@@ -20,8 +20,8 @@ const dashboardUiActions = {
 let dashboardUiSaga = function*(){
 	yield takeEvery(authEvents.ADMIN_LOGOUT_SUCCEEDED, function*() {
 		Router.push('/auth/login');
-	})
-}
+	});
+};
 
 let checkAdmin = (Component)=>{
 	return connect(store=>store)(class extends React.Component{
