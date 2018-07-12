@@ -18,6 +18,9 @@ body, html{
     background-color: #e5e5e5;
 }
 
+.pac-container{
+    z-index: 9999;
+}
 
 .container{
     width:1024px;

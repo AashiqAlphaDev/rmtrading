@@ -16,6 +16,7 @@ class _Document extends Document {
 					<link rel="preload" href="/static/style.css" />
 					<link rel="stylesheet" href="/static/index.css" />
 					<link rel="stylesheet" href="/static/style.css" />
+						<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3I7ypbhu0swvARgZ7mmj6g9MQ6-stDQE&libraries=places" />
 				</Head>
 				<body>
 					<Main />
