@@ -3,7 +3,12 @@ import fetch from 'isomorphic-fetch';
 
 
 let isAdmin = function(sessionId){
+
 	return new Promise(function (resolve, reject) {
+		if(!sessionId){
+			resolve(false);
+			return false;
+		}
 		fetch(`${base_url}/admin`, {
 			method:"GET",
 			headers:{

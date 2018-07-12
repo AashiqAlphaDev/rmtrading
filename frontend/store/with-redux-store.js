@@ -21,9 +21,8 @@ export default (App) => {
 		static async getInitialProps (appContext) {
 			let {session_id} = cookies(appContext.ctx);
 			const reduxStore = getOrCreateStore();
-			reduxStore.dispatch({type:"SET_SESSION", payload:session_id});
 			appContext.ctx.session_id = session_id;
-			appContext.ctx.reduxStore = reduxStore
+			appContext.ctx.reduxStore = reduxStore;
 			let appProps = {}
 			if (typeof App.getInitialProps === 'function') {
 				appProps = await App.getInitialProps.call(App, appContext)

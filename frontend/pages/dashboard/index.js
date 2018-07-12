@@ -1,11 +1,31 @@
+import {takeEvery} from "redux-saga/effects";
 import React from "react";
 import {isAdmin} from "../../api/api";
 import Router from "next/router";
+import {connect} from "react-redux"
+import {authEvents} from "../../store/domain/auth";
+
+const dashboardUiEvents = {
+
+};
+
+const dashboardUiCommands = {
+
+};
+
+const dashboardUiActions = {
+
+};
+
+let dashboardUiSaga = function*(){
+	yield takeEvery(authEvents.ADMIN_LOGOUT_SUCCEEDED, function*() {
+		Router.push('/auth/login');
+	})
+}
 
 let checkAdmin = (Component)=>{
-	return class extends React.Component{
-		static async getInitialProps(appContext){
-			const {ctx} = appContext;
+	return connect(store=>store)(class extends React.Component{
+		static async getInitialProps(ctx){
 			let result = await isAdmin(ctx.session_id);
 			if (!result) {
 				const {res} = ctx;
@@ -21,18 +41,27 @@ let checkAdmin = (Component)=>{
 			}
 			else{
 				if(Component.getInitialProps){
-					return await Component.getInitialProps.call(Component, appContext);
+					return await Component.getInitialProps.call(Component, ctx);
 				}
 				else{
 					return {};
 				}
 			}
 		}
-	}
+
+
+		render(){
+			return <Component {...this.props} />
+		}
+	})
 }
 
 export {
-	checkAdmin
+	checkAdmin,
+	dashboardUiSaga,
+	dashboardUiEvents,
+	dashboardUiCommands,
+	dashboardUiActions
 }
 
 export default class {

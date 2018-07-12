@@ -28,7 +28,7 @@ const initData = {
 	}
 };
 
-let authReducer = function(state=initData, {type, payload}){
+let authReducer = function(state=initData, {type}){
 	switch (type) {
 		default:{
 			break;
@@ -53,7 +53,7 @@ let authSaga = function*() {
 				postSuccessAction: authEvents.ADMIN_LOGIN_SUCCEEDED,
 				onSuccess:function*(payload){
 					if(typeof window === 'object'){
-						document.cookie = `session_id=${payload.session_id}`
+						document.cookie = `session_id=${payload.session_id};path=/`
 					}
 				}
 			}
@@ -72,7 +72,7 @@ let authSaga = function*() {
 				postSuccessAction: authEvents.ADMIN_LOGOUT_SUCCEEDED,
 				onSuccess:function*(){
 					if(typeof window === 'object'){
-						document.cookie = `session_id=`
+						document.cookie = `session_id=;path=/`
 					}
 				}
 			}

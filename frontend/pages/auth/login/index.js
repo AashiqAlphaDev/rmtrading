@@ -16,22 +16,6 @@ let _Index = class extends React.Component {
 	state = {email:"", password:""};
 	setStateKey = setStateKey.bind(this);
 
-	static async getInitialProps(ctx){
-		let result = await isAdmin(ctx.session_id);
-		if (result) {
-			const {res} = ctx;
-			if (res) {
-				res.writeHead(302, {
-					Location: '/dashboard'
-				});
-				res.end();
-				res.finished = true;
-			} else {
-				Router.push('/dashboard');
-			}
-		}
-	}
-
 	render() {
 		const {classes} = this.props;
 		return <AuthContainer>

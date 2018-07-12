@@ -18,26 +18,28 @@ let appSaga = function* () {
 		try {
 			const options = {
 				method: action.payload.method || 'GET',
-				headers: action.payload.headers || {'Content-Type': 'application/json'}
+				headers: action.payload.headers || {'Content-Type': 'application/json'},
+				credentials: 'include'
 			};
 			if (options.method != 'GET') {
 				options.body = JSON.stringify(action.payload.body) || JSON.stringify({});
 			}
 			const response = yield call(fetch, `${base_url}${action.payload.url}`, options);
+			let responseData = yield response.json();
 			if (response.ok) {
 				if (action.meta.onSuccess) {
-					yield action.meta.onSuccess(yield response.json());
+					yield action.meta.onSuccess(responseData);
 				}
 				if (action.meta.postSuccessAction) {
-					yield  put({type: action.meta.postSuccessAction, payload: yield response.json()});
+					yield  put({type: action.meta.postSuccessAction, payload: responseData});
 				}
 			}
 			else if (!response.ok) {
 				if (action.meta.onFailure) {
-					yield action.meta.onFailure(yield response.json());
+					yield action.meta.onFailure(responseData);
 				}
 				if (action.meta.postFailureAction) {
-					yield  put({type: action.meta.postFailureAction, payload: yield response.json()});
+					yield  put({type: action.meta.postFailureAction, payload: responseData});
 				}
 			}
 		} catch (err) {
