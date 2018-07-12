@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?u6063r');
-  src:  url('fonts/icomoon.eot?u6063r#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?u6063r') format('truetype'),
-    url('fonts/icomoon.woff?u6063r') format('woff'),
-    url('fonts/icomoon.svg?u6063r#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?jhgaqi');
+  src:  url('fonts/icomoon.eot?jhgaqi#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?jhgaqi') format('truetype'),
+    url('fonts/icomoon.woff?jhgaqi') format('woff'),
+    url('fonts/icomoon.svg?jhgaqi#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,73 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-user-icon .path1:before {
+  content: "\e96e";
+  color: rgb(79, 195, 247);
+}
+.icon-user-icon .path2:before {
+  content: "\e96f";
+  margin-left: -1em;
+  color: rgb(255, 152, 0);
+}
+.icon-user-icon .path3:before {
+  content: "\e970";
+  margin-left: -1em;
+  color: rgb(255, 167, 38);
+}
+.icon-user-icon .path4:before {
+  content: "\e971";
+  margin-left: -1em;
+  color: rgb(255, 167, 38);
+}
+.icon-user-icon .path5:before {
+  content: "\e972";
+  margin-left: -1em;
+  color: rgb(255, 183, 77);
+}
+.icon-user-icon .path6:before {
+  content: "\e973";
+  margin-left: -1em;
+  color: rgb(66, 66, 66);
+}
+.icon-user-icon .path7:before {
+  content: "\e974";
+  margin-left: -1em;
+  color: rgb(120, 71, 25);
+}
+.icon-user-icon .path8:before {
+  content: "\e975";
+  margin-left: -1em;
+  color: rgb(120, 71, 25);
+}
+.icon-user-icon .path9:before {
+  content: "\e976";
+  margin-left: -1em;
+  color: rgb(1, 87, 155);
+}
+.icon-qr-icon:before {
+  content: "\e96d";
+  color: #3f51b5;
+}
+.icon-search-icon .path1:before {
+  content: "\e969";
+  color: rgb(182, 201, 214);
+}
+.icon-search-icon .path2:before {
+  content: "\e96a";
+  margin-left: -1em;
+  color: rgb(120, 139, 156);
+}
+.icon-search-icon .path3:before {
+  content: "\e96b";
+  margin-left: -1em;
+  color: rgb(209, 237, 255);
+}
+.icon-search-icon .path4:before {
+  content: "\e96c";
+  margin-left: -1em;
+  color: rgb(120, 139, 156);
+}
 .icon-delete-icon .path1:before {
   content: "\e95d";
   color: rgb(159, 168, 218);

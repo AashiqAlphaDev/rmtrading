@@ -94,6 +94,11 @@ let EditIcon = ({size})=>{
 		className="path3"></span><span className="path4"></span><span className="path5"></span></span>
 }
 
+let SearchIcon = ({size})=>{
+	return <span style={{fontSize: size, lineHeight: `${size}px`}} className="icon-search-icon"><span className="path1"></span><span className="path2"></span><span
+		className="path3"></span><span className="path4"></span></span>
+}
+
 
 export {
 	AppointmentsIcon,

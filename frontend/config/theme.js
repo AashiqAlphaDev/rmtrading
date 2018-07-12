@@ -59,6 +59,16 @@ const theme = createMuiTheme({
 				// color: accentColor
 			},
 		},
+		MuiFormControl:{
+			root:{
+				borderRadius: 4,
+				background: '#FFF',
+				border: "2px solid #e8e8e8",
+				'&:focus': {
+					borderColor: primaryColor
+				}
+			}
+		},
 		MuiButton: {
 			root: {
 				// textTransform: 'none',
@@ -118,15 +128,12 @@ const theme = createMuiTheme({
 			}
 		},
 		MuiInput: {
+			root:{
+				display:"flex",
+				alignItems:"center",
+			},
 			input: {
 				padding: 10,
-				borderRadius: 4,
-				background: '#FFF',
-				border: "2px solid #e8e8e8",
-				'&:focus': {
-					borderRadius: 4,
-					borderColor: primaryColor
-				}
 			}
 		},
 		MuiList: {

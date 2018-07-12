@@ -80,7 +80,7 @@ let _DashboardContainer = (props) => {
 	const {children, classes, router, dispatch} = props;
 	return <Layout className={classes.body}>
 		<Sidebar classes={classes} path={router.pathname}/>
-		<Layout flex={1} direction={"column"}>
+		<Layout flex={1} direction={"column"} style={{borderLeft:"1px solid rgba(0, 0, 0, 0.12)"}}>
 			<AppToolbar dispatch={dispatch} classes={classes} path={router.pathname} />
 			{children}
 		</Layout>
@@ -94,7 +94,8 @@ let DashboardContainer = withStyles((theme)=>{
 		},
 		sidebar:{
 			minWidth:300,
-			background:theme.palette.primary.dark
+			background:theme.palette.primary.dark,
+
 		},
 		sideBarItemTitle:{
 			color:"#FFF"

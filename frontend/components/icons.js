@@ -95,7 +95,27 @@ let EditIcon = ({size})=>{
 }
 
 
+let SearchIcon = ({size, pad})=>{
+	return <span style={{padding:pad,fontSize: size, lineHeight: `${size}px`}} className="icon-search-icon"><span className="path1"></span><span className="path2"></span><span
+		className="path3"></span><span className="path4"></span></span>
+}
+
+let QRIcon = ({size,pad})=>{
+	return <span style={{padding:pad,fontSize: size, lineHeight: `${size}px`}} className="icon-qr-icon"></span>
+}
+
+let UserIcon = ({size, pad})=>{
+	return <span style={{padding:pad,fontSize: size, lineHeight: `${size}px`}} className="icon-user-icon"><span className="path1"></span><span className="path2"></span><span
+		className="path3"></span><span className="path4"></span><span className="path5"></span><span
+		className="path6"></span><span className="path7"></span><span className="path8"></span><span
+		className="path9"></span></span>;
+}
+
+
+
+
 export {
+	UserIcon,
 	AppointmentsIcon,
 	CardIcon,
 	CountriesIcon,
@@ -106,5 +126,7 @@ export {
 	SyringeIcon,
 	VetCenterIcon, VisitsIcon,
 	DeleteIcon,
-	EditIcon
+	EditIcon,
+	SearchIcon,
+	QRIcon
 }
