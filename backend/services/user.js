@@ -24,6 +24,13 @@ module.exports.userByMobileNo = function* (mobile_number) {
 
 module.exports.createUser = function* (userData) {
 	validate(userData, ["email"], "You missed <%=param%>.");
+    let existingUser = yield User.findOne({$or: [{"profile.mobile_number": userData.profile.mobile_number}, {"profile.government_issued_id": userData.profile.government_issued_id},{email:userData.email}]}).exec();
+    if (existingUser) {
+        let error = createError(400);
+        error.message = "User Already Exists";
+        error.data = existingUser;
+        throw error;
+    }
 	userData.email_verified = false;
 	userData.password = null;
 	yield emailer.send({
