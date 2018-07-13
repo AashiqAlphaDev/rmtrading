@@ -1,27 +1,7 @@
-import {takeEvery} from "redux-saga/effects";
 import React from "react";
 import {isAdmin} from "../../api/api";
 import Router from "next/router";
 import {connect} from "react-redux"
-import {authEvents} from "../../store/domain/auth";
-
-const dashboardUiEvents = {
-
-};
-
-const dashboardUiCommands = {
-
-};
-
-const dashboardUiActions = {
-
-};
-
-let dashboardUiSaga = function*(){
-	yield takeEvery(authEvents.ADMIN_LOGOUT_SUCCEEDED, function*() {
-		Router.push('/auth/login');
-	});
-};
 
 let checkAdmin = (Component)=>{
 	return connect(store=>store)(class extends React.Component{
@@ -57,11 +37,7 @@ let checkAdmin = (Component)=>{
 }
 
 export {
-	checkAdmin,
-	dashboardUiSaga,
-	dashboardUiEvents,
-	dashboardUiCommands,
-	dashboardUiActions
+	checkAdmin
 }
 
 export default class {

@@ -24,7 +24,6 @@ export default (initialState)=>{
     sagaMiddleware.run(userSaga);
 	sagaMiddleware.run(appSaga);
 	sagaMiddleware.run(authUiSaga);
-	sagaMiddleware.run(dashboardUiSaga);
     sagaMiddleware.run(petsUiSaga);
 
 	return store;
