@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const User = mongoose.model('User');
 const emailer = require("./emailer");
+const createError = require('http-errors');
 
 module.exports.userByGovernmentId = function* (government_issued_id) {
 	queryValidate(government_issued_id, "You missed government_issued_id.");
