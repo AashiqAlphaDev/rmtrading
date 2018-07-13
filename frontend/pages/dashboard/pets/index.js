@@ -20,11 +20,13 @@ import InputContainer from "../../../components/input";
 import uuidv1 from 'uuid/v1';
 import {userCommands, userEvents} from "../../../store/domain/user";
 import {addListener, removeListener} from "./redux"
+import {Snackbar} from "@material-ui/core/es/index";
 
 let _Index = class extends React.Component {
 
 	state = {
-		userDetails: {profile: {}}
+		userDetails: {profile: {}},
+		showRegisterGuardianDialogue:false,
 	};
 
 	componentWillMount = () => {
@@ -39,20 +41,7 @@ let _Index = class extends React.Component {
 			this.setState({showRegisterGuardianDialogue: false});
 		}
 		if (type === userEvents.ADD_GUARDIAN_FAILED && payload.callbackId === this.state.addGuardianCallbackId) {
-			this.setState({registerGuardianError: payload.data});
-		}
-	}
-
-
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.ui.user.triggeredCallback && (nextProps.ui.user.triggeredCallback.callbackId == this.state.addUserCallbackId)) {
-			if (nextProps.ui.user.triggeredCallback.success) {
-				this.setState({addUserCallbackId: null, showRegisterGuardianDialogue: false});
-			}
-			else {
-				this.setState({addUserCallbackId: null, error});
-			}
-			this.props.dispatch({type: userUiCommands.RESET_CALLBACK_TRIGGER});
+			this.setState({error: payload.message});
 		}
 	}
 
@@ -64,8 +53,6 @@ let _Index = class extends React.Component {
 					<Layout className={classes.searchContainer} direction={"column"}>
 						<Layout flex={1} direction={"column"}>
 							<TextField
-								value={this.state.query}
-								onChange={this.setStateKey("query")}
 								placeholder={"Search a pet or a guardian"}
 								InputProps={{
 									endAdornment: <SearchIcon size={25} pad={5}/>
@@ -170,55 +157,61 @@ let _Index = class extends React.Component {
 							<Layout direction={"column"}>
 								<InputContainer label={"Name"}>
 									<TextField
-										value={this.state.userDetails.name}
+										value={this.state.userDetails.profile.name}
 										onChange={(e) => {
-											this.setState((state) => (state.userDetails.profile.name = e.target.value, state))
+											let name = e.target.value;
+											this.setState((state) => (state.userDetails.profile.name = name, state))
 										}}
 										placeholder={"Name"}
 									/>
 								</InputContainer>
 								<InputContainer label={"Name"}>
 									<TextField
-										value={this.state.mobile}
+										value={this.state.userDetails.profile.mobile}
 										onChange={(e) => {
-											this.setState((state) => (state.userDetails.profile.mobile = e.target.value, state))
+											let mobile = e.target.value;
+											this.setState((state) => (state.userDetails.profile.mobile = mobile, state))
 										}}
 										placeholder={"Mobile Number"}
 									/>
 								</InputContainer>
 								<InputContainer label={"Email"}>
 									<TextField
-										value={this.state.email}
+										value={this.state.userDetails.email}
 										onChange={(e) => {
-											this.setState((state) => (state.userDetails.profile.email = e.target.value, state))
+											let email = e.target.value;
+											this.setState((state) => (state.userDetails.email = email, state))
 										}}
 										placeholder={"Email"}
 									/>
 								</InputContainer>
 								<InputContainer label={"City"}>
 									<TextField
-										value={this.state.city}
+										value={this.state.userDetails.profile.city}
 										onChange={(e) => {
-											this.setState((state) => (state.userDetails.profile.city = e.target.value, state))
+											let city = e.target.value;
+											this.setState((state) => (state.userDetails.profile.city = city, state))
 										}}
 										placeholder={"City"}
 									/>
 								</InputContainer>
 								<InputContainer label={"Address"}>
 									<TextField
-										value={this.state.address}
+										value={this.state.userDetails.profile.address}
 										placeholder={"Address"}
 										onChange={(e) => {
-											this.setState((state) => (state.userDetails.profile.address = e.target.value, state))
+											let address = e.target.value;
+											this.setState((state) => (state.userDetails.profile.address = address, state))
 										}}
 									/>
 								</InputContainer>
 								<InputContainer label={"Government ID"}>
 									<TextField
-										value={this.state.govId}
+										value={this.state.userDetails.profile.gov_id}
 										placeholder={"GovernmentID"}
 										onChange={(e) => {
-											this.setState((state) => (state.userDetails.profile.gov_id = e.target.value, state))
+											let govId = e.target.value;
+											this.setState((state) => (state.userDetails.profile.gov_id = govId, state))
 										}}
 									/>
 								</InputContainer>
@@ -232,6 +225,12 @@ let _Index = class extends React.Component {
 					</form>
 				</DialogContent>
 			</Dialog>
+			<Snackbar
+				open={Boolean(this.state.error)}
+				autoHideDuration={6000}
+				onClose={()=>{this.setState({error:null})}}
+				message={<span id="message-id">{this.state.error}</span>}
+			/>
 		</DashboardContainer>
 	}
 };
