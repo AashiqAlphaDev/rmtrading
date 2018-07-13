@@ -9,19 +9,18 @@ const petsUiEvents = {
 };
 
 const petsUiDocActions = {
-    SET_CALLBACK_TRIGGER:"user/ui/doc/actions/SET_CALLBACK_TRIGGER",
-};
-
-const petsUiCommands = {
-    RESET_CALLBACK_TRIGGER:"user/ui/doc/actions/RESET_CALLBACK_TRIGGER"
+    SET_USERS:"pets/ui/doc/actions/SET_USERS"
 };
 
 const initData = {
-    filteredUsers:[]
+    users:[]
 };
 
 let petsUiReducer = function(state=initData, {type, payload}){
     switch (type) {
+	    case petsUiDocActions.SET_USERS:{
+		    state = {...state, users:payload}
+	    }
         default:{
             break;
         }
@@ -41,6 +40,9 @@ let delegate = function*(action){
 let petsUiSaga = function*() {
     yield takeEvery(userEvents.ADD_GUARDIAN_SUCCEEDED, delegate);
     yield takeEvery(userEvents.ADD_GUARDIAN_FAILED, delegate);
+    yield takeEvery(userEvents.FETCH_GUARDIANS_SUCCEEDED, function*(action) {
+	    yield put({...action, type:petsUiDocActions.SET_USERS});
+    });
 };
 
 
@@ -56,7 +58,6 @@ let removeListener = (listener)=>{
 
 export {
     petsUiEvents,
-    petsUiCommands,
     petsUiReducer,
     petsUiSaga,
 	removeListener,
