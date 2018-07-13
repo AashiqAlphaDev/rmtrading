@@ -16,7 +16,8 @@ const userSchema = new Schema({
 		address: String,
 		mobile_number: String,
 		government_issued_id_type: String,
-		government_issued_id: String
+		government_issued_id: String,
+		city:String
 	}
 });
 userSchema.plugin(mongoosePaginate);
