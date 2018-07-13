@@ -17,10 +17,9 @@ import {PetsIcon, UserIcon, SearchIcon} from "../../../components/icons";
 import {ListItem, ListItemText, Divider, ListItemIcon} from "@material-ui/core/index";
 import {Collapse} from "@material-ui/core/index";
 import InputContainer from "../../../components/input";
-
 import uuidv1 from 'uuid/v1';
-import {userCommands} from "../../../store/domain/user";
-import {userUiCommands} from "./redux";
+import {userCommands, userEvents} from "../../../store/domain/user";
+import {addListener, removeListener} from "./redux"
 
 
 
@@ -31,16 +30,25 @@ let _Index = class extends React.Component {
         query: "",
         showRegister: true,
         showRegisterGuardianDialogue: false,
-        userDetails: {
-            name: "",
-            mobile: "",
-            email: "",
-            city: "",
-            address: "",
-            govId: ""
-        }
-
+        registerGuardianError:null
     };
+
+    componentWillMount(){
+	    addListener(this);
+    }
+
+    componentWillUnmount(){
+	    removeListener(this);
+    }
+
+    onAction({type, payload}){
+        if(type===userEvents.ADD_GUARDIAN_SUCCEEDED && payload.callbackId === this.state.addGuardianCallbackId){
+            this.setState({showRegisterGuardianDialogue:false});
+        }
+	    if(type===userEvents.ADD_GUARDIAN_FAILED && payload.callbackId === this.state.addGuardianCallbackId){
+		    this.setState({registerGuardianError:payload.data});
+	    }
+    }
 
     setStateKey = setStateKey.bind(this);
 
