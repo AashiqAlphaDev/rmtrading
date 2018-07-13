@@ -12,7 +12,7 @@ const userSchema = new Schema({
 	password: String,
 	email_verified: Boolean,
 	profile: {
-		first_name: String,
+		name: String,
 		address: String,
 		mobile_number: String,
 		government_issued_id_type: String,
