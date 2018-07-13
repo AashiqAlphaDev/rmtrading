@@ -188,8 +188,10 @@ let _Index = class extends React.Component {
 								</InputContainer>
 								<InputContainer label={"City"}>
 									<TextField value={this.state.govId}
-									           onChange={async (e) => {
-										           await this.handleChange(e, "country")
+									           onChange={(e) => {
+										           (this.handleChange(e, "country")).then(function () {
+
+										           })
 									           }}
 									></TextField>
 								</InputContainer>
