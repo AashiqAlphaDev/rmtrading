@@ -33,7 +33,7 @@ let appSaga = function* () {
 					yield action.meta.onSuccess(responseData);
 				}
 				if (action.meta.postSuccessAction) {
-					if(action.callbackId){
+					if(action.meta.callbackId){
                         yield  put({type: action.meta.postSuccessAction, payload:{callbackId:action.meta.callbackId, response:responseData}});
 					}
 					else{
@@ -46,7 +46,7 @@ let appSaga = function* () {
 					yield action.meta.onFailure(responseData);
 				}
 				if (action.meta.postFailureAction) {
-                    if(action.callbackId){
+                    if(action.meta.callbackId){
                         yield  put({type: action.meta.postFailureAction, payload: {callbackId:action.meta.callbackId, response:responseData}});
 					}
 					else{
@@ -62,7 +62,7 @@ let appSaga = function* () {
 					yield action.meta.onFailure({message: "Unable to access server."});
 				}
 				if (action.meta.postFailureAction) {
-                    if(action.callbackId){
+                    if(action.meta.callbackId){
                         yield  put({type: action.meta.postFailureAction, payload: {callbackId:action.meta.callbackId, response:{message: "Unable to access server."}}});
                     }
                     else{

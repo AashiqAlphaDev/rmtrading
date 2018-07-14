@@ -5,10 +5,13 @@ const UsersManagementService = require("../services/user");
 const haveCenterAccess = require("./check-center-access")
 
 
-router.get("/", haveCenterAccess, httpCoWrap(function* (req, res, next) {
+router.get("/", httpCoWrap(function* (req, res, next) {
 	var query = req.query.query ? req.query.query : {};
 	if (req.query.q) {
-		query.name = {$regex: `.*${req.query.q}.*`, '$options': 'i'}
+		var name = {$regex: `.*${req.query.q}.*`, '$options': 'i'}
+		var email = {$regex: `.*${req.query.q}.*`, '$options': 'i'}
+		var mobile = {$regex: `.*${req.query.q}.*`, '$options': 'i'}
+		query = {$or:[{name}, {email}, {mobile}]};
 	}
 	if (req.query.page && req.query.limit) {
 		var page = {};

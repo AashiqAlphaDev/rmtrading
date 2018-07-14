@@ -15,7 +15,7 @@ export default (initialState)=>{
 	let store = createStore(combineReducers({
 		ui:combineReducers({
 			auth:authUiReducer,
-			user:petsUiReducer
+			pets:petsUiReducer
 		}),
 		auth:authReducer,
 		user:userReducer

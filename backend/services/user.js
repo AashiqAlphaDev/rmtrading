@@ -18,6 +18,11 @@ module.exports.userByMobileNoOrGovId = function* (query) {
 	return yield User.findOne({$or: [{"profile.mobile_number": query}, {"profile.government_issued_id": query}]}).exec();
 };
 
+module.exports.usersByMobileNoOrGovId = function* (query) {
+
+	return yield User.find({$or: [{"profile.mobile_number": {$regex : `.*${query}.*`, '$options': 'i'}}, {"profile.government_issued_id":{$regex : `.*${query}.*`, '$options': 'i'}}]}).exec();
+};
+
 module.exports.userByMobileNo = function* (mobile_number) {
 	queryValidate(mobile_number, "You missed mobile_number.");
 	return yield User.findOne({"profile.mobile_number": mobile_number}).exec();
@@ -55,6 +60,7 @@ module.exports.userWithId = function* (userId) {
 };
 
 module.exports.users = function* (query = {}, page) {
+	console.log(query)
 	return yield User.paginate(query, page);
 };
 

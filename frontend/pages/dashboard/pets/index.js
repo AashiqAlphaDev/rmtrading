@@ -20,7 +20,7 @@ import InputContainer from "../../../components/input";
 import uuidv1 from 'uuid/v1';
 import {userCommands, userEvents} from "../../../store/domain/user";
 import {addListener, removeListener} from "./redux"
-import {Snackbar} from "@material-ui/core/es/index";
+import {Snackbar} from "@material-ui/core/index";
 
 let _Index = class extends React.Component {
 
@@ -29,7 +29,10 @@ let _Index = class extends React.Component {
 		showRegisterGuardianDialogue:false,
 	};
 
+
+
 	componentWillMount = () => {
+
 		addListener(this)
 	}
 	componentWillUnmount = () => {
@@ -41,7 +44,12 @@ let _Index = class extends React.Component {
 			this.setState({showRegisterGuardianDialogue: false});
 		}
 		if (type === userEvents.ADD_GUARDIAN_FAILED && payload.callbackId === this.state.addGuardianCallbackId) {
-			this.setState({error: payload.message});
+			if(payload.response.data){
+				this.setState({error: payload.response.message, showRegisterGuardianDialogue:false});
+			}
+			else{
+				this.setState({error: payload.response.message});
+			}
 		}
 	}
 
@@ -53,6 +61,10 @@ let _Index = class extends React.Component {
 					<Layout className={classes.searchContainer} direction={"column"}>
 						<Layout flex={1} direction={"column"}>
 							<TextField
+								onChange={(e)=>{
+									this.props.dispatch({type:userCommands.FETCH_GUARDIANS,payload:{query:e.target.value}})
+									console.log(this.props.ui)
+								}}
 								placeholder={"Search a pet or a guardian"}
 								InputProps={{
 									endAdornment: <SearchIcon size={25} pad={5}/>
@@ -96,13 +108,13 @@ let _Index = class extends React.Component {
 								})
 							}
 							{
-								[1, 2, 3, 4, 5, 6].map((item) => {
+								this.props.ui.pets.users.map((item) => {
 									return <React.Fragment key={item}>
 										<ListItem>
 											<ListItemIcon>
 												<UserIcon size={32}/>
 											</ListItemIcon>
-											<ListItemText primary={"Karthik Thirumalasetti"} secondary={"2 Pets"}/>
+											<ListItemText primary={this.props.user.users[item].email} secondary={"2 Pets"}/>
 										</ListItem>
 										<Divider/>
 									</React.Fragment>
@@ -127,6 +139,7 @@ let _Index = class extends React.Component {
 				<Layout className={classes.rightPanel}>
 					<Layout flex={1} alignItems={"center"} justifyContent={"center"}>
 						Select Pet / Guardian to view details
+
 					</Layout>
 				</Layout>
 			</Layout>
@@ -141,6 +154,7 @@ let _Index = class extends React.Component {
 					<form style={{display: "flex"}} onSubmit={(e) => {
 						e.preventDefault();
 						let uid = uuidv1();
+						this.setState({addGuardianCallbackId:uid});
 						this.props.dispatch({
 							type: userCommands.ADD_GUARDIAN,
 							payload: {callbackId: uid, data: {...this.state.userDetails}}
@@ -157,7 +171,7 @@ let _Index = class extends React.Component {
 							<Layout direction={"column"}>
 								<InputContainer label={"Name"}>
 									<TextField
-										value={this.state.userDetails.profile.name}
+										value={this.state.userDetails.profile.name|| ''}
 										onChange={(e) => {
 											let name = e.target.value;
 											this.setState((state) => (state.userDetails.profile.name = name, state))
@@ -167,7 +181,7 @@ let _Index = class extends React.Component {
 								</InputContainer>
 								<InputContainer label={"Name"}>
 									<TextField
-										value={this.state.userDetails.profile.mobile}
+										value={this.state.userDetails.profile.mobile|| ''}
 										onChange={(e) => {
 											let mobile = e.target.value;
 											this.setState((state) => (state.userDetails.profile.mobile = mobile, state))
@@ -177,7 +191,7 @@ let _Index = class extends React.Component {
 								</InputContainer>
 								<InputContainer label={"Email"}>
 									<TextField
-										value={this.state.userDetails.email}
+										value={this.state.userDetails.email|| ''}
 										onChange={(e) => {
 											let email = e.target.value;
 											this.setState((state) => (state.userDetails.email = email, state))
@@ -187,7 +201,7 @@ let _Index = class extends React.Component {
 								</InputContainer>
 								<InputContainer label={"City"}>
 									<TextField
-										value={this.state.userDetails.profile.city}
+										value={this.state.userDetails.profile.city|| ''}
 										onChange={(e) => {
 											let city = e.target.value;
 											this.setState((state) => (state.userDetails.profile.city = city, state))
@@ -197,7 +211,7 @@ let _Index = class extends React.Component {
 								</InputContainer>
 								<InputContainer label={"Address"}>
 									<TextField
-										value={this.state.userDetails.profile.address}
+										value={this.state.userDetails.profile.address|| ''}
 										placeholder={"Address"}
 										onChange={(e) => {
 											let address = e.target.value;
@@ -207,7 +221,7 @@ let _Index = class extends React.Component {
 								</InputContainer>
 								<InputContainer label={"Government ID"}>
 									<TextField
-										value={this.state.userDetails.profile.gov_id}
+										value={this.state.userDetails.profile.gov_id|| ''}
 										placeholder={"GovernmentID"}
 										onChange={(e) => {
 											let govId = e.target.value;

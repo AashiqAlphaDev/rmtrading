@@ -1,5 +1,6 @@
 import {put, takeEvery} from 'redux-saga/effects'
 import {appActions, httpMethods} from "../app/saga";
+import _ from "underscore"
 
 const userEvents = {
     ADD_GUARDIAN_STARTED: "guardian/events/ADD_GUARDIAN_STARTED",
@@ -24,6 +25,7 @@ const userDocActions = {
 const userCommands = {
     ADD_GUARDIAN: "guardian/command/ADD_GUARDIAN",
     FETCH_GUARDIAN:"guardian/command/FETCH_GUARDIAN",
+    FETCH_GUARDIANS:"guardian/command/FETCH_GUARDIANS"
 };
 
 const initData = {
@@ -33,6 +35,7 @@ const initData = {
 let userReducer = function(state=initData, {type, payload}){
 	switch (type) {
         case userDocActions.SET_USERS:{
+        	console.log("hello",payload.users)
             payload.forEach((user)=>{
                 state = {...state, users:{...state.users, [user._id]:user}}
             });
@@ -84,9 +87,25 @@ let userSaga = function*() {
     });
 
 
-
-
-
+	yield takeEvery(userCommands.FETCH_GUARDIANS, function* (action) {
+		console.log("payload here",action);
+		yield put({type:userEvents.FETCH_GUARDIANS_STARTED});
+		yield put({
+			type: appActions.API,
+			payload: {
+				url: `/users/?${action.payload.query}`,
+				method: httpMethods.GET
+			},
+			meta: {
+				callbackId:action.payload.callbackId,
+				postFailureAction: userEvents.FETCH_GUARDIANS_FAILED,
+				onSuccess:function*(payload){
+					yield put({type:userDocActions.SET_USERS, payload:payload.docs});
+					yield put({type:userEvents.FETCH_GUARDIANS_SUCCEEDED, payload:_.map(payload.docs, (item)=>{return item._id})})
+				}
+			}
+		});
+	});
 
 };
 
