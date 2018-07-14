@@ -5,20 +5,23 @@ const PetsManagementService = require("../services/pet")
 
 router.get("/", httpCoWrap(function* (req, res, next) {
 	var query = req.query.query ? req.query.query : {};
-	if (req.query.q) {
-		query.name = {$regex: `.*${req.query.q}.*`, '$options': 'i'}
-	}
-	if (req.query.page && req.query.limit) {
-		var page = {};
-		page.page = parseInt(req.query.page);
-		page.limit = parseInt(req.query.limit);
-		let pets = yield PetsManagementService.pets(query, page);
-		res.send(pets);
-	}
-	else {
-		let pets = yield PetsManagementService.pets(query);
-		res.send(pets);
-	}
+    if (req.query.q) {
+        var name = {$regex: `.*${req.query.q}.*`, '$options': 'i'}
+        var chip_id= {$regex: `.*${req.query.q}.*`, '$options': 'i'}
+
+        query = {$or:[{name}, {chip_id}]};
+    }
+    if (req.query.page && req.query.limit) {
+        var page = {};
+        page.page = parseInt(req.query.page);
+        page.limit = parseInt(req.query.limit);
+        let pets = yield PetsManagementService.pets(query, page);
+        res.send(pets);
+    }
+    else {
+        let pets = yield PetsManagementService.pets(query);
+        res.send(pets);
+    }
 }));
 
 router.get("/token/:token", httpCoWrap(function* (req, res, next) {

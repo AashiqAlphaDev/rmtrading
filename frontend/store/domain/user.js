@@ -40,6 +40,7 @@ let userReducer = function(state=initData, {type, payload}){
                 state = {...state, users:{...state.users, [user._id]:user}}
             });
             break;
+
         }
 	    default:{
 			break;

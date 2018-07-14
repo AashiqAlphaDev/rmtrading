@@ -21,6 +21,7 @@ import uuidv1 from 'uuid/v1';
 import {userCommands, userEvents} from "../../../store/domain/user";
 import {addListener, removeListener} from "./redux"
 import {Snackbar} from "@material-ui/core/index";
+import {petCommands} from "../../../store/domain/pet";
 
 let _Index = class extends React.Component {
 
@@ -63,6 +64,8 @@ let _Index = class extends React.Component {
 							<TextField
 								onChange={(e)=>{
 									this.props.dispatch({type:userCommands.FETCH_GUARDIANS,payload:{query:e.target.value}})
+									this.props.dispatch({type:petCommands.FETCH_PETS,payload:{query:e.target.value}})
+
 									console.log(this.props.ui)
 								}}
 								placeholder={"Search a pet or a guardian"}
@@ -95,13 +98,13 @@ let _Index = class extends React.Component {
 					<Layout className={classes.list} direction={"column"}>
 						<List>
 							{
-								[1, 2, 3, 4, 5, 6].map((item) => {
+								this.props.ui.pets.pets.map((item) => {
 									return <React.Fragment key={item}>
 										<ListItem>
 											<ListItemIcon>
 												<PetsIcon size={32}/>
 											</ListItemIcon>
-											<ListItemText primary={"PetName"} secondary={"Female - Dog - 24 Years"}/>
+											<ListItemText primary={this.props.pet.pets[item].name} secondary={"Female - Dog - 24 Years"}/>
 										</ListItem>
 										<Divider/>
 									</React.Fragment>
@@ -119,6 +122,7 @@ let _Index = class extends React.Component {
 										<Divider/>
 									</React.Fragment>
 								})
+
 							}
 							{
 								[1, 2, 3, 4, 5, 6].map((item) => {

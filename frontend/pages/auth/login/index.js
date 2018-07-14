@@ -6,15 +6,12 @@ import AuthContainer from "../../../components/auth/auth-container";
 import Link from "next/link"
 import {connect} from "react-redux"
 import {authCommands} from "../../../store/domain/auth";
-import {setStateKey} from "../../../components/util"
-import {isAdmin} from "../../../api/api";
-import Router from "next/router";
 import {checkAdmin} from "../index";
 
 let _Index = class extends React.Component {
 
-	state = {email:"", password:""};
-	setStateKey = setStateKey.bind(this);
+    state = {email:"", password:""};
+
 
 	render() {
 		const {classes} = this.props;
@@ -33,8 +30,8 @@ let _Index = class extends React.Component {
 							Getting started is quick and simple, Just fill out the info below !
 						</Typography>
 						<Layout direction={"column"} className={classes.section}>
-							<TextField className={classes.line} value={this.state.email} onChange={this.setStateKey("email")} placeholder={"Email"}></TextField>
-							<TextField className={classes.line} value={this.state.password} onChange={this.setStateKey("password")} placeholder={"Password"} type={"password"} />
+							<TextField className={classes.line} value={this.state.email} onChange={(e)=>{this.setState({email:e.target.value})}} placeholder={"Email"}></TextField>
+							<TextField className={classes.line} value={this.state.password} onChange={(e)=>{this.setState({password:e.target.value})}} placeholder={"Password"} type={"password"} />
 						</Layout>
 						<Layout direction={"column"}>
 							<Typography variant={"body1"} gutterBottom align={"center"} className={classes.line}>
