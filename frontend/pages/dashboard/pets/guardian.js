@@ -1,4 +1,11 @@
+import React from "react"
+import {withPetsWrap} from "./index";
 
-export default ()=>{
-    return <div>Sample</div>
+
+let _Index =  class extends React.Component{
+    render(){
+        return <div>Sample</div>
+    }
 }
+
+export default withPetsWrap(_Index);
