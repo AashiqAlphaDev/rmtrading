@@ -11,16 +11,15 @@ import {
 	Dialog
 } from "@material-ui/core/index";
 import {withStyles} from "@material-ui/core/styles"
-import {setStateKey} from "../../../components/util"
 import {connect} from "react-redux"
-import {PetsIcon, UserIcon, SearchIcon} from "../../../components/icons";
+import {UserIcon, SearchIcon, QRIcon} from "../../../components/icons";
 import {ListItem, ListItemText, Divider, ListItemIcon} from "@material-ui/core/index";
 import {Collapse} from "@material-ui/core/index";
 import InputContainer from "../../../components/input";
 import uuidv1 from 'uuid/v1';
 import {userCommands, userEvents} from "../../../store/domain/user";
 import {addListener, removeListener} from "./redux"
-import {Snackbar} from "@material-ui/core/index";
+import {Snackbar, ListSubheader, IconButton} from "@material-ui/core/index";
 import {petCommands} from "../../../store/domain/pet";
 
 let _Index = class extends React.Component {
@@ -29,7 +28,6 @@ let _Index = class extends React.Component {
 		userDetails: {profile: {}},
 		showRegisterGuardianDialogue:false,
 	};
-
 
 
 	componentWillMount = () => {
@@ -53,6 +51,7 @@ let _Index = class extends React.Component {
 			}
 		}
 	}
+
 
 	render() {
 		const {classes} = this.props;
@@ -96,54 +95,58 @@ let _Index = class extends React.Component {
 					</Collapse>
 					<Divider/>
 					<Layout className={classes.list} direction={"column"}>
-						<List>
-							{
-								this.props.ui.pets.pets.map((item) => {
-									return <React.Fragment key={item}>
-										<ListItem>
-											<ListItemIcon>
-												<PetsIcon size={32}/>
-											</ListItemIcon>
-											<ListItemText primary={this.props.pet.pets[item].name} secondary={"Female - Dog - 24 Years"}/>
-										</ListItem>
-										<Divider/>
-									</React.Fragment>
-								})
-							}
-							{
-								this.props.ui.pets.users.map((item) => {
-									return <React.Fragment key={item}>
-										<ListItem>
-											<ListItemIcon>
-												<UserIcon size={32}/>
-											</ListItemIcon>
-											<ListItemText primary={this.props.user.users[item].email} secondary={"2 Pets"}/>
-										</ListItem>
-										<Divider/>
-									</React.Fragment>
-								})
+						{
+                            !this.props.ui.pets.users.length &&
+							<Layout direction={"column"} alignItems={"center"} justifyContent={"center"} flex={1}>
+								<Typography  variant={"body1"} color={"textSecondary"} align={"center"}>
+									Search using Guardian's Email/Mobile/Gov Id.
+								</Typography>
+								<Typography  variant={"body1"} color={"textSecondary"} align={"center"}>
+									You can also use Chip Id / Scan Petpiper Card
+								</Typography>
 
-							}
-							{
-								[1, 2, 3, 4, 5, 6].map((item) => {
-									return <React.Fragment key={item}>
-										<ListItem>
-											<ListItemIcon>
-												<UserIcon size={32}/>
-											</ListItemIcon>
-											<ListItemText primary={"Karthik Thirumalasetti"} secondary={"2 Pets"}/>
-										</ListItem>
-										<Divider/>
-									</React.Fragment>
-								})
-							}
-						</List>
+								<Layout alignItems={"center"} className={classes.line}>
+									<form onSubmit={(e)=>{
+										e.preventDefault();
+									}}>
+										<TextField
+											placeholder="Chip Id"
+											InputProps={{
+												endAdornment: <IconButton onClick={()=>{this.openSacnner()}}>
+													<QRIcon size={25} pad={5}/>
+												</IconButton>
+											}}
+										/>
+										<button type="submit" style={{display:"none"}} />
+									</form>
+								</Layout>
+							</Layout>
+                        }
+						{
+                            this.props.ui.pets.users.length !=0 &&
+							<List>
+								<ListSubheader component="div">Guardians</ListSubheader>
+                                {
+                                    this.props.ui.pets.users.map((item) => {
+                                        return <React.Fragment key={item}>
+											<ListItem>
+												<ListItemIcon>
+													<UserIcon size={32}/>
+												</ListItemIcon>
+												<ListItemText primary={this.props.user.users[item].email} secondary={"2 Pets"}/>
+											</ListItem>
+											<Divider/>
+										</React.Fragment>
+                                    })
+
+                                }
+							</List>
+                        }
 					</Layout>
 				</Layout>
 				<Layout className={classes.rightPanel}>
 					<Layout flex={1} alignItems={"center"} justifyContent={"center"}>
-						Select Pet / Guardian to view details
-
+						Select Guardian to view details
 					</Layout>
 				</Layout>
 			</Layout>
@@ -275,6 +278,10 @@ const Index = withStyles((theme) => {
 		},
 		formAction: {
 			marginLeft: theme.spacing.unit * 1
+		},
+		line:{
+			marginTop:theme.spacing.unit * 2,
+            marginBottom:theme.spacing.unit * 2,
 		}
 	}
 })(connect(store => store)(checkAdmin(_Index)))

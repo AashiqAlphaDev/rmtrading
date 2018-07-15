@@ -15,8 +15,7 @@ const petsUiDocActions = {
 };
 
 const initData = {
-    users:[],
-    pets:[]
+    users:[]
 };
 
 let petsUiReducer = function(state=initData, {type, payload}){
@@ -37,7 +36,6 @@ let petsUiReducer = function(state=initData, {type, payload}){
 };
 
 let delegate = function*(action){
-	console.log(action);
 	listeners.forEach(function(listener){
 		if(listener.onAction){
 			listener.onAction.call(listener,action);
@@ -51,8 +49,9 @@ let petsUiSaga = function*() {
     yield takeEvery(userEvents.FETCH_GUARDIANS_SUCCEEDED, function*(action) {
 	    yield put({...action, type:petsUiDocActions.SET_USERS});
     });
-
-
+    yield takeEvery(userEvents.CLEAR_FETCH_GUARDIANS, function*() {
+        yield put({payload:[], type:petsUiDocActions.SET_USERS});
+    });
     yield takeEvery(petEvents.FETCH_PETS_SUCCEEDED, function*(action) {
 	    yield put({...action, type:petsUiDocActions.SET_PETS});
     });

@@ -1,9 +1,8 @@
-import {put, takeEvery} from 'redux-saga/effects'
+import {put, takeLatest} from 'redux-saga/effects'
 import {appActions, httpMethods} from "../app/saga";
 import _ from "underscore"
 
 const petEvents = {
-
     FETCH_PETS_STARTED:"pets/events/FETCH_PETS_STARTED",
     FETCH_PETS_FAILED:"pets/events/FETCH_PETS_FAILED",
     FETCH_PETS_SUCCEEDED:"pets/events/FETCH_PETS_SUCCEEDED",
@@ -40,8 +39,7 @@ let petReducer = function(state=initData, {type, payload}){
 
 
 let petSaga = function*() {
-	yield takeEvery(petCommands.FETCH_PETS, function* (action) {
-		console.log("payload here",action);
+	yield takeLatest(petCommands.FETCH_PETS, function* (action) {
 		yield put({type:petEvents.FETCH_PETS_STARTED});
 		yield put({
 			type: appActions.API,
