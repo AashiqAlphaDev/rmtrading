@@ -89,10 +89,6 @@ let userSaga = function*() {
 
 
 	yield takeLatest(userCommands.FETCH_GUARDIANS, function* (action) {
-		if(action.payload.query===""){
-            yield put({type:userEvents.CLEAR_FETCH_GUARDIANS});
-		    return;
-        }
 	    yield put({type:userEvents.FETCH_GUARDIANS_STARTED});
 		yield put({
 			type: appActions.API,

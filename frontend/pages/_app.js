@@ -48,7 +48,7 @@ class _App extends App {
 				>
 					<CssBaseline/>
 					<Provider store={reduxStore}>
-						<Component pageContext={this.pageContext} {...pageProps} />
+						<Component {...this.props} pageContext={this.pageContext} {...pageProps} />
 					</Provider>
 				</MuiThemeProvider>
 			</JssProvider>

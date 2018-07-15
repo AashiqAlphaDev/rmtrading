@@ -22,4 +22,24 @@ let isAdmin = function(sessionId){
 	});
 }
 
-export {isAdmin}
+
+let guardianDetails = function(sessionId, guardianId){
+    return new Promise(function (resolve, reject) {
+        if(!sessionId){
+            resolve(false);
+            return false;
+        }
+        fetch(`${base_url}/users/${guardianId}`, {
+            method:"GET",
+            headers:{
+                "X-Session-Id":sessionId
+            }
+        }).then(function (response) {
+            resolve(response.json());
+        }).catch(function (err) {
+
+        });
+    });
+}
+
+export {isAdmin, guardianDetails}

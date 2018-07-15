@@ -1,5 +1,5 @@
 import {put, takeEvery} from 'redux-saga/effects'
-import {userEvents} from "../../../store/domain/user";
+import {userCommands, userEvents} from "../../../store/domain/user";
 import {petEvents} from "../../../store/domain/pet";
 import _ from "underscore"
 
@@ -11,11 +11,13 @@ const petsUiEvents = {
 
 const petsUiDocActions = {
     SET_USERS:"pets/ui/doc/actions/SET_USERS",
-    SET_PETS:"pets/ui/doc/actions/SET_PETS"
+    CLEAR_USERS:"pets/ui/doc/actions/CLEAR_USERS",
+    SET_QUERY:"pets/ui/doc/actions/SET_QUERY",
 };
 
 const initData = {
-    users:[]
+    users:[],
+    query:""
 };
 
 let petsUiReducer = function(state=initData, {type, payload}){
@@ -24,8 +26,12 @@ let petsUiReducer = function(state=initData, {type, payload}){
 		    state = {...state, users:payload}
 		    break;
 	    }
-        case petsUiDocActions.SET_PETS:{
-            state = {...state, pets:payload}
+        case petsUiDocActions.CLEAR_USERS:{
+            state = {...state, users:[]}
+            break;
+        }
+        case petsUiDocActions.SET_QUERY:{
+            state = {...state, query:payload}
             break;
         }
         default:{
@@ -56,6 +62,14 @@ let petsUiSaga = function*() {
 	    yield put({...action, type:petsUiDocActions.SET_PETS});
     });
 
+    yield takeEvery(petsUiDocActions.SET_QUERY, function*({payload}) {
+        if(payload===""){
+            yield put({type:petsUiDocActions.CLEAR_USERS})
+        }
+        else{
+            yield put({type:userCommands.FETCH_GUARDIANS,payload:{query:payload}})
+        }
+    })
 
 
 
@@ -78,6 +92,7 @@ let removeListener = (listener)=>{
 }
 
 export {
+    petsUiDocActions,
     petsUiEvents,
     petsUiReducer,
     petsUiSaga,

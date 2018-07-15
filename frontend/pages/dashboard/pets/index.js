@@ -20,10 +20,10 @@ import uuidv1 from 'uuid/v1';
 import {userCommands, userEvents} from "../../../store/domain/user";
 import {addListener, removeListener} from "./redux"
 import {Snackbar, ListSubheader, IconButton} from "@material-ui/core/index";
-import {petCommands} from "../../../store/domain/pet";
+import {petsUiDocActions} from "./redux";
+import Link from "next/link"
 
-let _Index = (Component)=>{
-    return class extends React.Component {
+let _Index = class extends React.Component {
 
         state = {
             userDetails: {profile: {}},
@@ -32,7 +32,6 @@ let _Index = (Component)=>{
 
 
         componentWillMount = () => {
-
             addListener(this)
         }
 
@@ -54,7 +53,6 @@ let _Index = (Component)=>{
             }
         }
 
-
         render() {
             const {classes} = this.props;
             return <DashboardContainer>
@@ -64,10 +62,7 @@ let _Index = (Component)=>{
 							<Layout flex={1} direction={"column"}>
 								<TextField
 									onChange={(e)=>{
-                                        this.props.dispatch({type:userCommands.FETCH_GUARDIANS,payload:{query:e.target.value}})
-                                        this.props.dispatch({type:petCommands.FETCH_PETS,payload:{query:e.target.value}})
-
-                                        console.log(this.props.ui)
+                                        this.props.dispatch({type:petsUiDocActions.SET_QUERY, payload:e.target.value});
                                     }}
 									placeholder={"Search a pet or a guardian"}
 									InputProps={{
@@ -131,12 +126,14 @@ let _Index = (Component)=>{
                                     {
                                         this.props.ui.pets.users.map((item) => {
                                             return <React.Fragment key={item}>
-												<ListItem>
-													<ListItemIcon>
-														<UserIcon size={32}/>
-													</ListItemIcon>
-													<ListItemText primary={this.props.user.users[item].email} secondary={"2 Pets"}/>
-												</ListItem>
+												<Link prefetch href={`/dashboard/pets/guardian-details/${item}`}>
+													<ListItem>
+														<ListItemIcon>
+															<UserIcon size={32}/>
+														</ListItemIcon>
+														<ListItemText primary={this.props.user.users[item].email} secondary={"2 Pets"}/>
+													</ListItem>
+												</Link>
 												<Divider/>
 											</React.Fragment>
                                         })
@@ -147,7 +144,7 @@ let _Index = (Component)=>{
 						</Layout>
 					</Layout>
 					<Layout className={classes.rightPanel}>
-						<Component {...this.props} />
+                        {this.props.children}
 					</Layout>
 				</Layout>
 
@@ -162,6 +159,7 @@ let _Index = (Component)=>{
                             e.preventDefault();
                             let uid = uuidv1();
                             this.setState({addGuardianCallbackId:uid});
+                            console.log(this.state.userDetails)
                             this.props.dispatch({
                                 type: userCommands.ADD_GUARDIAN,
                                 payload: {callbackId: uid, data: {...this.state.userDetails}}
@@ -255,9 +253,9 @@ let _Index = (Component)=>{
 			</DashboardContainer>
         }
     }
-};
+;
 
-let withPetsWrap = ((Component)=>{ return withStyles((theme) => {
+let PetsWrap = withStyles((theme) => {
     return {
         searchContainer: {
             padding: theme.spacing.unit * 2
@@ -267,8 +265,7 @@ let withPetsWrap = ((Component)=>{ return withStyles((theme) => {
             width: 360
         },
         rightPanel: {
-            flex: 1,
-            margin: theme.spacing.unit * 2
+            flex: 1
         },
         list: {
             flex: 1,
@@ -285,14 +282,16 @@ let withPetsWrap = ((Component)=>{ return withStyles((theme) => {
             marginBottom:theme.spacing.unit * 2,
         }
     }
-})(connect(store => store)(checkAdmin(_Index(Component))))});
+})(connect(store => store)(checkAdmin(_Index)));
 
 export {
-    withPetsWrap
+    PetsWrap
 }
 
-export default withPetsWrap(()=>{
-	return <Layout flex={1} alignItems={"center"} justifyContent={"center"}>
-		Select Guardian to view details
-	</Layout>
-})
+export default ()=>{
+	return <PetsWrap>
+		<Layout flex={1} alignItems={"center"} justifyContent={"center"}>
+			Select Guardian to view details
+		</Layout>
+	</PetsWrap>
+}

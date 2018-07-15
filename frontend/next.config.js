@@ -1,5 +1,4 @@
 var path = require('path');
-const getRoutes = require('./routes');
 
 
 module.exports = {
@@ -10,5 +9,4 @@ module.exports = {
 		};
 		return config
 	},
-    exportPathMap: getRoutes
 }

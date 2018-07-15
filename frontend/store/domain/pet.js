@@ -3,6 +3,7 @@ import {appActions, httpMethods} from "../app/saga";
 import _ from "underscore"
 
 const petEvents = {
+
     FETCH_PETS_STARTED:"pets/events/FETCH_PETS_STARTED",
     FETCH_PETS_FAILED:"pets/events/FETCH_PETS_FAILED",
     FETCH_PETS_SUCCEEDED:"pets/events/FETCH_PETS_SUCCEEDED",
