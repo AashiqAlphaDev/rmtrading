@@ -1,4 +1,6 @@
 var path = require('path');
+const getRoutes = require('./routes');
+
 
 module.exports = {
 	webpack: function (config) {
@@ -7,5 +9,6 @@ module.exports = {
 			'@config': path.resolve('./config'),
 		};
 		return config
-	}
+	},
+    exportPathMap: getRoutes
 }
