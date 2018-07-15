@@ -126,7 +126,7 @@ let _Index = class extends React.Component {
                                     {
                                         this.props.ui.pets.users.map((item) => {
                                             return <React.Fragment key={item}>
-												<Link prefetch href={`/dashboard/pets/guardian-details/${item}`}>
+												<Link prefetch href={`/dashboard/pets/guardian?guardian_id=${item}`}>
 													<ListItem>
 														<ListItemIcon>
 															<UserIcon size={32}/>
