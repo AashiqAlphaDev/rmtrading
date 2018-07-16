@@ -21,7 +21,7 @@ import {userCommands, userEvents} from "../../../store/domain/user";
 import {addListener, removeListener} from "./redux"
 import {Snackbar, ListSubheader, IconButton} from "@material-ui/core/index";
 import {petsUiDocActions} from "./redux";
-import Link from "next/link"
+import {Link} from "../../../routes"
 
 let _Index = class extends React.Component {
 
@@ -126,7 +126,7 @@ let _Index = class extends React.Component {
                                     {
                                         this.props.ui.pets.users.map((item) => {
                                             return <React.Fragment key={item}>
-												<Link prefetch href={`/dashboard/pets/guardian?guardian_id=${item}`}>
+												<Link route={`/dashboard/pets/guardian-details/${item}`}>
 													<ListItem>
 														<ListItemIcon>
 															<UserIcon size={32}/>

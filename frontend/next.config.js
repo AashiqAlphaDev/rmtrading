@@ -9,4 +9,9 @@ module.exports = {
 		};
 		return config
 	},
+	exportPathMap:async function (defaultPathMap){
+		return {
+			'/dashboard/pets/guardian-details/:guardian_id': { page: '/dashboard/pets/guardian' }
+		}
+	}
 }

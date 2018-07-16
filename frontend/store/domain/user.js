@@ -93,7 +93,7 @@ let userSaga = function*() {
 		yield put({
 			type: appActions.API,
 			payload: {
-				url: `/users/?${action.payload.query}`,
+				url: `/users/?q=${action.payload.query}`,
 				method: httpMethods.GET
 			},
 			meta: {
