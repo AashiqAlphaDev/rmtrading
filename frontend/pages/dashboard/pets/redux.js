@@ -71,6 +71,9 @@ let petsUiSaga = function*() {
         }
     })
 
+    yield takeEvery(petEvents.ADD_PET_SUCCEEDED, delegate);
+    yield takeEvery(petEvents.ADD_PET_FAILED, delegate);
+
 
 
 

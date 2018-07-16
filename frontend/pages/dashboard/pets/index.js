@@ -20,7 +20,8 @@ import uuidv1 from 'uuid/v1';
 import {userCommands, userEvents} from "../../../store/domain/user";
 import {addListener, removeListener} from "./redux"
 import {Snackbar, ListSubheader, IconButton} from "@material-ui/core/index";
-import {petsUiDocActions} from "./redux";
+import {petsUiDocActions} from "./redux"
+
 import {Link} from "../../../routes"
 
 let _Index = class extends React.Component {

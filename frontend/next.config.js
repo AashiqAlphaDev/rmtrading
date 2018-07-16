@@ -11,7 +11,8 @@ module.exports = {
 	},
 	exportPathMap:async function (defaultPathMap){
 		return {
-			'/dashboard/pets/guardian-details/:guardian_id': { page: '/dashboard/pets/guardian' }
+			'/dashboard/pets/guardian-details/:guardian_id': { page: '/dashboard/pets/guardian' },
+			'/dashboard/pets/guardian-details/:guardian_id/pets/:pet_id': { page: '/dashboard/pets/pets' }
 		}
 	}
 }

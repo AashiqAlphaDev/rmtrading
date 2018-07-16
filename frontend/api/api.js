@@ -42,4 +42,43 @@ let guardianDetails = function(sessionId, guardianId){
     });
 }
 
-export {isAdmin, guardianDetails}
+let petsOfGuardian = function(sessionId, guardianId){
+    return new Promise(function (resolve, reject) {
+        if(!sessionId){
+            resolve(false);
+            return false;
+        }
+        fetch(`${base_url}/pets/of-owner/${guardianId}`, {
+            method:"GET",
+            headers:{
+                "X-Session-Id":sessionId
+            }
+        }).then(function (response) {
+            resolve(response.json());
+        }).catch(function (err) {
+
+        });
+    });
+}
+
+
+let petDetails = function(sessionId, petId){
+    return new Promise(function (resolve, reject) {
+        if(!sessionId){
+            resolve(false);
+            return false;
+        }
+        fetch(`${base_url}/pets/${petId}`, {
+            method:"GET",
+            headers:{
+                "X-Session-Id":sessionId
+            }
+        }).then(function (response) {
+            resolve(response.json());
+        }).catch(function (err) {
+
+        });
+    });
+}
+
+export {isAdmin, guardianDetails,petsOfGuardian,petDetails}

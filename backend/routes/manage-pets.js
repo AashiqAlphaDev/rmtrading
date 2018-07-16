@@ -2,6 +2,7 @@ var Router = require("express").Router
 var router = Router();
 const co = require("co");
 const PetsManagementService = require("../services/pet")
+const PetTypeManagementService = require("../services/pets-type")
 
 router.get("/", httpCoWrap(function* (req, res, next) {
 	var query = req.query.query ? req.query.query : {};
@@ -41,7 +42,25 @@ router.get("/of-owner/:user_id", httpCoWrap(function* (req, res, next) {
 }));
 
 router.post("/", httpCoWrap(function* (req, res, next) {
-	let pet = yield PetsManagementService.createPet(req.body);
+    let petType = yield PetTypeManagementService.petTypeWithName(req.body.pet_type);
+    let breed = null;
+    if(petType){
+        breed = yield PetTypeManagementService.petBreedWithName(petType._id,req.body.breed);
+    }
+    let data = {};
+    if(!petType){
+        data = {new_pet_type_name:req.body.pet_type};
+    }
+    else{
+        data = {pet_type:petType._id};
+    }
+    if(!breed){
+        data = {...data, new_breed_name:req.body.breed};
+    }
+    else{
+        data = {...data, breed:breed._id};
+    }
+	let pet = yield PetsManagementService.createPet({...req.body, ...data});
 	res.send(pet);
 }));
 

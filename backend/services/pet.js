@@ -4,6 +4,10 @@ const Token = mongoose.model('Token');
 const PetType = mongoose.model('PetType');
 const Vaccine = mongoose.model('Vaccine');
 const Vaccination = mongoose.model('Vaccination');
+
+const PetTypeService = require("./pets-type")
+
+const Breed = mongoose.model('Breed');
 const _ = require('underscore');
 
 Date.prototype.addDays = function (days) {
@@ -13,7 +17,20 @@ Date.prototype.addDays = function (days) {
 };
 
 module.exports.createPet = function* (petData) {
-	validate(petData, ["name", "pet_type", "owner", "date_of_birth"], "You missed <%=param%>.");
+
+
+	console.log(petData);
+
+    if(petData.new_pet_type_name) {
+        let newPetType = yield PetTypeService.createPetType({name: petData.new_pet_type_name});
+        petData.pet_type = newPetType._id;
+    }
+
+	if(petData.new_breed_name){
+        let newBreed = yield PetTypeService.createPetBreed(petData.pet_type,{name:petData.new_breed_name});
+        petData.breed=newBreed._id;
+    }
+
 
 	let vaccines = yield Vaccine.find({pet_type: petData.pet_type}).lean().exec();
 	petData.date_of_birth = new Date(petData.date_of_birth);
@@ -233,11 +250,6 @@ module.exports.petWithId = function* (petId) {
 module.exports.petsOfOwner = function* (ownerId) {
 	queryValidate(ownerId, "You missed owner-id.");
 	return yield Pet.find({owner: ownerId}).exec();
-};
-
-module.exports.petWithName = function* (name) {
-	queryValidate(name, "You missed pet-name.");
-	return yield Pet.findOne({name: name}).exec();
 };
 
 module.exports.deleteAll = function* () {

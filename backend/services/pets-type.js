@@ -40,6 +40,7 @@ module.exports.petTypeWithName = function* (name) {
 };
 
 module.exports.createPetBreed = function* (petTypeId, petBreedData) {
+	console.log("inside create breed" ,petTypeId,petBreedData);
 	let existingBreed = yield PetBreed.findOne({pet_type: petTypeId, name: petBreedData.name});
 	if (existingBreed) {
 		return existingBreed;
