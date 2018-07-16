@@ -30,7 +30,16 @@ module.exports.userByMobileNo = function* (mobile_number) {
 
 module.exports.createUser = function* (userData) {
 	validate(userData, ["email"], "You missed <%=param%>.");
-    let existingUser = yield User.findOne({$or: [{"profile.mobile_number": userData.profile.mobile_number}, {"profile.government_issued_id": userData.profile.government_issued_id},{email:userData.email}]}).exec();
+	console.log("this is userData",userData);
+	if(!userData.profile.government_issued_id){
+		userData.profile.government_issued_id ="";
+	}
+    let existingUser = yield User.findOne({$or: [
+    	{profile:{mobile_number: userData.profile.mobile_number}},
+		{profile:{government_issued_id: userData.profile.government_issued_id}},
+		{email:userData.email}
+		]}).exec();
+    console.log(existingUser)
     if (existingUser) {
         let error = createError(400);
         error.message = "User Already Exists";
@@ -60,7 +69,7 @@ module.exports.userWithId = function* (userId) {
 };
 
 module.exports.users = function* (query = {}, page) {
-	console.log(query)
+	console.log(JSON.stringify(query))
 	return yield User.paginate(query, page);
 };
 

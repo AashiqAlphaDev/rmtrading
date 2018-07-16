@@ -82,9 +82,6 @@ let _Index = class extends React.Component {
 							<Layout className={classes.searchContainer}>
 								<Button size={"small"} onClick={() => {
                                     this.setState({showRegisterGuardianDialogue: true});
-                                }}>Register Pet</Button>
-								<Button size={"small"} onClick={() => {
-                                    this.setState({showRegisterGuardianDialogue: true});
                                 }}>Register Guardian</Button>
 								<Button size={"small"}>Scan</Button>
 
@@ -184,12 +181,12 @@ let _Index = class extends React.Component {
 											placeholder={"Name"}
 										/>
 									</InputContainer>
-									<InputContainer label={"Name"}>
+									<InputContainer label={"Mobile Number"}>
 										<TextField
-											value={this.state.userDetails.profile.mobile|| ''}
+											value={this.state.userDetails.profile.mobile_number|| ''}
 											onChange={(e) => {
-                                                let mobile = e.target.value;
-                                                this.setState((state) => (state.userDetails.profile.mobile = mobile, state))
+                                                let mobile_number = e.target.value;
+                                                this.setState((state) => (state.userDetails.profile.mobile_number = mobile_number, state))
                                             }}
 											placeholder={"Mobile Number"}
 										/>

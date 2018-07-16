@@ -26,7 +26,7 @@ let _Index =  class extends React.Component{
                     <UserIcon size={32} pad={10}/>
                     <Layout direction={"column"} flex={1}>
                         <Typography variant={"title"}>
-                            {this.props.guardianDetails.name||"Karthik"}
+                            {this.props.guardianDetails.profile.name||"Karthik"}
                         </Typography>
                         <Typography variant={"subheading"} color="textSecondary">
                             Guardian - 2 pets
@@ -34,7 +34,7 @@ let _Index =  class extends React.Component{
                     </Layout>
                     <Layout direction={"column"} flex={1}>
                         <Typography variant={"subheading"} color="textSecondary">
-                            {this.props.guardianDetails.mobile||"+919901509003"}
+                            {this.props.guardianDetails.profile.mobile_number||"+919901509003"}
                         </Typography>
                         <Typography variant={"subheading"} color="textSecondary">
                             {this.props.guardianDetails.email||"+919901509003"}
