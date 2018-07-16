@@ -88,7 +88,6 @@ let _Index = class extends React.Component {
 								this.setState({showRegisterGuardianDialogue: true});
 							}}>Register Guardian</Button>
 							<Button size={"small"}>Scan</Button>
-
 						</Layout>
 					</Collapse>
 					<Divider/>
