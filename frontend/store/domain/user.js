@@ -1,4 +1,4 @@
-import {put, takeEvery} from 'redux-saga/effects'
+import {put, takeEvery, takeLatest} from 'redux-saga/effects'
 import {appActions, httpMethods} from "../app/saga";
 import _ from "underscore"
 
@@ -15,6 +15,7 @@ const userEvents = {
     FETCH_GUARDIANS_STARTED:"guardian/events/FETCH_GUARDIANS_STARTED",
     FETCH_GUARDIANS_FAILED:"guardian/events/FETCH_GUARDIANS_FAILED",
     FETCH_GUARDIANS_SUCCEEDED:"guardian/events/FETCH_GUARDIANS_SUCCEEDED",
+    CLEAR_FETCH_GUARDIANS:"guardian/events/CLEAR_FETCH_GUARDIANS",
 
 };
 
@@ -35,11 +36,11 @@ const initData = {
 let userReducer = function(state=initData, {type, payload}){
 	switch (type) {
         case userDocActions.SET_USERS:{
-        	console.log("hello",payload.users)
             payload.forEach((user)=>{
                 state = {...state, users:{...state.users, [user._id]:user}}
             });
             break;
+
         }
 	    default:{
 			break;
@@ -87,9 +88,8 @@ let userSaga = function*() {
     });
 
 
-	yield takeEvery(userCommands.FETCH_GUARDIANS, function* (action) {
-		console.log("payload here",action);
-		yield put({type:userEvents.FETCH_GUARDIANS_STARTED});
+	yield takeLatest(userCommands.FETCH_GUARDIANS, function* (action) {
+	    yield put({type:userEvents.FETCH_GUARDIANS_STARTED});
 		yield put({
 			type: appActions.API,
 			payload: {

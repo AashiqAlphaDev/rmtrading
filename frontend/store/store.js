@@ -6,6 +6,8 @@ import {authUiReducer, authUiSaga} from "../pages/auth";
 import {petsUiReducer, petsUiSaga} from "../pages/dashboard/pets/redux";
 import {dashboardUiSaga} from "../pages/dashboard";
 import {userReducer, userSaga} from "./domain/user";
+import {petReducer, petSaga} from "./domain/pet";
+
 
 const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;
 
@@ -18,10 +20,13 @@ export default (initialState)=>{
 			pets:petsUiReducer
 		}),
 		auth:authReducer,
-		user:userReducer
+		user:userReducer,
+		pet:petReducer
 	}), initialState, enhancer);
 	sagaMiddleware.run(authSaga);
     sagaMiddleware.run(userSaga);
+    sagaMiddleware.run(petSaga);
+
 	sagaMiddleware.run(appSaga);
 	sagaMiddleware.run(authUiSaga);
     sagaMiddleware.run(petsUiSaga);

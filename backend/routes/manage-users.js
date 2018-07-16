@@ -13,7 +13,7 @@ router.get("/", httpCoWrap(function* (req, res, next) {
 		var mobile = {$regex: `.*${req.query.q}.*`, '$options': 'i'}
 		query = {$or:[{name}, {email}, {mobile}]};
 	}
-	if (req.query.page && req.query.limit) {
+	if (req.query.pagefrontend/pages/dashboard/pets/index.js && req.query.limit) {
 		var page = {};
 		page.page = parseInt(req.query.page);
 		page.limit = parseInt(req.query.limit);

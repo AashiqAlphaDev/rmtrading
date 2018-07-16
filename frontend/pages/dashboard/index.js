@@ -21,7 +21,8 @@ let checkAdmin = (Component)=>{
 			}
 			else{
 				if(Component.getInitialProps){
-					return await Component.getInitialProps.call(Component, ctx);
+                    let props = await Component.getInitialProps.call(Component, ctx);
+                    return props;
 				}
 				else{
 					return {};

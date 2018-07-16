@@ -1,5 +1,6 @@
 var path = require('path');
 
+
 module.exports = {
 	webpack: function (config) {
 		config.resolve.alias = {
@@ -7,5 +8,5 @@ module.exports = {
 			'@config': path.resolve('./config'),
 		};
 		return config
-	}
+	},
 }
