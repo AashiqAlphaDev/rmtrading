@@ -15,7 +15,8 @@ import {addListener, removeListener} from "./redux";
 import {petEvents} from "../../../store/domain/pet";
 import {Router} from "../../../routes"
 import {Paper, Table, TableBody, TableCell, TableHead, TableRow} from "@material-ui/core/index";
-import {Link} from "../../../routes"
+import {Link} from "../../../routes";
+import moment from "moment"
 
 
 
@@ -80,8 +81,6 @@ let _Index =  class extends React.Component{
                     <Layout direction={"column"}>
                         <Button size={"small"}>Edit Profile</Button>
                     </Layout>
-
-
                 </Layout>
                 {
                     this.props.guardianPets.length==0 &&
@@ -117,7 +116,7 @@ let _Index =  class extends React.Component{
                                                     <TableCell>{item.name}</TableCell>
                                                     <TableCell>{item.data.pet_type}</TableCell>
                                                     <TableCell>{item.data.breed}</TableCell>
-                                                    <TableCell>{item.date_of_birth}</TableCell>
+                                                    <TableCell>{moment(item.date_of_birth).format("MMMM Do YYYY")}</TableCell>
                                                     <TableCell>{item.chip_id}</TableCell>
                                                     <TableCell>
                                                         <Link route={`/dashboard/pets/guardian-details/${this.props.guardianDetails._id}/pets/${item._id}`}>
