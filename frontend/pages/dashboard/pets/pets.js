@@ -11,10 +11,10 @@ import {Typography} from "@material-ui/core/index";
 import moment from "moment"
 import {Button} from "@material-ui/core/index";
 import {PetsIcon} from "../../../components/icons";
-import {visitCommands} from "../../../store/domain/visit";
+import {visitCommands,visitEvents} from "../../../store/domain/visit";
 import uuidv1 from 'uuid/v1';
 import {addListener, removeListener} from "./redux";
-import {visitEvents} from "../../../store/domain/visit";
+
 
 
 

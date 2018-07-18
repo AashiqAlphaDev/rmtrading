@@ -6,7 +6,7 @@ import {withStyles} from "@material-ui/core/styles";
 import {connect} from "react-redux"
 import {Router} from "../../../routes"
 import {Link} from "../../../routes"
-import {petDetails, guardianDetails, petTypeDetails} from "../../../api/api";
+import {petDetails, guardianDetails, petTypeDetails, vaccinationDetails} from "../../../api/api";
 import InputContainer from "../../../components/input";
 import {TextField,Button,Typography} from "@material-ui/core/index";
 
@@ -20,10 +20,9 @@ let _Index =  class extends React.Component{
 
     static async getInitialProps ({query, session_id}) {
          let petdetails = await petDetails(session_id, query.pet_id);
-        let guardiandetails = await guardianDetails(session_id, query.guardian_id);
         let pettypedetails = await petTypeDetails(session_id,petdetails.pet_type);
-
-         return {petDetails:petdetails,guardianDetails:guardiandetails,petTypeDetails:pettypedetails};
+        let vaccinationdetails = await vaccinationDetails(session_id, query.pet_id);
+         return {petDetails:petdetails,vaccinationDetails:vaccinationdetails,petTypeDetails:pettypedetails};
 
     }
 
