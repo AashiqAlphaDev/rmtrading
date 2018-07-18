@@ -2,6 +2,7 @@ import {put, takeEvery} from 'redux-saga/effects'
 import {userCommands, userEvents} from "../../../store/domain/user";
 import {petEvents} from "../../../store/domain/pet";
 import _ from "underscore"
+import {visitEvents} from "../../../store/domain/visit";
 
 let listeners = []
 
@@ -73,6 +74,10 @@ let petsUiSaga = function*() {
 
     yield takeEvery(petEvents.ADD_PET_SUCCEEDED, delegate);
     yield takeEvery(petEvents.ADD_PET_FAILED, delegate);
+
+    yield takeEvery(visitEvents.ADD_VISIT_SUCCEEDED, delegate);
+    yield takeEvery(visitEvents.ADD_VISIT_FAILED, delegate);
+
 
 
 

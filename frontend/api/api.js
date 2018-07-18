@@ -81,4 +81,29 @@ let petDetails = function(sessionId, petId){
     });
 }
 
-export {isAdmin, guardianDetails,petsOfGuardian,petDetails}
+let petTypeDetails = function(sessionId, petTypeId){
+    return new Promise(function (resolve, reject) {
+        if(!sessionId){
+            resolve(false);
+            return false;
+        }
+        fetch(`${base_url}/app-data/pet-types/${petTypeId}`, {
+            method:"GET",
+            headers:{
+                "X-Session-Id":sessionId
+            }
+        }).then(function (response) {
+            resolve(response.json());
+        }).catch(function (err) {
+
+        });
+    });
+}
+
+
+
+
+
+
+
+export {isAdmin, guardianDetails,petsOfGuardian,petDetails,petTypeDetails}

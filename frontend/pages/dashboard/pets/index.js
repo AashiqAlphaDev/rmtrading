@@ -16,8 +16,8 @@ import {UserIcon, SearchIcon, QRIcon} from "../../../components/icons";
 import {ListItem, ListItemText, Divider, ListItemIcon} from "@material-ui/core/index";
 import {Collapse} from "@material-ui/core/index";
 import InputContainer from "../../../components/input";
-import uuidv1 from 'uuid/v1';
 import {userCommands, userEvents} from "../../../store/domain/user";
+import uuidv1 from 'uuid/v1';
 import {addListener, removeListener} from "./redux"
 import {Snackbar, ListSubheader, IconButton} from "@material-ui/core/index";
 import {petsUiDocActions} from "./redux"
