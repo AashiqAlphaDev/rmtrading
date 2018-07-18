@@ -6,9 +6,10 @@ import {withStyles} from "@material-ui/core/styles";
 import {connect} from "react-redux"
 import {Router} from "../../../routes"
 import {Link} from "../../../routes"
-import {petDetails, guardianDetails, petTypeDetails, vaccinationDetails} from "../../../api/api";
+import {petDetails, visitDetails, petTypeDetails, vaccinationDetails} from "../../../api/api";
 import InputContainer from "../../../components/input";
-import {TextField,Button,Typography} from "@material-ui/core/index";
+import {TextField,Button,Typography,Table, TableBody, TableCell, TableHead, TableRow} from "@material-ui/core/index";
+import moment from "moment"
 
 
 
@@ -19,15 +20,20 @@ import {TextField,Button,Typography} from "@material-ui/core/index";
 let _Index =  class extends React.Component{
 
     static async getInitialProps ({query, session_id}) {
+
          let petdetails = await petDetails(session_id, query.pet_id);
         let pettypedetails = await petTypeDetails(session_id,petdetails.pet_type);
         let vaccinationdetails = await vaccinationDetails(session_id, query.pet_id);
-         return {petDetails:petdetails,vaccinationDetails:vaccinationdetails,petTypeDetails:pettypedetails};
+        let visitdetails = await visitDetails(session_id,query.pet_id,query.visit_id);
+         return {petDetails:petdetails,vaccinationDetails:vaccinationdetails,petTypeDetails:pettypedetails,visitDetails:visitdetails};
 
     }
 
-    componentWillMount(){
-        console.log(this.props)}
+    componentWillMount() {
+    console.log(this.props.visitDetails)
+    }
+
+
 
     state = {
 
@@ -43,11 +49,10 @@ let _Index =  class extends React.Component{
                     <Layout className={classes.card} flex={1} alignItems={"center"} justifyContent={"center"}>
                         <Layout flex={1}>
                         <Typography variant={"subheading"}>
-                            No Remarks
+                            No Records
                         </Typography>
                         </Layout>
                         <Button className={classes.formAction} onClick={()=>{
-                            this.setState({remarks:""})
                         }}>Record Reading</Button>
                     </Layout>
 
@@ -68,14 +73,44 @@ let _Index =  class extends React.Component{
                             this.setState({remarks:""})
                         }}>Cancel</Button>
                         <Button className={classes.formAction} type={"submit"} variant={"raised"} color={"primary"} onClick={()=>{
+                            this,props.dispatch({type:visitCommand.UPDATE_VISIT,payload:{visitId:this.props.visitDetails._id,data:this.state.remarks}})
                         }}>Add</Button>
                     </Layout>
 
                 </Layout>
 
                 </Layout>
-                <Layout>
+                <Layout className={classes.card}>
+                    <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>#</TableCell>
+                            <TableCell>Vaccine Name</TableCell>
+                            <TableCell>Dose</TableCell>
+                            <TableCell>Start Date</TableCell>
+                            <TableCell>Due Date</TableCell>
+                            <TableCell>Status</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                    {
+                        this.props.vaccinationDetails.docs.map((item,index) => {
+                            return <TableRow>
+                                <TableCell>{index+1}</TableCell>
+                                <TableCell>{item.data.vaccine}</TableCell>
+                                <TableCell>{moment(item.catch_up_period.start).format("MMMM Do YYYY")}</TableCell>
+                                <TableCell>{moment(item.catch_up_period.due_date).format("MMMM Do YYYY")}</TableCell>
+                                <TableCell>
+                                <Button size={"small"}>Vaccinate</Button>
+                                </TableCell>
+                                <TableCell>{item.status}</TableCell>
+                            </TableRow>
 
+
+                        })
+                    }
+                    </TableBody>
+                    </Table>
                 </Layout>
 
 

@@ -6,9 +6,11 @@ const visitEvents = {
 
     ADD_VISIT_STARTED:"visits/events/ADD_VISIT_STARTED",
     ADD_VISIT_FAILED:"visits/events/ADD_VISIT_FAILED",
-	ADD_VISIT_SUCCEEDED:"visits/events/ADD_VISIT_SUCCEEDED"
+	ADD_VISIT_SUCCEEDED:"visits/events/ADD_VISIT_SUCCEEDED",
 
-
+    UPDATE_VISIT_STARTED:"visits/events/UPDATE_VISIT_STARTED",
+    UPDATE_VISIT_FAILED:"visits/events/UPDATE_VISIT_FAILED",
+    UPDATE_VISIT_SUCCEEDED:"visits/events/UPDATE_VISIT_SUCCEEDED"
 
 };
 
@@ -16,7 +18,8 @@ const visitDocActions = {
 };
 
 const visitCommands = {
-	ADD_VISIT:"visits/command/ADD_VISIT"
+	ADD_VISIT:"visits/command/ADD_VISIT",
+    UPDATE_VISIT:"visits/command/UPDATE_VISIT"
 };
 
 const initData = {
@@ -54,6 +57,30 @@ let visitSaga = function*() {
             }
         });
     });
+
+
+
+    yield takeEvery(visitCommands.UPDATE_VISIT, function*(action) {
+        console.log(action)
+        yield put({type: visitEvents.UPDATE_VISIT_STARTED});
+        yield put({
+            type: appActions.API,
+            payload: {
+                url: `/pets/${action.payload.data.pet}/visits/${action.payload.visitId}`,
+                method: httpMethods.PUT,
+                body: action.payload.data,
+            },
+            meta: {
+                callbackId: action.payload.callbackId,
+                postFailureAction: visitEvents.UPDATE_VISIT_FAILED,
+                postSuccessAction: visitEvents.UPDATE_VISIT_SUCCEEDED
+            }
+        });
+    });
+
+
+
+
 
 
 

@@ -237,7 +237,7 @@ const vaccinationSchema = new Schema({
 	pet: ObjectID,
 	vaccine: ObjectID,
 	disease:ObjectID,
-	status: String,
+	status: { type: String, default:"Pending"},
 	visit:ObjectID,
 	data: {}
 });
@@ -308,6 +308,7 @@ const VisitSchema = new Schema({
 	vet_center:ObjectID,
 	pet:ObjectID,
     pet_type:ObjectID,
+	remarks:String,
 	biometrics_data:{},
     data:{}
 

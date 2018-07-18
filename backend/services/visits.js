@@ -20,7 +20,7 @@ module.exports.visits = function* (petId,query = {}) {
 };
 
 module.exports.visitWithId = function* (visitId) {
-	queryValidate(id, "You missed visit-id.");
+	queryValidate(visitId, "You missed visit-id.");
 	return yield Visit.findOne({_id: visitId}).exec();
 };
 
