@@ -83,7 +83,7 @@ let _Index =  class extends React.Component{
                 <Layout>
                     {
                         !this.props.visitDetails.biometrics_data &&
-                        <Layout className={classes.card} flex={1} alignItems={"center"} justifyContent={"center"}>
+                        <Layout className={classes.card} flex={2} alignItems={"center"} justifyContent={"center"}>
                             <Layout flex={1}>
                                 <Typography variant={"subheading"}>
                                     No Records
@@ -96,11 +96,19 @@ let _Index =  class extends React.Component{
                     }
                     {
                         this.props.visitDetails.biometrics_data &&
-                        <Layout className={classes.card} flex={1}>
-                            <Layout direction={"column"}>
-                            <Typography variant={"title"}>
+                        <Layout className={classes.card} flex={2}>
+                            <Layout direction={"column"} flex={1}>
+                                <Layout alignItems={"center"}>
+                            <Typography variant={"title"} className={classes.flex}>
                                 Biometric Data
                             </Typography>
+                                    <Button className={classes.formAction} size={"small"} onClick={() => {
+                                        this.setState({showRecordsDialogue: true})
+                                    }}>Record Reading</Button>
+
+                                </Layout>
+
+                                <Layout>
                                 <Table>
                                     <TableHead>
                                         <TableRow>
@@ -109,13 +117,17 @@ let _Index =  class extends React.Component{
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        <TableRow>
-                                        {
-
-                                        }
-                                        </TableRow>
+                                            {
+                                                Object.keys(this.props.visitDetails.biometrics_data).map((key, index) => {
+                                                    return <TableRow>
+                                                        <TableCell>{key}</TableCell>
+                                                        <TableCell>{this.props.visitDetails.biometrics_data[key]}</TableCell>
+                                                    </TableRow>
+                                                })
+                                            }
                                     </TableBody>
                                 </Table>
+                                </Layout>
                             </Layout>
 
 
@@ -123,7 +135,7 @@ let _Index =  class extends React.Component{
 
                     }
 
-                <Layout direction={"column"} className={classes.card} flex={1}>
+                <Layout direction={"column"} className={classes.rightCard} flex={1}>
                     <Layout>
                     <InputContainer label={"Remarks"}>
                         {
@@ -300,6 +312,18 @@ let Index =  withRouter(withStyles((theme)=>{
         body:{
             margin:theme.spacing.unit * 2
         },
+
+        flex:{
+            flex:1
+        },
+
+        rightCard:{
+            padding:theme.spacing.unit * 2,
+            background:"#FFF",
+            margin:theme.spacing.unit,
+            maxHeight:200
+        },
+
         card:{
             padding:theme.spacing.unit * 2,
             background:"#FFF",

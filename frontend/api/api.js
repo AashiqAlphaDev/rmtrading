@@ -140,6 +140,26 @@ let visitDetails = function(sessionId, petId,visitId){
     });
 }
 
+let vaccinationCenterDetails = function(sessionId){
+    return new Promise(function (resolve, reject) {
+        if(!sessionId){
+            resolve(false);
+            return false;
+        }
+        fetch(`${base_url}/vaccination-centers/self`, {
+            method:"GET",
+            headers:{
+                "X-Session-Id":sessionId
+            }
+        }).then(function (response) {
+            resolve(response.json());
+        }).catch(function (err) {
+
+        });
+    });
+}
 
 
-export {isAdmin, guardianDetails,petsOfGuardian,petDetails,petTypeDetails,vaccinationDetails,visitDetails}
+
+
+export {isAdmin, guardianDetails,petsOfGuardian,petDetails,petTypeDetails,vaccinationDetails,visitDetails,vaccinationCenterDetails}
