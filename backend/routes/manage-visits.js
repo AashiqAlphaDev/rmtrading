@@ -25,7 +25,7 @@ router.post("/", httpCoWrap(function* (req, res, next) {
 
 router.put("/:visit_id", httpCoWrap(function* (req, res, next) {
 
-	let visit = yield VisitManagementService.updateVisit(req.params.pet_id, req.body);
+	let visit = yield VisitManagementService.updateVisit(req.params.visit_id, req.body);
 	res.send(visit);
 }));
 

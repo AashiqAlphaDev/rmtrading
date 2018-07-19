@@ -10,7 +10,9 @@ const visitEvents = {
 
     UPDATE_VISIT_STARTED:"visits/events/UPDATE_VISIT_STARTED",
     UPDATE_VISIT_FAILED:"visits/events/UPDATE_VISIT_FAILED",
-    UPDATE_VISIT_SUCCEEDED:"visits/events/UPDATE_VISIT_SUCCEEDED"
+    UPDATE_VISIT_SUCCEEDED:"visits/events/UPDATE_VISIT_SUCCEEDED",
+
+
 
 };
 
@@ -20,6 +22,7 @@ const visitDocActions = {
 const visitCommands = {
 	ADD_VISIT:"visits/command/ADD_VISIT",
     UPDATE_VISIT:"visits/command/UPDATE_VISIT"
+
 };
 
 const initData = {
@@ -66,7 +69,7 @@ let visitSaga = function*() {
         yield put({
             type: appActions.API,
             payload: {
-                url: `/pets/${action.payload.data.pet}/visits/${action.payload.visitId}`,
+                url: `/pets/${action.payload.pet_id}/visits/${action.payload.visitId}`,
                 method: httpMethods.PUT,
                 body: action.payload.data,
             },
@@ -81,11 +84,8 @@ let visitSaga = function*() {
 
 
 
-
-
-
-
 }
+
 
 export {
     visitEvents,

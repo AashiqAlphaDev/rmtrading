@@ -237,6 +237,7 @@ const vaccinationSchema = new Schema({
 	pet: ObjectID,
 	vaccine: ObjectID,
 	disease:ObjectID,
+	vialNo:String,
 	status: { type: String, default:"Pending"},
 	visit:ObjectID,
 	data: {}

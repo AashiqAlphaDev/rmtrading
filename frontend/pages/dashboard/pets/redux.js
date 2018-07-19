@@ -3,6 +3,7 @@ import {userCommands, userEvents} from "../../../store/domain/user";
 import {petEvents} from "../../../store/domain/pet";
 import _ from "underscore"
 import {visitEvents} from "../../../store/domain/visit";
+import {vaccinationEvents} from "../../../store/domain/vaccination";
 
 let listeners = []
 
@@ -78,13 +79,12 @@ let petsUiSaga = function*() {
     yield takeEvery(visitEvents.ADD_VISIT_SUCCEEDED, delegate);
     yield takeEvery(visitEvents.ADD_VISIT_FAILED, delegate);
 
+    yield takeEvery(vaccinationEvents.UPDATE_VACCINATION_SUCCEEDED, delegate);
+    yield takeEvery(vaccinationEvents.UPDATE_VACCINATION_FAILED, delegate);
 
 
-
-
-
-
-
+    yield takeEvery(visitEvents.UPDATE_VISIT_SUCCEEDED, delegate);
+    yield takeEvery(visitEvents.UPDATE_VISIT_FAILED, delegate);
 
 };
 
