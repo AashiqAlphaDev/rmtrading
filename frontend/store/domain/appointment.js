@@ -2,27 +2,26 @@ import {put, takeLatest,takeEvery} from 'redux-saga/effects'
 import {appActions, httpMethods} from "../app/saga";
 import _ from "underscore"
 
-const visitEvents = {
+const vaccinationCenterEvents = {
 
-    ADD_VISIT_STARTED:"visits/events/ADD_VISIT_STARTED",
-    ADD_VISIT_FAILED:"visits/events/ADD_VISIT_FAILED",
-    ADD_VISIT_SUCCEEDED:"visits/events/ADD_VISIT_SUCCEEDED",
+    UPDATE_VACCINATION_CENTER_STARTED:"vaccinationCenters/events/UPDATE_VACCINATION_CENTER_STARTED",
+    UPDATE_VACCINATION_CENTER_FAILED:"vaccinationCenters/events/UPDATE_VACCINATION_CENTER_FAILED",
+    UPDATE_VACCINATION_CENTER_SUCCEEDED:"vaccinationCenters/events/UPDATE_VACCINATION_CENTER_SUCCEEDED",
 };
 
-const visitDocActions = {
+const vaccinationCenterDocActions = {
 };
 
-const visitCommands = {
-	ADD_VISIT:"visits/command/ADD_VISIT",
-    UPDATE_VISIT:"visits/command/UPDATE_VISIT"
+const vaccinationCenterCommands = {
+	UPDATE_VACCINATION_CENTER:"vaccinationCenters/command/UPDATE_VACCINATION_CENTER",
 
 };
 
 const initData = {
-    visits:{}
+    vaccinationCenters:{}
 };
 
-let visitReducer = function(state=initData, {type, payload}){
+let vaccinationCenterReducer = function(state=initData, {type, payload}){
 	switch (type) {
 	    default:{
 			break;
@@ -32,44 +31,24 @@ let visitReducer = function(state=initData, {type, payload}){
 };
 
 
-let visitSaga = function*() {
+let vaccinationCenterSaga = function*() {
 
 
 
-    yield takeEvery(visitCommands.ADD_VISIT, function*(action) {
+    yield takeEvery(vaccinationCenterCommands.UPDATE_VACCINATION_CENTER, function*(action) {
         console.log(action)
-        yield put({type: visitEvents.ADD_VISIT_STARTED});
+        yield put({type: vaccinationCenterEvents.UPDATE_VACCINATION_CENTER_STARTED});
         yield put({
             type: appActions.API,
             payload: {
-                url: `/pets/${action.payload.data.pet}/visits`,
-                method: httpMethods.POST,
-                body: action.payload.data,
-            },
-            meta: {
-                callbackId: action.payload.callbackId,
-                postFailureAction: visitEvents.ADD_VISIT_FAILED,
-                postSuccessAction: visitEvents.ADD_VISIT_SUCCEEDED
-            }
-        });
-    });
-
-
-
-    yield takeEvery(visitCommands.UPDATE_VISIT, function*(action) {
-        console.log(action)
-        yield put({type: visitEvents.UPDATE_VISIT_STARTED});
-        yield put({
-            type: appActions.API,
-            payload: {
-                url: `/pets/${action.payload.pet_id}/visits/${action.payload.visitId}`,
+                url: `/vaccination-centers/:vaccination_center_id`,
                 method: httpMethods.PUT,
                 body: action.payload.data,
             },
             meta: {
                 callbackId: action.payload.callbackId,
-                postFailureAction: visitEvents.UPDATE_VISIT_FAILED,
-                postSuccessAction: visitEvents.UPDATE_VISIT_SUCCEEDED
+                postFailureAction: vaccinationCenterEvents.UPDATE_VACCINATION_CENTER_FAILED,
+                postSuccessAction: vaccinationCenterEvents.UPDATE_VACCINATION_CENTER_SUCCEEDED
             }
         });
     });
@@ -81,9 +60,9 @@ let visitSaga = function*() {
 
 
 export {
-    visitEvents,
-    visitDocActions,
-    visitCommands,
-    visitReducer,
-    visitSaga
+    vaccinationCenterEvents,
+    vaccinationCenterDocActions,
+    vaccinationCenterCommands,
+    vaccinationCenterReducer,
+    vaccinationCenterSaga
 }

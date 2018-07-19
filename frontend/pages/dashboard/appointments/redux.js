@@ -1,5 +1,5 @@
 import {put, takeEvery} from 'redux-saga/effects'
-import {appointmentEvents} from "../../../store/domain/appointment";
+import {appointmentEvents, vaccinationCenterEvents} from "../../../store/domain/appointment";
 import _ from "underscore"
 
 let listeners = []
@@ -35,6 +35,11 @@ let delegate = function*(action){
 }
 
 let appointmentsUiSaga = function*() {
+
+
+    yield takeEvery(vaccinationCenterEvents.UPDATE_VACCINATION_CENTER_SUCCEEDED, delegate);
+    yield takeEvery(vaccinationCenterEvents.UPDATE_VACCINATION_CENTER_FAILED, delegate);
+
    
 
 };
