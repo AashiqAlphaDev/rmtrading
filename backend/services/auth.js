@@ -7,6 +7,8 @@ const md5 = require("md5");
 const emailer = require("./emailer");
 
 module.exports.authenticateUser = function* (credientials) {
+
+	console.log(credientials);
 	validate(credientials, ["email", "password"], "You missed <%=param%>.");
 	return yield User.findOne({email: credientials.email, password: md5(credientials.password)}).exec();
 };

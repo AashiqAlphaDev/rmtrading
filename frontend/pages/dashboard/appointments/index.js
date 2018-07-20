@@ -9,12 +9,14 @@ import {Link} from "../../../routes"
 import {vaccinationCenterDetails} from "../../../api/api";
 import {AppointmentsIcon, DeleteIcon, EditIcon} from "../../../components/icons";
 import {Avatar, MenuItem, Select, Typography,Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow,Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
-    TextField} from "@material-ui/core/index";
+    TextField,Divider, List, ListItem, ListItemSecondaryAction, ListItemText} from "@material-ui/core/index";
 import Layout from "../../../components/layout";
 import {vaccinationCenterEvents,vaccinationCenterCommands} from "../../../store/domain/appointment";
 import uuidv1 from 'uuid/v1';
 import {Router} from "../../../routes"
 import InputContainer from "../../../components/input";
+import _ from "underscore"
+
 
 
 
@@ -48,6 +50,24 @@ let _Index = class extends React.Component {
             if (type === vaccinationCenterEvents.UPDATE_VACCINATION_CENTER_SUCCEEDED && payload.callbackId === this.state.updateTimeDiffCallbackId) {
                 Router.pushRoute(this.props.router.asPath);
             }
+            if (type === vaccinationCenterEvents.ADD_VACCINATION_CENTER_QUEUE_SUCCEEDED && payload.callbackId === this.state.addQueueCallbackId) {
+                this.state.openAddQueue=false;
+                Router.pushRoute(this.props.router.asPath);
+            }
+            if (type === vaccinationCenterEvents.DELETE_VACCINATION_CENTER_QUEUE_SUCCEEDED && payload.callbackId === this.state.deleteQueueCallbackId) {
+                Router.pushRoute(this.props.router.asPath);
+            }
+
+            if (type === vaccinationCenterEvents.ADD_VACCINATION_CENTER_QUEUE_SLOT_SUCCEEDED && payload.callbackId === this.state.addSlotCallbackId) {
+                Router.pushRoute(this.props.router.asPath);
+            }
+
+            if (type === vaccinationCenterEvents.DELETE_VACCINATION_CENTER_QUEUE_SLOT_SUCCEEDED && payload.callbackId === this.state.deleteSlotCallbackId) {
+                Router.pushRoute(this.props.router.asPath);
+            }
+
+
+
 
         }
 
@@ -67,7 +87,7 @@ let _Index = class extends React.Component {
                         appointments per hour
                     </Typography>
                     <Layout>
-                        <Select className={`flex`} value={this.props.vaccinationCenterDetails.appointments_per_hour}
+                        <Select className={classes.selectBorder} value={this.props.vaccinationCenterDetails.appointments_per_hour}
                                 style={{width:230,paddingBottom:10}}
                                 onChange={(e) => {
                                     let uid = uuidv1();
@@ -121,20 +141,25 @@ let _Index = class extends React.Component {
                                                     </TableCell>
                                                     <TableCell numeric>
                                                         <IconButton onClick={() => {
-                                                            this.setState({currentQueue: item, openAddSlot: true});
-
+                                                            let uid = uuidv1();
+                                                            this.setState({deleteQueueCallbackId:uid});
+                                                            this.props.dispatch({
+                                                                type: vaccinationCenterCommands.DELETE_VACCINATION_CENTER_QUEUE,
+                                                                payload: {
+                                                                    callbackId: uid,
+                                                                    queue_id:item._id,
+                                                                    center_id: this.props.vaccinationCenterDetails._id
+                                                                }
+                                                            });
                                                         }}>
+
                                                             <DeleteIcon size={20}/>
                                                         </IconButton>
-                                                        <IconButton onClick={() => {
-                                                            this.props.dispatch({
-                                                                type: REQUEST_DELETE_QUEUE,
-                                                                payload: {
-                                                                    center_id: this.props.vetCenterDetail._id,
-                                                                    queue_id: item._id
-                                                                }
-                                                            })
-                                                        }}>
+
+                                                            <IconButton onClick={() => {
+                                                                this.setState({currentQueue: item, openAddSlot: true});
+
+                                                            }}>
                                                             <EditIcon size={20}/>
                                                         </IconButton>
                                                     </TableCell>
@@ -154,6 +179,117 @@ let _Index = class extends React.Component {
                     </Layout>
                 </Layout>
 
+                {
+                    this.state.currentQueue &&
+                    <Dialog
+                        open={this.state.openAddSlot}
+                        onClose={() => {
+                            this.setState({openAddSlot: false})
+                        }}
+                    >
+                        <form className={classes.dialog} onSubmit={(event) => {
+                            event.preventDefault();
+                            let uid = uuidv1();
+                            this.setState({addSlotCallbackId:uid});
+                            this.props.dispatch({
+                                type: vaccinationCenterCommands.ADD_VACCINATION_CENTER_QUEUE_SLOT,
+                                payload: {
+                                    callbackId: uid,
+                                    slot_data: {from: this.state.newSlotFrom, to: this.state.newSlotTo},
+                                    center_id: this.props.vaccinationCenterDetails._id,
+                                    queue_id: this.state.currentQueue._id
+                                }
+                            });
+                        }}>
+                            <DialogTitle>Manage Slots</DialogTitle>
+                            <DialogContent>
+                                <Divider/>
+                                <Layout direction={`column`}>
+                                    <List>
+                                        {
+                                            this.state.currentQueue.time_slots.map((item) => {
+                                                var fromLabel = null;
+                                                var toLabel = null;
+                                                (() => {
+                                                    var hour = (item.from) / this.props.vaccinationCenterDetails.appointments_per_hour;
+                                                    var min = (60 / this.props.vaccinationCenterDetails.appointments_per_hour) * (item.from % this.props.vaccinationCenterDetails.appointments_per_hour);
+                                                    fromLabel = `${(`0${Math.floor(hour)}`).slice(-2)}:${(`0${min}`).slice(-2)}`;
+                                                })();
+                                                (() => {
+                                                    var hour = (item.to) / this.props.vaccinationCenterDetails.appointments_per_hour;
+                                                    var min = (60 / this.props.vaccinationCenterDetails.appointments_per_hour) * (item.to % this.props.vaccinationCenterDetails.appointments_per_hour);
+                                                    toLabel = `${(`0${Math.floor(hour)}`).slice(-2)}:${(`0${min}`).slice(-2)}`;
+                                                })();
+                                                return <ListItem key={item._id}>
+                                                    <ListItemText>
+                                                        {fromLabel} - {toLabel}
+                                                    </ListItemText>
+                                                    <ListItemSecondaryAction>
+                                                        <IconButton onClick={() => {
+                                                            let uid = uuidv1();
+                                                            this.setState({deleteSlotCallbackId:uid});
+
+                                                            this.props.dispatch({
+                                                                type: vaccinationCenterCommands.DELETE_VACCINATION_CENTER_QUEUE_SLOT,
+                                                                payload: {
+                                                                    callbackId: uid,
+                                                                    center_id: this.props.vaccinationCenterDetails._id,
+                                                                    queue_id: this.state.currentQueue._id,
+                                                                    slot_id: item._id
+                                                                }
+                                                            })
+                                                        }}>
+                                                            <DeleteIcon/>
+                                                        </IconButton>
+                                                    </ListItemSecondaryAction>
+                                                </ListItem>
+                                            })
+                                        }
+                                        {
+                                            this.state.currentQueue.time_slots.length === 0 &&
+                                            <ListItem>No Slots Added</ListItem>
+                                        }
+                                    </List>
+                                </Layout>
+                                <Divider/>
+                                <Layout className={classes.paper} alignItems={`flex-end`}>
+                                    <InputContainer label={"From"}>
+                                        <Select value={parseInt(this.state.newSlotFrom)} className={classes.selectBorder} onChange={e => {
+                                            this.setState({newSlotFrom: e.target.value})
+                                        }}>
+                                            {
+                                                _.range(24 * this.props.vaccinationCenterDetails.appointments_per_hour).map((i) => {
+                                                    var hour = (i) / this.props.vaccinationCenterDetails.appointments_per_hour;
+                                                    var min = (60 / this.props.vaccinationCenterDetails.appointments_per_hour) * (i % this.props.vaccinationCenterDetails.appointments_per_hour);
+                                                    return <MenuItem key={i}
+                                                                     value={i}>{("0" + Math.floor(hour)).slice(-2)}:{("0" + min).slice(-2)}</MenuItem>
+                                                })
+                                            }
+                                        </Select>
+                                    </InputContainer>
+                                    <InputContainer label={"To"}>
+                                        <Select value={parseInt(this.state.newSlotTo)} className={classes.selectBorder} onChange={e => {
+                                            this.setState({newSlotTo: e.target.value})
+                                        }}>
+                                            {
+                                                _.range(24 * this.props.vaccinationCenterDetails.appointments_per_hour).map((i) => {
+                                                    var hour = (i) / this.props.vaccinationCenterDetails.appointments_per_hour;
+                                                    var min = (60 / this.props.vaccinationCenterDetails.appointments_per_hour) * (i % this.props.vaccinationCenterDetails.appointments_per_hour);
+                                                    return <MenuItem key={i}
+                                                                     value={i}>{("0" + Math.floor(hour)).slice(-2)}:{("0" + min).slice(-2)}</MenuItem>
+                                                })
+                                            }
+                                        </Select>
+                                    </InputContainer>
+                                    <Button type="submit" color="primary">
+                                        Add
+                                    </Button>
+                                </Layout>
+                            </DialogContent>
+                        </form>
+                    </Dialog>
+                }
+
                 <Dialog
                     open={this.state.openAddQueue}
                     onClose={() => {
@@ -163,10 +299,16 @@ let _Index = class extends React.Component {
                 >
                     <form onSubmit={(event) => {
                         event.preventDefault();
+
+                        let uid = uuidv1();
+                        this.setState({addQueueCallbackId:uid});
+
                         this.props.dispatch({
-                            type: vaccinationCenterEvents,ADD_VACCINATION_CENTER_QUEUE,
+                            type: vaccinationCenterCommands.ADD_VACCINATION_CENTER_QUEUE,
                             payload: {
-                                queue_data: {name: this.state.newQueueName},
+                                callbackId: uid,
+                                data:{name: this.state.newQueueName},
+
                                 center_id: this.props.vaccinationCenterDetails._id
                             }
                         });
@@ -202,6 +344,7 @@ let _Index = class extends React.Component {
                         </DialogActions>
                     </form>
                 </Dialog>
+
 
             </DashboardContainer>
         }
@@ -277,8 +420,13 @@ let Index = withStyles((theme) => {
         },
         sidePanelTitle:{
             paddingBottom:10
-        }
+        },
+        selectBorder:{
+                border: `2px solid #e8e8e8`,
+            borderRadius: "4px",
+                 verticalAlign: "middle"
 
+        }
     }
 })(connect(store => store)(checkAdmin(_Index)));
 

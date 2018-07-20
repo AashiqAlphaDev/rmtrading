@@ -204,8 +204,8 @@ petSchema.pre("save", async function (next) {
     let owner = await Owner.findOne({_id: this.owner});
     this.data.pet_type = petType.name;
     this.data.owner_name = owner.profile.name;
-    this.data.owner_mobile= owner.email;
-	this.data.owner_email= owner.profile.mobile_number
+    this.data.owner_mobile= owner.profile.mobile_number;
+	this.data.owner_email= owner.email;
     next();
 });
 mongoose.model('Pet', petSchema);

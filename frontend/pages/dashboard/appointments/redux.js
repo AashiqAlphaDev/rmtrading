@@ -40,7 +40,22 @@ let appointmentsUiSaga = function*() {
     yield takeEvery(vaccinationCenterEvents.UPDATE_VACCINATION_CENTER_SUCCEEDED, delegate);
     yield takeEvery(vaccinationCenterEvents.UPDATE_VACCINATION_CENTER_FAILED, delegate);
 
-   
+    yield takeEvery(vaccinationCenterEvents.ADD_VACCINATION_CENTER_QUEUE_SUCCEEDED, delegate);
+    yield takeEvery(vaccinationCenterEvents.ADD_VACCINATION_CENTER_QUEUE_FAILED, delegate);
+
+
+    yield takeEvery(vaccinationCenterEvents.DELETE_VACCINATION_CENTER_QUEUE_SUCCEEDED, delegate);
+    yield takeEvery(vaccinationCenterEvents.DELETE_VACCINATION_CENTER_QUEUE_FAILED, delegate);
+
+    yield takeEvery(vaccinationCenterEvents.ADD_VACCINATION_CENTER_QUEUE_SLOT_SUCCEEDED, delegate);
+    yield takeEvery(vaccinationCenterEvents.ADD_VACCINATION_CENTER_QUEUE_SLOT_FAILED, delegate);
+
+
+    yield takeEvery(vaccinationCenterEvents.DELETE_VACCINATION_CENTER_QUEUE_SLOT_SUCCEEDED, delegate);
+    yield takeEvery(vaccinationCenterEvents.DELETE_VACCINATION_CENTER_QUEUE_SLOT_FAILED, delegate);
+
+
+
 
 };
 

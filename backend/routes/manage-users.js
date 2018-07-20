@@ -27,6 +27,10 @@ router.get("/", httpCoWrap(function* (req, res, next) {
 }));
 
 router.get("/:user_id", haveCenterAccess, httpCoWrap(function* (req, res, next) {
+
+    if (req.params.user_id == "self") {
+        req.params.user_id = req.session.user_id;
+    }
 	let user = yield UsersManagementService.userWithId(req.params.user_id);
 	res.send(user);
 }));

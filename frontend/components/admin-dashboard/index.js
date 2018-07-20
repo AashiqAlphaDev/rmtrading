@@ -46,7 +46,7 @@ let Sidebar = ({classes, path})=>{
 					return <Link href={page.url} key={page.url}>
 						<ListItem className={isActive?classes.sideBarActiveItem:classes.sideBarItem}>
 							<ListItemIcon>
-								<page.Icon />
+								<page.Icon/>
 							</ListItemIcon>
 							<ListItemText >
 								<Typography variant={"subheading"} className={isActive?classes.sideBarActiveItemTitle:classes.sideBarItemTitle}>

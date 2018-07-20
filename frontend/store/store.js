@@ -11,6 +11,7 @@ import {visitReducer, visitSaga} from "./domain/visit";
 import {vaccinationReducer, vaccinationSaga} from "./domain/vaccination";
 import {appointmentsUiReducer, appointmentsUiSaga} from "../pages/dashboard/appointments/redux";
 import {vaccinationCenterReducer, vaccinationCenterSaga} from "./domain/appointment";
+import {userAuthUiReducer, userAuthUiSaga} from "../pages/user-dashboard/index";
 
 
 const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;
@@ -21,6 +22,7 @@ export default (initialState)=>{
 	let store = createStore(combineReducers({
 		ui:combineReducers({
 			auth:authUiReducer,
+			userAuth:userAuthUiReducer,
 			pets:petsUiReducer,
             appointments:appointmentsUiReducer
 		}),
@@ -32,6 +34,7 @@ export default (initialState)=>{
 		vaccinationCenter:vaccinationCenterReducer,
 	}), initialState, enhancer);
 	sagaMiddleware.run(authSaga);
+	sagaMiddleware.run(userAuthUiSaga);
     sagaMiddleware.run(userSaga);
     sagaMiddleware.run(petSaga);
     sagaMiddleware.run(visitSaga);

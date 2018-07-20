@@ -42,6 +42,25 @@ let guardianDetails = function(sessionId, guardianId){
     });
 }
 
+let guardianSelfDetails = function(sessionId){
+    return new Promise(function (resolve, reject) {
+        if(!sessionId){
+            resolve(false);
+            return false;
+        }
+        fetch(`${base_url}/users/self`, {
+            method:"GET",
+            headers:{
+                "X-Session-Id":sessionId
+            }
+        }).then(function (response) {
+            resolve(response.json());
+        }).catch(function (err) {
+
+        });
+    });
+}
+
 let petsOfGuardian = function(sessionId, guardianId){
     return new Promise(function (resolve, reject) {
         if(!sessionId){
@@ -162,4 +181,4 @@ let vaccinationCenterDetails = function(sessionId){
 
 
 
-export {isAdmin, guardianDetails,petsOfGuardian,petDetails,petTypeDetails,vaccinationDetails,visitDetails,vaccinationCenterDetails}
+export {isAdmin, guardianDetails,petsOfGuardian,petDetails,petTypeDetails,vaccinationDetails,visitDetails,vaccinationCenterDetails,guardianSelfDetails}

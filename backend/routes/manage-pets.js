@@ -37,6 +37,7 @@ router.get("/:pet_id", httpCoWrap(function* (req, res, next) {
 }));
 
 router.get("/of-owner/:user_id", httpCoWrap(function* (req, res, next) {
+
 	let pets = yield PetsManagementService.petsOfOwner(req.params.user_id);
 	res.send(pets);
 }));

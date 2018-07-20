@@ -28,6 +28,18 @@ router.post("/login", httpCoWrap(function* (req, res, next) {
 	}
 }));
 
+router.post("/user-login", httpCoWrap(function* (req, res, next) {
+    var result = yield authService.authenticateUser(req.body);
+    console.log(result)
+    if (result) {
+        req.session.user_id = result._id;
+        res.send({session_id: req.sessionID});
+    } else {
+        res.status(401).send({message: "You have entered the wrong username and password"});
+    }
+}));
+
+
 router.get("/admin", httpCoWrap(function* (req, res, next) {
 	if (req.session.user_id && req.session.isCenterAdmin) {
 		res.send({base: "root"});

@@ -5,9 +5,18 @@ const authEvents = {
 	ADMIN_LOGIN_STARTED:"auth/events/LOGIN_STARTED",
 	ADMIN_LOGIN_SUCCEEDED:"auth/events/LOGIN_SUCCEEDED",
 	ADMIN_LOGIN_FAILED:"auth/events/LOGIN_FAILED",
+
 	ADMIN_LOGOUT_STARTED:"auth/events/ADMIN_LOGOUT_STARTED",
 	ADMIN_LOGOUT_SUCCEEDED:"auth/events/ADMIN_LOGOUT_SUCCEEDED",
 	ADMIN_LOGOUT_FAILED:"auth/events/ADMIN_LOGOUT_FAILED",
+
+    USER_LOGIN_STARTED:"auth/events/USER_LOGIN_STARTED",
+    USER_LOGIN_SUCCEEDED:"auth/events/USER_LOGIN_SUCCEEDED",
+    USER_LOGIN_FAILED:"auth/events/USER_LOGIN_FAILED",
+
+    USER_LOGOUT_STARTED:"auth/events/USER_LOGOUT_STARTED",
+    USER_LOGOUT_SUCCEEDED:"auth/events/USER_LOGOUT_SUCCEEDED",
+    USER_LOGOUT_FAILED:"auth/events/USER_LOGOUT_FAILED"
 };
 
 const authDocActions = {
@@ -16,7 +25,10 @@ const authDocActions = {
 
 const authCommands = {
 	ADMIN_LOGIN:"auth/commands/ADMIN_LOGIN",
-	ADMIN_LOGOUT:"auth/commands/ADMIN_LOGOUT"
+	USER_LOGIN:"auth/commands/USER_LOGIN",
+	ADMIN_LOGOUT:"auth/commands/ADMIN_LOGOUT",
+	USER_LOGOUT:"auth/commands/USER_LOGOUT"
+
 };
 
 const initData = {
@@ -78,6 +90,47 @@ let authSaga = function*() {
 			}
 		});
 	});
+
+    yield takeEvery(authCommands.USER_LOGIN, function*(action) {
+        yield put({type:authEvents.USER_LOGIN_STARTED});
+        yield put({
+            type: appActions.API,
+            payload: {
+                url: '/user-login',
+                method: httpMethods.POST,
+                body: action.payload
+            },
+            meta: {
+                postFailureAction: authEvents.USER_LOGIN_FAILED,
+                postSuccessAction: authEvents.USER_LOGIN_SUCCEEDED,
+                onSuccess:function*(payload){
+                    if(typeof window === 'object'){
+                        document.cookie = `session_id=${payload.session_id};path=/`
+                    }
+                }
+            }
+        });
+    });
+    yield takeEvery(authCommands.USER_LOGOUT, function*() {
+        yield put({type:authEvents.USER_LOGOUT_STARTED});
+        yield put({
+            type: appActions.API,
+            payload: {
+                url: '/logout',
+                method: httpMethods.DELETE,
+            },
+            meta: {
+                postFailureAction: authEvents.USER_LOGOUT_FAILED,
+                postSuccessAction: authEvents.USER_LOGOUT_SUCCEEDED,
+                onSuccess:function*(){
+                    if(typeof window === 'object'){
+                        document.cookie = `session_id=;path=/`
+                    }
+                }
+            }
+        });
+    });
+
 };
 
 export {
