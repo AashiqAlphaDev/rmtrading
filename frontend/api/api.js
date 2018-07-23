@@ -44,6 +44,7 @@ let guardianDetails = function(sessionId, guardianId){
 
 let guardianSelfDetails = function(sessionId){
     return new Promise(function (resolve, reject) {
+        console.log("inside self",sessionId);
         if(!sessionId){
             resolve(false);
             return false;
@@ -178,7 +179,21 @@ let vaccinationCenterDetails = function(sessionId){
     });
 }
 
+let vaccinationCenters = function(){
+    return new Promise(function (resolve, reject) {
+        fetch(`${base_url}/vaccination-centers`, {
+            method:"GET",
+        }).then(function (response) {
+            resolve(response.json());
+        }).catch(function (err) {
+        });
+    });
+}
 
 
 
-export {isAdmin, guardianDetails,petsOfGuardian,petDetails,petTypeDetails,vaccinationDetails,visitDetails,vaccinationCenterDetails,guardianSelfDetails}
+
+
+
+
+export {isAdmin, guardianDetails,petsOfGuardian,petDetails,petTypeDetails,vaccinationDetails,visitDetails,vaccinationCenterDetails,guardianSelfDetails,vaccinationCenters}

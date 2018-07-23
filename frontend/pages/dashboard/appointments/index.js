@@ -11,7 +11,7 @@ import {AppointmentsIcon, DeleteIcon, EditIcon} from "../../../components/icons"
 import {Avatar, MenuItem, Select, Typography,Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow,Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
     TextField,Divider, List, ListItem, ListItemSecondaryAction, ListItemText} from "@material-ui/core/index";
 import Layout from "../../../components/layout";
-import {vaccinationCenterEvents,vaccinationCenterCommands} from "../../../store/domain/appointment";
+import {vaccinationCenterEvents,vaccinationCenterCommands} from "../../../store/domain/vaccination-center";
 import uuidv1 from 'uuid/v1';
 import {Router} from "../../../routes"
 import InputContainer from "../../../components/input";

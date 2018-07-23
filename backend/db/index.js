@@ -289,9 +289,14 @@ const AppointmentSchema = new Schema({
 	status: String,
 	queue_name: String,
 	slot_index: Number,
+	bookie_details:{
+		name:String,
+		email:String,
+		mobile:String
+	},
 	booking_time: [{
-		to: Number,
-		from: Number
+		to: String,
+		from: String
 	}]
 });
 mongoose.model('Appointment', AppointmentSchema);

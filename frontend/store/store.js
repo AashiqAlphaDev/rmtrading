@@ -10,8 +10,10 @@ import {petReducer, petSaga} from "./domain/pet";
 import {visitReducer, visitSaga} from "./domain/visit";
 import {vaccinationReducer, vaccinationSaga} from "./domain/vaccination";
 import {appointmentsUiReducer, appointmentsUiSaga} from "../pages/dashboard/appointments/redux";
-import {vaccinationCenterReducer, vaccinationCenterSaga} from "./domain/appointment";
+import {vaccinationCenterReducer, vaccinationCenterSaga} from "./domain/vaccination-center";
 import {userAuthUiReducer, userAuthUiSaga} from "../pages/user-dashboard/index";
+import {appointmentReducer, appointmentSaga} from "./domain/appointments";
+import {homeUiReducer, homeUiSaga} from "../pages/redux";
 
 
 const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;
@@ -24,7 +26,8 @@ export default (initialState)=>{
 			auth:authUiReducer,
 			userAuth:userAuthUiReducer,
 			pets:petsUiReducer,
-            appointments:appointmentsUiReducer
+            appointments:appointmentsUiReducer,
+            appointments:homeUiReducer
 		}),
 		auth:authReducer,
 		user:userReducer,
@@ -32,23 +35,24 @@ export default (initialState)=>{
 		visit:visitReducer,
 		vaccination:vaccinationReducer,
 		vaccinationCenter:vaccinationCenterReducer,
+		appointments:appointmentReducer,
+
+
+
 	}), initialState, enhancer);
 	sagaMiddleware.run(authSaga);
 	sagaMiddleware.run(userAuthUiSaga);
     sagaMiddleware.run(userSaga);
     sagaMiddleware.run(petSaga);
     sagaMiddleware.run(visitSaga);
+    sagaMiddleware.run(appointmentSaga);
     sagaMiddleware.run(vaccinationSaga);
     sagaMiddleware.run(vaccinationCenterSaga);
 	sagaMiddleware.run(appSaga);
 	sagaMiddleware.run(authUiSaga);
     sagaMiddleware.run(petsUiSaga);
     sagaMiddleware.run(appointmentsUiSaga);
-
-
-
-
-
+    sagaMiddleware.run(homeUiSaga);
 	return store;
 
 

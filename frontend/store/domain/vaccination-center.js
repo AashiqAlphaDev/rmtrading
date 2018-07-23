@@ -16,20 +16,24 @@ const vaccinationCenterEvents = {
     ADD_VACCINATION_CENTER_QUEUE_FAILED:"vaccinationCenters/events/ADD_VACCINATION_CENTER_QUEUE_FAILED",
     ADD_VACCINATION_CENTER_QUEUE_SUCCEEDED:"vaccinationCenters/events/ADD_VACCINATION_CENTER_QUEUE_SUCCEEDED",
 
-
     DELETE_VACCINATION_CENTER_QUEUE_SLOT_STARTED:"vaccinationCenters/events/DELETE_VACCINATION_CENTER_QUEUE_SLOT_STARTED",
     DELETE_VACCINATION_CENTER_QUEUE_SLOT_FAILED:"vaccinationCenters/events/DELETE_VACCINATION_CENTER_QUEUE_SLOT_FAILED",
     DELETE_VACCINATION_CENTER_QUEUE_SLOT_SUCCEEDED:"vaccinationCenters/events/DELETE_VACCINATION_CENTER_QUEUE_SLOT_SUCCEEDED",
-
 
     ADD_VACCINATION_CENTER_QUEUE_SLOT_STARTED:"vaccinationCenters/events/ADD_VACCINATION_CENTER_QUEUE_SLOT_STARTED",
     ADD_VACCINATION_CENTER_QUEUE_SLOT_FAILED:"vaccinationCenters/events/ADD_VACCINATION_CENTER_QUEUE_SLOT_FAILED",
     ADD_VACCINATION_CENTER_QUEUE_SLOT_SUCCEEDED:"vaccinationCenters/events/ADD_VACCINATION_CENTER_QUEUE_SLOT_SUCCEEDED",
 
+    FETCH_VACCINATION_CENTER_STARTED:"vaccinationCenters/events/FETCH_VACCINATION_CENTER_STARTED",
+    FETCH_VACCINATION_CENTER_FAILED:"vaccinationCenters/events/FETCH_VACCINATION_CENTER_FAILED",
+    FETCH_VACCINATION_CENTER_SUCCEEDED:"vaccinationCenters/events/FETCH_VACCINATION_CENTER_SUCCEEDED"
 
 };
 
 const vaccinationCenterDocActions = {
+
+    SET_CENTERS:"vaccinationCenters/command/SET_CENTERS"
+
 };
 
 const vaccinationCenterCommands = {
@@ -38,6 +42,7 @@ const vaccinationCenterCommands = {
 	ADD_VACCINATION_CENTER_QUEUE:"vaccinationCenters/command/ADD_VACCINATION_CENTER_QUEUE",
     ADD_VACCINATION_CENTER_QUEUE_SLOT:"vaccinationCenters/command/ADD_VACCINATION_CENTER_QUEUE_SLOT",
     DELETE_VACCINATION_CENTER_QUEUE_SLOT:"vaccinationCenters/command/DELETE_VACCINATION_CENTER_QUEUE_SLOT",
+    FETCH_VACCINATION_CENTER:"vaccinationCenters/command/FETCH_VACCINATION_CENTER",
 
 };
 
@@ -47,6 +52,14 @@ const initData = {
 
 let vaccinationCenterReducer = function(state=initData, {type, payload}){
 	switch (type) {
+
+        case vaccinationCenterDocActions.SET_CENTERS: {
+            payload.forEach((center) => {
+                state = {...state, vaccinationCenters: {...state.vaccinationCenters, [vaccinationCenter._id]: center}}
+            });
+            break;
+        }
+
 	    default:{
 			break;
 		}
@@ -57,6 +70,25 @@ let vaccinationCenterReducer = function(state=initData, {type, payload}){
 
 let vaccinationCenterSaga = function*() {
 
+
+    yield takeEvery(vaccinationCenterCommands.FETCH_VACCINATION_CENTER, function* (action) {
+        yield put({type:vaccinationCenterEvents.FETCH_VACCINATION_CENTER_STARTED});
+        yield put({
+            type: appActions.API,
+            payload: {
+                url: `/vaccination-centers/${action.payload.vaccination_center_id}`,
+                method: httpMethods.GET
+            },
+            meta: {
+                callbackId:action.payload.callbackId,
+                postFailureAction: vaccinationCenterEvents.FETCH_VACCINATION_CENTER_FAILED,
+                postSuccessAction: vaccinationCenterEvents.FETCH_VACCINATION_CENTER_SUCCEEDED,
+                onSuccess:function*(payload){
+                    yield put({type:vaccinationCenterDocActions.SET_CENTERS, payload:payload.data});
+                }
+            }
+        });
+    });
 
 
     yield takeEvery(vaccinationCenterCommands.UPDATE_VACCINATION_CENTER, function*(action) {

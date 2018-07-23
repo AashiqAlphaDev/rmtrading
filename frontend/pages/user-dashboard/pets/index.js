@@ -61,22 +61,6 @@ let _Index = class extends React.Component {
                             <Layout direction={"column"} className={classes.iconContainer}>
                         <PetsIcon size={100}/>
                             </Layout>
-                            {/*{ _id: '5b5065135ce7c90011927845',*/}
-                                {/*owner: '5b4ef7c4907c350011599330',*/}
-                                {/*name: 'Posioden',*/}
-                                {/*pet_type: '5b290df0c2a0370011d555b6',*/}
-                                {/*breed: '5b5065135ce7c90011927844',*/}
-                                {/*date_of_birth: '2017-01-01T00:00:00.000Z',*/}
-                                {/*chip_id: '2918491234132',*/}
-                                {/*data:*/}
-                            {/*{ breed: 'sjjdsk',*/}
-                                {/*pet_type: 'vet',*/}
-                                {/*owner_name: 'Avinash Shekar',*/}
-                                {/*owner_mobile: 'slayereborn12@gmail.com',*/}
-                                {/*owner_email: '9945532208' },*/}
-                                {/*__v: 0 }*/}
-
-
                             <Layout direction={"column"} flex={1}>
                                 <Typography variant={"body1"} gutterBottom >
                                     Name : {this.props.petDetails.name}

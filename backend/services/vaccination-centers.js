@@ -47,7 +47,6 @@ module.exports.admins = function* (centerId) {
 
 
 module.exports.bookAppointment = function* (appointmentData) {
-	validate(appointmentData, ["center", "owner", "queue_name", "slot_index", "date"], "You missed <%=param%>.");
 	let extend = _.extend({}, appointmentData);
 	delete extend.owner;
 	extend.status = {$ne: "cancelled"};
@@ -77,7 +76,6 @@ module.exports.cancelAppointment = function* (appointmentId, userId) {
 module.exports.appointments = function* (centerId, date, ownerId) {
 	queryValidate(centerId, "You missed center-id.");
 	queryValidate(date, "You missed the date.");
-	queryValidate(ownerId, "You missed owner-id.");
 
 	let query = {center: centerId, date: date};
 	if (ownerId) {

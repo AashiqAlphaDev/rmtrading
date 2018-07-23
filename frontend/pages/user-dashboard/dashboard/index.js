@@ -5,12 +5,14 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import {connect} from "react-redux"
 import {authCommands} from "../../../store/domain/auth";
 import {AppBar, Toolbar} from "@material-ui/core/index";
-import {guardianSelfDetails,petsOfGuardian} from "../../../api/api";
-import {Table, TableBody, TableCell, TableHead, TableRow,DialogContent,Dialog} from "@material-ui/core/index";
+import {guardianSelfDetails, petsOfGuardian, vaccinationCenters} from "../../../api/api";
+import {Table, TableBody, TableCell, TableHead, TableRow,DialogContent,Dialog,IconButton} from "@material-ui/core/index";
 import moment from "moment"
 import InputContainer from "../../../components/input";
-import {UserIcon} from "../../../components/icons";
-import {Link} from "../../../routes";
+import {SearchIcon, UserIcon} from "../../../components/icons";
+import {Link,Router} from "../../../routes";
+import {ChevronLeft} from "@material-ui/icons/index";
+
 
 
 let _Index = class extends React.Component {
@@ -18,18 +20,23 @@ let _Index = class extends React.Component {
     static async getInitialProps ({query, session_id}) {
         let gaurdianselfdetails = await guardianSelfDetails(session_id);
         let petsofguardian = await petsOfGuardian(session_id,gaurdianselfdetails._id);
+        let vaccinationcenters = await vaccinationCenters(session_id)
 
-        return {petsOfGuardian:petsofguardian,guardianDetails:gaurdianselfdetails};
+
+
+        return {petsOfGuardian:petsofguardian,guardianDetails:gaurdianselfdetails,vaccinationCenters:vaccinationcenters};
     }
 
 
     componentWillMount = () => {
-
-
+        console.log("vaccinationCenters",this.props.vaccinationCenters)
+        console.log("vaccinationCenters-address",this.props.vaccinationCenters.docs[0].address)
+        console.log("vaccinationCenters-contact",this.props.vaccinationCenters.docs[0].contact)
+        console.log("vaccinationCenters-queues",this.props.vaccinationCenters.docs[0].queues)
 
     }
 
-    state = {email:"", password:"",petDetails:{owner:this.props.guardianDetails._id}};
+    state = {email:"", password:"",petDetails:{owner:this.props.guardianDetails._id},hideSearchLayout:false};
 
 
 	render() {
@@ -41,6 +48,23 @@ let _Index = class extends React.Component {
                         <Typography variant={"title"} className={classes.navTitle}>
                             User Dashboard
                         </Typography>
+                        <Layout className={classes.searchContainer} direction={"column"}>
+                            <Layout flex={1} direction={"column"}>
+                                <TextField
+                                    onChange={(e)=>{
+                                        // this.props.dispatch({type:petsUiDocActions.SET_QUERY, payload:e.target.value});
+                                    }}
+                                    placeholder={"Search A Center"}
+                                    InputProps={{
+                                        endAdornment: <SearchIcon size={25} pad={5}/>
+                                    }}
+                                    onFocus={() => {
+                                        Router.pushRoute(`/`)
+                                    }}
+
+                                />
+                            </Layout>
+                        </Layout>
                         <Button onClick={()=>{
                             this.props.dispatch({type:authCommands.USER_LOGOUT})
                         }}>
@@ -48,6 +72,8 @@ let _Index = class extends React.Component {
                         </Button>
                     </Toolbar>
                 </AppBar>
+                {
+                    !this.state.hideSearchLayout &&
                 <Layout justifyContent={"center"} flex={1}>
                 <Layout direction={"column"} className={classes.container}>
                     <Layout direction={"column"} className={classes.paper}>
@@ -120,6 +146,64 @@ let _Index = class extends React.Component {
 
                 </Layout>
                 </Layout>
+
+                }
+                {
+                    this.state.hideSearchLayout &&
+                    <Layout justifyContent={"center"} flex={1}>
+                        <Layout direction={"column"} className={classes.container}>
+                            <Layout direction={"column"} className={classes.paper}>
+                                <Layout alignItems={"center"}>
+                                    <Layout alignItems={"center"}>
+                                    <IconButton onClick={() => {
+                                        this.setState({hideSearchLayout: false})
+                                    }}>
+                                    <ChevronLeft size={40}/>
+                                    </IconButton>
+                                    </Layout>
+                                    <Layout alignItems={"center"}>
+
+                                    <Typography variant={"title"} gutterBottom >
+                                        Vaccination Centers
+                                    </Typography>
+                                    </Layout>
+
+                                </Layout>
+                                <Table>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>Center Name</TableCell>
+                                            <TableCell>Center City</TableCell>
+                                            <TableCell>Center Contact Name</TableCell>
+                                            <TableCell>Center Contact Phone</TableCell>
+                                            <TableCell>Center Contact Email</TableCell>
+                                            <TableCell>Center Contact Fax</TableCell>
+
+
+
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {
+                                            this.props.vaccinationCenters.docs.map((item) => {
+                                                return <TableRow>
+                                                    <TableCell>{item.name}</TableCell>
+                                                    <TableCell>{item.address.city}</TableCell>
+                                                    <TableCell>{item.contact.name}</TableCell>
+                                                    <TableCell>{item.contact.phNo}</TableCell>
+                                                    <TableCell>{item.contact.email}</TableCell>
+                                                    <TableCell>{item.contact.fax}</TableCell>
+                                                </TableRow>
+                                            })
+                                        }
+                                    </TableBody>
+                                </Table>
+
+                            </Layout>
+                        </Layout>
+                    </Layout>
+
+                }
 
                 <Dialog
                     open={this.state.showRegisterPetDialogue}
@@ -255,6 +339,9 @@ const Index = withStyles((theme)=>{
         iconContainer:{
 
         paddingRight:theme.spacing.unit * 2
+        },
+        searchContainer: {
+            padding: theme.spacing.unit * 2
         }
 
 	}

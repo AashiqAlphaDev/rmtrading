@@ -1,5 +1,5 @@
 import {put, takeEvery} from 'redux-saga/effects'
-import {appointmentEvents, vaccinationCenterEvents} from "../../../store/domain/appointment";
+import {appointmentEvents, vaccinationCenterEvents} from "../../../store/domain/vaccination-center";
 import _ from "underscore"
 
 let listeners = []
