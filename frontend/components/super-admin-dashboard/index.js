@@ -2,10 +2,7 @@ import React from "react"
 import Layout from "../layout";
 import {withStyles} from "@material-ui/core/styles";
 import {List, ListItem,ListItemText,ListItemIcon, AppBar,Toolbar, Button} from "@material-ui/core/index";
-import {
-    AppointmentsIcon, CountriesIcon, DiseasesIcon, InventoryIcon, OverviewIcon, PetsIcon,
-    SyringeIcon
-} from "../icons";
+import {CountriesIcon, DiseasesIcon, InventoryIcon, OverviewIcon, PetsIcon, SyringeIcon, VetCenterIcon} from "../icons";
 import Link from "next/link"
 import {Typography} from "@material-ui/core/index";
 import {withRouter} from 'next/router'
@@ -13,11 +10,12 @@ import {connect} from "react-redux"
 import {authCommands} from "../../store/domain/auth";
 
 let pageTitles = {
-	"/super-admin-dashboard/overview":"Vet Centers",
-	"/super-admin-dashboard/vaccines":"Vaccines",
-	"/super-admin-dashboard/app-data/pet-type":"Pet Type",
-	"/super-admin-dashboard/app-data/countries":"Countries",
-	"/super-admin-dashboard/app-data/inventory":"inventory",
+	"/super-admin-dashboard/overview":"Overview",
+	"/super-admin-dashboard/vaccination-centers":"Vaccination Center",
+    "/super-admin-dashboard/vaccines":"Vaccines",
+    "/super-admin-dashboard/app-data/pet-type":"Pet Type",
+    "/super-admin-dashboard/app-data/countries":"Countries",
+	"/super-admin-dashboard/app-data/inventory":"Inventory",
 	"/super-admin-dashboard/app-data/diseases":"Diseases",
 };
 
@@ -28,6 +26,12 @@ const pages = [
 		},
 		url: "/super-admin-dashboard/overview"
 	},
+    {
+        Icon: () => {
+            return <VetCenterIcon size={32}/>;
+        },
+        url: "/super-admin-dashboard/vaccination-centers"
+    },
 	{
 		Icon: () => {
 			return <SyringeIcon size={32}/>;

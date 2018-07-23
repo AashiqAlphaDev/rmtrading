@@ -26,7 +26,9 @@ const vaccinationCenterEvents = {
 
     FETCH_VACCINATION_CENTER_STARTED:"vaccinationCenters/events/FETCH_VACCINATION_CENTER_STARTED",
     FETCH_VACCINATION_CENTER_FAILED:"vaccinationCenters/events/FETCH_VACCINATION_CENTER_FAILED",
-    FETCH_VACCINATION_CENTER_SUCCEEDED:"vaccinationCenters/events/FETCH_VACCINATION_CENTER_SUCCEEDED"
+    FETCH_VACCINATION_CENTER_SUCCEEDED:"vaccinationCenters/events/FETCH_VACCINATION_CENTER_SUCCEEDED",
+
+
 
 };
 
@@ -89,7 +91,6 @@ let vaccinationCenterSaga = function*() {
             }
         });
     });
-
 
     yield takeEvery(vaccinationCenterCommands.UPDATE_VACCINATION_CENTER, function*(action) {
         console.log(action)
