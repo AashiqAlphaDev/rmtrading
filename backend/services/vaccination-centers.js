@@ -47,6 +47,7 @@ module.exports.admins = function* (centerId) {
 
 
 module.exports.bookAppointment = function* (appointmentData) {
+
 	let extend = _.extend({}, appointmentData);
 	delete extend.owner;
 	extend.status = {$ne: "cancelled"};

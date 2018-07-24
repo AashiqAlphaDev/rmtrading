@@ -23,7 +23,7 @@ import _ from "underscore"
 let _Index = class extends React.Component {
 
     static async getInitialProps ({query, session_id}) {
-        let vaccinationcenterdetails = await vaccinationCenterDetails(session_id);
+        let vaccinationcenterdetails = await vaccinationCenterDetails(session_id,"self");
         return {vaccinationCenterDetails:vaccinationcenterdetails};
 
     }
@@ -43,10 +43,7 @@ let _Index = class extends React.Component {
         }
 
         onAction({type, payload}) {
-            console.log("hello",type,payload);
-            console.log(this.state.updateTimeDiffCallbackId);
-            console.log(this.props.router.asPath);
-            console.log("this",vaccinationCenterEvents.UPDATE_VACCINATION_CENTER_SUCCEEDED);
+
             if (type === vaccinationCenterEvents.UPDATE_VACCINATION_CENTER_SUCCEEDED && payload.callbackId === this.state.updateTimeDiffCallbackId) {
                 Router.pushRoute(this.props.router.asPath);
             }

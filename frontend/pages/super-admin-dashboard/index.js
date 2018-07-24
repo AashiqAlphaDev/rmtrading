@@ -1,35 +1,46 @@
-import React from "react";
-import {isAdmin} from "../../api/api";
-import Router from "next/router";
-import {connect} from "react-redux"
+import {takeEvery} from "redux-saga/effects"
+import React from "react"
+import Router from 'next/router'
 
-let checkAdmin = (Component)=>{
-	return connect(store=>store)(class extends React.Component{
-		static async getInitialProps(ctx){
-		}
+import {authEvents as userAuthEvents} from "../../store/domain/auth";
+
+const userAuthUiEvents = {
+
+};
+
+const userAuthUiCommands = {
+
+};
+
+const userAuthUiActions = {
+
+};
+
+const userAuthUiReducer = function () {
+    return {}
+};
+
+const userAuthUiSaga = function*(){
+
+    console.log("this")
+    yield takeEvery(userAuthEvents.SUPER_ADMIN_LOGIN_SUCCEEDED, function*() {
+        Router.push('/super-admin-dashboard/dashboard');
+    })
+    yield takeEvery(userAuthEvents.SUPER_ADMIN_LOGIN_FAILED, function*() {
+        Router.push('/super-admin-dashboard/login');
+    })
 
 
-		render(){
-			return <Component {...this.props} />
-		}
-	})
+};
+
+
+export default class {
 }
+
+
 
 export {
 
-}
-
-export default class {
-	static async getInitialProps({res}){
-		if (res) {
-			res.writeHead(302, {
-				Location: '/super-admin-dashboard/overview'
-			});
-			res.end();
-			res.finished = true;
-		} else {
-			Router.push('/super-admin-dashboard/overview');
-		}
-		return {}
-	}
+    userAuthUiReducer,
+    userAuthUiSaga
 }

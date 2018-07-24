@@ -160,17 +160,29 @@ let visitDetails = function(sessionId, petId,visitId){
     });
 }
 
-let vaccinationCenterDetails = function(sessionId){
+let vaccinationCenterDetails = function(sessionId,vaccinationCenterID){
     return new Promise(function (resolve, reject) {
         if(!sessionId){
             resolve(false);
             return false;
         }
-        fetch(`${base_url}/vaccination-centers/self`, {
+        fetch(`${base_url}/vaccination-centers/${vaccinationCenterID}`, {
             method:"GET",
             headers:{
                 "X-Session-Id":sessionId
             }
+        }).then(function (response) {
+            resolve(response.json());
+        }).catch(function (err) {
+
+        });
+    });
+}
+
+let vaccinationCenterDetail = function(vaccinationCenterID){
+    return new Promise(function (resolve, reject) {
+        fetch(`${base_url}/vaccination-centers/${vaccinationCenterID}`, {
+            method:"GET",
         }).then(function (response) {
             resolve(response.json());
         }).catch(function (err) {
@@ -196,4 +208,4 @@ let vaccinationCenters = function(){
 
 
 
-export {isAdmin, guardianDetails,petsOfGuardian,petDetails,petTypeDetails,vaccinationDetails,visitDetails,vaccinationCenterDetails,guardianSelfDetails,vaccinationCenters}
+export {isAdmin, guardianDetails,petsOfGuardian,petDetails,petTypeDetails,vaccinationDetails,visitDetails,vaccinationCenterDetails,guardianSelfDetails,vaccinationCenters,vaccinationCenterDetail}

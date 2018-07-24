@@ -16,7 +16,17 @@ const authEvents = {
 
     USER_LOGOUT_STARTED:"auth/events/USER_LOGOUT_STARTED",
     USER_LOGOUT_SUCCEEDED:"auth/events/USER_LOGOUT_SUCCEEDED",
-    USER_LOGOUT_FAILED:"auth/events/USER_LOGOUT_FAILED"
+    USER_LOGOUT_FAILED:"auth/events/USER_LOGOUT_FAILED",
+
+
+    SUPER_ADMIN_LOGIN_STARTED:"auth/events/SUPER_ADMIN_LOGIN_STARTED",
+    SUPER_ADMIN_LOGIN_SUCCEEDED:"auth/events/SUPER_ADMIN_LOGIN_SUCCEEDED",
+    SUPER_ADMIN_LOGIN_FAILED:"auth/events/SUPER_ADMIN_LOGIN_FAILED"
+
+
+
+
+
 };
 
 const authDocActions = {
@@ -27,7 +37,8 @@ const authCommands = {
 	ADMIN_LOGIN:"auth/commands/ADMIN_LOGIN",
 	USER_LOGIN:"auth/commands/USER_LOGIN",
 	ADMIN_LOGOUT:"auth/commands/ADMIN_LOGOUT",
-	USER_LOGOUT:"auth/commands/USER_LOGOUT"
+	USER_LOGOUT:"auth/commands/USER_LOGOUT",
+    SUPER_ADMIN_LOGIN:"auth/commands/SUPER_ADMIN_LOGIN"
 
 };
 
@@ -52,25 +63,50 @@ let authReducer = function(state=initData, {type}){
 
 let authSaga = function*() {
 	yield takeEvery(authCommands.ADMIN_LOGIN, function*(action) {
-		yield put({type:authEvents.ADMIN_LOGIN_STARTED});
-		yield put({
-			type: appActions.API,
-			payload: {
-				url: '/login',
-				method: httpMethods.POST,
-				body: action.payload
-			},
-			meta: {
-				postFailureAction: authEvents.ADMIN_LOGIN_FAILED,
-				postSuccessAction: authEvents.ADMIN_LOGIN_SUCCEEDED,
-				onSuccess:function*(payload){
-					if(typeof window === 'object'){
-						document.cookie = `session_id=${payload.session_id};path=/`
-					}
-				}
-			}
-		});
-	});
+        yield put({type:authEvents.ADMIN_LOGIN_STARTED});
+        yield put({
+            type: appActions.API,
+            payload: {
+                url: '/login',
+                method: httpMethods.POST,
+                body: action.payload
+            },
+            meta: {
+                postFailureAction: authEvents.ADMIN_LOGIN_FAILED,
+                postSuccessAction: authEvents.ADMIN_LOGIN_SUCCEEDED,
+                onSuccess:function*(payload){
+                    if(typeof window === 'object'){
+                        document.cookie = `session_id=${payload.session_id};path=/`
+                    }
+                }
+            }
+        });
+    });
+    yield takeEvery(authCommands.SUPER_ADMIN_LOGIN, function*(action) {
+        yield put({type:authEvents.SUPER_ADMIN_LOGIN_STARTED});
+        yield put({
+            type: appActions.API,
+            payload: {
+                url: '/super-admin/login',
+                method: httpMethods.POST,
+                body: action.payload
+            },
+            meta: {
+                postFailureAction: authEvents.SUPER_ADMIN_LOGIN_FAILED,
+                postSuccessAction: authEvents.SUPER_ADMIN_LOGIN_SUCCEEDED,
+                onSuccess:function*(payload){
+                    if(typeof window === 'object'){
+                        document.cookie = `session_id=${payload.session_id};path=/`
+                    }
+                }
+            }
+        });
+    });
+
+
+
+
+
 	yield takeEvery(authCommands.ADMIN_LOGOUT, function*() {
 		yield put({type:authEvents.ADMIN_LOGOUT_STARTED});
 		yield put({

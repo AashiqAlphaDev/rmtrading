@@ -27,18 +27,15 @@ const appointmentCommands = {
 };
 
 const initData = {
-    appointments:{}
+
 };
 
 let appointmentReducer = function(state=initData, {type, payload}){
 	switch (type) {
-
         case appointmentDocActions.SET_SLOTS: {
-
-            state = {...state, availableSlots:payload}
+            state = {...state, [payload.center_id]:{[payload.date]:payload.slots}}
             break;
         }
-
 	    default:{
 			break;
 		}
@@ -63,7 +60,7 @@ let appointmentSaga = function*() {
                 postFailureAction: appointmentEvents.FETCH_AVAILABLE_APPOINTMENTS_FAILED,
                 postSuccessAction: appointmentEvents.FETCH_AVAILABLE_APPOINTMENTS_SUCCEEDED,
                 onSuccess:function*(payload){
-                    yield put({type:appointmentDocActions.SET_SLOTS, payload:payload});
+                    yield put({type:appointmentDocActions.SET_SLOTS, payload:{center_id:action.payload.vaccination_center_id ,date:action.payload.date,slots:payload}});
                 }
             }
         });

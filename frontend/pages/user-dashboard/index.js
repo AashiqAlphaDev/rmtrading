@@ -22,7 +22,6 @@ const userAuthUiReducer = function () {
 
 const userAuthUiSaga = function*(){
 
-	console.log("this")
 	yield takeEvery(userAuthEvents.USER_LOGIN_SUCCEEDED, function*() {
 		Router.push('/user-dashboard/dashboard');
 	})

@@ -22,7 +22,7 @@ let _Index = class extends React.Component {
 
 
     componentWillMount = () => {
-        console.log(this.props.vaccinationCenters.docs[0].contact);
+
 
     }
 

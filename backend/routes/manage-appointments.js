@@ -25,7 +25,8 @@ router.get("/", httpCoWrap(function* (req, res, next) {
 
 router.post("/", httpCoWrap(function* (req, res, next) {
 	try {
-		var appointments = yield vaccinationCenterManagementService.bookAppointment(req.body);
+		let appointmentData = {...req.body,center:req.params.center_id,date:req.query.date}
+		var appointments = yield vaccinationCenterManagementService.bookAppointment(appointmentData);
 		res.send(appointments);
 	} catch (err) {
 		res.status(err.statusCode).send({message: err.message});
