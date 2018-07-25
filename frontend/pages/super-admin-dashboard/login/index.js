@@ -30,7 +30,7 @@ let _Index = class extends React.Component {
 							Getting started is quick and simple, Just fill out the info below !
 						</Typography>
 						<Layout direction={"column"} className={classes.section}>
-							<TextField className={classes.line} value={this.state.email} onChange={(e)=>{this.setState({email:e.target.value})}} placeholder={"Email"}></TextField>
+							<TextField className={classes.line} value={this.state.username} onChange={(e)=>{this.setState({username:e.target.value})}} placeholder={"Username"}></TextField>
 							<TextField className={classes.line} value={this.state.password} onChange={(e)=>{this.setState({password:e.target.value})}} placeholder={"Password"} type={"password"} />
 						</Layout>
 						<Layout direction={"column"}>

@@ -41,6 +41,7 @@ router.put("/:vaccination_center_id/queues/:queue_id", isCenterAdmin, httpCoWrap
 
 
 router.delete("/:vaccination_center_id", isCenterAdmin, httpCoWrap(function* (req, res, next) {
+	console.log("route",req.params.vaccination_center_id)
 	yield VaccinationCenterManagementService.deleteVaccinationCenter(req.params.vaccination_center_id);
 	res.send({});
 }));

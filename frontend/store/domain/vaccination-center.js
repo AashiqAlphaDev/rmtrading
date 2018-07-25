@@ -28,7 +28,13 @@ const vaccinationCenterEvents = {
     FETCH_VACCINATION_CENTER_FAILED:"vaccinationCenters/events/FETCH_VACCINATION_CENTER_FAILED",
     FETCH_VACCINATION_CENTER_SUCCEEDED:"vaccinationCenters/events/FETCH_VACCINATION_CENTER_SUCCEEDED",
 
+    ADD_VACCINATION_CENTER_STARTED:"vaccinationCenters/events/ADD_VACCINATION_CENTER_STARTED",
+    ADD_VACCINATION_CENTER_FAILED:"vaccinationCenters/events/ADD_VACCINATION_CENTER_FAILED",
+    ADD_VACCINATION_CENTER_SUCCEEDED:"vaccinationCenters/events/ADD_VACCINATION_CENTER_SUCCEEDED",
 
+    DELETE_VACCINATION_CENTER_STARTED:"vaccinationCenters/events/DELETE_VACCINATION_CENTER_STARTED",
+    DELETE_VACCINATION_CENTER_FAILED:"vaccinationCenters/events/DELETE_VACCINATION_CENTER_FAILED",
+    DELETE_VACCINATION_CENTER_SUCCEEDED:"vaccinationCenters/events/DELETE_VACCINATION_CENTER_SUCCEEDED"
 
 };
 
@@ -39,7 +45,9 @@ const vaccinationCenterDocActions = {
 };
 
 const vaccinationCenterCommands = {
+    DELETE_VACCINATION_CENTER:"vaccinationCenters/command/DELETE_VACCINATION_CENTER",
 	UPDATE_VACCINATION_CENTER:"vaccinationCenters/command/UPDATE_VACCINATION_CENTER",
+    ADD_VACCINATION_CENTER:"vaccinationCenters/command/ADD_VACCINATION_CENTER",
 	DELETE_VACCINATION_CENTER_QUEUE:"vaccinationCenters/command/DELETE_VACCINATION_CENTER_QUEUE",
 	ADD_VACCINATION_CENTER_QUEUE:"vaccinationCenters/command/ADD_VACCINATION_CENTER_QUEUE",
     ADD_VACCINATION_CENTER_QUEUE_SLOT:"vaccinationCenters/command/ADD_VACCINATION_CENTER_QUEUE_SLOT",
@@ -109,6 +117,42 @@ let vaccinationCenterSaga = function*() {
             }
         });
     });
+
+    yield takeEvery(vaccinationCenterCommands.ADD_VACCINATION_CENTER, function*(action) {
+        console.log(action)
+        yield put({type: vaccinationCenterEvents.ADD_VACCINATION_CENTER_STARTED});
+        yield put({
+            type: appActions.API,
+            payload: {
+                url: `/vaccination-centers`,
+                method: httpMethods.POST,
+                body: action.payload.data,
+            },
+            meta: {
+                callbackId: action.payload.callbackId,
+                postFailureAction: vaccinationCenterEvents.ADD_VACCINATION_CENTER_FAILED,
+                postSuccessAction: vaccinationCenterEvents.ADD_VACCINATION_CENTER_SUCCEEDED
+            }
+        });
+    });
+
+    yield takeEvery(vaccinationCenterCommands.DELETE_VACCINATION_CENTER, function*(action) {
+        console.log(action)
+        yield put({type: vaccinationCenterEvents.DELETE_VACCINATION_CENTER_STARTED});
+        yield put({
+            type: appActions.API,
+            payload: {
+                url: `/vaccination-centers/${action.payload.data}`,
+                method: httpMethods.DELETE
+            },
+            meta: {
+                callbackId: action.payload.callbackId,
+                postFailureAction: vaccinationCenterEvents.DELETE_VACCINATION_CENTER_FAILED,
+                postSuccessAction: vaccinationCenterEvents.DELETE_VACCINATION_CENTER_SUCCEEDED
+            }
+        });
+    });
+
 
     yield takeEvery(vaccinationCenterCommands.DELETE_VACCINATION_CENTER_QUEUE, function*(action) {
         console.log(action)

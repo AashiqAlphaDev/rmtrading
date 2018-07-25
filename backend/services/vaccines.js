@@ -1,8 +1,13 @@
 const mongoose = require("mongoose")
 const Vaccines = mongoose.model('Vaccine');
+const PetType = mongoose.model('PetType');
+
+
+
+
 
 module.exports.createVaccine = function* (vaccineData) {
-	validate(vaccineData, ["name", "pet_type", "country", "diseases"], "You missed <%=param%>.");
+
 	let existingVaccines = yield Vaccines.findOne({name: vaccineData.name});
 	if (existingVaccines) {
 		return existingVaccines;

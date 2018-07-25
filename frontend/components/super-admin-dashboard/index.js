@@ -14,8 +14,6 @@ let pageTitles = {
 	"/super-admin-dashboard/vaccination-centers":"Vaccination Center",
     "/super-admin-dashboard/vaccines":"Vaccines",
     "/super-admin-dashboard/app-data/pet-type":"Pet Type",
-    "/super-admin-dashboard/app-data/countries":"Countries",
-	"/super-admin-dashboard/app-data/inventory":"Inventory",
 	"/super-admin-dashboard/app-data/diseases":"Diseases",
 };
 
@@ -47,23 +45,10 @@ const pages = [
 	},
     {
         Icon: () => {
-            return <CountriesIcon size={32}/>
-        },
-        url: "/super-admin-dashboard/app-data/countries"
-    },
-    {
-        Icon: () => {
-            return <InventoryIcon size={32}/>
-        },
-        url: "/super-admin-dashboard/app-data/inventory"
-    },
-    {
-        Icon: () => {
             return <DiseasesIcon size={32}/>
         },
         url: "/super-admin-dashboard/app-data/diseases"
-    },
-
+    }
 ];
 
 

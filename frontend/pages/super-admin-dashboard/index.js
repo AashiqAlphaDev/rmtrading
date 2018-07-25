@@ -2,31 +2,31 @@ import {takeEvery} from "redux-saga/effects"
 import React from "react"
 import Router from 'next/router'
 
-import {authEvents as userAuthEvents} from "../../store/domain/auth";
+import {authEvents as superAdminAuthEvents} from "../../store/domain/auth";
 
-const userAuthUiEvents = {
-
-};
-
-const userAuthUiCommands = {
+const superAdminAuthUiEvents = {
 
 };
 
-const userAuthUiActions = {
+const superAdminAuthUiCommands = {
 
 };
 
-const userAuthUiReducer = function () {
+const superAdminAuthUiActions = {
+
+};
+
+const superAdminAuthUiReducer = function () {
     return {}
 };
 
-const userAuthUiSaga = function*(){
+const superAdminAuthUiSaga = function*(){
 
-    console.log("this")
-    yield takeEvery(userAuthEvents.SUPER_ADMIN_LOGIN_SUCCEEDED, function*() {
-        Router.push('/super-admin-dashboard/dashboard');
+    
+    yield takeEvery(superAdminAuthEvents.SUPER_ADMIN_LOGIN_SUCCEEDED, function*() {
+        Router.push('/super-admin-dashboard/overview');
     })
-    yield takeEvery(userAuthEvents.SUPER_ADMIN_LOGIN_FAILED, function*() {
+    yield takeEvery(superAdminAuthEvents.SUPER_ADMIN_LOGIN_FAILED, function*() {
         Router.push('/super-admin-dashboard/login');
     })
 
@@ -41,6 +41,6 @@ export default class {
 
 export {
 
-    userAuthUiReducer,
-    userAuthUiSaga
+    superAdminAuthUiReducer,
+    superAdminAuthUiSaga
 }

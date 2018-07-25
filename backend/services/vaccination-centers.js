@@ -24,6 +24,7 @@ module.exports.updateVaccinationCenterQueue = function* (id, queue_id, slotData)
 
 module.exports.deleteVaccinationCenter = function* (vaccinationCenterId) {
 	queryValidate(vaccinationCenterId, "You missed vaccination-center-id.");
+	console.log("service",vaccinationCenterId)
 	return yield VaccinationCenters.remove({_id: vaccinationCenterId});
 };
 

@@ -2,6 +2,24 @@ const mongoose = require("mongoose")
 const PetType = mongoose.model('PetType');
 const PetBreed = mongoose.model('Breed');
 
+module.exports.findElseCreatePetTypeId = function* (petTypeData) {
+    let existingPetType = yield PetType.findOne({name: petTypeData.name})
+	if(existingPetType){
+        return existingPetType._id;
+	}
+    let newPetType = yield PetType.create(petTypeData);
+	return newPetType._id;
+}
+
+module.exports.findElseCreateBreedId = function* (breedData) {
+    let existingBreed = yield PetBreed.findOne({name: breedData.name})
+    if(existingBreed){
+        return existingBreed._id;
+    }
+    let newBreedData = yield PetBreed.create(breedData);
+    return newBreedData._id;
+}
+
 module.exports.createPetType = function* (petTypeData) {
 	validate(petTypeData, ["name"], "You missed <%=param%>.");
 

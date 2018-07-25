@@ -2,6 +2,7 @@ var Router = require("express").Router
 var router = Router();
 const co = require("co");
 const VaccinesManagementService = require("../services/vaccines")
+const PetTypeManagementService = require("../services/pets-type")
 const isAdmin = require("./super-admin/check-admin")
 
 router.get("/", httpCoWrap(function* (req, res, next) {
@@ -28,6 +29,8 @@ router.get("/:vaccine_id", httpCoWrap(function* (req, res, next) {
 }));
 
 router.post("/", isAdmin, httpCoWrap(function* (req, res, next) {
+    req.body.pet_type = yield PetTypeManagementService.findElseCreatePetTypeId({name:req.body.pet});
+    req.body.breed = yield PetTypeManagementService.findElseCreateBreedId({name:req.body.breed});
 	let vaccine = yield VaccinesManagementService.createVaccine(req.body);
 	res.send(vaccine);
 }));

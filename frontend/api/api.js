@@ -202,10 +202,21 @@ let vaccinationCenters = function(){
     });
 }
 
+let vaccinesList = function(){
+    return new Promise(function (resolve, reject) {
+        fetch(`${base_url}/vaccines`, {
+            method:"GET",
+        }).then(function (response) {
+            resolve(response.json());
+        }).catch(function (err) {
+        });
+    });
+}
 
 
 
 
 
 
-export {isAdmin, guardianDetails,petsOfGuardian,petDetails,petTypeDetails,vaccinationDetails,visitDetails,vaccinationCenterDetails,guardianSelfDetails,vaccinationCenters,vaccinationCenterDetail}
+
+export {isAdmin, guardianDetails,petsOfGuardian,petDetails,petTypeDetails,vaccinationDetails,visitDetails,vaccinationCenterDetails,guardianSelfDetails,vaccinationCenters,vaccinationCenterDetail,vaccinesList}

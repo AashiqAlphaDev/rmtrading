@@ -28,14 +28,14 @@ mongoose.model('User', userSchema);
 const vaccinesSchema = new Schema({
 	name: String,
 	available: Boolean,
-	diseases: [ObjectID],
+	diseases: String,
 	pet_type: ObjectID,
 	breed: ObjectID,
 	gender: {
 		for_male: Boolean,
 		for_female: Boolean,
 	},
-	country: ObjectID,
+	country: String,
 	remarks: String,
 	child_vaccine_schedules: [{
 		catch_up_period: {
@@ -75,16 +75,10 @@ const vaccinesSchema = new Schema({
 ;
 vaccinesSchema.plugin(mongoosePaginate);
 vaccinesSchema.pre("save", async function (next) {
-	let Disease = mongoose.model("Disease");
-	let diseases = await Disease.find({_id:{$in:this.diseases}});
 	let PetType = mongoose.model("PetType");
 	let pet_type = await PetType.findOne({_id: this.pet_type});
-	let Country = mongoose.model("Country");
-	let country = await Country.findOne({_id: this.country});
 	this.data = {};
-	this.data.diseases = _.map(diseases, (item)=>{return item.name});
 	this.data.pet_type = pet_type.name;
-	this.data.country = country.name;
 	next();
 });
 mongoose.model('Vaccine', vaccinesSchema);
@@ -125,13 +119,6 @@ const vaccinationCenterSchema = new Schema({
 });
 
 vaccinationCenterSchema.plugin(mongoosePaginate);
-vaccinationCenterSchema.pre("save", async function (next) {
-	let Country = mongoose.model("Country");
-	let country = await Country.findOne({_id: this.address.country});
-	this.data = {};
-	this.data.country = country.name;
-	next();
-});
 mongoose.model('VaccinationCenter', vaccinationCenterSchema);
 
 const vaccinationCenterAdminSchema = new Schema({
