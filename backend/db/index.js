@@ -30,6 +30,7 @@ const vaccinesSchema = new Schema({
 	available: Boolean,
 	diseases: String,
 	pet_type: ObjectID,
+    pet: String,
 	breed: ObjectID,
 	gender: {
 		for_male: Boolean,
@@ -70,17 +71,12 @@ const vaccinesSchema = new Schema({
 			end: Number
 		},
 	}],
-	data: {}
+	data: {
+		pet_type:String
+	}
 });
 ;
 vaccinesSchema.plugin(mongoosePaginate);
-vaccinesSchema.pre("save", async function (next) {
-	let PetType = mongoose.model("PetType");
-	let pet_type = await PetType.findOne({_id: this.pet_type});
-	this.data = {};
-	this.data.pet_type = pet_type.name;
-	next();
-});
 mongoose.model('Vaccine', vaccinesSchema);
 
 //Vaccination Centers
