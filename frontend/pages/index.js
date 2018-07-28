@@ -114,16 +114,16 @@ let _Index = class extends React.Component {
                                                     </Typography>
 
                                                     <Typography variant={"body1"} gutterBottom color={"textSecondary"}>
-                                                        Center Admin Name : {item.contact.name}
+                                                         Contact Name : {item.contact.name}
                                                     </Typography>
                                                     <Typography variant={"body1"} gutterBottom color={"textSecondary"}>
-                                                        Center Admin Phone : {item.contact.phNo}
+                                                         Contact Phone : {item.contact.phNo}
                                                     </Typography>
                                                     <Typography variant={"body1"} gutterBottom color={"textSecondary"}>
-                                                        Center Admin Email : {item.contact.email}
+                                                         Contact Email : {item.contact.email}
                                                     </Typography>
                                                     <Typography variant={"body1"} gutterBottom color={"textSecondary"}>
-                                                        Center Admin Fax : {item.contact.fax}
+                                                         Contact Fax : {item.contact.fax}
                                                     </Typography>
                                                 </Layout>
                                                 <Layout alignItems={"flex-end"} justifyContent={"center"}

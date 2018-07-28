@@ -14,7 +14,7 @@ let pageTitles = {
 	"/super-admin-dashboard/vaccination-centers":"Vaccination Center",
     "/super-admin-dashboard/vaccines":"Vaccines",
     "/super-admin-dashboard/app-data/pet-type":"Pet Type",
-	"/super-admin-dashboard/app-data/diseases":"Diseases",
+
 };
 
 const pages = [
@@ -42,13 +42,7 @@ const pages = [
 		},
 		url: "/super-admin-dashboard/app-data/pet-type"
 
-	},
-    {
-        Icon: () => {
-            return <DiseasesIcon size={32}/>
-        },
-        url: "/super-admin-dashboard/app-data/diseases"
-    }
+	}
 ];
 
 

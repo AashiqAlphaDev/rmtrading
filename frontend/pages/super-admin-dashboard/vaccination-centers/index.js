@@ -94,7 +94,13 @@ let _Index = class extends React.Component {
                                         </IconButton>
                                     </Layout>
                                     <Layout>
-                                    <EditIcon size={28}/>
+                                        <IconButton onClick={()=>{
+                                            Router.pushRoute(`/super-admin-dashboard/vaccination-centers/${item._id}`)
+                                        }}>
+
+                                            <EditIcon size={28}/>
+
+                                        </IconButton>
                                     </Layout>
                                 </Layout>
                                 </TableCell>

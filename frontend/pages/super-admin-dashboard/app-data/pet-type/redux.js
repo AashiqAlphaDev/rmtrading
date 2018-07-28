@@ -3,17 +3,17 @@ import {put, takeEvery} from 'redux-saga/effects'
 
 import _ from "underscore"
 
-import {vaccineEvents} from "../../../store/domain/vaccines";
+import {petTypeEvents} from "../../../../store/domain/pet-types";
 
 
 
 let listeners = []
 
-const vaccinesUiEvents = {
+const petTypesUiEvents = {
 
 };
 
-const vaccinesUiDocActions = {
+const petTypesUiDocActions = {
     
 };
 
@@ -21,7 +21,7 @@ const initData = {
   
 };
 
-let vaccinesUiReducer = function(state=initData, {type, payload}){
+let petTypesUiReducer = function(state=initData, {type, payload}){
     switch (type) {
         default:{
             break;
@@ -38,10 +38,11 @@ let delegate = function*(action){
     });
 }
 
-let vaccinesUiSaga = function*() {
+let petTypesUiSaga = function*() {
 
-    yield takeEvery(vaccineEvents.ADD_VACCINE_SUCCEEDED, delegate);
-    yield takeEvery(vaccineEvents.DELETE_VACCINE_SUCCEEDED, delegate);
+    yield takeEvery(petTypeEvents.ADD_PET_TYPE_SUCCEEDED, delegate);
+    yield takeEvery(petTypeEvents.DELETE_PET_TYPE_SUCCEEDED, delegate);
+    yield takeEvery(petTypeEvents.UPDATE_PET_TYPE_SUCCEEDED, delegate);
 
 };
 
@@ -57,10 +58,10 @@ let removeListener = (listener)=>{
 }
 
 export {
-    vaccinesUiDocActions,
-    vaccinesUiEvents,
-    vaccinesUiReducer,
-    vaccinesUiSaga,
+    petTypesUiDocActions,
+    petTypesUiEvents,
+    petTypesUiReducer,
+    petTypesUiSaga,
 	removeListener,
 	addListener
 }

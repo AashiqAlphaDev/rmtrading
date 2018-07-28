@@ -5,13 +5,15 @@ import {connect} from "react-redux"
 import {vaccinesList} from "../../../api/api";
 import {Link} from "../../../routes";
 import DashboardContainer from "../../../components/super-admin-dashboard/index";
-import {Table, TableBody, TableCell, TableHead, TableRow,Typography,Button,Dialog, DialogContent, TextField,IconButton} from "@material-ui/core/index";
+import {Table, TableBody, TableCell, TableHead, TableRow,Typography,Button,Dialog, DialogContent, TextField,IconButton,Checkbox, FormControlLabel} from "@material-ui/core/index";
 import {DeleteIcon, EditIcon} from "../../../components/icons";
 import InputContainer from "../../../components/input";
-import {vaccinationCenterCommands, vaccinationCenterEvents} from "../../../store/domain/vaccination-center";
+
 import {removeListener,addListener} from "./redux";
 import uuidv1 from 'uuid/v1';
 import {Router} from "../../../routes"
+import {vaccineCommands,vaccineEvents} from "../../../store/domain/vaccines";
+
 
 
 
@@ -38,11 +40,23 @@ let _Index = class extends React.Component {
     }
 
     onAction({type, payload}) {
-        // if (type === vaccinationCenterEvents.ADD_VACCINATION_CENTER_SUCCEEDED && payload.callbackId === this.state.addVaccinationCallbackId) {
-        //     this.state.showCreateVaccineDialogue= false;
-        //     Router.pushRoute(this.props.router.asPath)
-        // }
-        //
+        if (type === vaccineEvents.ADD_VACCINE_SUCCEEDED && payload.callbackId === this.state.addVaccineCallbackId) {
+            this.state.showCreateVaccineDialogue= false;
+            Router.pushRoute(this.props.router.asPath)
+        }
+
+        if (type === vaccineEvents.DELETE_VACCINE_SUCCEEDED && payload.callbackId === this.state.deleteVaccineCallbackId) {
+            this.state.showCreateVaccineDialogue= false;
+            Router.pushRoute(this.props.router.asPath)
+        }
+
+
+
+
+
+
+
+
     }
     state = {vaccineData:{gender:{}},showCreateVaccineDialogue:false};
 
@@ -80,20 +94,26 @@ let _Index = class extends React.Component {
                                         return <TableRow>
                                             <TableCell>{item.name}</TableCell>
                                             <TableCell>{item.diseases}</TableCell>
-                                            <TableCell>{item.data.pet_type}</TableCell>
+                                            <TableCell>{item.pet}</TableCell>
                                             <TableCell>{item.country}</TableCell>
                                             <TableCell><Layout alignItems={"center"}>
                                                 <Layout className={classes.toolsContainer}>
                                                     <IconButton onClick={()=>{
                                                         let uid = uuidv1();
-                                                        this.setState({deleteVaccinationCallbackId:uid});
-                                                        this.props.dispatch({type:vaccinationCenterCommands.DELETE_VACCINATION_CENTER,payload:{callbackId:uid,data:item._id}})
+                                                        this.setState({deleteVaccineCallbackId:uid});
+                                                        this.props.dispatch({type:vaccineCommands.DELETE_VACCINE,payload:{callbackId:uid,data:item._id}})
                                                     }}>
                                                         <DeleteIcon size={28}/>
                                                     </IconButton>
                                                 </Layout>
                                                 <Layout>
-                                                    <EditIcon size={28}/>
+                                                    <IconButton onClick={()=>{
+                                                        Router.pushRoute(`/super-admin-dashboard/vaccines/${item._id}`)
+                                                    }}>
+
+                                                        <EditIcon size={28}/>
+
+                                                    </IconButton>
                                                 </Layout>
                                             </Layout>
                                             </TableCell>
@@ -114,8 +134,8 @@ let _Index = class extends React.Component {
                         <form style={{display: "flex"}} onSubmit={(e) => {
                             e.preventDefault();
                             let uid = uuidv1();
-                            this.setState({addVaccinationCallbackId:uid});
-                            this.props.dispatch({type:vaccinationCenterCommands.ADD_VACCINATION_CENTER,payload:{callbackId:uid,data:this.state.vaccinationCenterData}})
+                            this.setState({addVaccineCallbackId:uid});
+                            this.props.dispatch({type:vaccineCommands.ADD_VACCINE,payload:{callbackId:uid,data:this.state.vaccineData}})
                         }}>
                             <Layout direction={"column"}>
                                 <Typography variant={"title"} gutterBottom>
@@ -147,10 +167,10 @@ let _Index = class extends React.Component {
                                     </InputContainer>
                                     <InputContainer label={"Pet Type"}>
                                         <TextField
-                                            value={this.state.vaccineData.pet_type|| ''}
+                                            value={this.state.vaccineData.pet|| ''}
                                             onChange={(e) => {
                                                 let pet_type = e.target.value;
-                                                this.setState((state) => (state.vaccineData.pet_type = pet_type, state))
+                                                this.setState((state) => (state.vaccineData.pet = pet_type, state))
                                             }}
                                             placeholder={"Pet Type"}
                                         />
@@ -175,7 +195,37 @@ let _Index = class extends React.Component {
                                             placeholder={"Country"}
                                         />
                                     </InputContainer>
+                                    <InputContainer label={"Gender"}>
+                                        <Layout>
+                                            <FormControlLabel
+                                                control={
+                                                    <Checkbox
+                                                        checked={this.state.forMale}
+                                                        onChange={(e) => {
 
+                                                            var maleCheck=e.target.checked
+                                                            this.setState((state) => (state.vaccineData.gender.for_male = maleCheck, state))
+                                                        }}
+                                                        color="primary"
+                                                    />
+                                                }
+                                                label="Male"
+                                            />
+                                            <FormControlLabel
+                                                control={
+                                                    <Checkbox
+                                                        checked={this.state.forFemale}
+                                                        onChange={(e) => {
+                                                            var femaleCheck=e.target.checked
+                                                            this.setState((state) => (state.vaccineData.gender.for_female = femaleCheck, state))
+                                                        }}
+                                                        color="primary"
+                                                    />
+                                                }
+                                                label="Female"
+                                            />
+                                        </Layout>
+                                    </InputContainer>
                                     <InputContainer label={"Remarks"}>
                                         <TextField
                                             value={this.state.vaccineData.remarks|| ''}
@@ -186,14 +236,6 @@ let _Index = class extends React.Component {
                                             placeholder={"Remarks"}
                                         />
                                     </InputContainer>
-                                    {/*gender: {*/}
-                                    {/*> 203 |                                     for_male: Boolean,*/}
-                                    {/*|                                             ^*/}
-                                    {/*204 |                                     for_female: Boolean,*/}
-                                    {/*205 |                                 },*/}
-
-
-
                                 </Layout>
                                 <Layout justifyContent={"flex-end"} className={classes.formActions}>
                                     <Button className={classes.formAction}>Cancel</Button>
@@ -203,8 +245,6 @@ let _Index = class extends React.Component {
                         </form>
                     </DialogContent>
                 </Dialog>
-
-
             </Layout>
         </DashboardContainer>
     }

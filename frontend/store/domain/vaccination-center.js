@@ -34,7 +34,14 @@ const vaccinationCenterEvents = {
 
     DELETE_VACCINATION_CENTER_STARTED:"vaccinationCenters/events/DELETE_VACCINATION_CENTER_STARTED",
     DELETE_VACCINATION_CENTER_FAILED:"vaccinationCenters/events/DELETE_VACCINATION_CENTER_FAILED",
-    DELETE_VACCINATION_CENTER_SUCCEEDED:"vaccinationCenters/events/DELETE_VACCINATION_CENTER_SUCCEEDED"
+    DELETE_VACCINATION_CENTER_SUCCEEDED:"vaccinationCenters/events/DELETE_VACCINATION_CENTER_SUCCEEDED",
+
+
+    ADD_VACCINATION_CENTER_ADMIN_STARTED:"vaccinationCenters/events/ADD_VACCINATION_CENTER_ADMIN_STARTED",
+    ADD_VACCINATION_CENTER_ADMIN_FAILED:"vaccinationCenters/events/ADD_VACCINATION_CENTER_ADMIN_FAILED",
+    ADD_VACCINATION_CENTER_ADMIN_SUCCEEDED:"vaccinationCenters/events/ADD_VACCINATION_CENTER_ADMIN_SUCCEEDED",
+
+
 
 };
 
@@ -53,6 +60,7 @@ const vaccinationCenterCommands = {
     ADD_VACCINATION_CENTER_QUEUE_SLOT:"vaccinationCenters/command/ADD_VACCINATION_CENTER_QUEUE_SLOT",
     DELETE_VACCINATION_CENTER_QUEUE_SLOT:"vaccinationCenters/command/DELETE_VACCINATION_CENTER_QUEUE_SLOT",
     FETCH_VACCINATION_CENTER:"vaccinationCenters/command/FETCH_VACCINATION_CENTER",
+    ADD_VACCINATION_CENTER_ADMIN:"vaccinationCenters/command/ADD_VACCINATION_CENTER_ADMIN",
 
 };
 
@@ -135,6 +143,31 @@ let vaccinationCenterSaga = function*() {
             }
         });
     });
+
+    yield takeEvery(vaccinationCenterCommands.ADD_VACCINATION_CENTER_ADMIN, function*(action) {
+        console.log(action)
+        yield put({type: vaccinationCenterEvents.ADD_VACCINATION_CENTER_ADMIN_STARTED});
+        yield put({
+            type: appActions.API,
+            payload: {
+                url: `/vaccination-centers/${action.payload.center_id}/admins`,
+                method: httpMethods.POST,
+                body: action.payload.data,
+            },
+            meta: {
+                callbackId: action.payload.callbackId,
+                postFailureAction: vaccinationCenterEvents.ADD_VACCINATION_CENTER_ADMIN_FAILED,
+                postSuccessAction: vaccinationCenterEvents.ADD_VACCINATION_CENTER_ADMIN_SUCCEEDED
+            }
+        });
+    });
+
+
+
+
+
+
+
 
     yield takeEvery(vaccinationCenterCommands.DELETE_VACCINATION_CENTER, function*(action) {
         console.log(action)

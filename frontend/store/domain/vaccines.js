@@ -8,9 +8,15 @@ const vaccineEvents = {
     ADD_VACCINE_FAILED:"vaccines/events/ADD_VACCINE_FAILED",
 	ADD_VACCINE_SUCCEEDED:"vaccines/events/ADD_VACCINE_SUCCEEDED",
 
-    UPDATE_VACCINE_STARTED:"vaccines/events/UPDATE_VACCINE_STARTED",
-    UPDATE_VACCINE_FAILED:"vaccines/events/UPDATE_VACCINE_FAILED",
-    UPDATE_VACCINE_SUCCEEDED:"vaccines/events/UPDATE_VACCINE_SUCCEEDED",
+    DELETE_VACCINE_STARTED:"vaccines/events/DELETE_VACCINE_STARTED",
+    DELETE_VACCINE_FAILED:"vaccines/events/DELETE_VACCINE_FAILED",
+    DELETE_VACCINE_SUCCEEDED:"vaccines/events/DELETE_VACCINE_SUCCEEDED",
+
+    DELETE_VACCINE_SCHEDULE_STARTED:"vaccines/events/DELETE_VACCINE_SCHEDULE_STARTED",
+    DELETE_VACCINE_SCHEDULE_FAILED:"vaccines/events/DELETE_VACCINE_SCHEDULE_FAILED",
+    DELETE_VACCINE_SCHEDULE_SUCCEEDED:"vaccines/events/DELETE_VACCINE_SCHEDULE_SUCCEEDED"
+
+
 
 
 
@@ -21,7 +27,8 @@ const vaccineDocActions = {
 
 const vaccineCommands = {
 	ADD_VACCINE:"vaccines/command/ADD_VACCINE",
-    UPDATE_VACCINE:"vaccines/command/UPDATE_VACCINE"
+    DELETE_VACCINE:"vaccines/command/DELETE_VACCINE",
+    DELETE_VACCINE_SCHEDULE:"vaccines/command/DELETE_VACCINE_SCHEDULE"
 
 };
 
@@ -63,23 +70,55 @@ let vaccineSaga = function*() {
 
 
 
-    yield takeEvery(vaccineCommands.UPDATE_VACCINE, function*(action) {
+    yield takeEvery(vaccineCommands.DELETE_VACCINE, function*(action) {
         console.log(action)
-        yield put({type: vaccineEvents.UPDATE_VACCINE_STARTED});
+        yield put({type: vaccineEvents.DELETE_VACCINE_STARTED});
         yield put({
             type: appActions.API,
             payload: {
-                url: `/vaccines`,
+                url: `/vaccines/${action.payload.data}`,
                 method: httpMethods.DELETE,
 
             },
             meta: {
                 callbackId: action.payload.callbackId,
-                postFailureAction: vaccineEvents.UPDATE_VACCINE_FAILED,
-                postSuccessAction: vaccineEvents.UPDATE_VACCINE_SUCCEEDED
+                postFailureAction: vaccineEvents.DELETE_VACCINE_FAILED,
+                postSuccessAction: vaccineEvents.DELETE_VACCINE_SUCCEEDED
             }
         });
     });
+
+
+    yield takeEvery(vaccineCommands.DELETE_VACCINE_SCHEDULE, function*(action) {
+        console.log(action)
+        yield put({type: vaccineEvents.DELETE_VACCINE_SCHEDULE_STARTED});
+        var body = {}
+        if(action.payload.dosageType == "child_vaccine_schedules")
+        {body={$pull: {"child_vaccine_schedules._id": action.payload.schedule_id}}}
+        if(action.payload.dosageType == "adult_vaccine_schedules")
+        {body={$pull: {"adult_vaccine_schedules._id": action.payload.schedule_id}}}
+        if(action.payload.dosageType == "booster_vaccine_schedules")
+        {body={$pull: {"booster_vaccine_schedules._id": action.payload.schedule_id}}}
+
+        yield put({
+            type: appActions.API,
+            payload: {
+                url: `/vaccines/${action.payload.vaccine_id}`,
+                method: httpMethods.PUT,
+                body: body,
+            },
+            meta: {
+                callbackId: action.payload.callbackId,
+                postFailureAction: vaccineEvents.DELETE_VACCINE_SCHEDULE_FAILED,
+                postSuccessAction: vaccineEvents.DELETE_VACCINE_SCHEDULE_SUCCEEDED
+            }
+        });
+    });
+
+
+
+
+
 
 
 

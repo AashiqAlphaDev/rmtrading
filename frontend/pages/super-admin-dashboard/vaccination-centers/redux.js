@@ -56,6 +56,7 @@ let vaccinationCentersUiSaga = function*() {
 
     yield takeEvery(vaccinationCenterEvents.ADD_VACCINATION_CENTER_SUCCEEDED, delegate);
     yield takeEvery(vaccinationCenterEvents.DELETE_VACCINATION_CENTER_SUCCEEDED, delegate);
+    yield takeEvery(vaccinationCenterEvents.ADD_VACCINATION_CENTER_ADMIN_SUCCEEDED,delegate)
 
 };
 

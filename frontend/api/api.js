@@ -191,6 +191,31 @@ let vaccinationCenterDetail = function(vaccinationCenterID){
     });
 }
 
+let vaccineDetail = function(vaccineId){
+    return new Promise(function (resolve, reject) {
+        fetch(`${base_url}/vaccines/${vaccineId}`, {
+            method:"GET",
+        }).then(function (response) {
+            resolve(response.json());
+        }).catch(function (err) {
+
+        });
+    });
+}
+
+let vaccinationCenterAdmins = function(vaccinationCenterID){
+    return new Promise(function (resolve, reject) {
+        fetch(`${base_url}/vaccination-centers/${vaccinationCenterID}/admins`, {
+            method:"GET",
+        }).then(function (response) {
+            resolve(response.json());
+        }).catch(function (err) {
+
+        });
+    });
+
+}
+
 let vaccinationCenters = function(){
     return new Promise(function (resolve, reject) {
         fetch(`${base_url}/vaccination-centers`, {
@@ -213,10 +238,34 @@ let vaccinesList = function(){
     });
 }
 
+let petTypeList = function(){
+    return new Promise(function (resolve, reject) {
+        fetch(`${base_url}/app-data/pet-types`, {
+            method:"GET",
+        }).then(function (response) {
+            resolve(response.json());
+        }).catch(function (err) {
+        });
+    });
+}
+
+
+let petTypeDetail = function(petId){
+    return new Promise(function (resolve, reject) {
+        fetch(`${base_url}/app-data/pet-types/${petId}`, {
+            method:"GET",
+        }).then(function (response) {
+            resolve(response.json());
+        }).catch(function (err) {
+        });
+    });
+}
 
 
 
 
 
 
-export {isAdmin, guardianDetails,petsOfGuardian,petDetails,petTypeDetails,vaccinationDetails,visitDetails,vaccinationCenterDetails,guardianSelfDetails,vaccinationCenters,vaccinationCenterDetail,vaccinesList}
+
+
+export {isAdmin, guardianDetails,petsOfGuardian,petDetails,petTypeDetails,vaccinationDetails,visitDetails,vaccinationCenterDetails,guardianSelfDetails,vaccinationCenters,vaccinationCenterDetail,vaccinesList,petTypeList,petTypeDetail,vaccinationCenterAdmins,vaccineDetail}
