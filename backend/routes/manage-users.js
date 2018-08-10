@@ -8,9 +8,9 @@ const haveCenterAccess = require("./check-center-access")
 router.get("/", httpCoWrap(function* (req, res, next) {
 	var query = req.query.query ? req.query.query : {};
 	if (req.query.q) {
-		var name = {$regex: `.*${req.query.q}.*`, '$options': 'i'};
-		var email = {$regex: `.*${req.query.q}.*`, '$options': 'i'};
-		var mobile_number = {$regex: `.*${req.query.q}.*`, '$options': 'i'};
+		var name = {$regex: `.*^${req.query.q}.*`, '$options': 'i'};
+		var email = {$regex: `.*^${req.query.q}.*`, '$options': 'i'};
+		var mobile_number = {$regex: `.*^${req.query.q}.*`, '$options': 'i'};
 		query = {$or:[{profile:{name}},{email},{profile:{mobile_number}}]};
 	}
 	if (req.query.page && req.query.limit) {

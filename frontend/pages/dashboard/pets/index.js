@@ -23,6 +23,7 @@ import {Snackbar, ListSubheader, IconButton} from "@material-ui/core/index";
 import {petsUiDocActions} from "./redux"
 
 import {Link} from "../../../routes"
+import {petEvents} from "../../../store/domain/pet";
 
 let _Index = class extends React.Component {
 
@@ -52,6 +53,7 @@ let _Index = class extends React.Component {
                     this.setState({error: payload.response.message});
                 }
             }
+
         }
 
         render() {

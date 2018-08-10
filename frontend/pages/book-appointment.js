@@ -5,32 +5,44 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import {connect} from "react-redux"
 import {AppBar, Toolbar} from "@material-ui/core/index";
 import {vaccinationCenterDetail} from "../api/api";
-import {
-    Divider,
-} from "@material-ui/core/index";
+
+
 import {SearchIcon, UserIcon, VetCenterIcon} from "../components/icons";
 import {Link} from "../routes";
 import InputContainer from "../components/input";
-
+import {appointmentCommands} from "../store/domain/appointments";
 
 
 let _Index = class extends React.Component {
 
-    static async getInitialProps({query}) {
+    static async getInitialProps({query, sessionID}) {
+
         let vaccinationcenterdetails = await vaccinationCenterDetail(query.center_id);
-        let bookingslotDetails = {center:query.center_id,date:query.date,slot_index:query.slot_index}
+        let bookingslotDetails = {center:query.center_id,date:query.date,slot_index:query.slot_index,queue_name:query.queue_name};
         return {vaccinationCenterDetails:vaccinationcenterdetails,bookingSlotDetails:bookingslotDetails};
+    }
+
+    handleChange = (e) =>{
 
     }
 
-
-    toTime = (slot,appointments_per_hour) =>{
-            var hour = slot / appointments_per_hour
-            var min = (60 / appointments_per_hour) * (slot % appointments_per_hour);
-            return  `${(`0${Math.floor(hour)}`).slice(-2)}:${(`0${min}`).slice(-2)}`;
-    }
     componentWillMount = () => {
+        console.log(this.props.bookingSlotDetails)
 
+    }
+
+    componentWillUnmount = () => {
+
+    }
+
+    onAction({type, payload}) {
+
+
+    }
+    toTime = (slot,appointments_per_hour) =>{
+        var hour = "0" + Math.floor(slot / appointments_per_hour);
+        var min = "0" + ((60 / appointments_per_hour) * (slot % appointments_per_hour));
+        return hour.slice(-2)+":"+min.slice(-2)
     }
 
 
@@ -40,6 +52,7 @@ let _Index = class extends React.Component {
 
 
     render() {
+        const {classes} = this.props;
         return <Layout className={classes.body} direction={"column"}>
             <Layout direction={"column"} style={{borderLeft: "1px solid rgba(0, 0, 0, 0.12)"}}>
                 <AppBar position="static" color="default">
@@ -54,7 +67,7 @@ let _Index = class extends React.Component {
             </Layout>
             <Layout justifyContent={"center"} flex={1}>
                 <Layout direction={"column"} className={classes.container}>
-                    <Layout className={classes.paper} alignItems={"center"} >
+                    <Layout className={classes.paper} alignItems={"center"}>
                         <Layout flex={1}>
 
                             <VetCenterIcon size={150}/>
@@ -83,12 +96,12 @@ let _Index = class extends React.Component {
                                 <Typography variant={"body1"} gutterBottom color={"textSecondary"}>
                                     Zip Code : {this.props.vaccinationCenterDetails.address.zip_code}
                                 </Typography>
-                                <Typography variant={"body1"} gutterBottom color={"textSecondary"}>
-                                    Appointment Date : {this.props.bookingslotDetails.date}
-                                </Typography>
+                                {/*<Typography variant={"body1"} gutterBottom color={"textSecondary"}>*/}
+                                    {/*Appointment Date : {this.props.bookingSlotDetails.date}*/}
+                                {/*</Typography>*/}
 
                                 <Typography variant={"body1"} gutterBottom color={"textSecondary"}>
-                                    Appointment Time : {this.props.bookingSlotDetails.slot_index}
+                                    Appointment Time : {this.toTime(this.props.bookingSlotDetails.slot_index,this.props.vaccinationCenterDetails.appointments_per_hour)}
                                 </Typography>
                             </Layout>
 
@@ -98,6 +111,7 @@ let _Index = class extends React.Component {
                         </Layout>
                         <Layout flex={1} justifyContent={"center"}>
                             <form style={{display: "flex"}} onSubmit={(e) => {
+                                this.props.dispatch({type:appointmentCommands.BOOK_APPOINTMENT,payload:{center_id:this.props.bookingSlotDetails.center,date:this.props.bookingSlotDetails.date,data:{queue_name:this.props.bookingSlotDetails.queue_name,slot_index:this.props.bookingSlotDetails.slot_index,bookie_details:this.state.bookie_details}}})
 
                             }}>
                                 <Layout direction={"column"} flex={1}>
@@ -153,7 +167,7 @@ let _Index = class extends React.Component {
             </Layout>
 
         </Layout>
-        const {classes} = this.props;
+
     }
 };
 

@@ -34,12 +34,12 @@ module.exports.createUser = function* (userData) {
 	if(!userData.profile.government_issued_id){
 		userData.profile.government_issued_id ="";
 	}
-    let existingUser = yield User.findOne({$or: [
-    	{profile:{mobile_number: userData.profile.mobile_number}},
-		{profile:{government_issued_id: userData.profile.government_issued_id}},
-		{email:userData.email}
-		]}).exec();
     console.log(existingUser)
+    let existingUser = yield User.findOne({$or: [
+        {profile:{mobile_number: userData.profile.mobile_number}},
+        {profile:{government_issued_id: userData.profile.government_issued_id}},
+        {email:userData.email}
+    ]}).exec();
     if (existingUser) {
         let error = createError(400);
         error.message = "User Already Exists";

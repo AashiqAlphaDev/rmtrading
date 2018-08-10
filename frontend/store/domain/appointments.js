@@ -6,7 +6,11 @@ const appointmentEvents = {
     
     FETCH_AVAILABLE_APPOINTMENTS_STARTED:"appointments/events/FETCH_AVAILABLE_APPOINTMENTS_STARTED",
     FETCH_AVAILABLE_APPOINTMENTS_FAILED:"appointments/events/FETCH_AVAILABLE_APPOINTMENTS_FAILED",
-    FETCH_AVAILABLE_APPOINTMENTS_SUCCEEDED:"appointments/events/FETCH_AVAILABLE_APPOINTMENTS_SUCCEEDED"
+    FETCH_AVAILABLE_APPOINTMENTS_SUCCEEDED:"appointments/events/FETCH_AVAILABLE_APPOINTMENTS_SUCCEEDED",
+
+    BOOK_APPOINTMENT_STARTED:"appointments/events/BOOK_APPOINTMENT_STARTED",
+    BOOK_APPOINTMENT_FAILED:"appointments/events/BOOK_APPOINTMENT_FAILED",
+    BOOK_APPOINTMENT_SUCCEEDED:"appointments/events/BOOK_APPOINTMENT_SUCCEEDED"
 
 };
 
@@ -23,6 +27,7 @@ const appointmentCommands = {
     ADD_AVAILABLE_APPOINTMENTS_QUEUE_SLOT:"appointments/command/ADD_AVAILABLE_APPOINTMENTS_QUEUE_SLOT",
     DELETE_AVAILABLE_APPOINTMENTS_QUEUE_SLOT:"appointments/command/DELETE_AVAILABLE_APPOINTMENTS_QUEUE_SLOT",
     FETCH_AVAILABLE_APPOINTMENTS:"appointments/command/FETCH_AVAILABLE_APPOINTMENTS",
+    BOOK_APPOINTMENT:"appointments/command/BOOK_APPOINTMENT"
 
 };
 
@@ -67,7 +72,22 @@ let appointmentSaga = function*() {
     });
 
 
-    
+    yield takeEvery(appointmentCommands.BOOK_APPOINTMENT, function* (action) {
+        yield put({type:appointmentEvents.BOOK_APPOINTMENT_STARTED});
+        yield put({
+            type: appActions.API,
+            payload: {
+                url: `/vaccination-centers/${action.payload.center_id}/appointments?date=${action.payload.date}`,
+                method: httpMethods.POST,
+                body:action.payload.data
+            },
+            meta: {
+                callbackId:action.payload.callbackId,
+                postFailureAction: appointmentEvents.BOOK_APPOINTMENT_FAILED,
+                postSuccessAction: appointmentEvents.BOOK_APPOINTMENT_SUCCEEDED,
+            }
+        });
+    });
 
 }
 

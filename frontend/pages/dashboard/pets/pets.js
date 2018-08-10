@@ -3,17 +3,17 @@ import {PetsWrap} from "./index";
 import {withRouter} from "next/router"
 import Layout from "../../../components/layout";
 import {withStyles} from "@material-ui/core/styles";
-import {connect} from "react-redux"
-import {Router} from "../../../routes"
-import {Link} from "../../../routes"
-import {petDetails,guardianDetails} from "../../../api/api";
-import {Typography} from "@material-ui/core/index";
+import {connect} from "react-redux";
+import {Link,Router} from "../../../routes"
+import {petDetails,guardianDetails,visitsDetails} from "../../../api/api";
+import {Typography,Table, TableHead, TableRow, TableCell, TableBody} from "@material-ui/core/index";
 import moment from "moment"
-import {Button} from "@material-ui/core/index";
 import {PetsIcon} from "../../../components/icons";
+import {Button} from "@material-ui/core/index";
 import {visitCommands,visitEvents} from "../../../store/domain/visit";
 import uuidv1 from 'uuid/v1';
 import {addListener, removeListener} from "./redux";
+import _ from "underscore"
 
 
 
@@ -22,12 +22,14 @@ let _Index =  class extends React.Component{
 
     static async getInitialProps ({query, session_id}) {
          let petdetails = await petDetails(session_id, query.pet_id);
+         let visitdetails= await visitsDetails(session_id,query.pet_id);
         let guardiandetails = await guardianDetails(session_id, query.guardian_id);
-         return {petDetails:petdetails,guardianDetails:guardiandetails};
+         return {petDetails:petdetails,guardianDetails:guardiandetails,visitDetails:visitdetails};
 
     }
 
     componentWillMount = () => {
+        console.log(this.props.visitDetails)
         addListener(this)
     }
 
@@ -83,16 +85,58 @@ let _Index =  class extends React.Component{
                     <Button className={classes.formAction} type={"submit"} variant={"raised"} color={"primary"}>Assign Token</Button>
                         </Layout>
                 </Layout>
-                <Layout className={classes.rightCard} flex={3} alignItems={"center"} justifyContent={"center"} direction={"column"}>
+                <Layout className={classes.rightCard} flex={3}  direction={"column"}>
+                    {_.isEmpty(this.props.visitDetails) &&
+                        <Layout direction={"column"} flex={1} alignItems={"center"} justifyContent={"center"}>
                         <Typography className={classes.line}>
                             No Records Found
                         </Typography>
 
-                    <Button className={classes.formAction} type={"submit"} variant={"raised"} color={"primary"} onClick={()=>{
+                        < Button className={classes.formAction} type={"submit"} variant={"raised"} color={"primary"} onClick={()=>{
                         let uid = uuidv1();
                         this.setState({addVisitCallbackId:uid});
                         this.props.dispatch({type:visitCommands.ADD_VISIT,payload:{callbackId: uid,data:{user:this.props.petDetails.owner,pet:this.props.petDetails._id,pet_type:this.props.petDetails.pet_type}}})
+
                     }}>Add Visit</Button>
+                        </Layout>
+                    }
+
+                        {
+                            !(_.isEmpty(this.props.visitDetails)) &&
+                                <Layout >
+                                    <Layout flex={4}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell>Visit No</TableCell>
+                                        <TableCell>Vet Center</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {
+                                        this.props.visitDetails.map((item,index) => {
+                                            return <TableRow>
+                                                <TableCell>{index+1}</TableCell>
+                                                <TableCell>{item.data.vet_center}</TableCell>
+                                            </TableRow>
+                                        })
+                                    }
+                                </TableBody>
+                            </Table>
+                                    </Layout>
+                                <Layout direction={"column"} flex={1} className={classes.rightButton}>
+                            <Button className={classes.formAction} type={"submit"} variant={"raised"} color={"primary"} onClick={()=>{
+                        let uid = uuidv1();
+                        this.setState({addVisitCallbackId:uid});
+                        this.props.dispatch({type:visitCommands.ADD_VISIT,payload:{callbackId: uid,data:{user:this.props.petDetails.owner,pet:this.props.petDetails._id,pet_type:this.props.petDetails.pet_type}}})
+                    }}> + Add Visit</Button>
+                                </Layout>
+                                </Layout>
+                    }
+
+
+
+
                 </Layout>
 
             </Layout>
@@ -121,7 +165,10 @@ let Index =  withRouter(withStyles((theme)=>{
             background:"#FFF",
             margin:theme.spacing.unit,
             padding:theme.spacing.unit * 2,
-            height:250
+            minHeight:250
+        },
+        rightButton:{
+            marginLeft:theme.spacing.unit *2
         },
         topbar:{
             padding:theme.spacing.unit,

@@ -10,8 +10,17 @@ router.get("/", httpCoWrap(function* (req, res, next) {
 	if (req.query.q) {
 		query.name = {$regex: `.*${req.query.q}.*`, '$options': 'i'}
 	}
+    if (req.query.page && req.query.limit) {
+        var page = {};
+        page.page = parseInt(req.query.page);
+        page.limit = parseInt(req.query.limit);
+        let vaccinationCenters = yield VaccinationCenterManagementService.vaccinationCenters(query, page);
+        res.send(vaccinationCenters);
+    }
+    else {
 	let vaccinationCenters = yield VaccinationCenterManagementService.vaccinationCenters(query);
 	res.send(vaccinationCenters);
+    }
 }));
 
 router.get("/:vaccination_center_id", httpCoWrap(function* (req, res, next) {

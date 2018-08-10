@@ -123,6 +123,7 @@ let _Index = class extends React.Component {
                                         {
                                             this.props.petTypeDetails.vaccination_fields.map((item)=>{
                                                 return <Chip
+                                                    key={item._id}
                                                     label={item.name}
                                                     onDelete={()=>{
                                                         let uid = uuidv1();
@@ -145,6 +146,13 @@ let _Index = class extends React.Component {
                                 <Typography variant={"body1"} gutterBottom color={"textSecondary"}>
                                     This effects the vaccination schedule Generation Kindly Enter the right details .
                                 </Typography>
+                                    {
+                                        this.props.petTypeDetails.life_span &&
+                                        <Typography variant={"body1"} gutterBottom color={"textSecondary"}>
+                                            Current Life Span : {this.props.petTypeDetails.life_span}
+                                        </Typography>
+
+                                    }
                                 <InputContainer label={"Life Span"}>
                                     <TextField
                                         value={this.state.petTypeData.life_span|| ''}

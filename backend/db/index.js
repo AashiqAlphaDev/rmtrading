@@ -108,7 +108,8 @@ const vaccinationCenterSchema = new Schema({
 					from: Number,
 					to: Number
 				}
-			]
+			],
+			days:[String]
 		}
 	],
 	data: {}
@@ -311,6 +312,27 @@ VisitSchema.pre("save", async function (next) {
 });
 
 mongoose.model('Visit', VisitSchema);
+
+
+
+const ClaimSchema = new Schema({
+	center_id:ObjectID,
+	claimerDetails:{
+		name:String,
+		email:String,
+		mobile:String
+	},
+	data:{}
+});
+
+mongoose.model('Claim',ClaimSchema);
+ClaimSchema.pre("save", async function (next) {
+    let VetCenter = mongoose.model("VaccinationCenter");
+    let vetCenter = await VetCenter.findOne({_id: this.center_id});
+    this.data = {};
+    this.data.vet_center = vetCenter.name;
+    next();
+});
 
 
 

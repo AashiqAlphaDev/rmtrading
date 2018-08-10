@@ -5,12 +5,9 @@ import {connect} from "react-redux"
 import {vaccineDetail} from "../../../api/api";
 import {Link} from "../../../routes";
 import DashboardContainer from "../../../components/super-admin-dashboard/index";
-
-
-
+import uuidv1 from 'uuid/v1';
 import InputContainer from "../../../components/input";
 import {removeListener,addListener} from "./redux";
-
 import {Router} from "../../../routes"
 import {
     Button, DialogActions, DialogContent, DialogTitle, IconButton, List, ListItem, ListItemSecondaryAction,
@@ -18,7 +15,7 @@ import {
     Typography,Tab,Tabs,Dialog,Slide,TextField
 } from "@material-ui/core/index";
 import {DeleteIcon} from "../../../components/icons";
-import {vaccineCommands} from "../../../store/domain/vaccines";
+import {vaccineCommands, vaccineEvents} from "../../../store/domain/vaccines";
 
 
 
@@ -40,7 +37,7 @@ let _Index = class extends React.Component {
 
 
     componentWillMount = () => {
-        console.log(this.props.vaccineDetail)
+
         addListener(this)
     }
 
@@ -49,10 +46,15 @@ let _Index = class extends React.Component {
     }
 
     onAction({type, payload}) {
-        // if (type === vaccinationCenterEvents.ADD_VACCINATION_CENTER_ADMIN_SUCCEEDED && payload.callbackId === this.state.addAdminCallBackId) {
-        //     this.setState({showAddAdminDialog:false})
-        //     Router.pushRoute(this.props.router.asPath)
-        // }
+        console.log(type);
+        if (type === vaccineEvents.DELETE_VACCINE_SCHEDULE_SUCCEEDED && payload.callbackId === this.state.deleteVaccineScheduleCallbackId) {
+            Router.pushRoute(this.props.router.asPath)
+        }
+
+        if (type === vaccineEvents.ADD_VACCINE_SCHEDULE_SUCCEEDED && payload.callbackId === this.state.addVaccineScheduleCallbackId) {
+            this.setState({openAddDosage:false});
+            Router.pushRoute(this.props.router.asPath)
+        }
 
     }
 
@@ -97,13 +99,13 @@ let _Index = class extends React.Component {
                                             </ListItemText>
                                             <ListItemSecondaryAction>
                                                 <IconButton onClick={() => {
+                                                    let uid = uuidv1();
+                                                    this.setState({deleteVaccineScheduleCallbackId:uid});
                                                     this.props.dispatch({
                                                         type: vaccineCommands.DELETE_VACCINE_SCHEDULE,
                                                         payload: {
                                                             dosageType: "child_vaccine_schedules",
-
-
-
+                                                            callbackId:uid,
                                                             vaccine_id: this.props.vaccineDetail._id,
                                                             schedule_id: item._id
                                                         }
@@ -147,10 +149,13 @@ let _Index = class extends React.Component {
                                             </ListItemText>
                                             <ListItemSecondaryAction>
                                                 <IconButton onClick={() => {
+                                                    let uid = uuidv1();
+                                                    this.setState({deleteVaccineScheduleCallbackId:uid});
                                                     this.props.dispatch({
                                                         type: vaccineCommands.DELETE_VACCINE_SCHEDULE,
                                                         payload: {
                                                             dosageType: "adult_vaccine_schedules",
+                                                            callbackId:uid,
                                                             vaccine_id: this.props.vaccineDetail._id,
                                                             schedule_id: item._id
                                                         }
@@ -193,10 +198,13 @@ let _Index = class extends React.Component {
                                             </ListItemText>
                                             <ListItemSecondaryAction>
                                                 <IconButton onClick={() => {
+                                                    let uid = uuidv1();
+                                                    this.setState({deleteVaccineScheduleCallbackId:uid});
                                                     this.props.dispatch({
                                                         type: vaccineCommands.DELETE_VACCINE_SCHEDULE,
                                                         payload: {
                                                             dosageType: "booster_vaccine_schedules",
+                                                            callbackId:uid,
                                                             vaccine_id: this.props.vaccineDetail._id,
                                                             schedule_id: item._id
                                                         }
@@ -243,11 +251,15 @@ let _Index = class extends React.Component {
                                 end: this.state.newDosageIntervalEnd
                             };
                         }
+                        let uid = uuidv1();
+                        this.setState({addVaccineScheduleCallbackId:uid});
+
                         this.props.dispatch({
-                            type: REQUEST_ADD_DOSAGE,
+                            type: vaccineCommands.ADD_VACCINE_SCHEDULE,
                             payload: {
                                 vaccine_id: this.props.vaccineDetail._id,
                                 dosageType: this.state.newDosageType,
+                                callbackId:uid,
                                 schedule_data: scheduleData
                             }
                         });

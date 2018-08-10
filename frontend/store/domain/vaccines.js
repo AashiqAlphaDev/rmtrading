@@ -14,12 +14,11 @@ const vaccineEvents = {
 
     DELETE_VACCINE_SCHEDULE_STARTED:"vaccines/events/DELETE_VACCINE_SCHEDULE_STARTED",
     DELETE_VACCINE_SCHEDULE_FAILED:"vaccines/events/DELETE_VACCINE_SCHEDULE_FAILED",
-    DELETE_VACCINE_SCHEDULE_SUCCEEDED:"vaccines/events/DELETE_VACCINE_SCHEDULE_SUCCEEDED"
+    DELETE_VACCINE_SCHEDULE_SUCCEEDED:"vaccines/events/DELETE_VACCINE_SCHEDULE_SUCCEEDED",
 
-
-
-
-
+    ADD_VACCINE_SCHEDULE_STARTED:"vaccines/events/ADD_VACCINE_SCHEDULE_STARTED",
+    ADD_VACCINE_SCHEDULE_FAILED:"vaccines/events/ADD_VACCINE_SCHEDULE_FAILED",
+    ADD_VACCINE_SCHEDULE_SUCCEEDED:"vaccines/events/ADD_VACCINE_SCHEDULE_SUCCEEDED"
 };
 
 const vaccineDocActions = {
@@ -28,7 +27,8 @@ const vaccineDocActions = {
 const vaccineCommands = {
 	ADD_VACCINE:"vaccines/command/ADD_VACCINE",
     DELETE_VACCINE:"vaccines/command/DELETE_VACCINE",
-    DELETE_VACCINE_SCHEDULE:"vaccines/command/DELETE_VACCINE_SCHEDULE"
+    DELETE_VACCINE_SCHEDULE:"vaccines/command/DELETE_VACCINE_SCHEDULE",
+    ADD_VACCINE_SCHEDULE:"vaccines/command/ADD_VACCINE_SCHEDULE"
 
 };
 
@@ -90,15 +90,14 @@ let vaccineSaga = function*() {
 
 
     yield takeEvery(vaccineCommands.DELETE_VACCINE_SCHEDULE, function*(action) {
-        console.log(action)
         yield put({type: vaccineEvents.DELETE_VACCINE_SCHEDULE_STARTED});
         var body = {}
         if(action.payload.dosageType == "child_vaccine_schedules")
-        {body={$pull: {"child_vaccine_schedules._id": action.payload.schedule_id}}}
-        if(action.payload.dosageType == "adult_vaccine_schedules")
-        {body={$pull: {"adult_vaccine_schedules._id": action.payload.schedule_id}}}
-        if(action.payload.dosageType == "booster_vaccine_schedules")
-        {body={$pull: {"booster_vaccine_schedules._id": action.payload.schedule_id}}}
+        {body={$pull: {child_vaccine_schedules: {_id: action.payload.schedule_id}}}}
+        else if(action.payload.dosageType == "adult_vaccine_schedules")
+        {body={$pull: {adult_vaccine_schedules: {_id: action.payload.schedule_id}}}}
+        else if(action.payload.dosageType == "booster_vaccine_schedules")
+        {body={$pull: {booster_vaccine_schedules: {_id: action.payload.schedule_id}}}}
 
         yield put({
             type: appActions.API,
@@ -115,7 +114,30 @@ let vaccineSaga = function*() {
         });
     });
 
+    yield takeEvery(vaccineCommands.ADD_VACCINE_SCHEDULE, function*(action) {
+        yield put({type: vaccineEvents.ADD_VACCINE_SCHEDULE_STARTED});
+        var body = {}
+        if(action.payload.dosageType == "child")
+        {body= {$push: {child_vaccine_schedules: action.payload.schedule_data}}}
+        else if(action.payload.dosageType == "adult")
+        {body= {$push: {adult_vaccine_schedules: action.payload.schedule_data}}}
+        else if(action.payload.dosageType == "booster")
+        {body= {$push: {booster_vaccine_schedules: action.payload.schedule_data}}}
 
+        yield put({
+            type: appActions.API,
+            payload: {
+                url: `/vaccines/${action.payload.vaccine_id}`,
+                method: httpMethods.PUT,
+                body: body,
+            },
+            meta: {
+                callbackId: action.payload.callbackId,
+                postFailureAction: vaccineEvents.ADD_VACCINE_SCHEDULE_FAILED,
+                postSuccessAction: vaccineEvents.ADD_VACCINE_SCHEDULE_SUCCEEDED
+            }
+        });
+    });
 
 
 

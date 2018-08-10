@@ -58,6 +58,9 @@ let _Index = class extends React.Component {
         return <DashboardContainer>
         <Layout className={classes.body} direction={"column"}>
             <Layout className={classes.titleContainer} alignItems={"center"} justifyContent={"flex-end"}>
+                <Button type={"submit"} variant={"raised"} color={"primary"}  className={classes.topButton} onClick={()=>{
+                    Router.pushRoute('/super-admin-dashboard/vaccination-centers/options/claims')
+                }}>View Claims</Button>
                 <Button type={"submit"} variant={"raised"} color={"primary"} onClick={()=>{
                     this.setState({showRegisterVaccinationCenterDialogue:true})
                 }}> + Add Center</Button>
@@ -271,6 +274,9 @@ const Index = withStyles((theme)=>{
         body:{
             height:"100%",
             margin:theme.spacing.unit *2
+        },
+        topButton:{
+          marginRight:theme.spacing.unit*2
         },
         paper:{
             background:"#fff"

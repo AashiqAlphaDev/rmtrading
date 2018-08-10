@@ -41,6 +41,7 @@ let _Index =  class extends React.Component{
 
     onAction({type, payload}) {
         if (type === petEvents.ADD_PET_SUCCEEDED && payload.callbackId === this.state.addPetCallbackId) {
+            console.log("inside")
             this.setState({showRegisterPetDialogue: false});
             Router.pushRoute(this.props.router.asPath);
         }

@@ -2,19 +2,17 @@ import React from "react"
 import Layout from "../../../../components/layout";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {connect} from "react-redux"
-import {petTypeList} from "../../../../api/api";
-
+import {Link} from "../../../../routes";
 import DashboardContainer from "../../../../components/super-admin-dashboard/index";
-import {Table, TableBody, TableCell, TableHead, TableRow,Typography,Button,Dialog, DialogContent, TextField,IconButton,Checkbox, FormControlLabel} from "@material-ui/core/index";
-import {DeleteIcon, EditIcon} from "../../../../components/icons";
-import InputContainer from "../../../../components/input";
 import {removeListener,addListener} from "./redux";
+import {Router} from "../../../../routes"
+import {claimCenters} from "../../../../api/api";
+import {Table, TableBody, TableCell, TableHead, TableRow,Typography,Button,Dialog, DialogContent, TextField,IconButton} from "@material-ui/core/index";
+import InputContainer from "../../../../components/input";
+import {DeleteIcon, EditIcon} from "../../../../components/icons";
 import uuidv1 from 'uuid/v1';
-import {Router,Link} from "../../../../routes"
-import {petTypeEvents,petTypeCommands} from "../../../../store/domain/pet-types";
-
-
-
+import {claimCommands, claimEvents} from "../../../../store/domain/claim";
+import {vaccinationCenterCommands, vaccinationCenterEvents} from "../../../../store/domain/vaccination-center";
 
 
 
@@ -25,16 +23,17 @@ import {petTypeEvents,petTypeCommands} from "../../../../store/domain/pet-types"
 let _Index = class extends React.Component {
 
     static async getInitialProps ({query, session_id}) {
-        let vaccine = await petTypeList();
-        return {petTypeDetails:vaccine};
+
+        let claims = await claimCenters(session_id);
+        return {claims:claims};
+
+
 
     }
 
 
-
-
     componentWillMount = () => {
-        console.log(this.props.petTypeDetails);
+        console.log(this.props.claims);
         addListener(this)
     }
 
@@ -43,69 +42,72 @@ let _Index = class extends React.Component {
     }
 
     onAction({type, payload}) {
-        if (type === petTypeEvents.ADD_PET_TYPE_SUCCEEDED && payload.callbackId === this.state.addPetTypeCallbackId) {
-            this.state.showCreatePetTypeDialogue= false;
-            Router.pushRoute(this.props.router.asPath)
+
+
+        if (type === claimEvents.DELETE_CLAIM_SUCCEEDED && payload.callbackId === this.state.deleteClaimCallbackId) {
+            Router.pushRoute(this.props.router.asPath);
         }
 
-        if (type === petTypeEvents.DELETE_PET_TYPE_SUCCEEDED && payload.callbackId === this.state.deletePetTypeCallbackId) {
-            Router.pushRoute(this.props.router.asPath)
-        }
 
+        if (type === vaccinationCenterEvents.ADD_VACCINATION_CENTER_ADMIN_SUCCEEDED && payload.callbackId === this.state.addAdminCallBackId) {
+
+            this.setState({showAddAdminDialog:false})
+            Router.pushRoute(this.props.router.asPath);
+        }
     }
-    state = {petTypeData:{},showCreatePetTypeDialogue:false};
 
 
-
-
-
+    state = {showAddAdminDialog:false};
 
 
     render() {
         const {classes} = this.props;
         return <DashboardContainer>
             <Layout className={classes.body} direction={"column"}>
-                <Layout className={classes.titleContainer} alignItems={"center"} justifyContent={"flex-end"}>
-                    <Button type={"submit"} variant={"raised"} color={"primary"} onClick={()=>{
-                        this.setState({showCreatePetTypeDialogue:true})
-                    }}> + Add Pet Type</Button>
-                </Layout>
                 <Layout flex={1} direction={"column"}>
 
-                    <Layout   direction={"column"} className={classes.paper}>
+                    <Layout className={classes.paper}  direction={"column"}>
                         <Table>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Name</TableCell>
+                                    <TableCell>Vaccination Center Name</TableCell>
+                                    <TableCell>Name	</TableCell>
+                                    <TableCell>Mobile</TableCell>
+                                    <TableCell>Email</TableCell>
                                     <TableCell></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {
-                                    this.props.petTypeDetails.map((item) => {
-                                        return <TableRow key={item._id}>
-                                            <TableCell>{item.name}</TableCell>
 
-                                            <TableCell><Layout alignItems={"center"} justifyContent={"flex-end"}>
+                                {
+                                    this.props.claims.map((item) => {
+                                        return <TableRow>
+                                            <TableCell>{item.data.vet_center}</TableCell>
+                                            <TableCell>{item.claimerDetails.name}</TableCell>
+                                            <TableCell>{item.claimerDetails.mobile}</TableCell>
+                                            <TableCell>{item.claimerDetails.email}</TableCell>
+                                            <TableCell><Layout>
                                                 <Layout className={classes.toolsContainer}>
                                                     <IconButton onClick={()=>{
                                                         let uid = uuidv1();
-                                                        this.setState({deletePetTypeCallbackId:uid});
-                                                        this.props.dispatch({type:petTypeCommands.DELETE_PET_TYPE,payload:{callbackId:uid,data:item._id}})
+                                                        this.setState({deleteClaimCallbackId:uid});
+                                                        this.props.dispatch({type:claimCommands.DELETE_CLAIM,payload:{callbackId:uid,claimId:item._id}})
                                                     }}>
                                                         <DeleteIcon size={28}/>
                                                     </IconButton>
                                                 </Layout>
                                                 <Layout>
                                                     <IconButton onClick={()=>{
-                                                        Router.pushRoute(`/super-admin-dashboard/app-data/pet-type/${item._id}`)
+                                                        this.setState({selectedClaim:item,showAddAdminDialog:true})
+
                                                     }}>
 
-                                                    <EditIcon size={28}/>
+                                                        <EditIcon size={28}/>
 
                                                     </IconButton>
                                                 </Layout>
                                             </Layout>
+
                                             </TableCell>
                                         </TableRow>
                                     })
@@ -116,34 +118,35 @@ let _Index = class extends React.Component {
                 </Layout>
 
                 <Dialog
-                    open={this.state.showCreatePetTypeDialogue}
+                    open={this.state.showAddAdminDialog}
                     onClose={() => {
-                        this.setState({showCreatePetTypeDialogue: false})
+                        this.setState({showAddAdminDialog: false})
                     }}
                 >
                     <DialogContent>
                         <form style={{display: "flex"}} onSubmit={(e) => {
                             e.preventDefault();
                             let uid = uuidv1();
-                            this.setState({addPetTypeCallbackId:uid});
-                            this.props.dispatch({type:petTypeCommands.ADD_PET_TYPE,payload:{callbackId:uid,data:this.state.petTypeData}})
+                            this.setState({addAdminCallBackId:uid});
+                            this.props.dispatch({type:vaccinationCenterCommands.ADD_VACCINATION_CENTER_ADMIN,payload:{center_id:this.state.selectedClaim.center_id,callbackId:uid,data:{email:this.state.email}}})
+                            this.props.dispatch({type:claimCommands.DELETE_CLAIM,payload:{callbackId:uid,claimId:this.state.selectedClaim._id}})
                         }}>
                             <Layout direction={"column"}>
                                 <Typography variant={"title"} gutterBottom>
-                                    New Vaccine Details
+                                    Add An Admin
                                 </Typography>
                                 <Typography variant={"body1"} gutterBottom color={"textSecondary"}>
-                                    Provide necessary information to register a Vaccine .
+                                    Provide necessary information to Add an admin
                                 </Typography>
                                 <Layout direction={"column"}>
-                                    <InputContainer label={"Pet Type Name"}>
+                                    <InputContainer label={"Admin Email"}>
                                         <TextField
-                                            value={this.state.petTypeData.name|| ''}
+                                            value={this.state.email|| ''}
                                             onChange={(e) => {
-                                                let name = e.target.value;
-                                                this.setState((state) => (state.petTypeData.name = name, state))
+                                                let email = e.target.value;
+                                                this.setState((state) => (state.email = email, state))
                                             }}
-                                            placeholder={"Pet Type Name"}
+                                            placeholder={"Admin Email"}
                                         />
                                     </InputContainer>
                                 </Layout>
@@ -155,6 +158,7 @@ let _Index = class extends React.Component {
                         </form>
                     </DialogContent>
                 </Dialog>
+
 
             </Layout>
         </DashboardContainer>
@@ -168,10 +172,11 @@ const Index = withStyles((theme)=>{
             height:"100%",
             margin:theme.spacing.unit *2
         },
+        topButton:{
+          marginRight:theme.spacing.unit*2
+        },
         paper:{
-            background:"#fff",
-
-
+            background:"#fff"
         },
         toolsContainer:{
             marginRight:theme.spacing.unit *2

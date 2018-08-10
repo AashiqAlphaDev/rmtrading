@@ -140,6 +140,7 @@ let _Index =  class extends React.Component{
                     <InputContainer label={"Remarks"}>
                         {
                             !this.props.visitDetails.remarks &&
+                            <Layout direction={"column"}>
                             <TextField
                             value={this.state.remarks|| ''}
                             onChange={(e) => {
@@ -148,12 +149,29 @@ let _Index =  class extends React.Component{
                             }}
                             placeholder={"Remarks"}
                         />
+
+
+                            <Layout justifyContent={"flex-end"} className={classes.formActions}>
+                            <Button className={classes.formAction} onClick={()=>{
+                            this.setState({remarks:""})
+                        }}>Cancel</Button>
+                            <Button className={classes.formAction} type={"submit"} variant={"raised"} color={"primary"} onClick={()=>{
+                            let uid = uuidv1();
+                            this.setState({updateVisitCallbackId:uid});
+                            this.props.dispatch({type:visitCommand.UPDATE_VISIT,payload:{callbackId: uid,pet_id:this.props.petDetails._id,visitId:this.props.visitDetails._id,data:{remarks:this.state.remarks}}})
+                        }}>Add</Button>
+                            </Layout>
+
+                            </Layout>
                         }
                         {
                             this.props.visitDetails.remarks &&
-                            <Typography variant={"subheading"}>
-                                {this.props.visitDetails.remarks}
+
+                                <Typography variant={"subheading"}>
+                        {this.props.visitDetails.remarks}
                             </Typography>
+
+
                         }
                     </InputContainer>
                         {/*{*/}
@@ -163,16 +181,7 @@ let _Index =  class extends React.Component{
                         {/*}}>Edit Remarks</Button>*/}
                         {/*}*/}
                     </Layout>
-                    <Layout justifyContent={"flex-end"} className={classes.formActions}>
-                        <Button className={classes.formAction} onClick={()=>{
-                            this.setState({remarks:""})
-                        }}>Cancel</Button>
-                        <Button className={classes.formAction} type={"submit"} variant={"raised"} color={"primary"} onClick={()=>{
-                            let uid = uuidv1();
-                            this.setState({updateVisitCallbackId:uid});
-                            this.props.dispatch({type:visitCommand.UPDATE_VISIT,payload:{callbackId: uid,pet_id:this.props.petDetails._id,visitId:this.props.visitDetails._id,data:{remarks:this.state.remarks}}})
-                        }}>Add</Button>
-                    </Layout>
+
 
                 </Layout>
 

@@ -19,10 +19,8 @@ router.use("/pets", require("./manage-pets"));
 router.use("/users", require("./manage-users"));
 router.use("/pets/:pet_id/vaccinations", require("./manage-vaccinations"));
 router.use("/pets/:pet_id/visits", require("./manage-visits"));
-
-
+router.use("/claims", require("./manage-claims"));
 router.use("/vaccination-centers/:center_id/appointments", require("./manage-appointments"));
-
 router.use("/dev", require("./dev"));
 
 module.exports = router

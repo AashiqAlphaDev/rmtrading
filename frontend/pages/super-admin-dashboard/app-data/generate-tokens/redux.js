@@ -2,18 +2,19 @@ import {put, takeEvery} from 'redux-saga/effects'
 
 
 import _ from "underscore"
+import {tokenEvents} from "../../../../store/domain/token";
 
-import {vaccineEvents} from "../../../store/domain/vaccines";
+
 
 
 
 let listeners = []
 
-const vaccinesUiEvents = {
+const tokensUiEvents = {
 
 };
 
-const vaccinesUiDocActions = {
+const tokensUiDocActions = {
     
 };
 
@@ -21,7 +22,8 @@ const initData = {
   
 };
 
-let vaccinesUiReducer = function(state=initData, {type, payload}){
+
+let tokensUiReducer = function(state=initData, {type, payload}){
     switch (type) {
         default:{
             break;
@@ -38,12 +40,11 @@ let delegate = function*(action){
     });
 }
 
-let vaccinesUiSaga = function*() {
+let tokensUiSaga = function*() {
 
-    yield takeEvery(vaccineEvents.ADD_VACCINE_SUCCEEDED, delegate);
-    yield takeEvery(vaccineEvents.DELETE_VACCINE_SCHEDULE_SUCCEEDED, delegate);
-    yield takeEvery(vaccineEvents.ADD_VACCINE_SCHEDULE_SUCCEEDED, delegate);
-    yield takeEvery(vaccineEvents.DELETE_VACCINE_SUCCEEDED, delegate);
+
+
+     yield takeEvery(tokenEvents.GENERATE_TOKENS_SUCCEEDED, delegate);
 
 };
 
@@ -59,10 +60,10 @@ let removeListener = (listener)=>{
 }
 
 export {
-    vaccinesUiDocActions,
-    vaccinesUiEvents,
-    vaccinesUiReducer,
-    vaccinesUiSaga,
+    tokensUiDocActions,
+    tokensUiEvents,
+    tokensUiReducer,
+    tokensUiSaga,
 	removeListener,
 	addListener
 }

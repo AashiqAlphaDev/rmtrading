@@ -23,6 +23,13 @@ let isAdmin = function(sessionId){
 }
 
 
+
+
+
+
+
+
+
 let guardianDetails = function(sessionId, guardianId){
     return new Promise(function (resolve, reject) {
         if(!sessionId){
@@ -41,6 +48,27 @@ let guardianDetails = function(sessionId, guardianId){
         });
     });
 }
+
+
+let visitsDetails = function(sessionId, petId){
+    return new Promise(function (resolve, reject) {
+        if(!sessionId){
+            resolve(false);
+            return false;
+        }
+        fetch(`${base_url}/pets/${petId}/visits`, {
+            method:"GET",
+            headers:{
+                "X-Session-Id":sessionId
+            }
+        }).then(function (response) {
+            resolve(response.json());
+        }).catch(function (err) {
+
+        });
+    });
+}
+
 
 let guardianSelfDetails = function(sessionId){
     return new Promise(function (resolve, reject) {
@@ -203,6 +231,20 @@ let vaccineDetail = function(vaccineId){
     });
 }
 
+let claimCenters = function(vaccineId){
+    return new Promise(function (resolve, reject) {
+        fetch(`${base_url}/claims`, {
+            method:"GET",
+        }).then(function (response) {
+            resolve(response.json());
+        }).catch(function (err) {
+
+        });
+    });
+}
+
+
+
 let vaccinationCenterAdmins = function(vaccinationCenterID){
     return new Promise(function (resolve, reject) {
         fetch(`${base_url}/vaccination-centers/${vaccinationCenterID}/admins`, {
@@ -226,6 +268,12 @@ let vaccinationCenters = function(){
         });
     });
 }
+
+
+
+
+
+
 
 let vaccinesList = function(){
     return new Promise(function (resolve, reject) {
@@ -268,4 +316,4 @@ let petTypeDetail = function(petId){
 
 
 
-export {isAdmin, guardianDetails,petsOfGuardian,petDetails,petTypeDetails,vaccinationDetails,visitDetails,vaccinationCenterDetails,guardianSelfDetails,vaccinationCenters,vaccinationCenterDetail,vaccinesList,petTypeList,petTypeDetail,vaccinationCenterAdmins,vaccineDetail}
+export {isAdmin, guardianDetails,petsOfGuardian,petDetails,petTypeDetails,vaccinationDetails,visitDetails,vaccinationCenterDetails,guardianSelfDetails,vaccinationCenters,vaccinationCenterDetail,vaccinesList,petTypeList,petTypeDetail,vaccinationCenterAdmins,vaccineDetail,claimCenters,visitsDetails}

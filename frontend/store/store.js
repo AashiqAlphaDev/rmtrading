@@ -23,6 +23,10 @@ import {vaccineReducer, vaccineSaga} from "./domain/vaccines";
 import {vaccinesUiReducer, vaccinesUiSaga} from "../pages/super-admin-dashboard/vaccines/redux";
 import {petTypeReducer, petTypeSaga} from "./domain/pet-types";
 import {petTypesUiReducer, petTypesUiSaga} from "../pages/super-admin-dashboard/app-data/pet-type/redux";
+import {claimReducer, claimSaga} from "./domain/claim";
+import {claimsUiReducer, claimsUiSaga} from "../pages/super-admin-dashboard/vaccination-centers/options/redux";
+import {tokensUiReducer, tokensUiSaga} from "../pages/super-admin-dashboard/app-data/generate-tokens/redux";
+import {tokenReducer, tokenSaga} from "./domain/token";
 
 
 const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({}) : compose;
@@ -37,13 +41,15 @@ export default (initialState)=>{
 			superAdminAuth:superAdminAuthUiReducer,
 			pets:petsUiReducer,
             appointments:appointmentsUiReducer,
-            appointments:homeUiReducer,
+            homeCenters:homeUiReducer,
 			vaccinationCenter:vaccinationCentersUiReducer,
 			vaccine:vaccinesUiReducer,
-			petTypes:petTypesUiReducer
-
+			petTypes:petTypesUiReducer,
+			claim:claimsUiReducer,
+			token:tokensUiReducer
 		}),
 		auth:authReducer,
+		claim:claimReducer,
 		vaccines:vaccineReducer,
 		user:userReducer,
 		pet:petReducer,
@@ -52,11 +58,16 @@ export default (initialState)=>{
 		vaccinationCenter:vaccinationCenterReducer,
 		appointments:appointmentReducer,
 		petTypes:petTypeReducer,
+		token:tokenReducer
 
 
 
 	}), initialState, enhancer);
 	sagaMiddleware.run(authSaga);
+	sagaMiddleware.run(claimSaga);
+	sagaMiddleware.run(claimsUiSaga);
+	sagaMiddleware.run(tokensUiSaga);
+	sagaMiddleware.run(tokenSaga);
 	sagaMiddleware.run(petTypesUiSaga);
 	sagaMiddleware.run(vaccineSaga);
 	sagaMiddleware.run(petTypeSaga);

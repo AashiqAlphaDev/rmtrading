@@ -5,7 +5,6 @@ let sessionStore = require("../../session-store");
 
 router.post("/login", co.wrap(function* (req, res, next) {
 
-
 	if (req.body.username == process.env.SUPER_ADMIN_USER && req.body.password == process.env.SUPER_ADMIN_PASSWORD) {
 		req.session.isAdmin = true;
 		res.send({sessionID: req.sessionID});

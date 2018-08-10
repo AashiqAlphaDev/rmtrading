@@ -8,7 +8,7 @@ import {petsUiDocActions} from "./redux"
 import {Link} from "../../../routes"
 import {vaccinationCenterDetails} from "../../../api/api";
 import {AppointmentsIcon, DeleteIcon, EditIcon} from "../../../components/icons";
-import {Avatar, MenuItem, Select, Typography,Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow,Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+import {FormControlLabel,Avatar, Checkbox,MenuItem, Select, Typography,Button, IconButton, Table, TableBody, TableCell, TableHead, TableRow,Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
     TextField,Divider, List, ListItem, ListItemSecondaryAction, ListItemText} from "@material-ui/core/index";
 import Layout from "../../../components/layout";
 import {vaccinationCenterEvents,vaccinationCenterCommands} from "../../../store/domain/vaccination-center";
@@ -29,13 +29,15 @@ let _Index = class extends React.Component {
     }
 
         state = {
-
+            queueDays:[],
+            openAddQueue:false,
+            openAddSlot:false
         };
 
 
         componentWillMount = () => {
             addListener(this)
-                console.log(this.props.vaccinationCenterDetails)
+                console.log(this.props.vaccinationCenterDetails.queues[0].time_slots)
         }
 
         componentWillUnmount = () => {
@@ -126,6 +128,7 @@ let _Index = class extends React.Component {
                                 <Table>
                                     <TableHead>
                                         <TableCell>Name</TableCell>
+                                        <TableCell>Days</TableCell>
                                         <TableCell></TableCell>
                                     </TableHead>
                                     <TableBody>
@@ -135,6 +138,10 @@ let _Index = class extends React.Component {
                                                 return <TableRow key={item._id}>
                                                     <TableCell>
                                                         {item.name}
+                                                    </TableCell><Layout>
+
+                                                </Layout>
+                                                    <TableCell>
                                                     </TableCell>
                                                     <TableCell numeric>
                                                         <IconButton onClick={() => {
@@ -155,7 +162,6 @@ let _Index = class extends React.Component {
 
                                                             <IconButton onClick={() => {
                                                                 this.setState({currentQueue: item, openAddSlot: true});
-
                                                             }}>
                                                             <EditIcon size={20}/>
                                                         </IconButton>
@@ -300,12 +306,13 @@ let _Index = class extends React.Component {
                         let uid = uuidv1();
                         this.setState({addQueueCallbackId:uid});
 
+                        console.log(this.state.queueDays);
+
                         this.props.dispatch({
                             type: vaccinationCenterCommands.ADD_VACCINATION_CENTER_QUEUE,
                             payload: {
                                 callbackId: uid,
-                                data:{name: this.state.newQueueName},
-
+                                data:{name: this.state.newQueueName,days:this.state.queueDays},
                                 center_id: this.props.vaccinationCenterDetails._id
                             }
                         });
@@ -328,6 +335,39 @@ let _Index = class extends React.Component {
                                     }}
                                 />
                             </InputContainer>
+                            <div>
+                                {
+                                    ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"].map((item)=>{
+                                        return <FormControlLabel
+                                            key={item}
+                                            control={
+                                                <Checkbox
+                                                    onChange={(value)=>{
+                                                        if(value.target.checked){
+                                                            if(this.state.queueDays.indexOf(item)==-1){
+                                                                this.setState((state)=>{
+                                                                    state.queueDays.push(item);
+                                                                    return state;
+                                                                })
+                                                            }
+                                                        }
+                                                        else{
+                                                            this.setState((state)=>{
+                                                                state.queueDays = _.reject(this.state.queueDays,function(_item){
+                                                                    return item == _item;
+                                                                });
+                                                                return state;
+                                                            })
+                                                        }
+                                                    }}
+                                                    value={"true"}
+                                                />
+                                            }
+                                            label={item}
+                                        />
+                                    })
+                                }
+                            </div>
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={() => {
