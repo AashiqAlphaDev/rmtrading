@@ -13,7 +13,7 @@ import {
 import {withStyles} from "@material-ui/core/styles"
 import {connect} from "react-redux"
 import {UserIcon, SearchIcon, QRIcon} from "../../../components/icons";
-import {ListItem, ListItemText, Divider, ListItemIcon} from "@material-ui/core/index";
+import {ListItem, ListItemText, Divider, ListItemIcon,Slide} from "@material-ui/core/index";
 import {Collapse} from "@material-ui/core/index";
 import InputContainer from "../../../components/input";
 import {userCommands, userEvents} from "../../../store/domain/user";
@@ -21,9 +21,15 @@ import uuidv1 from 'uuid/v1';
 import {addListener, removeListener} from "./redux"
 import {Snackbar, ListSubheader, IconButton} from "@material-ui/core/index";
 import {petsUiDocActions} from "./redux"
-
+import QrReader from 'react-qr-reader';
 import {Link} from "../../../routes"
 import {petEvents} from "../../../store/domain/pet";
+
+
+function Transition(props) {
+    return <Slide direction="up" {...props} />;
+}
+
 
 let _Index = class extends React.Component {
 
@@ -41,7 +47,12 @@ let _Index = class extends React.Component {
             removeListener(this)
         }
 
-        onAction({type, payload}) {
+
+
+
+
+
+    onAction({type, payload}) {
             if (type === userEvents.ADD_GUARDIAN_SUCCEEDED && payload.callbackId === this.state.addGuardianCallbackId) {
                 this.setState({showRegisterGuardianDialogue: false});
             }
@@ -109,7 +120,7 @@ let _Index = class extends React.Component {
 											<TextField
 												placeholder="Chip Id"
 												InputProps={{
-                                                    endAdornment: <IconButton onClick={()=>{this.openSacnner()}}>
+                                                    endAdornment: <IconButton onClick={()=>{this.setState({showScanner:true})}}>
 														<QRIcon size={25} pad={5}/>
 													</IconButton>
                                                 }}
@@ -242,6 +253,32 @@ let _Index = class extends React.Component {
 								</Layout>
 							</Layout>
 						</form>
+					</DialogContent>
+				</Dialog>
+				<Dialog
+					TransitionComponent={Transition}
+					open={this.state.showScanner}
+					onClose={() => {
+                        this.setState({showScanner: false})
+                    }}
+				>
+					<DialogContent>
+						<QrReader
+							delay={this.state.delay}
+							onError={(err) => {
+                                console.log(err)
+                            }}
+							onScan={(result) => {
+                                if (result) {
+                                    this.props.dispatch({
+                                        type: REQUEST_UPDATE_TOKEN,
+                                        payload: {token_id: result, data: {pet: this.props.match.params.pet_id}}
+                                    });
+                                    this.setState({showScanner: false});
+                                }
+                            }}
+							style={{width: 400, height: 400}}
+						/>
 					</DialogContent>
 				</Dialog>
 				<Snackbar

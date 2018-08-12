@@ -82,7 +82,7 @@ let _Index =  class extends React.Component{
                         Date of Birth : {moment(this.props.petDetails.date_of_birth).format("MMMM Do YYYY")}
                         </Typography>
                         <Layout flex={1} alignItems={"flex-end"} justifyContent={"center"} className={classes.buttonContainer}>
-                    <Button className={classes.formAction} type={"submit"} variant={"raised"} color={"primary"}>Assign Token</Button>
+                    <Button className={classes.formAction} type={"submit"} variant={"raised"} color={"primary"}>Assign Card</Button>
                         </Layout>
                 </Layout>
                 <Layout className={classes.rightCard} flex={3}  direction={"column"}>

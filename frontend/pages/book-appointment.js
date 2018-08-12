@@ -66,6 +66,7 @@ let _Index = class extends React.Component {
                 </AppBar>
             </Layout>
             <Layout justifyContent={"center"} flex={1}>
+
                 <Layout direction={"column"} className={classes.container}>
                     <Layout className={classes.paper} alignItems={"center"}>
                         <Layout flex={1}>

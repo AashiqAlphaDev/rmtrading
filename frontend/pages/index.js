@@ -513,7 +513,6 @@ let _Index = class extends React.Component {
 const Index = withStyles((theme) => {
     return {
         body: {
-            height: "100%",
             overflow:"scroll"
         },
         line: {
