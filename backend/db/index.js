@@ -247,7 +247,8 @@ mongoose.model('Disease', DiseaseSchema);
 
 const TokenSchema = new Schema({
 	status: String,
-	pet: ObjectID
+	pet: ObjectID,
+	owner:ObjectID
 });
 mongoose.model('Token', TokenSchema);
 

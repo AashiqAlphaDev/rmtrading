@@ -24,6 +24,7 @@ import {petsUiDocActions} from "./redux"
 import QrReader from 'react-qr-reader';
 import {Link} from "../../../routes"
 import {petEvents} from "../../../store/domain/pet";
+import {tokenCommands, tokenEvents} from "../../../store/domain/token";
 
 
 function Transition(props) {
@@ -56,6 +57,10 @@ let _Index = class extends React.Component {
             if (type === userEvents.ADD_GUARDIAN_SUCCEEDED && payload.callbackId === this.state.addGuardianCallbackId) {
                 this.setState({showRegisterGuardianDialogue: false});
             }
+
+        if (type === tokenEvents.FETCH_TOKEN_SUCCEEDED && payload.callbackId === this.state.addTokenCallbackId) {
+            console.log("Done");
+		}
             if (type === userEvents.ADD_GUARDIAN_FAILED && payload.callbackId === this.state.addGuardianCallbackId) {
                 if(payload.response.data){
                     this.setState({error: payload.response.message, showRegisterGuardianDialogue:false});
@@ -97,7 +102,9 @@ let _Index = class extends React.Component {
 								<Button size={"small"} onClick={() => {
                                     this.setState({showRegisterGuardianDialogue: true});
                                 }}>Register Guardian</Button>
-								<Button size={"small"}>Scan</Button>
+								<Button onClick={()=>{
+                                    this.setState({showScanner:true})
+								}} size={"small"}>Scan</Button>
 
 							</Layout>
 						</Collapse>
@@ -270,9 +277,12 @@ let _Index = class extends React.Component {
                             }}
 							onScan={(result) => {
                                 if (result) {
+                                	console.log(result);
+                                     let uid = uuidv1();
+                                    this.setState({addTokenCallbackId:uid});
                                     this.props.dispatch({
-                                        type: REQUEST_UPDATE_TOKEN,
-                                        payload: {token_id: result, data: {pet: this.props.match.params.pet_id}}
+                                        type: tokenCommands.FETCH_TOKEN,
+                                        payload: {token_id: result,callbackId:uid},
                                     });
                                     this.setState({showScanner: false});
                                 }

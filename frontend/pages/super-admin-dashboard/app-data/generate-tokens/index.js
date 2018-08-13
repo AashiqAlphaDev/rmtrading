@@ -13,6 +13,46 @@ import {Paper,
     Button} from "@material-ui/core/index";
 import {tokenCommands, tokenEvents} from "../../../../store/domain/token";
 import uuidv1 from 'uuid/v1';
+import ReactDOM from 'react-dom';
+import QRCode from 'qrcode.react';
+
+
+
+
+var printElements = (tokens)=>{
+    var printWindow = window.open('/static/print.html', 'PRINT', 'height=800,width=1024');
+    class Print extends React.Component{
+        componentDidMount(){
+            setTimeout(function () {
+                printWindow.print();
+                printWindow.close();
+            }, 1000);
+        }
+        render(){
+            return <div><div style={{margin:"auto", width:1000}}>{
+                this.props.tokens.map((item, i)=>{
+                    return <div key={i} style={{margin:"auto", width:900}}>
+                        <Layout>
+                            <div style={{width:400, margin:10, position:"relative", media:"print"}}>
+                                <img src={"/static/plastic-card-01.png"} style={{width:400}} ></img>
+                                <QRCode value={item._id} style={{left:33, top:148, position:"absolute", height:53, width:53}}/>
+                            </div>
+                            <div style={{width:400, margin:10, position:"relative", media:"print"}}>
+                                <img src={"/static/plastic-card-02.png"} style={{width:400}}></img>
+                            </div>
+                        </Layout>
+                        {(i+1)%5==0 && <p style={{"pageBreakAfter": "always"}}/>}
+                    </div>
+                })
+            }</div></div>
+        }
+    }
+
+    printWindow.onload = ()=>{
+        console.log("hello")
+        ReactDOM.render( <Print tokens={tokens}/>, printWindow.document.getElementById("root"));
+    }
+}
 
 
 let _Index = class extends React.Component {
@@ -31,9 +71,8 @@ let _Index = class extends React.Component {
     }
 
     onAction({type, payload}) {
-        console.log("hi")
         if (type === tokenEvents.GENERATE_TOKENS_SUCCEEDED && payload.callbackId === this.state.tokenGenerationCallbackId) {
-            window.PrintElem(payload.response);
+            printElements(payload.response);
         }
     }
 

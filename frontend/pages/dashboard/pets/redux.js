@@ -4,6 +4,7 @@ import {petEvents} from "../../../store/domain/pet";
 import _ from "underscore"
 import {visitEvents} from "../../../store/domain/visit";
 import {vaccinationEvents} from "../../../store/domain/vaccination";
+import {tokenEvents} from "../../../store/domain/token";
 
 let listeners = []
 
@@ -85,6 +86,8 @@ let petsUiSaga = function*() {
 
     yield takeEvery(visitEvents.UPDATE_VISIT_SUCCEEDED, delegate);
     yield takeEvery(visitEvents.UPDATE_VISIT_FAILED, delegate);
+
+    yield takeEvery(tokenEvents.FETCH_TOKEN_SUCCEEDED,delegate);
 
 };
 
