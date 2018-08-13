@@ -31,6 +31,7 @@ router.post("/", isAdmin, httpCoWrap(function* (req, res, next) {
 
 router.put("/:token_id", hasCenterAccess, httpCoWrap(function* (req, res, next) {
 	try {
+		console.log(req.body);
 		let token = yield TokenManagementService.updateToken(req.params.token_id, req.body);
 		res.send(token);
 	} catch (err) {

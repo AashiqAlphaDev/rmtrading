@@ -25,6 +25,7 @@ import QrReader from 'react-qr-reader';
 import {Link} from "../../../routes"
 import {petEvents} from "../../../store/domain/pet";
 import {tokenCommands, tokenEvents} from "../../../store/domain/token";
+import {Router} from "../../../routes"
 
 
 function Transition(props) {
@@ -59,7 +60,9 @@ let _Index = class extends React.Component {
             }
 
         if (type === tokenEvents.FETCH_TOKEN_SUCCEEDED && payload.callbackId === this.state.addTokenCallbackId) {
-            console.log("Done");
+
+            Router.pushRoute(`/dashboard/pets/guardian-details/${payload.response.owner}/pets/${payload.response.pet}`);
+
 		}
             if (type === userEvents.ADD_GUARDIAN_FAILED && payload.callbackId === this.state.addGuardianCallbackId) {
                 if(payload.response.data){
@@ -285,6 +288,7 @@ let _Index = class extends React.Component {
                                         payload: {token_id: result,callbackId:uid},
                                     });
                                     this.setState({showScanner: false});
+
                                 }
                             }}
 							style={{width: 400, height: 400}}

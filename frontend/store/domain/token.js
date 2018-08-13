@@ -71,10 +71,9 @@ let tokenSaga = function*() {
             payload: {
                 url: `/tokens/${action.payload.token_id}`,
                 method: httpMethods.PUT,
-                body: action.payload.body,
+                body: action.payload.data,
             },
             meta: {
-                callbackId: action.payload.callbackId,
                 postFailureAction: tokenEvents.UPDATE_TOKEN_FAILED,
                 postSuccessAction: tokenEvents.UPDATE_TOKEN_SUCCEEDED
             }

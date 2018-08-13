@@ -18,6 +18,7 @@ module.exports.createToken = function* (tokenData) {
 };
 
 module.exports.updateToken = function* (id, tokenData) {
+	console.log(tokenData)
 	queryValidate(id, "You missed token-id.");
 	let token = yield Token.findOne({_id: id});
 	return yield Token.update({_id: id}, tokenData);

@@ -168,7 +168,7 @@ let _Index =  class extends React.Component{
                              if (result) {
                                  this.props.dispatch({
                                      type: tokenCommands.UPDATE_TOKEN,
-                                     payload: {token_id: result, data: {pet: this.props.tokenDetail.pet_id,owner:this.props.tokenDetail.guardian_id}}
+                                     payload: {token_id: result, data: {status:"assigned",pet: this.props.tokenDetail.pet_id,owner:this.props.tokenDetail.guardian_id}}
                                  });
                                  this.setState({showScanner: false});
                              }
