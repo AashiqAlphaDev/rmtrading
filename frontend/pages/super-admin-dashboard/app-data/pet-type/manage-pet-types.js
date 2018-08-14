@@ -2,7 +2,7 @@ import React from "react"
 import Layout from "../../../../components/layout";
 import withStyles from "@material-ui/core/styles/withStyles";
 import {connect} from "react-redux"
-import {petTypeDetail} from "../../../../api/api";
+import {petTypeDetail,breedList} from "../../../../api/api";
 import {Link} from "../../../../routes";
 import DashboardContainer from "../../../../components/super-admin-dashboard/index";
 import {Table, TableBody, TableCell, TableHead, TableRow,Typography,Button,Dialog, DialogContent,Chip, TextField,IconButton,Checkbox, FormControlLabel} from "@material-ui/core/index";
@@ -29,13 +29,14 @@ let _Index = class extends React.Component {
         let pettypedetail = await petTypeDetail(query.pet_type_id);
         return {petTypeDetails:pettypedetail};
 
+
     }
 
 
 
 
     componentWillMount = () => {
-        console.log(this.props.petTypeDetails);
+
         addListener(this)
     }
 

@@ -171,6 +171,9 @@ var petSchema = new Schema({
 	owner: ObjectID,
 	date_of_birth: Date,
 	chip_id: String,
+	color:String,
+	sex:String,
+    sterilized:String,
 	data:{}
 });
 petSchema.plugin(mongoosePaginate);

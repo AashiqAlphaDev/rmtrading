@@ -38,6 +38,7 @@ let _Index = class extends React.Component {
         state = {
             userDetails: {profile: {}},
             showRegisterGuardianDialogue:false,
+            showScanner:false
         };
 
 

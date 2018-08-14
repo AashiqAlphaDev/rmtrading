@@ -14,7 +14,7 @@ let pageTitles = {
 	"/super-admin-dashboard/vaccination-centers":"Vaccination Center",
     "/super-admin-dashboard/vaccines":"Vaccines",
     "/super-admin-dashboard/app-data/pet-type":"Pet Type",
-    "/super-admin-dashboard/app-data/generate-tokens":"Generate Tokens",
+    "/super-admin-dashboard/app-data/generate-tokens":"Generate Cards",
 
 };
 

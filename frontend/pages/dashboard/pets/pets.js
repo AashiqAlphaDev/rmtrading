@@ -121,7 +121,7 @@ let _Index =  class extends React.Component{
                                 <TableBody>
                                     {
                                         this.props.visitDetails.map((item,index) => {
-                                            return <TableRow>
+                                            return <TableRow key={index}>
                                                 <TableCell>{index+1}</TableCell>
                                                 <TableCell>{item.data.vet_center}</TableCell>
                                             </TableRow>

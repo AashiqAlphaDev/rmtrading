@@ -49,7 +49,6 @@ var printElements = (tokens)=>{
     }
 
     printWindow.onload = ()=>{
-        console.log("hello")
         ReactDOM.render( <Print tokens={tokens}/>, printWindow.document.getElementById("root"));
     }
 }
@@ -90,7 +89,7 @@ let _Index = class extends React.Component {
 
                         <Layout alignItems={"center"}>
                             <Typography variant={"title"} className={classes.formAction}>
-                                Generate Tokens
+                                Generate Cards
                             </Typography>
                             <Select value={this.state.count} onChange={(event)=>{this.setState({count:event.target.value})}}>
                                 <MenuItem value={100}>100</MenuItem>

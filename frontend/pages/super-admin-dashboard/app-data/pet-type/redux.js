@@ -41,6 +41,7 @@ let delegate = function*(action){
 let petTypesUiSaga = function*() {
 
     yield takeEvery(petTypeEvents.ADD_PET_TYPE_SUCCEEDED, delegate);
+    yield takeEvery(petTypeEvents.ADD_BREED_SUCCEEDED, delegate);
     yield takeEvery(petTypeEvents.DELETE_PET_TYPE_SUCCEEDED, delegate);
     yield takeEvery(petTypeEvents.UPDATE_PET_TYPE_SUCCEEDED, delegate);
 

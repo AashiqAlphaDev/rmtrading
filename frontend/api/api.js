@@ -298,6 +298,19 @@ let petTypeList = function(){
 }
 
 
+let breedList = function(petId){
+    return new Promise(function (resolve, reject) {
+        fetch(`${base_url}/app-data/pet-types/${petId}/breeds`, {
+            method:"GET",
+        }).then(function (response) {
+            resolve(response.json());
+        }).catch(function (err) {
+        });
+    });
+}
+
+
+
 let petTypeDetail = function(petId){
     return new Promise(function (resolve, reject) {
         fetch(`${base_url}/app-data/pet-types/${petId}`, {
@@ -316,4 +329,4 @@ let petTypeDetail = function(petId){
 
 
 
-export {isAdmin, guardianDetails,petsOfGuardian,petDetails,petTypeDetails,vaccinationDetails,visitDetails,vaccinationCenterDetails,guardianSelfDetails,vaccinationCenters,vaccinationCenterDetail,vaccinesList,petTypeList,petTypeDetail,vaccinationCenterAdmins,vaccineDetail,claimCenters,visitsDetails}
+export {isAdmin, guardianDetails,petsOfGuardian,petDetails,petTypeDetails,vaccinationDetails,visitDetails,vaccinationCenterDetails,guardianSelfDetails,vaccinationCenters,vaccinationCenterDetail,vaccinesList,petTypeList,petTypeDetail,vaccinationCenterAdmins,vaccineDetail,claimCenters,visitsDetails,breedList}

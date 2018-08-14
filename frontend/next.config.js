@@ -19,6 +19,8 @@ module.exports = {
             '/super-admin-dashboard/app-data/pet-type/:pet_type_id': {page: '/super-admin-dashboard/app-data/pet-type/manage-pet-types'},
             '/super-admin-dashboard/vaccination-centers/:center_id': {page: '/super-admin-dashboard/vaccination-centers/manage-vaccination-centers'},
             '/super-admin-dashboard/vaccines/:vaccine_id': {page: '/super-admin-dashboard/vaccines/manage-vaccines'},
+            '/super-admin-dashboard/app-data/pet-type/manage-breeds/:pet_type_id': {page: '/super-admin-dashboard/app-data/pet-type/manage-breeds'},
+
 
         }
 	}

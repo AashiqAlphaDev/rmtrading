@@ -131,7 +131,7 @@ let _Index = class extends React.Component {
                             {(this.props.ui.homeCenters.centers && this.props.ui.homeCenters) &&
 
                             this.props.ui.homeCenters.centers.map((item)=>{
-                                return  <Layout className={classes.paper} key={item._id}>
+                                return  <div className={classes.paper} key={item._id}>
                                     <Layout direction={"column"} flex={1}>
                                         <Layout>
                                             <VetCenterIcon size={150}/>
@@ -280,14 +280,14 @@ let _Index = class extends React.Component {
                                         }
                                     </Layout>
 
-                                </Layout>
+                                </div>
                             })
 
                             }
                             {
                                 (this.props.ui.homeCenters.centers.length==0 && this.state.query=="")&&
                                 this.props.vaccinationCenters.docs.map((item) => {
-                                    return <Layout className={classes.paper} key={item._id}>
+                                    return <div className={classes.paper} key={item._id}>
                                         <Layout direction={"column"} flex={1}>
                                             <Layout>
                                                 <VetCenterIcon size={150}/>
@@ -436,7 +436,7 @@ let _Index = class extends React.Component {
                                             }
                                         </Layout>
 
-                                    </Layout>
+                                    </div>
                                 })
                             }
                         </Layout>

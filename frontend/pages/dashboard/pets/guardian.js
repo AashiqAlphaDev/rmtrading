@@ -14,7 +14,7 @@ import uuidv1 from 'uuid/v1';
 import {addListener, removeListener} from "./redux";
 import {petEvents} from "../../../store/domain/pet";
 import {Router} from "../../../routes"
-import {Paper, Table, TableBody, TableCell, TableHead, TableRow} from "@material-ui/core/index";
+import {Paper, Table, TableBody, TableCell, TableHead, TableRow,FormControlLabel, RadioGroup,Radio,FormControl,FormLabel} from "@material-ui/core/index";
 import {Link} from "../../../routes";
 import moment from "moment"
 
@@ -30,6 +30,8 @@ let _Index =  class extends React.Component{
         return {guardianDetails:details, guardianPets:pets};
 
     }
+
+
 
     componentWillMount = () => {
         addListener(this)
@@ -51,8 +53,10 @@ let _Index =  class extends React.Component{
     }
 
     state = {
-        petDetails:{owner:this.props.guardianDetails._id},
+        petDetails:{owner:this.props.guardianDetails._id,sex:"Male",sterilized:"yes"},
         showRegisterPetDialogue:false,
+
+
     };
 
 
@@ -113,7 +117,7 @@ let _Index =  class extends React.Component{
                                     <TableBody>
                                         {
                                             this.props.guardianPets.map((item) => {
-                                                return <TableRow>
+                                                return <TableRow key={item._id}>
                                                     <TableCell>{item.name}</TableCell>
                                                     <TableCell>{item.data.pet_type}</TableCell>
                                                     <TableCell>{item.data.breed}</TableCell>
@@ -172,6 +176,63 @@ let _Index =  class extends React.Component{
                                             this.setState((state) => (state.petDetails.name = name, state))
                                         }}
                                         placeholder={"Name"}
+                                    />
+                                </InputContainer>
+                                <FormControl component="fieldset" className={classes.formControl}>
+                                    <FormLabel component="legend">Gender</FormLabel>
+
+                                <RadioGroup
+                                    aria-label="Gender"
+                                    name="Gender"
+                                    className={classes.group}
+                                    value={this.state.petDetails.sex}
+                                    onChange={(e)=>{
+                                        var val = e.target.value;
+                                        this.setState((state) => (state.petDetails.sex = val, state));
+                                    }}
+                                >
+
+
+                                    <FormControlLabel value="Female" control={<Radio />} label="Female" />
+                                    <FormControlLabel value="Male" control={<Radio />} label="Male" />
+
+                                </RadioGroup>
+
+                                </FormControl>
+                                <FormControl component="fieldset" className={classes.formControl}>
+                                    <FormLabel component="legend">Sterilized</FormLabel>
+
+                                    <RadioGroup
+                                        aria-label="Sterilized"
+                                        name="Sterilized"
+                                        className={classes.group}
+                                        value={this.state.petDetails.sterilized}
+                                        onChange={(e)=>{
+                                            var val = e.target.value;
+                                            this.setState((state) => (state.petDetails.sterilized = val, state));
+                                        }}
+                                    >
+
+                                        <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
+                                        <FormControlLabel value="No" control={<Radio />} label="No" />
+
+                                    </RadioGroup>
+
+                                </FormControl>
+
+
+
+
+
+
+                                <InputContainer label={"Color"}>
+                                    <TextField
+                                        value={this.state.petDetails.color|| ''}
+                                        onChange={(e) => {
+                                            let color = e.target.value;
+                                            this.setState((state) => (state.petDetails.color = color, state))
+                                        }}
+                                        placeholder={"Color"}
                                     />
                                 </InputContainer>
 
@@ -240,6 +301,14 @@ let Index =  withRouter(withStyles((theme)=>{
             margin:theme.spacing.unit * 2
 
         },
+        formControl:{
+          marginTop:theme.spacing.unit *2
+        },
+        group:{
+            paddingLeft:theme.spacing.unit * 2,
+            flexDirection:"row"
+        },
+
         tableBody:{
             background:"#FFF",
         },
