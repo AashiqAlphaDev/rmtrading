@@ -2,7 +2,7 @@ var Router = require("express").Router
 const createError = require('http-errors');
 var router = Router();
 const UsersManagementService = require("../services/user");
-const haveCenterAccess = require("./check-center-access")
+
 
 
 router.get("/", httpCoWrap(function* (req, res, next) {
@@ -27,48 +27,26 @@ router.get("/", httpCoWrap(function* (req, res, next) {
 }));
 
 router.get("/:user_id", httpCoWrap(function* (req, res, next) {
-
-    if (req.params.user_id == "self") {
-        req.params.user_id = req.session.user_id;
-
-    }
 	let user = yield UsersManagementService.userWithId(req.params.user_id);
 	res.send(user);
 }));
 
-router.get("/by-mobile-or-gov-id/:query", haveCenterAccess, httpCoWrap(function* (req, res, next) {
-	let user = yield UsersManagementService.userByMobileNoOrGovId(req.params.query);
-	if (user) {
-		res.send(user);
-	}
-	else {
-		let error = createError(204);
-		error.message = "No Matches";
-		throw error;
-	}
-}));
-
-router.get("/by-mobile/:mobile_number", haveCenterAccess, httpCoWrap(function* (req, res, next) {
+router.get("/by-mobile/:mobile_number", httpCoWrap(function* (req, res, next) {
 	let user = yield UsersManagementService.userByMobileNo(req.params.mobile_number);
 	res.send(user);
 }));
 
-router.get("/by-gov-id/:gov_id", haveCenterAccess, httpCoWrap(function* (req, res, next) {
-	let user = yield UsersManagementService.userByGovernmentId(req.params.gov_id);
-	res.send(user);
-}));
-
-router.get("/by-email/:email", haveCenterAccess, httpCoWrap(function* (req, res, next) {
+router.get("/by-email/:email", httpCoWrap(function* (req, res, next) {
 	let user = yield UsersManagementService.userByEmail(req.params.email);
 	res.send(user);
 }));
 
-router.post("/", haveCenterAccess, httpCoWrap(function* (req, res, next) {
+router.post("/", httpCoWrap(function* (req, res, next) {
 	let user = yield UsersManagementService.createUser(req.body);
 	res.send(user);
 }));
 
-router.put("/:user_id", haveCenterAccess, httpCoWrap(function* (req, res, next) {
+router.put("/:user_id", httpCoWrap(function* (req, res, next) {
 	let user = yield UsersManagementService.updateUser(req.params.user_id, req.body);
 	res.send(user);
 }));
