@@ -311,9 +311,13 @@ let breedList = function(petId){
 
 
 
-let petTypeDetail = function(petId){
+
+
+
+
+let categoriesList = function(petId){
     return new Promise(function (resolve, reject) {
-        fetch(`${base_url}/app-data/pet-types/${petId}`, {
+        fetch(`${base_url}/categories`, {
             method:"GET",
         }).then(function (response) {
             resolve(response.json());
@@ -329,4 +333,7 @@ let petTypeDetail = function(petId){
 
 
 
-export {isAdmin, guardianDetails,petsOfGuardian,petDetails,petTypeDetails,vaccinationDetails,visitDetails,vaccinationCenterDetails,guardianSelfDetails,vaccinationCenters,vaccinationCenterDetail,vaccinesList,petTypeList,petTypeDetail,vaccinationCenterAdmins,vaccineDetail,claimCenters,visitsDetails,breedList}
+
+
+
+export {isAdmin, guardianDetails,petsOfGuardian,petDetails,petTypeDetails,vaccinationDetails,visitDetails,vaccinationCenterDetails,guardianSelfDetails,vaccinationCenters,vaccinationCenterDetail,vaccinesList,petTypeList,vaccinationCenterAdmins,vaccineDetail,claimCenters,visitsDetails,breedList,categoriesList}

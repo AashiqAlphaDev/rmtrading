@@ -8,6 +8,7 @@ const Index = withStyles((theme) => {
 		_label: {
 			marginTop: theme.spacing.unit * 2,
 			marginBottom: theme.spacing.unit * 1,
+			color:"#000000"
 		},
 		container: {
 			marginLeft: theme.spacing.unit * 1,

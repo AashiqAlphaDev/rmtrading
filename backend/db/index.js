@@ -31,20 +31,9 @@ mongoose.model('User', userSchema);
 
 
 
-
-const collectionSchema = new Schema({
-    title: String,
-    description: String,
-	tags:[String]
-});
-collectionSchema.plugin(mongoosePaginate);
-mongoose.model('Collection', collectionSchema);
-
-
-
 const tagSchema = new Schema({
     name:String,
-	is_user_tag:Boolean
+    is_user_tag:Boolean
 });
 tagSchema.plugin(mongoosePaginate);
 mongoose.model('Tag', tagSchema);
@@ -52,11 +41,49 @@ mongoose.model('Tag', tagSchema);
 
 
 
+const categorySchema = new Schema({
+    title: String,
+    description: String,
+    tags:[ObjectID],
+	data:{}
+});
+categorySchema.plugin(mongoosePaginate);
+categorySchema.pre("save", async function (next) {
+    next();
+});
+mongoose.model('Category', categorySchema);
+
+
 const linkSchema = new Schema({
-    name:String,
-	collection:[ObjectId],
+    url:String,
+    category:[ObjectId],
     user:ObjectID,
-	is_public:String
+    is_public:String,
+    title:String,
+    description:String,
+    images:[String]
 });
 linkSchema.plugin(mongoosePaginate);
 mongoose.model('Link', linkSchema);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
